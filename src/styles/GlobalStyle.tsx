@@ -2,15 +2,15 @@ import { css, Global } from '@emotion/react';
 import reset from 'emotion-reset';
 
 const GlobalStyle = () => {
-	return <Global styles={style} />;
+  return <Global styles={style} />;
 };
 
 export default GlobalStyle;
 
 const style = css`
-	${reset}
+  ${reset}
 
-	body {
-		font-family: sans-serif;
-	}
+  body {
+    font-family: sans-serif;
+  }
 `;

@@ -9,26 +9,26 @@ import styled from '@emotion/styled';
 import Router from './routes/Router';
 
 function App() {
-	const loading = useSelector((state: Store) => state.loading);
+  const loading = useSelector((state: Store) => state.loading);
 
-	return (
-		<Layout>
-			<BrowserRouter>
-				<ScrollToTop />
-				<Header />
-				<Router />
-				{loading && <Loading />}
-				<Navbar />
-			</BrowserRouter>
-		</Layout>
-	);
+  return (
+    <Layout>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Header />
+        <Router />
+        {loading && <Loading />}
+        <Navbar />
+      </BrowserRouter>
+    </Layout>
+  );
 }
 
 export default App;
 
 const Layout = styled.div`
-	border: 1px solid black;
-	width: 480px;
-	height: 100vh;
-	margin: 0 auto;
+  border: 1px solid black;
+  width: 480px;
+  height: 100vh;
+  margin: 0 auto;
 `;
