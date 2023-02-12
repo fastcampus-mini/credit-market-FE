@@ -11,10 +11,10 @@ const style = css`
   ${reset}
 
   :root {
-    --text-color: #333;
+    --main-text-color: #333;
     --signature-color: #19418a;
     --login-background: #4831d4;
-    --background-color: #d0def8;
+    --background-color: #f9fbff;
     --white-color: #fff;
   }
 
@@ -34,9 +34,14 @@ const style = css`
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
+      color: var(--main-text-color);
 
       iframe {
         border: none;
+      }
+
+      a {
+        color: inherit;
       }
     }
   }

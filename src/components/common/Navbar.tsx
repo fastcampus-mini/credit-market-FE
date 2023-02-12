@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { Link } from 'react-router-dom';
 import { AiFillHome, AiOutlineTwitter, AiFillBell } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
+import { BsFillCartFill } from 'react-icons/bs';
 
 const Navbar = () => {
   const move = (id: number, position: number, color: string) => {
@@ -37,8 +38,6 @@ const Navbar = () => {
 
   return (
     <NavbarContainerStyle>
-      {/* Navbar
-      <Link to="/cart">장바구니로 이동하기</Link> */}
       <div id="navbarContainer">
         <div id="navbar">
           <div id="bubbleWrapper">
@@ -49,7 +48,7 @@ const Navbar = () => {
             </div>
             <div id="bubble2" className="bubble">
               <span className="icon">
-                <AiOutlineTwitter />
+                <BsFillCartFill />
               </span>
             </div>
             <div id="bubble3" className="bubble">
@@ -64,14 +63,18 @@ const Navbar = () => {
               className="menuElement"
               onClick={() => move(1, 105, 'var(background-color)')}
             >
-              <AiFillHome />
+              <Link to="/">
+                <AiFillHome />
+              </Link>
             </div>
             <div
               id="menu2"
               className="menuElement"
               onClick={() => move(2, 235, 'var(background-color)')}
             >
-              <AiOutlineTwitter />
+              <Link to="/cart">
+                <BsFillCartFill />
+              </Link>
             </div>
             <div
               id="menu3"
