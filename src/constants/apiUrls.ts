@@ -1,5 +1,4 @@
 export const API_URLS = {
-  HOME: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
   LOGOUT: '/logout',
