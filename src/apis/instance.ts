@@ -19,7 +19,7 @@ const axiosApi = (url: string) => {
   instance.interceptors.request.use(
     (config) => {
       const token = getStorageItem('token', '');
-      if (token) config.headers['Authorization'] = `bearer ${token}`;
+      if (token) config.headers['Authorization'] = `Bearer ${token}`;
       return config;
     },
     (error) => {
