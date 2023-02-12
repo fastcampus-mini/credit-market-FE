@@ -1,4 +1,4 @@
-<center><img width="100%" src="https://i.ibb.co/41bKRFG/1.png"></center>
+<center><img width="100%" src="https://i.ibb.co/5vBJ53Z/3.png"></center>
 
 # :moneybag: [Credit Market (Demo)]()
 
