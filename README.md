@@ -56,7 +56,7 @@
 
 ### Design Tools
 
-<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-round&logo=Figma&logoColor=white"/> <img src="https://img.shields.io/badge/Adobe Photoshop-31A8FF?style=flat-round&logo=Adobe Photoshop&logoColor=white"/> <img src="https://img.shields.io/badge/Adobe Illustrator-FF9A00?style=flat-round&logo=Adobe Illustrator&logoColor=white"/>
+[<img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-round&logo=Figma&logoColor=white"/>](https://www.figma.com/file/BhJnuJtDOb2chdSdxQ4BfX/KDT3_ToyProject-Credit-Market?node-id=161%3A127&t=fKCS8HK8Y1budUzH-0) <img src="https://img.shields.io/badge/Adobe Photoshop-31A8FF?style=flat-round&logo=Adobe Photoshop&logoColor=white"/> <img src="https://img.shields.io/badge/Adobe Illustrator-FF9A00?style=flat-round&logo=Adobe Illustrator&logoColor=white"/>
 
 ### Docs
 
