@@ -5,18 +5,20 @@ import { Link, useLocation } from 'react-router-dom';
 const Header = () => {
   const location = useLocation();
 
+  const logoImage = (path: string, logoColor: string) => {
+    return (
+      location.pathname === path && (
+        <img src={`../../../public/images/logo_${logoColor}.png`} alt="메인로고" />
+      )
+    );
+  };
+
   return (
     <HeaderStyle>
       <Link to="/">
-        {location.pathname === '/' && (
-          <img src="../../../public/images/logo_white.png" alt="메인로고" />
-        )}
-        {location.pathname === '/cart' && (
-          <img src="../../../public/images/logo_Main.png" alt="메인로고" />
-        )}
-        {location.pathname === '/Mypage' && (
-          <img src="../../../public/images/logo_Main.png" alt="메인로고" />
-        )}
+        {logoImage('/', 'white')}
+        {logoImage('/cart', 'Main')}
+        {logoImage('/Mypage', 'Main')}
       </Link>
     </HeaderStyle>
   );
