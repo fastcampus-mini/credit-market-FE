@@ -44,4 +44,6 @@ export default Cart;
 export const CartContainer = styled.div<{ color: string }>`
   color: ${({ color }) => color};
   background-color: ${colors.black};
+  position: relative;
+  z-index: 1;
 `;

@@ -61,7 +61,7 @@ const Navbar = () => {
             <div
               id="menu1"
               className="menuElement"
-              onClick={() => move(1, 105, 'var(background-color)')}
+              onClick={() => move(1, 105, 'var(--login-background)')}
             >
               <Link to="/">
                 <AiFillHome />
@@ -70,7 +70,7 @@ const Navbar = () => {
             <div
               id="menu2"
               className="menuElement"
-              onClick={() => move(2, 235, 'var(background-color)')}
+              onClick={() => move(2, 235, 'var(--background-color)')}
             >
               <Link to="/cart">
                 <BsFillCartFill />
@@ -79,9 +79,11 @@ const Navbar = () => {
             <div
               id="menu3"
               className="menuElement"
-              onClick={() => move(3, 365, 'var(background-color)')}
+              onClick={() => move(3, 365, 'var(--background-color)')}
             >
-              <FaUserAlt />
+              <Link to="/Mypage">
+                <FaUserAlt />
+              </Link>
             </div>
           </div>
         </div>
@@ -112,14 +114,13 @@ export default Navbar;
 
 const NavbarContainerStyle = styled.div`
   width: 100%;
-  height: 110px;
+  height: 100%;
   bottom: 0;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
   overflow: hidden;
   position: absolute;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
   #navbar {
     width: 100%;
@@ -165,20 +166,20 @@ const NavbarContainerStyle = styled.div`
   #bgWrapper {
     filter: url(#goo);
     width: 120%;
-    height: 50px;
+    height: 100%;
     margin-left: -10%;
     position: absolute;
     bottom: 58px;
   }
 
   #bg {
-    background-color: var(--background-color);
+    background-color: var(--login-background);
     height: 100%;
   }
 
   #bgBubble {
     position: absolute;
-    background-color: var(--background-color);
+    background-color: var(--login-background);
     width: 75px;
     height: 75px;
     border-radius: 50%;

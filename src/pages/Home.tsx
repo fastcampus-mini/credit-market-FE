@@ -17,6 +17,8 @@ export default Home;
 
 const HomeStyle = styled.div`
   padding: 20px 10px;
+  position: relative;
+  z-index: 1;
 
   #lottie {
     width: 100px;
