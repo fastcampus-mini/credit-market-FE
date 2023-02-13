@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { css, jsx } from '@emotion/core';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useNavigate } from 'react-router';
 import colors from '@/styles/colors';
@@ -15,6 +16,13 @@ const HomeStyle = styled.div`
   }
 `;
 
+const SignForm = css({
+  display: 'flex',
+  justify-content: 'center',
+  align-items: 'center',
+})
+
+
 const Signup = () => {
   const navigate = useNavigate();
   const goHome = () => {
@@ -26,7 +34,6 @@ const Signup = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    // 엔터키 입력시 서브밋 되는 거 막아야함
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const name = formData.get('name') as string;
@@ -34,17 +41,25 @@ const Signup = () => {
     console.log({ name, email });
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
   const emailRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {});
+
   return (
-    <HomeStyle>
+    <HomeStyle css={SignForm}>
       <button onClick={goHome}>
         <FiArrowLeft />
       </button>
       <div className="title">
         <h1>credit market</h1>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <input type="text" name="email" placeholder="이메일" ref={emailRef} />
         {emailRef.current && isValidateEmail(emailRef.current.value) ? ( // useState 이용해야 할듯
           <p style={{ color: 'green' }}> 확인 완료 </p>
