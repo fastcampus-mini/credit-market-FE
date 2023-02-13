@@ -10,10 +10,16 @@ import Button from '@/components/common/Button';
 import PageTitle from '@/components/common/PageTitle';
 import { ICart } from '@/interfaces/cart';
 import Input from '@/components/common/Input';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const [cart, setCart] = useState<ICart[]>([]);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/buy');
+  };
 
   useEffect(() => {
     async function getData() {
@@ -58,7 +64,7 @@ const Cart = () => {
         )}
       </CartContent>
       <ButtonWrap>
-        <Button>신청하기</Button>
+        <Button onClick={handleClick}>신청하기</Button>
       </ButtonWrap>
     </CartContainer>
   );
@@ -69,8 +75,6 @@ export default Cart;
 const CartContainer = styled.div`
   /* color: ${({ color }) => color}; */
   /* background-color: ${colors.black}; */
-  position: relative;
-  z-index: 1;
 `;
 
 const CheckBoxWrap = styled.div`
