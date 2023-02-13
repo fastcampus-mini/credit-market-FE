@@ -13,7 +13,7 @@ interface Props {
 
 const Button = ({
   buttonType = 'blue',
-  width = '370',
+  width = '360',
   height = '50',
   isDisabled = false,
   onClick,
@@ -45,6 +45,7 @@ export const StyledButton = styled.button<{
   border-radius: 30px;
   text-align: center;
   cursor: pointer;
+  outline: none;
   &:disabled {
     opacity: 1;
     cursor: default;
@@ -67,6 +68,12 @@ const handleButtonType = (buttonType: string) => {
       return `
         color: #808080;
         background-color: #D8D9D9;
+        border: none;
+      `;
+    case 'transparent':
+      return `
+        color: #000;
+        background-color: transparent;
         border: none;
       `;
     default:
