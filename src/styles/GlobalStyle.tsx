@@ -1,7 +1,5 @@
-import { ROUTES } from '@/constants/routes';
 import { css, Global } from '@emotion/react';
 import reset from 'emotion-reset';
-import { Route, useLocation, useNavigate } from 'react-router-dom';
 import colors from './colors';
 
 const GlobalStyle = () => {
