@@ -7,6 +7,8 @@ const colors = {
   background: '#f9fbff',
   black: '#000',
   white: '#fff',
+  checkbox: '#4831d4',
+  scrollbar: '#b1b1b1',
 };
 
 export default colors;

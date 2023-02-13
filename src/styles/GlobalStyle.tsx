@@ -11,6 +11,20 @@ export default GlobalStyle;
 const style = css`
   ${reset}
 
+  * {
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: inherit;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 5px;
+      background-color: ${colors.scrollbar};
+      border-radius: 10px;
+    }
+  }
+
   body {
     font-family: 'Noto Sans KR', sans-serif;
     height: 100vh;
@@ -36,6 +50,15 @@ const style = css`
 
       a {
         color: inherit;
+      }
+
+      input[type='checkbox'] {
+        display: flex;
+        accent-color: ${colors.checkbox};
+        width: 15px;
+        height: 15px;
+        margin: 0;
+        cursor: pointer;
       }
     }
   }
