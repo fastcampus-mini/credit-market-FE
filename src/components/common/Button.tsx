@@ -13,8 +13,8 @@ interface Props {
 
 const Button = ({
   buttonType = 'blue',
-  width = '100',
-  height = '100',
+  width = '370',
+  height = '50',
   isDisabled = false,
   onClick,
   children,
@@ -42,8 +42,7 @@ export const StyledButton = styled.button<{
   ${({ buttonType }) => handleButtonType(buttonType)};
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
-  border-radius: 20px;
-  font-weight: bold;
+  border-radius: 30px;
   text-align: center;
   cursor: pointer;
   &:disabled {

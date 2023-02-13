@@ -5,6 +5,7 @@ import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
 import Cart from '@/pages/Cart';
 import Mypage from '@/pages/Mypage';
+import styled from '@emotion/styled';
 import colors from '@/styles/colors';
 
 const Router = () => {
@@ -17,13 +18,19 @@ const Router = () => {
   }
 
   return (
-    <Routes>
-      <Route path={ROUTES.HOME} element={<Home />} />
-      <Route path={ROUTES.CART} element={<Cart />} />
-      <Route path={ROUTES.MYPAGE} element={<Mypage />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Layout>
+      <Routes>
+        <Route path={ROUTES.HOME} element={<Home />} />
+        <Route path={ROUTES.CART} element={<Cart />} />
+        <Route path={ROUTES.MYPAGE} element={<Mypage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Layout>
   );
 };
 
 export default Router;
+
+const Layout = styled.div`
+  padding: 20px 10px;
+`;

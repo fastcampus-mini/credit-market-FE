@@ -1,3 +1,3 @@
-export interface Store {
+export interface IStore {
   loading: Boolean;
 }
