@@ -48,6 +48,10 @@ const style = css`
         border: none;
       }
 
+      .container:hover .attribution {
+        display: none;
+      }
+
       a {
         color: inherit;
       }
