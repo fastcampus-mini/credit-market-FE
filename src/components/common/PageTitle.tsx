@@ -12,7 +12,7 @@ const PageTitle = ({ title }: Props) => {
 export default PageTitle;
 
 const TitleText = styled.h1`
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
-  padding-bottom: 6px;
+  padding: 1.2rem 0;
 `;
