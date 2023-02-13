@@ -76,7 +76,7 @@ const Navbar = () => {
               <Link to="/">
                 <>
                   <AiFillHome />
-                  {bubblePosition(ROUTES.HOME, 1, 105, colors.logInBgColor)}
+                  {bubblePosition(ROUTES.HOME, 1, 105, colors.loginBackground)}
                 </>
               </Link>
             </div>
@@ -84,15 +84,15 @@ const Navbar = () => {
               <Link to="/cart">
                 <>
                   <BsFillCartFill />
-                  {bubblePosition(ROUTES.CART, 2, 235, colors.BgColor)}
+                  {bubblePosition(ROUTES.CART, 2, 235, colors.background)}
                 </>
               </Link>
             </div>
-            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.BgColor)}>
+            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.background)}>
               <Link to="/mypage">
                 <>
                   <FaUserAlt />
-                  {bubblePosition(ROUTES.MYPAGE, 3, 365, colors.BgColor)}
+                  {bubblePosition(ROUTES.MYPAGE, 3, 365, colors.background)}
                 </>
               </Link>
             </div>

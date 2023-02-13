@@ -1,12 +1,10 @@
-import React from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
 import Cart from '@/pages/Cart';
 import Mypage from '@/pages/Mypage';
 import styled from '@emotion/styled';
-import colors from '@/styles/colors';
 import ProductDetail from '@/pages/ProductDetail';
 import Buy from '@/pages/Buy';
 
