@@ -17,17 +17,17 @@ const style = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${colors.mainTextColor};
+    color: ${colors.mainText};
 
     #root {
-      background-color: ${colors.logInBgColor};
+      background-color: ${colors.loginBackground};
       border-radius: 30px;
       width: 390px;
       height: 90vh;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
-      color: ${colors.mainTextColor};
+      color: ${colors.mainText};
 
       iframe {
         border: none;
