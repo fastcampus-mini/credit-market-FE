@@ -16,9 +16,6 @@ const Home = () => {
 export default Home;
 
 const HomeStyle = styled.div`
-  position: relative;
-  z-index: 1;
-
   #lottie {
     width: 100px;
   }
