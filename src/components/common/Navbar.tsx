@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
 import gsap from 'gsap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiFillHome, AiOutlineTwitter, AiFillBell } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
+import colors from '@/styles/colors';
 
 const Navbar = () => {
+  const location = useLocation();
+
   const move = (id: number, position: number, color: string) => {
     var tl = gsap.timeline();
     tl.to('#bgBubble', { duration: 0.15, bottom: '-30px', ease: 'ease-out' }, 0)
@@ -61,26 +64,18 @@ const Navbar = () => {
             <div
               id="menu1"
               className="menuElement"
-              onClick={() => move(1, 105, 'var(--login-background)')}
+              onClick={() => move(1, 105, colors.logInBgColor)}
             >
               <Link to="/">
                 <AiFillHome />
               </Link>
             </div>
-            <div
-              id="menu2"
-              className="menuElement"
-              onClick={() => move(2, 235, 'var(--background-color)')}
-            >
+            <div id="menu2" className="menuElement" onClick={() => move(2, 235, colors.BgColor)}>
               <Link to="/cart">
                 <BsFillCartFill />
               </Link>
             </div>
-            <div
-              id="menu3"
-              className="menuElement"
-              onClick={() => move(3, 365, 'var(--background-color)')}
-            >
+            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.BgColor)}>
               <Link to="/Mypage">
                 <FaUserAlt />
               </Link>
@@ -125,7 +120,7 @@ const NavbarContainerStyle = styled.div`
   #navbar {
     width: 100%;
     height: 60px;
-    background-color: var(--white-color);
+    background-color: ${colors.white};
     position: absolute;
     bottom: 0;
   }
@@ -139,7 +134,7 @@ const NavbarContainerStyle = styled.div`
   }
 
   .bubble {
-    background-color: var(--white-color);
+    background-color: ${colors.white};
     width: 60px;
     height: 60px;
     bottom: 85px;
@@ -173,13 +168,13 @@ const NavbarContainerStyle = styled.div`
   }
 
   #bg {
-    background-color: var(--login-background);
+    background-color: ${colors.logInBgColor};
     height: 100%;
   }
 
   #bgBubble {
     position: absolute;
-    background-color: var(--login-background);
+    background-color: ${colors.logInBgColor};
     width: 75px;
     height: 75px;
     border-radius: 50%;
