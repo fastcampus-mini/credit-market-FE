@@ -5,7 +5,6 @@ import ScrollToTop from '@/components/common/ScrollToTop';
 import Loading from './components/common/Loading';
 import { useSelector } from 'react-redux';
 import { IStore } from './interfaces/store';
-import styled from '@emotion/styled';
 import Router from './routes/Router';
 
 function App() {

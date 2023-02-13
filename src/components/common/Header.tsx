@@ -1,3 +1,4 @@
+import { ROUTES } from '@/constants/routes';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link, useLocation } from 'react-router-dom';
@@ -16,9 +17,9 @@ const Header = () => {
   return (
     <HeaderStyle>
       <Link to="/">
-        {logoImage('/', 'white')}
-        {logoImage('/cart', 'Main')}
-        {logoImage('/Mypage', 'Main')}
+        {logoImage(ROUTES.HOME, 'white')}
+        {logoImage(ROUTES.CART, 'Main')}
+        {logoImage(ROUTES.MYPAGE, 'Main')}
       </Link>
     </HeaderStyle>
   );

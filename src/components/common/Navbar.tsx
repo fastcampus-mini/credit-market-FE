@@ -5,12 +5,19 @@ import { AiFillHome, AiOutlineTwitter, AiFillBell } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import colors from '@/styles/colors';
+import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
   const location = useLocation();
+  const bubblePosition = (path: string, id: number, position: number, color: string) => {
+    return location.pathname === path && move(id, position, color);
+  };
 
   const move = (id: number, position: number, color: string) => {
     var tl = gsap.timeline();
+    gsap.config({
+      nullTargetWarn: false,
+    });
     tl.to('#bgBubble', { duration: 0.15, bottom: '-30px', ease: 'ease-out' }, 0)
       .to('#bubble1', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
       .to('#bubble2', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
@@ -67,17 +74,26 @@ const Navbar = () => {
               onClick={() => move(1, 105, colors.loginBackground)}
             >
               <Link to="/">
-                <AiFillHome />
+                <>
+                  <AiFillHome />
+                  {bubblePosition(ROUTES.HOME, 1, 105, colors.logInBgColor)}
+                </>
               </Link>
             </div>
             <div id="menu2" className="menuElement" onClick={() => move(2, 235, colors.background)}>
               <Link to="/cart">
-                <BsFillCartFill />
+                <>
+                  <BsFillCartFill />
+                  {bubblePosition(ROUTES.CART, 2, 235, colors.BgColor)}
+                </>
               </Link>
             </div>
-            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.background)}>
-              <Link to="/Mypage">
-                <FaUserAlt />
+            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.BgColor)}>
+              <Link to="/mypage">
+                <>
+                  <FaUserAlt />
+                  {bubblePosition(ROUTES.MYPAGE, 3, 365, colors.BgColor)}
+                </>
               </Link>
             </div>
           </div>
