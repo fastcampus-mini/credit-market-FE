@@ -12,7 +12,7 @@ const style = css`
   ${reset}
 
   body {
-    font-family: sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     height: 100vh;
     display: flex;
     justify-content: center;
