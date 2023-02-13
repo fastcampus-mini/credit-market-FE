@@ -1,7 +1,5 @@
-import { ROUTES } from '@/constants/routes';
 import { css, Global } from '@emotion/react';
 import reset from 'emotion-reset';
-import { Route, useLocation, useNavigate } from 'react-router-dom';
 
 const GlobalStyle = () => {
   return <Global styles={style} />;
@@ -21,7 +19,7 @@ const style = css`
   }
 
   body {
-    font-family: sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     height: 100vh;
     display: flex;
     justify-content: center;
