@@ -11,10 +11,8 @@ import ProductDetail from '@/pages/ProductDetail';
 import Buy from '@/pages/Buy';
 
 const Router = () => {
-  const location = useLocation();
-  const bgColor = location.pathname === '/' ? colors.logInBgColor : colors.BgColor;
   return (
-    <Layout bgColor={bgColor}>
+    <Layout>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
         <Route path={ROUTES.CART} element={<Cart />} />
@@ -29,9 +27,7 @@ const Router = () => {
 
 export default Router;
 
-const Layout = styled.div<{ bgColor: string }>`
-  padding: 20px 10px;
-  background-color: ${({ bgColor }) => bgColor};
+const Layout = styled.div`
   position: relative;
   z-index: 1;
 `;

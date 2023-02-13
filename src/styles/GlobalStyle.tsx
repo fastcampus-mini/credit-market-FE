@@ -17,10 +17,10 @@ const style = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${colors.mainTextColor};
+    color: ${colors.mainText};
 
     #root {
-      background-color: ${colors.logInBgColor};
+      background-color: ${colors.loginBackground};
       border-radius: 30px;
       width: 390px;
       min-width: 390px;
@@ -28,7 +28,7 @@ const style = css`
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
-      color: ${colors.mainTextColor};
+      color: ${colors.mainText};
 
       iframe {
         border: none;

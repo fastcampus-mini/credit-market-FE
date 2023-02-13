@@ -71,7 +71,7 @@ const Navbar = () => {
             <div
               id="menu1"
               className="menuElement"
-              onClick={() => move(1, 105, colors.logInBgColor)}
+              onClick={() => move(1, 105, colors.loginBackground)}
             >
               <Link to="/">
                 <>
@@ -80,7 +80,7 @@ const Navbar = () => {
                 </>
               </Link>
             </div>
-            <div id="menu2" className="menuElement" onClick={() => move(2, 235, colors.BgColor)}>
+            <div id="menu2" className="menuElement" onClick={() => move(2, 235, colors.background)}>
               <Link to="/cart">
                 <>
                   <BsFillCartFill />
@@ -184,13 +184,13 @@ const NavbarContainerStyle = styled.div`
   }
 
   #bg {
-    background-color: ${colors.logInBgColor};
+    background-color: ${colors.loginBackground};
     height: 100%;
   }
 
   #bgBubble {
     position: absolute;
-    background-color: ${colors.logInBgColor};
+    background-color: ${colors.loginBackground};
     width: 75px;
     height: 75px;
     border-radius: 50%;
