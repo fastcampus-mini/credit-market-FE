@@ -37,6 +37,15 @@ const style = css`
       a {
         color: inherit;
       }
+
+      input[type='checkbox'] {
+        display: flex;
+        accent-color: ${colors.checkboxColor};
+        width: 15px;
+        height: 15px;
+        margin: 0;
+        cursor: pointer;
+      }
     }
   }
 `;

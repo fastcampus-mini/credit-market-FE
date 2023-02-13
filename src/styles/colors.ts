@@ -6,6 +6,7 @@ const colors = {
   background: '#f9fbff',
   black: '#000',
   white: '#fff',
+  checkboxColor: '#4831d4',
 };
 
 export default colors;
