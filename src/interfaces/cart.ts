@@ -1,5 +1,5 @@
-import { Product } from './product';
-
-export interface Cart {
-  cartItem: Product[];
+export interface ICart {
+  id: string;
+  title: string;
+  bank: string;
 }
