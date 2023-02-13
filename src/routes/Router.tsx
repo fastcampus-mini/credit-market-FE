@@ -8,14 +8,6 @@ import Mypage from '@/pages/Mypage';
 import colors from '@/styles/colors';
 
 const Router = () => {
-  const location = useLocation();
-  const root = document.querySelector('#root') as HTMLElement;
-  if (location.pathname === '/') {
-    root.style.backgroundColor = colors.logInBgColor;
-  } else if (location.pathname === '/cart') {
-    root.style.backgroundColor = colors.BgColor;
-  }
-
   return (
     <Routes>
       <Route path={ROUTES.HOME} element={<Home />} />
