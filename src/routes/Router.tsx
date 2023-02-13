@@ -5,14 +5,15 @@ import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
 import Cart from '@/pages/Cart';
 import Mypage from '@/pages/Mypage';
+import colors from '@/styles/colors';
 
 const Router = () => {
   const location = useLocation();
   const root = document.querySelector('#root') as HTMLElement;
   if (location.pathname === '/') {
-    root.style.backgroundColor = 'var(--login-background)';
+    root.style.backgroundColor = colors.logInBgColor;
   } else if (location.pathname === '/cart') {
-    root.style.backgroundColor = 'var(--background-color)';
+    root.style.backgroundColor = colors.BgColor;
   }
 
   return (

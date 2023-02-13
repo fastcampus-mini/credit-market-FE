@@ -1,7 +1,13 @@
+import styled from '@emotion/styled';
 import React from 'react';
 
 const Mypage = () => {
-  return <div>Mypage</div>;
+  return <MypageStyle>Mypage</MypageStyle>;
 };
 
 export default Mypage;
+
+const MypageStyle = styled.div`
+  position: relative;
+  z-index: 1;
+`;
