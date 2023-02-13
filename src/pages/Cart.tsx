@@ -21,6 +21,11 @@ const Cart = () => {
     navigate('/buy');
   };
 
+  const handleDelete = () => {
+    if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
+    }
+  };
+
   useEffect(() => {
     async function getData() {
       try {
@@ -35,7 +40,7 @@ const Cart = () => {
           { id: '5', title: '직장인 신용대출', bank: '우리은행' },
           { id: '6', title: '주부 신용대출', bank: '신한은행' },
           { id: '7', title: '고양이 신용대출', bank: '국민은행' },
-          { id: '7', title: '대학생 신용대출', bank: '제주은행' },
+          { id: '8', title: '대학생 신용대출', bank: '제주은행' },
         ];
         setCart(data);
       } catch (error) {
@@ -52,13 +57,20 @@ const Cart = () => {
       <CheckBoxWrap>
         <AllCheck>
           <Input type="checkbox" />
-          <p>전체선택 (0/3)</p>
+          <AllCheckText>전체선택 (0/3)</AllCheckText>
         </AllCheck>
-        <p>선택삭제</p>
+        <Button
+          buttonType="transparent"
+          width="fit-content"
+          height="fit-content"
+          onClick={handleDelete}
+        >
+          선택삭제
+        </Button>
       </CheckBoxWrap>
       <CartContent>
         {Array.isArray(cart) ? (
-          cart.map((item) => <CartItem data={item} />)
+          cart.map((item) => <CartItem key={item.id} data={item} />)
         ) : (
           <div>담으신 상품이 없습니다.</div>
         )}
@@ -78,7 +90,7 @@ const CartContainer = styled.div`
 `;
 
 const CheckBoxWrap = styled.div`
-  padding: 1rem 0;
+  padding-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   padding-right: 6px;
@@ -89,11 +101,23 @@ const AllCheck = styled.div`
   gap: 6px;
 `;
 
+const AllCheckText = styled.span`
+  font-size: 14px;
+`;
+
+const BtnDelete = styled.button`
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 14px;
+`;
+
 const CartContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 430px;
+  height: 460px;
   overflow-y: auto;
 `;
 
