@@ -12,7 +12,7 @@ function App() {
   const loading = useSelector((state: Store) => state.loading);
 
   return (
-    <Layout>
+    <>
       <BrowserRouter>
         <ScrollToTop />
         <Header />
@@ -20,15 +20,8 @@ function App() {
         {loading && <Loading />}
         <Navbar />
       </BrowserRouter>
-    </Layout>
+    </>
   );
 }
 
 export default App;
-
-const Layout = styled.div`
-  border: 1px solid black;
-  width: 480px;
-  height: 100vh;
-  margin: 0 auto;
-`;
