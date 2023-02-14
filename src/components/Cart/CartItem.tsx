@@ -32,10 +32,10 @@ const CartItem = ({ data }: Prop) => {
       </CartItemWrap>
       <IconWrap>
         {/* <AiFillHeart /> */}
-        <Button buttonType="transparent" width="fit-content" height="16" onClick={handleLike}>
+        <Button buttonType="text" width="fit-content" height="16" onClick={handleLike}>
           <AiOutlineHeart />
         </Button>
-        <Button buttonType="transparent" width="fit-content" height="16" onClick={handleDelete}>
+        <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
           <AiOutlineClose />
         </Button>
       </IconWrap>
