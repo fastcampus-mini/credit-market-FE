@@ -61,7 +61,7 @@ const style = css`
 
       input[type='checkbox'] {
         display: flex;
-        /* align-self: center; */
+        align-self: center;
         accent-color: ${COLORS.checkbox};
         width: 15px;
         height: 15px;

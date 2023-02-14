@@ -131,7 +131,7 @@ const Navbar = () => {
 
 export default Navbar;
 
-const StyledNavbar = styled.div`
+const StyledNavbar = styled.nav`
   width: 100%;
   overflow: hidden;
 

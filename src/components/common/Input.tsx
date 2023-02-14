@@ -8,9 +8,17 @@ interface Prop {
   width?: string;
   height?: string;
   placeholder?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const Input = ({ inputType = 'text', value, width = '', height = '', placeholder }: Prop) => {
+const Input = ({
+  inputType = 'text',
+  value,
+  width = '',
+  height = '',
+  placeholder,
+  onChange,
+}: Prop) => {
   return (
     <StyledInputBox width={width} height={height} inputType={inputType}>
       <input type={inputType} value={value} placeholder={placeholder} />

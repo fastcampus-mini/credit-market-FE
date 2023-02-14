@@ -2,6 +2,8 @@ import CartItem from '@/components/Cart/CartItem';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import PageTitle from '@/components/common/PageTitle';
+import { MESSAGES } from '@/constants/messages';
+import { POLICIES } from '@/constants/policies';
 import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
@@ -10,6 +12,7 @@ import { AiOutlineCheck } from 'react-icons/ai';
 
 const Buy = () => {
   const [cart, setCart] = useState<ICart[]>([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const data: ICart[] = [
@@ -21,7 +24,13 @@ const Buy = () => {
     setCart(data);
   }, []);
 
-  const handleClick = () => {};
+  const handleCheck = () => {
+    setIsChecked((prev) => !prev);
+  };
+
+  const handleClick = () => {
+    if (!isChecked) return alert(MESSAGES.CHECK_POLICY);
+  };
 
   return (
     <BuyContainer>
@@ -36,53 +45,15 @@ const Buy = () => {
         </BuyItemContainer>
         <PolicyContainer>
           <AgreeContainer>
-            <Input type="checkbox" />
+            <Input type="checkbox" onChange={handleCheck} />
             <AgreeText>필수 동의</AgreeText>
           </AgreeContainer>
-          <PolicyText>
-            <AiOutlineCheck />
-            개인(신용)정보 조회 동의서
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            개인(신용)정보 조회 동의서(여신금융거래)
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            개인(신용)정보 조회 동의서(여신공공마이데이터)
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            은행여신거래기본약관
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            대출거래 약정서
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            개인(신용)정보 제3자 제공 동의서
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            신용보증약정서(국민행복기금)
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            계약체결 이행 등을 위한 필수동의서(국민행복기금)
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            추가약정서(국민행복기금)
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            대출거래 추가약정서(사후 용도관리 추가약정용)
-          </PolicyText>
-          <PolicyText>
-            <AiOutlineCheck />
-            [국토교통부]개인(신용)정보 수집·이용·제공 동의서
-          </PolicyText>
+          {POLICIES.map((item) => (
+            <PolicyText>
+              <AiOutlineCheck color={isChecked ? COLORS.secondary : ''} />
+              {item}
+            </PolicyText>
+          ))}
           <FinalCheckText>
             <p>본인은 대출상품에 대한 주요내용과 비용에 대한</p>
             <p>설명을 충분히 확인했습니다.</p>
@@ -116,8 +87,6 @@ const BuyItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* height: 470px; */
-  /* overflow-y: auto; */
 `;
 
 const PolicyContainer = styled.div`
@@ -143,7 +112,7 @@ const AgreeText = styled.p`
 
 const PolicyText = styled.p`
   font-size: 12px;
-  color: gray;
+  color: ${COLORS.gray};
   display: flex;
   gap: 8px;
 `;
