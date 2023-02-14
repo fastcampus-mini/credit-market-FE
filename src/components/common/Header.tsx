@@ -10,26 +10,18 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const logoImage = (path: string, logoColor: string) => {
-    return (
-      location.pathname === path && (
-        <img src={`../../../public/images/logo_${logoColor}.png`} alt="메인로고" />
-      )
-    );
+  const logoImage = (logoColor: string) => {
+    return <img src={`../../../public/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
   return (
     <HeaderStyle>
-      <Link to="/">
-        {logoImage(ROUTES.HOME, 'white')}
-        {logoImage(ROUTES.CART, 'Main')}
-        {logoImage(ROUTES.MYPAGE, 'Main')}
-      </Link>
+      <Link to="/">{location.pathname === '/' ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
           buttonType="transparent"
-          width="100%"
-          height="100%"
+          width="fit-content"
+          height="fit-content"
           onClick={() => navigate(ROUTES.LOGIN)}
         >
           <FiLogIn />
@@ -37,8 +29,8 @@ const Header = () => {
         </Button>
         <Button
           buttonType="transparent"
-          width="100%"
-          height="100%"
+          width="fit-content"
+          height="fit-content"
           onClick={() => navigate(ROUTES.SIGNUP)}
         >
           <FaUserFriends />
@@ -66,6 +58,7 @@ const HeaderStyle = styled.header`
   .buttons {
     display: flex;
     gap: 10px;
+
     button {
       padding: 0;
       display: flex;
