@@ -1,5 +1,5 @@
 import { getMypageItemList } from '@/apis/mypage';
-import { ERROR_MESSAGES } from '@/constants/messages';
+import { MESSAGES } from '@/constants/messages';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
@@ -14,7 +14,7 @@ const Mypage = () => {
         dispatch(showLoading());
         const data = await getMypageItemList();
       } catch (error) {
-        alert(ERROR_MESSAGES.ERROR_MYPAGE);
+        alert(MESSAGES.ERROR_MYPAGE);
       } finally {
         dispatch(hideLoading());
       }
