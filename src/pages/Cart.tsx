@@ -70,9 +70,9 @@ const Cart = () => {
           <div>담으신 상품이 없습니다.</div>
         )}
       </CartContent>
-      <ButtonWrap>
-        <Button onClick={handleClick}>신청하기</Button>
-      </ButtonWrap>
+      <Button width="100%" onClick={handleClick}>
+        신청하기
+      </Button>
     </CartContainer>
   );
 };
@@ -109,8 +109,4 @@ const CartContent = styled.div`
   height: calc(90vh - 301px);
   margin-bottom: 10px;
   overflow-y: auto;
-`;
-
-const ButtonWrap = styled.div`
-  // padding: 1rem 0;
 `;

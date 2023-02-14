@@ -89,7 +89,9 @@ const Buy = () => {
           </FinalCheckText>
         </PolicyContainer>
       </BuyContent>
-      <Button onClick={handleClick}>신청하기</Button>
+      <Button width="100%" onClick={handleClick}>
+        신청하기
+      </Button>
     </BuyContainer>
   );
 };
