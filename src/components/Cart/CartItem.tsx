@@ -22,7 +22,7 @@ const CartItem = ({ data, isCheckBox }: Prop) => {
   return (
     <CartItemContainer>
       <CartItemWrap>
-        {isCheckBox && <Input type="checkbox" />}
+        {isCheckBox && <Input inputType="checkbox" />}
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
           <Image src="/images/test-cat.jpg" width="50" height="50" />
           <TextContainer>
