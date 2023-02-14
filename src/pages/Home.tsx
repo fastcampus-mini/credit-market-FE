@@ -1,10 +1,11 @@
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { Player } from '@lottiefiles/react-lottie-player';
+import Input from '@/components/common/Input';
 
 const Home = () => {
   return (
-    <StyledHome>
+    <StyledHome className="homeInner">
       <Player
         className="welcome"
         autoplay
@@ -23,7 +24,9 @@ const Home = () => {
         <br />
         오늘도 즐거운 하루 보내세요!
       </p>
-      <div id="panel"></div>
+      <div className="panel">
+        <Input inputType="text" placeholder="검색" />
+      </div>
     </StyledHome>
   );
 };
@@ -43,7 +46,7 @@ const StyledHome = styled.div`
   p {
     position: absolute;
     top: 100px;
-    left: 35%;
+    left: 32%;
     transform: translate(-50%, -50%);
     color: ${COLORS.white};
     font-size: 13px;
@@ -54,16 +57,24 @@ const StyledHome = styled.div`
     display: flex;
     justify-content: end;
     margin-top: 30px;
+
     #lottie {
       width: 230px;
     }
+    position: relative;
   }
 
-  #panel {
+  .panel {
     position: absolute;
-    left: 0;
-    background: ${COLORS.background};
+    z-index: -1;
     width: 100%;
-    height: 100px;
+    left: 0;
+    height: calc(90vh - 239px);
+    min-height: calc(90vh - 239px);
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -10px 5px rgba(0, 0, 0, 0.2);
+    background: ${COLORS.background};
+    padding: 20px 10px 100px;
+    overflow-y: auto;
   }
 `;

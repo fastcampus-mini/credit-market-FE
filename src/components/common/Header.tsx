@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <StyledHeader>
+    <StyledHeader className="headerInner">
       <Link to="/">{homePath ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
