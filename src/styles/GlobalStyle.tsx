@@ -12,6 +12,7 @@ const style = css`
   ${reset}
 
   * {
+    box-sizing: border-box;
     &::-webkit-scrollbar {
       width: 5px;
       background-color: inherit;
@@ -34,7 +35,9 @@ const style = css`
     color: ${COLORS.mainText};
 
     #root {
-      background-color: ${COLORS.homeBackground};
+      display: flex;
+      flex-direction: column;
+      background-color: ${COLORS.background};
       border-radius: 30px;
       width: 390px;
       min-width: 390px;
