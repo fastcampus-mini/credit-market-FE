@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
@@ -71,28 +71,28 @@ const Navbar = () => {
             <div
               id="menu1"
               className="menuElement"
-              onClick={() => move(1, 105, colors.homeBackground)}
+              onClick={() => move(1, 105, COLORS.homeBackground)}
             >
               <Link to="/">
                 <>
                   <AiFillHome />
-                  {bubblePosition(ROUTES.HOME, 1, 105, colors.homeBackground)}
+                  {bubblePosition(ROUTES.HOME, 1, 105, COLORS.homeBackground)}
                 </>
               </Link>
             </div>
-            <div id="menu2" className="menuElement" onClick={() => move(2, 235, colors.background)}>
+            <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
               <Link to="/cart">
                 <>
                   <BsFillCartFill />
-                  {bubblePosition(ROUTES.CART, 2, 235, colors.background)}
+                  {bubblePosition(ROUTES.CART, 2, 235, COLORS.background)}
                 </>
               </Link>
             </div>
-            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.background)}>
+            <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
               <Link to="/mypage">
                 <>
                   <FaUserAlt />
-                  {bubblePosition(ROUTES.MYPAGE, 3, 365, colors.background)}
+                  {bubblePosition(ROUTES.MYPAGE, 3, 365, COLORS.background)}
                 </>
               </Link>
             </div>
@@ -136,7 +136,7 @@ const NavbarContainerStyle = styled.div`
   #navbar {
     width: 100%;
     height: 60px;
-    background-color: ${colors.white};
+    background-color: ${COLORS.white};
     position: absolute;
     bottom: 0;
   }
@@ -150,7 +150,7 @@ const NavbarContainerStyle = styled.div`
   }
 
   .bubble {
-    background-color: ${colors.white};
+    background-color: ${COLORS.white};
     width: 60px;
     height: 60px;
     bottom: 85px;
@@ -184,13 +184,13 @@ const NavbarContainerStyle = styled.div`
   }
 
   #bg {
-    background-color: ${colors.homeBackground};
+    background-color: ${COLORS.homeBackground};
     height: 100%;
   }
 
   #bgBubble {
     position: absolute;
-    background-color: ${colors.homeBackground};
+    background-color: ${COLORS.homeBackground};
     width: 75px;
     height: 75px;
     border-radius: 50%;

@@ -1,4 +1,4 @@
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { Player } from '@lottiefiles/react-lottie-player';
 
@@ -44,7 +44,7 @@ const HomeStyle = styled.div`
     top: 100px;
     left: 35%;
     transform: translate(-50%, -50%);
-    color: ${colors.white};
+    color: ${COLORS.white};
     font-size: 13px;
     line-height: 20px;
   }

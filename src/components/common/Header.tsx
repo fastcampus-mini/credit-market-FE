@@ -1,5 +1,5 @@
 import { ROUTES } from '@/constants/routes';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from './Button';
@@ -24,7 +24,7 @@ const Header = () => {
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.LOGIN)}
-          color={homePath ? colors.white : colors.secondary}
+          color={homePath ? COLORS.white : COLORS.secondary}
         >
           <FiLogIn />
           <span>LOGIN</span>
@@ -34,7 +34,7 @@ const Header = () => {
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.SIGNUP)}
-          color={homePath ? colors.white : colors.secondary}
+          color={homePath ? COLORS.white : COLORS.secondary}
         >
           <FaUserFriends />
           <span>JOIN</span>

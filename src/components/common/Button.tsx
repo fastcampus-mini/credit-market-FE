@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 
 interface Props {
   buttonType?: string;
@@ -18,7 +18,7 @@ const Button = ({
   height = '50',
   isDisabled = false,
   onClick,
-  color = colors.white,
+  color = COLORS.white,
   children,
 }: Props) => {
   return (
@@ -61,8 +61,8 @@ const handleButtonType = (buttonType: string) => {
   switch (buttonType) {
     case 'white':
       return `
-        color: ${colors.primary};
-        background-color: ${colors.white};
+        color: ${COLORS.primary};
+        background-color: ${COLORS.white};
         border: none;
         transition:0.3s ease all;
         &:hover {
@@ -83,8 +83,8 @@ const handleButtonType = (buttonType: string) => {
       `;
     default:
       return `
-        color: ${colors.white};
-        background-color: ${colors.primary};
+        color: ${COLORS.white};
+        background-color: ${COLORS.primary};
         border: none;
         transition:0.3s ease all;
         &:hover {

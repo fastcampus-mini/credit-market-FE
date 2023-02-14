@@ -5,7 +5,7 @@ import { MESSAGES } from '../constants/messages';
 import CartItem from './../components/Cart/CartItem';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../store/loadingSlice';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import Button from '@/components/common/Button';
 import PageTitle from '@/components/common/PageTitle';
 import { ICart } from '@/interfaces/cart';
@@ -86,7 +86,7 @@ export default Cart;
 
 const CartContainer = styled.div`
   /* color: ${({ color }) => color}; */
-  /* background-color: ${colors.black}; */
+  /* background-color: ${COLORS.black}; */
 `;
 
 const CheckBoxWrap = styled.div`
