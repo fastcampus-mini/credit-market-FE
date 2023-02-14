@@ -1,6 +1,6 @@
 import { ROUTES } from '@/constants/routes';
 import { ICart } from '@/interfaces/cart';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import React from 'react';
 import { AiFillHeart, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai';
@@ -20,9 +20,9 @@ const CartItem = ({ data }: Prop) => {
 
   return (
     <CartItemContainer>
-      <CartItemWrap onClick={() => navigate(ROUTES.PRODUCT_DETAIL)}>
+      <CartItemWrap>
         <Input type="checkbox" />
-        <InfoContainer>
+        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_DETAIL)}>
           <Image src="/public/images/test-cat.jpg" width="50" height="50" />
           <TextContainer>
             <BankText>{data.bank}</BankText>
@@ -46,11 +46,11 @@ const CartItem = ({ data }: Prop) => {
 export default CartItem;
 
 const CartItemContainer = styled.div`
-  border: 1px solid ${colors.lightGray};
+  border: 1px solid ${COLORS.lightGray};
   padding: 0.6rem;
   display: flex;
   justify-content: space-between;
-  background-color: ${colors.white};
+  background-color: ${COLORS.white};
 `;
 
 const CartItemWrap = styled.div`

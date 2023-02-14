@@ -1,6 +1,6 @@
 import { css, Global } from '@emotion/react';
 import reset from 'emotion-reset';
-import colors from './colors';
+import COLORS from './colors';
 
 const GlobalStyle = () => {
   return <Global styles={style} />;
@@ -20,7 +20,7 @@ const style = css`
 
     &::-webkit-scrollbar-thumb {
       width: 5px;
-      background-color: ${colors.scrollbar};
+      background-color: ${COLORS.scrollbar};
       border-radius: 10px;
     }
   }
@@ -31,10 +31,10 @@ const style = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${colors.mainText};
+    color: ${COLORS.mainText};
 
     #root {
-      background-color: ${colors.loginBackground};
+      background-color: ${COLORS.loginBackground};
       border-radius: 30px;
       width: 390px;
       min-width: 390px;
@@ -42,7 +42,7 @@ const style = css`
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
-      color: ${colors.mainText};
+      color: ${COLORS.mainText};
 
       iframe {
         border: none;
@@ -58,7 +58,8 @@ const style = css`
 
       input[type='checkbox'] {
         display: flex;
-        accent-color: ${colors.checkbox};
+        /* align-self: center; */
+        accent-color: ${COLORS.checkbox};
         width: 15px;
         height: 15px;
         margin: 0;
