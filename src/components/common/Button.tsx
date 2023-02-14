@@ -8,6 +8,7 @@ interface Props {
   height?: string;
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  color?: string;
   children: React.ReactNode;
 }
 
@@ -17,6 +18,7 @@ const Button = ({
   height = '50',
   isDisabled = false,
   onClick,
+  color = colors.white,
   children,
 }: Props) => {
   return (
@@ -25,6 +27,7 @@ const Button = ({
       width={width}
       height={height}
       disabled={isDisabled}
+      color={color}
       onClick={onClick}
     >
       {children}
@@ -38,10 +41,12 @@ export const StyledButton = styled.button<{
   buttonType: string;
   width: string;
   height: string;
+  color: string;
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)};
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
+  color: ${({ color }) => color};
   border-radius: 30px;
   text-align: center;
   cursor: pointer;
