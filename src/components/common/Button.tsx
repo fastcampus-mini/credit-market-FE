@@ -18,7 +18,7 @@ const Button = ({
   height = '50',
   isDisabled = false,
   onClick,
-  color = COLORS.white,
+  color = '',
   children,
 }: Props) => {
   return (
@@ -51,6 +51,7 @@ export const StyledButton = styled.button<{
   text-align: center;
   cursor: pointer;
   outline: none;
+  border: none;
   &:disabled {
     opacity: 1;
     cursor: default;
@@ -63,7 +64,15 @@ const handleButtonType = (buttonType: string) => {
       return `
         color: ${COLORS.primary};
         background-color: ${COLORS.white};
-        border: none;
+        transition:0.3s ease all;
+        &:hover {
+          opacity: 0.7;
+        }
+      `;
+    case 'blue':
+      return `
+        color: ${COLORS.white};
+        background-color: ${COLORS.primary};
         transition:0.3s ease all;
         &:hover {
           opacity: 0.7;
@@ -73,19 +82,21 @@ const handleButtonType = (buttonType: string) => {
       return `
         color: #808080;
         background-color: #D8D9D9;
-        border: none;
       `;
     case 'transparent':
       return `
-        color: #000;
+        color: ${COLORS.white};
         background-color: transparent;
-        border: none;
+      `;
+    case 'text':
+      return `
+        color: ${COLORS.secondary};
+        background-color: transparent;
       `;
     default:
       return `
         color: ${COLORS.white};
         background-color: ${COLORS.primary};
-        border: none;
         transition:0.3s ease all;
         &:hover {
           opacity: 0.7;

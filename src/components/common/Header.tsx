@@ -1,5 +1,4 @@
 import { ROUTES } from '@/constants/routes';
-import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from './Button';
@@ -20,21 +19,19 @@ const Header = () => {
       <Link to="/">{homePath ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
-          buttonType="transparent"
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.LOGIN)}
-          color={homePath ? COLORS.white : COLORS.secondary}
+          buttonType={homePath ? 'transparent' : 'text'}
         >
           <FiLogIn />
           <span>LOGIN</span>
         </Button>
         <Button
-          buttonType="transparent"
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.SIGNUP)}
-          color={homePath ? COLORS.white : COLORS.secondary}
+          buttonType={homePath ? 'transparent' : 'text'}
         >
           <FaUserFriends />
           <span>JOIN</span>

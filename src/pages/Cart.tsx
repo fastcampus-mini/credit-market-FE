@@ -59,12 +59,7 @@ const Cart = () => {
           <Input type="checkbox" />
           <AllCheckText>전체선택 (0/3)</AllCheckText>
         </AllCheck>
-        <Button
-          buttonType="transparent"
-          width="fit-content"
-          height="fit-content"
-          onClick={handleDelete}
-        >
+        <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
           선택삭제
         </Button>
       </CheckBoxWrap>
