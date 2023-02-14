@@ -82,6 +82,7 @@ export default Cart;
 const CartContainer = styled.div`
   /* color: ${({ color }) => color}; */
   /* background-color: ${COLORS.black}; */
+  padding: 0 10px;
 `;
 
 const CheckBoxWrap = styled.div`

@@ -27,4 +27,6 @@ const Mypage = () => {
 
 export default Mypage;
 
-const StyledMypage = styled.div``;
+const StyledMypage = styled.div`
+  padding: 0 10px;
+`;
