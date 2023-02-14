@@ -47,7 +47,7 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarContainerStyle>
+    <StyledNavbar>
       <div id="navbarContainer">
         <div id="navbar">
           <div id="bubbleWrapper">
@@ -117,13 +117,13 @@ const Navbar = () => {
           </filter>
         </defs>
       </svg>
-    </NavbarContainerStyle>
+    </StyledNavbar>
   );
 };
 
 export default Navbar;
 
-const NavbarContainerStyle = styled.div`
+const StyledNavbar = styled.div`
   width: 100%;
   height: 100%;
   bottom: 0;

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
 const Login = () => {
-  return <LoginStyle>Login</LoginStyle>;
+  return <StyledLogin>Login</StyledLogin>;
 };
 
 export default Login;
 
-const LoginStyle = styled.div``;
+const StyledLogin = styled.div``;

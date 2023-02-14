@@ -22,9 +22,9 @@ const Mypage = () => {
     getData();
   }, []);
 
-  return <MypageStyle>Mypage</MypageStyle>;
+  return <StyledMypage>Mypage</StyledMypage>;
 };
 
 export default Mypage;
 
-const MypageStyle = styled.div``;
+const StyledMypage = styled.div``;

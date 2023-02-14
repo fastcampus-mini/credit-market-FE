@@ -4,7 +4,7 @@ import { Player } from '@lottiefiles/react-lottie-player';
 
 const Home = () => {
   return (
-    <HomeStyle>
+    <StyledHome>
       <Player
         className="welcome"
         autoplay
@@ -23,13 +23,13 @@ const Home = () => {
         <br />
         오늘도 즐거운 하루 보내세요!
       </p>
-    </HomeStyle>
+    </StyledHome>
   );
 };
 
 export default Home;
 
-const HomeStyle = styled.div`
+const StyledHome = styled.div`
   position: relative;
   padding: 50px 0 0;
 
@@ -55,7 +55,6 @@ const HomeStyle = styled.div`
     margin-top: 30px;
     #lottie {
       width: 230px;
-      opacity: 0.8;
     }
   }
 `;

@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <HeaderStyle>
+    <StyledHeader>
       <Link to="/">{homePath ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
@@ -40,13 +40,13 @@ const Header = () => {
           <span>JOIN</span>
         </Button>
       </div>
-    </HeaderStyle>
+    </StyledHeader>
   );
 };
 
 export default Header;
 
-const HeaderStyle = styled.header`
+const StyledHeader = styled.header`
   padding: 30px 10px 0;
   position: relative;
   z-index: 10;
