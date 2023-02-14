@@ -11,9 +11,10 @@ import Input from '../common/Input';
 
 interface Prop {
   data: ICart;
+  isCheckBox?: boolean;
 }
 
-const CartItem = ({ data }: Prop) => {
+const CartItem = ({ data, isCheckBox }: Prop) => {
   const navigate = useNavigate();
   const handleLike = () => {};
   const handleDelete = () => {};
@@ -21,7 +22,7 @@ const CartItem = ({ data }: Prop) => {
   return (
     <CartItemContainer>
       <CartItemWrap>
-        <Input type="checkbox" />
+        {isCheckBox && <Input type="checkbox" />}
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
           <Image src="/images/test-cat.jpg" width="50" height="50" />
           <TextContainer>
@@ -30,15 +31,17 @@ const CartItem = ({ data }: Prop) => {
           </TextContainer>
         </InfoContainer>
       </CartItemWrap>
-      <IconWrap>
-        {/* <AiFillHeart /> */}
-        <Button buttonType="text" width="fit-content" height="16" onClick={handleLike}>
-          <AiOutlineHeart />
-        </Button>
-        <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
-          <AiOutlineClose />
-        </Button>
-      </IconWrap>
+      {isCheckBox && (
+        <IconWrap>
+          {/* <AiFillHeart /> */}
+          <Button buttonType="text" width="fit-content" height="16" onClick={handleLike}>
+            <AiOutlineHeart />
+          </Button>
+          <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
+            <AiOutlineClose />
+          </Button>
+        </IconWrap>
+      )}
     </CartItemContainer>
   );
 };
