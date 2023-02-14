@@ -11,7 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const logoImage = (logoColor: string) => {
-    return <img src={`../../../public/images/logo_${logoColor}.png`} alt="메인로고" />;
+    return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
   return (

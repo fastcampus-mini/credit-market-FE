@@ -10,4 +10,5 @@ export const ROUTES = {
   MYPAGE_INFO: '/info',
   PRODUCTS: '/products',
   PRODUCT_DETAIL: '/products/:id',
+  PRODUCT_BY_ID: (id: string) => `/products/${id}`,
 };

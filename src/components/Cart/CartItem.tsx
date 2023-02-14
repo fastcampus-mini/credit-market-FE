@@ -22,8 +22,8 @@ const CartItem = ({ data }: Prop) => {
     <CartItemContainer>
       <CartItemWrap>
         <Input type="checkbox" />
-        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_DETAIL)}>
-          <Image src="/public/images/test-cat.jpg" width="50" height="50" />
+        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
+          <Image src="/images/test-cat.jpg" width="50" height="50" />
           <TextContainer>
             <BankText>{data.bank}</BankText>
             <ProductText>{data.title}</ProductText>
