@@ -9,6 +9,7 @@ import { FaUserFriends } from 'react-icons/fa';
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const homePath = location.pathname === '/';
 
   const logoImage = (logoColor: string) => {
     return <img src={`../../../public/images/logo_${logoColor}.png`} alt="메인로고" />;
@@ -16,13 +17,14 @@ const Header = () => {
 
   return (
     <HeaderStyle>
-      <Link to="/">{location.pathname === '/' ? logoImage('white') : logoImage('Main')}</Link>
+      <Link to="/">{homePath ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
           buttonType="transparent"
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.LOGIN)}
+          color={homePath ? colors.white : colors.secondary}
         >
           <FiLogIn />
           <span>LOGIN</span>
@@ -32,6 +34,7 @@ const Header = () => {
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.SIGNUP)}
+          color={homePath ? colors.white : colors.secondary}
         >
           <FaUserFriends />
           <span>JOIN</span>
@@ -62,7 +65,6 @@ const HeaderStyle = styled.header`
     button {
       padding: 0;
       display: flex;
-      color: ${colors.white};
       flex-direction: column;
       align-items: center;
       gap: 2px;
