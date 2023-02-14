@@ -65,7 +65,7 @@ const Cart = () => {
       </CheckBoxWrap>
       <CartContent>
         {Array.isArray(cart) ? (
-          cart.map((item) => <CartItem key={item.id} data={item} />)
+          cart.map((item) => <CartItem key={item.id} data={item} isCheckBox={true} />)
         ) : (
           <div>담으신 상품이 없습니다.</div>
         )}
@@ -99,21 +99,14 @@ const AllCheck = styled.div`
 
 const AllCheckText = styled.span`
   font-size: 14px;
-`;
-
-const BtnDelete = styled.button`
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: transparent;
-  font-size: 14px;
+  color: ${COLORS.secondary};
 `;
 
 const CartContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  height: 460px;
+  gap: 10px;
+  height: 470px;
   overflow-y: auto;
 `;
 
