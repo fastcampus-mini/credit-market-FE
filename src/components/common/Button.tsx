@@ -44,7 +44,7 @@ export const StyledButton = styled.button<{
   color: string;
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)};
-  width: ${({ width }) => width}px;
+  width: ${({ width }) => width};
   height: ${({ height }) => height}px;
   color: ${({ color }) => color};
   border-radius: 30px;
