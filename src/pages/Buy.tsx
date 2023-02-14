@@ -88,8 +88,8 @@ const Buy = () => {
             <p>설명을 충분히 확인했습니다.</p>
           </FinalCheckText>
         </PolicyContainer>
-        <Button onClick={handleClick}>신청하기</Button>
       </BuyContent>
+      <Button onClick={handleClick}>신청하기</Button>
     </BuyContainer>
   );
 };
@@ -99,12 +99,14 @@ export default Buy;
 const BuyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 10px;
 `;
 
 const BuyContent = styled.div`
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: calc(90vh - 265px);
+  margin-bottom: 10px;
   overflow-y: auto;
 `;
 
@@ -122,7 +124,7 @@ const PolicyContainer = styled.div`
   gap: 14px;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.lightGray};
-  margin: 10px 0;
+  margin: 10px 0 0;
   padding: 1rem;
 `;
 

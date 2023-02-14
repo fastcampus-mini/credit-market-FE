@@ -106,10 +106,11 @@ const CartContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 470px;
+  height: calc(90vh - 301px);
+  margin-bottom: 10px;
   overflow-y: auto;
 `;
 
 const ButtonWrap = styled.div`
-  padding: 1rem 0;
+  // padding: 1rem 0;
 `;
