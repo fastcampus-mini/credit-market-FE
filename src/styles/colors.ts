@@ -9,6 +9,7 @@ const COLORS = {
   white: '#fff',
   checkbox: '#4831d4',
   scrollbar: '#b1b1b1',
+  textInput: '#D0DAEC',
 };
 
 export default COLORS;
