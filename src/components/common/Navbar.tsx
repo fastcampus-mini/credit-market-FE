@@ -9,6 +9,8 @@ import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
   const location = useLocation();
+  // const homePath = location.pathname === '/';
+  // {homePath ? }
   const bubblePosition = (path: string, id: number, position: number, color: string) => {
     return location.pathname === path && move(id, position, color);
   };

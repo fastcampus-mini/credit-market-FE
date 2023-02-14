@@ -23,6 +23,7 @@ const Home = () => {
         <br />
         오늘도 즐거운 하루 보내세요!
       </p>
+      <div id="panel"></div>
     </StyledHome>
   );
 };
@@ -31,7 +32,7 @@ export default Home;
 
 const StyledHome = styled.div`
   position: relative;
-  padding: 50px 0 0;
+  padding: 50px 0 0 10px;
 
   .welcome {
     width: 157px;
@@ -56,5 +57,13 @@ const StyledHome = styled.div`
     #lottie {
       width: 230px;
     }
+  }
+
+  #panel {
+    position: absolute;
+    left: 0;
+    background: ${COLORS.background};
+    width: 100%;
+    height: 100px;
   }
 `;
