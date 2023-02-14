@@ -13,4 +13,5 @@ export const MESSAGES = {
     UPDATE: '장바구니 수정 중 에러가 발생했습니다.',
     DELETE: '장바구니 삭제 중 에러가 발생했습니다.',
   },
+  CHECK_POLICY: '약관 내용에 동의해주세요.',
 };

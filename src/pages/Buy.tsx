@@ -2,6 +2,7 @@ import CartItem from '@/components/Cart/CartItem';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
 import PageTitle from '@/components/common/PageTitle';
+import { MESSAGES } from '@/constants/messages';
 import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
@@ -26,7 +27,9 @@ const Buy = () => {
     setIsChecked((prev) => !prev);
   };
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    if (!isChecked) return alert(MESSAGES.CHECK_POLICY);
+  };
 
   return (
     <BuyContainer>
