@@ -7,7 +7,7 @@
 
 <br/>
 
-## :sunglasses: Project FE Member
+## :sunglasses: Member
 
 <table border>
   <tbody>
