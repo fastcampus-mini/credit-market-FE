@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import gsap from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
-import { AiFillHome, AiOutlineTwitter, AiFillBell } from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import colors from '@/styles/colors';
@@ -71,12 +71,12 @@ const Navbar = () => {
             <div
               id="menu1"
               className="menuElement"
-              onClick={() => move(1, 105, colors.loginBackground)}
+              onClick={() => move(1, 105, colors.homeBackground)}
             >
               <Link to="/">
                 <>
                   <AiFillHome />
-                  {bubblePosition(ROUTES.HOME, 1, 105, colors.loginBackground)}
+                  {bubblePosition(ROUTES.HOME, 1, 105, colors.homeBackground)}
                 </>
               </Link>
             </div>
@@ -184,13 +184,13 @@ const NavbarContainerStyle = styled.div`
   }
 
   #bg {
-    background-color: ${colors.loginBackground};
+    background-color: ${colors.homeBackground};
     height: 100%;
   }
 
   #bgBubble {
     position: absolute;
-    background-color: ${colors.loginBackground};
+    background-color: ${colors.homeBackground};
     width: 75px;
     height: 75px;
     border-radius: 50%;
