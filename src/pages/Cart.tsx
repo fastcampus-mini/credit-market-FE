@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { getCartItemList } from '../apis/cart';
+import { getCartList } from '../apis/cart';
 import { MESSAGES } from '../constants/messages';
 import CartItem from './../components/Cart/CartItem';
 import { useDispatch } from 'react-redux';
@@ -30,7 +30,7 @@ const Cart = () => {
     async function getData() {
       try {
         dispatch(showLoading());
-        // const data = await getCartItemList();
+        // const data = await getCartList();
         // setCart(data);
         const data: ICart[] = [
           { id: '1', title: '직장인 신용대출', bank: '우리은행' },
