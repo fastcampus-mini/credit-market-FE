@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { getCartItemList } from '../apis/cart';
-import { ERROR_MESSAGES } from '../constants/messages';
+import { MESSAGES } from '../constants/messages';
 import CartItem from './../components/Cart/CartItem';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../store/loadingSlice';
@@ -44,7 +44,7 @@ const Cart = () => {
         ];
         setCart(data);
       } catch (error) {
-        alert(ERROR_MESSAGES.ERROR_CART.GET);
+        alert(MESSAGES.ERROR_CART.GET);
       } finally {
         dispatch(hideLoading());
       }

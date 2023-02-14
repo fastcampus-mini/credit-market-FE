@@ -1,4 +1,4 @@
-export const ERROR_MESSAGES = {
+export const MESSAGES = {
   CHECK_EMAIL: '이메일이 존재하지 않습니다.',
   CHECK_PASSWORD: '비밀번호가 일치하지 않습니다.',
   CHECK_EMAIL_DUPLICATE: '이미 존재하는 이메일입니다.',

@@ -1,4 +1,4 @@
-const colors = {
+const COLORS = {
   primary: '#19418A',
   secondary: '#19418A',
   lightGray: '#dddddd',
@@ -11,4 +11,4 @@ const colors = {
   scrollbar: '#b1b1b1',
 };
 
-export default colors;
+export default COLORS;
