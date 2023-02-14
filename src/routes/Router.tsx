@@ -11,6 +11,7 @@ import ProductDetail from '@/pages/ProductDetail';
 import Buy from '@/pages/Buy';
 import SignIn from '@/pages/SignIn';
 import Signup from '@/pages/Signup';
+import Welcome from '@/pages/Welcome';
 
 const Router = () => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path={ROUTES.MYPAGE} element={<Mypage />} />
         <Route path={ROUTES.SIGNIN} element={<SignIn />} />
         <Route path={ROUTES.SIGNUP} element={<Signup />} />
+        <Route path={ROUTES.SIGNUP + '/welcome'} element={<Welcome />} />
         <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetail />} />
         <Route path={ROUTES.BUY} element={<Buy />} />
         <Route path="*" element={<NotFound />} />

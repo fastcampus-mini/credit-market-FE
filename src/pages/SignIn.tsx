@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
-import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
+import styled from '@emotion/styled';
 import colors from '@/styles/colors';
+import { useForm } from 'react-hook-form';
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 const HomeStyle = styled.div`
   padding: 20px 10px;
@@ -14,13 +20,15 @@ const HomeStyle = styled.div`
 `;
 
 const SignIn = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    // 엔터키 입력시 서브밋 되는 거 막아야함
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    console.log({ name, email });
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, isDirty, errors },
+  } = useForm<FormValues>();
+  const onSubmit = async (data: FormValues) => {
+    await new Promise((r) => setTimeout(r, 1000));
+    alert(JSON.stringify(data));
+    goHome();
   };
 
   const navigate = useNavigate();
@@ -35,10 +43,30 @@ const SignIn = () => {
     <HomeStyle>
       <div className="title">Credit Market</div>
       <p>email</p>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <button type="submit" onClick={goHome}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          {...register('email', {
+            required: '이메일을 입력해주세요.',
+            pattern: { value: /\S+@\S+\.\S+/, message: '이메일 형식을 올바르게 작성해주세요.' },
+          })}
+          id="email"
+          type="email"
+          placeholder="Email"
+          aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
+        />
+        {errors.email && <small role="alert">{errors.email.message}</small>}
+        <input
+          {...register('password', {
+            required: '비밀번호를 입력해주세요.',
+            minLength: { value: 8, message: '비밀번호를 8자리 이상 입력해주세요.' },
+          })}
+          id="password"
+          type="password"
+          placeholder="Password"
+          aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
+        />
+        {errors.password && <small role="alert">{errors.password.message}</small>}
+        <button type="submit" disabled={isSubmitting}>
           LOGIN
         </button>
       </form>
