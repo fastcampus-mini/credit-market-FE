@@ -34,7 +34,7 @@ const style = css`
     color: ${COLORS.mainText};
 
     #root {
-      background-color: ${COLORS.loginBackground};
+      background-color: ${COLORS.homeBackground};
       border-radius: 30px;
       width: 390px;
       min-width: 390px;

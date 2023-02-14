@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import gsap from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
-import { AiFillHome, AiOutlineTwitter, AiFillBell } from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
@@ -47,7 +47,7 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarContainerStyle>
+    <StyledNavbar>
       <div id="navbarContainer">
         <div id="navbar">
           <div id="bubbleWrapper">
@@ -71,28 +71,28 @@ const Navbar = () => {
             <div
               id="menu1"
               className="menuElement"
-              onClick={() => move(1, 105, colors.loginBackground)}
+              onClick={() => move(1, 105, COLORS.homeBackground)}
             >
               <Link to="/">
                 <>
                   <AiFillHome />
-                  {bubblePosition(ROUTES.HOME, 1, 105, colors.loginBackground)}
+                  {bubblePosition(ROUTES.HOME, 1, 105, COLORS.homeBackground)}
                 </>
               </Link>
             </div>
-            <div id="menu2" className="menuElement" onClick={() => move(2, 235, colors.background)}>
+            <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
               <Link to="/cart">
                 <>
                   <BsFillCartFill />
-                  {bubblePosition(ROUTES.CART, 2, 235, colors.background)}
+                  {bubblePosition(ROUTES.CART, 2, 235, COLORS.background)}
                 </>
               </Link>
             </div>
-            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.background)}>
+            <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
               <Link to="/mypage">
                 <>
                   <FaUserAlt />
-                  {bubblePosition(ROUTES.MYPAGE, 3, 365, colors.background)}
+                  {bubblePosition(ROUTES.MYPAGE, 3, 365, COLORS.background)}
                 </>
               </Link>
             </div>
@@ -117,13 +117,13 @@ const Navbar = () => {
           </filter>
         </defs>
       </svg>
-    </NavbarContainerStyle>
+    </StyledNavbar>
   );
 };
 
 export default Navbar;
 
-const NavbarContainerStyle = styled.div`
+const StyledNavbar = styled.div`
   width: 100%;
   height: 100%;
   bottom: 0;
@@ -136,7 +136,7 @@ const NavbarContainerStyle = styled.div`
   #navbar {
     width: 100%;
     height: 60px;
-    background-color: ${colors.white};
+    background-color: ${COLORS.white};
     position: absolute;
     bottom: 0;
   }
@@ -150,7 +150,7 @@ const NavbarContainerStyle = styled.div`
   }
 
   .bubble {
-    background-color: ${colors.white};
+    background-color: ${COLORS.white};
     width: 60px;
     height: 60px;
     bottom: 85px;
@@ -184,13 +184,13 @@ const NavbarContainerStyle = styled.div`
   }
 
   #bg {
-    background-color: ${colors.loginBackground};
+    background-color: ${COLORS.homeBackground};
     height: 100%;
   }
 
   #bgBubble {
     position: absolute;
-    background-color: ${colors.loginBackground};
+    background-color: ${COLORS.homeBackground};
     width: 75px;
     height: 75px;
     border-radius: 50%;

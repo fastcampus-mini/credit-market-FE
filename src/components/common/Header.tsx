@@ -1,5 +1,5 @@
 import { ROUTES } from '@/constants/routes';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from './Button';
@@ -9,20 +9,22 @@ import { FaUserFriends } from 'react-icons/fa';
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const homePath = location.pathname === '/';
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
   return (
-    <HeaderStyle>
-      <Link to="/">{location.pathname === '/' ? logoImage('white') : logoImage('Main')}</Link>
+    <StyledHeader>
+      <Link to="/">{homePath ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
           buttonType="transparent"
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.LOGIN)}
+          color={homePath ? COLORS.white : COLORS.secondary}
         >
           <FiLogIn />
           <span>LOGIN</span>
@@ -32,18 +34,19 @@ const Header = () => {
           width="fit-content"
           height="fit-content"
           onClick={() => navigate(ROUTES.SIGNUP)}
+          color={homePath ? COLORS.white : COLORS.secondary}
         >
           <FaUserFriends />
           <span>JOIN</span>
         </Button>
       </div>
-    </HeaderStyle>
+    </StyledHeader>
   );
 };
 
 export default Header;
 
-const HeaderStyle = styled.header`
+const StyledHeader = styled.header`
   padding: 30px 10px 0;
   position: relative;
   z-index: 10;
@@ -62,7 +65,6 @@ const HeaderStyle = styled.header`
     button {
       padding: 0;
       display: flex;
-      color: ${colors.white};
       flex-direction: column;
       align-items: center;
       gap: 2px;
