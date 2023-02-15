@@ -3,15 +3,15 @@ import React from 'react';
 
 const Loading = () => {
   return (
-    <LoadingAni>
+    <StyledLoading>
       <iframe src="https://embed.lottiefiles.com/animation/97952"></iframe>
-    </LoadingAni>
+    </StyledLoading>
   );
 };
 
 export default Loading;
 
-const LoadingAni = styled.div`
+const StyledLoading = styled.div`
   border: none;
   position: absolute;
   z-index: 10;
@@ -28,9 +28,5 @@ const LoadingAni = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    .container:hover .attribution {
-      display: none;
-    }
   }
 `;

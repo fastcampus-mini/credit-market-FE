@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
 import styled from '@emotion/styled';
-import colors from '@/styles/colors';
+import Colors from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 
 type FormValues = {
@@ -19,7 +19,7 @@ const HomeStyle = styled.div`
   }
 `;
 
-const SignIn = () => {
+const Login = () => {
   const {
     register,
     handleSubmit,
@@ -50,7 +50,7 @@ const SignIn = () => {
             pattern: { value: /\S+@\S+\.\S+/, message: '이메일 형식을 올바르게 작성해주세요.' },
           })}
           id="email"
-          type="email"
+          type="text"
           placeholder="Email"
           aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
         />
@@ -76,4 +76,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Login;

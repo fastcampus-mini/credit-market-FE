@@ -1,37 +1,79 @@
-import { css } from '@emotion/react';
+import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Button from './Button';
+import { FiLogIn } from 'react-icons/fi';
+import { FaUserFriends } from 'react-icons/fa';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const homePath = location.pathname === '/';
 
-  const logoImage = (path: string, logoColor: string) => {
-    return (
-      location.pathname === path && (
-        <img src={`../../../public/images/logo_${logoColor}.png`} alt="메인로고" />
-      )
-    );
+  const logoImage = (logoColor: string) => {
+    return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
   return (
-    <HeaderStyle>
-      <Link to="/">
-        {logoImage('/', 'white')}
-        {logoImage('/cart', 'Main')}
-        {logoImage('/Mypage', 'Main')}
-      </Link>
-    </HeaderStyle>
+    <StyledHeader className="headerInner">
+      <Link to="/">{homePath ? logoImage('white') : logoImage('Main')}</Link>
+      <div className="buttons">
+        <Button
+          width="fit-content"
+          height="fit-content"
+          onClick={() => navigate(ROUTES.LOGIN)}
+          buttonType={homePath ? 'transparent' : 'text'}
+        >
+          <FiLogIn />
+          <span>LOGIN</span>
+        </Button>
+        <Button
+          width="fit-content"
+          height="fit-content"
+          onClick={() => navigate(ROUTES.SIGNUP)}
+          buttonType={homePath ? 'transparent' : 'text'}
+        >
+          <FaUserFriends />
+          <span>JOIN</span>
+        </Button>
+      </div>
+    </StyledHeader>
   );
 };
 
 export default Header;
 
-const HeaderStyle = styled.header`
+const StyledHeader = styled.header`
   padding: 30px 10px 0;
   position: relative;
-  z-index: 1;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   img {
     width: 100px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+
+    button {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+
+      svg {
+        width: 100%;
+        height: 13px;
+      }
+
+      span {
+        font-size: 9px;
+      }
+    }
   }
 `;

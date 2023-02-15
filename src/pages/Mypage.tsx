@@ -1,13 +1,32 @@
+import { getMypageItemList } from '@/apis/mypage';
+import { MESSAGES } from '@/constants/messages';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const Mypage = () => {
-  return <MypageStyle>Mypage</MypageStyle>;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        dispatch(showLoading());
+        const data = await getMypageItemList();
+      } catch (error) {
+        alert(MESSAGES.ERROR_MYPAGE);
+      } finally {
+        dispatch(hideLoading());
+      }
+    }
+    getData();
+  }, []);
+
+  return <StyledMypage>Mypage</StyledMypage>;
 };
 
 export default Mypage;
 
-const MypageStyle = styled.div`
-  position: relative;
-  z-index: 1;
+const StyledMypage = styled.div`
+  padding: 0 10px;
 `;

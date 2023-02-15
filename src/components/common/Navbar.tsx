@@ -1,15 +1,22 @@
 import styled from '@emotion/styled';
 import gsap from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
-import { AiFillHome, AiOutlineTwitter, AiFillBell } from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
+import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
   const location = useLocation();
+  const bubblePosition = (path: string, id: number, position: number, color: string) => {
+    return location.pathname === path && move(id, position, color);
+  };
 
   const move = (id: number, position: number, color: string) => {
+    gsap.config({
+      nullTargetWarn: false,
+    });
     var tl = gsap.timeline();
     tl.to('#bgBubble', { duration: 0.15, bottom: '-30px', ease: 'ease-out' }, 0)
       .to('#bubble1', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
@@ -34,13 +41,21 @@ const Navbar = () => {
         { duration: 0.15, y: '0%', opacity: 0.7, ease: 'ease-out' },
         '-=0.1',
       )
-      .to('#navbarContainer', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0)
+      .to(
+        '#navbarContainer',
+        { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
+        0,
+      )
       .to('#bg', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0)
-      .to('#bgBubble', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0);
+      .to(
+        '#bgBubble',
+        { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
+        0,
+      );
   };
 
   return (
-    <NavbarContainerStyle>
+    <StyledNavbar className="navInner">
       <div id="navbarContainer">
         <div id="navbar">
           <div id="bubbleWrapper">
@@ -64,20 +79,29 @@ const Navbar = () => {
             <div
               id="menu1"
               className="menuElement"
-              onClick={() => move(1, 105, colors.logInBgColor)}
+              onClick={() => move(1, 105, COLORS.homeBackground)}
             >
               <Link to="/">
-                <AiFillHome />
+                <>
+                  <AiFillHome />
+                  {bubblePosition(ROUTES.HOME, 1, 105, COLORS.homeBackground)}
+                </>
               </Link>
             </div>
-            <div id="menu2" className="menuElement" onClick={() => move(2, 235, colors.BgColor)}>
+            <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
               <Link to="/cart">
-                <BsFillCartFill />
+                <>
+                  <BsFillCartFill />
+                  {bubblePosition(ROUTES.CART, 2, 235, COLORS.background)}
+                </>
               </Link>
             </div>
-            <div id="menu3" className="menuElement" onClick={() => move(3, 365, colors.BgColor)}>
-              <Link to="/Mypage">
-                <FaUserAlt />
+            <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
+              <Link to="/mypage">
+                <>
+                  <FaUserAlt />
+                  {bubblePosition(ROUTES.MYPAGE, 3, 365, COLORS.background)}
+                </>
               </Link>
             </div>
           </div>
@@ -101,28 +125,23 @@ const Navbar = () => {
           </filter>
         </defs>
       </svg>
-    </NavbarContainerStyle>
+    </StyledNavbar>
   );
 };
 
 export default Navbar;
 
-const NavbarContainerStyle = styled.div`
+const StyledNavbar = styled.nav`
   width: 100%;
-  height: 100%;
-  bottom: 0;
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
   overflow: hidden;
-  position: absolute;
 
   #navbar {
     width: 100%;
     height: 60px;
-    background-color: ${colors.white};
+    background-color: ${COLORS.white};
     position: absolute;
     bottom: 0;
+    z-index: 9;
   }
 
   #bubbleWrapper {
@@ -134,12 +153,12 @@ const NavbarContainerStyle = styled.div`
   }
 
   .bubble {
-    background-color: ${colors.white};
+    background-color: ${COLORS.white};
     width: 60px;
     height: 60px;
     bottom: 85px;
     border-radius: 50%;
-    z-index: 1;
+    z-index: 10;
     transform: translateY(120%);
     display: flex;
     justify-content: center;
@@ -168,13 +187,17 @@ const NavbarContainerStyle = styled.div`
   }
 
   #bg {
-    background-color: ${colors.logInBgColor};
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     height: 100%;
+    background-color: ${COLORS.homeBackground};
   }
 
   #bgBubble {
     position: absolute;
-    background-color: ${colors.logInBgColor};
+    background-color: ${COLORS.background};
     width: 75px;
     height: 75px;
     border-radius: 50%;

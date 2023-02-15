@@ -1,29 +1,25 @@
-import React from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { createBrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
 import Cart from '@/pages/Cart';
 import Mypage from '@/pages/Mypage';
 import styled from '@emotion/styled';
-import colors from '@/styles/colors';
 import ProductDetail from '@/pages/ProductDetail';
 import Buy from '@/pages/Buy';
-import SignIn from '@/pages/SignIn';
+import Login from '@/pages/Login';
 import Signup from '@/pages/Signup';
 import Welcome from '@/pages/Welcome';
+import App from '@/App';
 
 const Router = () => {
-  const location = useLocation();
-  const bgColor = location.pathname === '/' ? colors.logInBgColor : colors.BgColor;
-
   return (
-    <Layout bgColor={bgColor}>
+    <Layout>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
         <Route path={ROUTES.CART} element={<Cart />} />
         <Route path={ROUTES.MYPAGE} element={<Mypage />} />
-        <Route path={ROUTES.SIGNIN} element={<SignIn />} />
+        <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.SIGNUP} element={<Signup />} />
         <Route path={ROUTES.SIGNUP + '/welcome'} element={<Welcome />} />
         <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetail />} />
@@ -36,9 +32,8 @@ const Router = () => {
 
 export default Router;
 
-const Layout = styled.div<{ bgColor: string }>`
-  padding: 20px 10px;
-  background-color: ${({ bgColor }) => bgColor};
+const Layout = styled.div`
   position: relative;
   z-index: 1;
+  // padding: 0 10px;
 `;

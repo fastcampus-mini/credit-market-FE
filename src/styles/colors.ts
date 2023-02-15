@@ -1,12 +1,16 @@
-const colors = {
+const COLORS = {
   primary: '#19418A',
-  secondary: '#8c8d96',
-  black: '#000',
+  secondary: '#000540',
+  gray: '#9c9c9c',
+  lightGray: '#dddddd',
   white: '#fff',
-  signatureColor: '#19418a',
-  mainTextColor: '#333',
-  logInBgColor: '#4831d4',
-  BgColor: '#f9fbff',
+  black: '#000',
+  mainText: '#333',
+  homeBackground: '#4831d4',
+  background: '#f9fbff',
+  checkbox: '#4831d4',
+  scrollbar: '#b1b1b1',
+  textInput: '#D0DAEC',
 };
 
-export default colors;
+export default COLORS;

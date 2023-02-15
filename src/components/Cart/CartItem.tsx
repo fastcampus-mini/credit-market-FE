@@ -1,31 +1,47 @@
+import { ROUTES } from '@/constants/routes';
 import { ICart } from '@/interfaces/cart';
-import colors from '@/styles/colors';
+import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import React from 'react';
 import { AiFillHeart, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+import Button from '../common/Button';
 import Image from '../common/Image';
 import Input from '../common/Input';
 
 interface Prop {
   data: ICart;
+  isCheckBox?: boolean;
 }
 
-const CartItem = ({ data }: Prop) => {
+const CartItem = ({ data, isCheckBox }: Prop) => {
+  const navigate = useNavigate();
+  const handleLike = () => {};
+  const handleDelete = () => {};
+
   return (
     <CartItemContainer>
       <CartItemWrap>
-        <Input type="checkbox" />
-        <Image src="/public/images/test-cat.jpg" width="50" height="50" />
-        <InfoContainer>
-          <BankText>{data.bank}</BankText>
-          <ProductText>{data.title}</ProductText>
+        {isCheckBox && <Input inputType="checkbox" />}
+        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
+          <Image src="/images/test-cat.jpg" width="50" height="50" />
+          <TextContainer>
+            <BankText>{data.bank}</BankText>
+            <ProductText>{data.title}</ProductText>
+          </TextContainer>
         </InfoContainer>
       </CartItemWrap>
-      <IconWrap>
-        {/* <AiFillHeart /> */}
-        <AiOutlineHeart />
-        <AiOutlineClose />
-      </IconWrap>
+      {isCheckBox && (
+        <IconWrap>
+          {/* <AiFillHeart /> */}
+          <Button buttonType="text" width="fit-content" height="16" onClick={handleLike}>
+            <AiOutlineHeart />
+          </Button>
+          <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
+            <AiOutlineClose />
+          </Button>
+        </IconWrap>
+      )}
     </CartItemContainer>
   );
 };
@@ -33,20 +49,25 @@ const CartItem = ({ data }: Prop) => {
 export default CartItem;
 
 const CartItemContainer = styled.div`
-  border: 1px solid #dddddd;
+  border: 1px solid ${COLORS.lightGray};
   padding: 0.6rem;
   display: flex;
   justify-content: space-between;
-  background-color: ${colors.white};
+  background-color: ${COLORS.white};
 `;
 
 const CartItemWrap = styled.div`
   display: flex;
   gap: 10px;
-  cursor: pointer;
 `;
 
 const InfoContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+`;
+
+const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -54,10 +75,12 @@ const InfoContainer = styled.div`
 `;
 
 const BankText = styled.p`
-  font-size: 14px;
+  font-size: 12px;
 `;
 
-const ProductText = styled.p``;
+const ProductText = styled.p`
+  font-size: 14px;
+`;
 
 const IconWrap = styled.div`
   display: flex;

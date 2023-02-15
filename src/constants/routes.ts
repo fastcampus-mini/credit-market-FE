@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: '/',
   SIGNUP: '/signup',
-  SIGNIN: '/login',
+  LOGIN: '/login',
   CART: '/cart',
   BUY: '/buy',
   MYPAGE: '/mypage',
@@ -10,4 +10,5 @@ export const ROUTES = {
   MYPAGE_INFO: '/info',
   PRODUCTS: '/products',
   PRODUCT_DETAIL: '/products/:id',
+  PRODUCT_BY_ID: (id: string) => `/products/${id}`,
 };
