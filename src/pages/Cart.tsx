@@ -21,10 +21,10 @@ const Cart = () => {
     navigate('/buy');
   };
 
-  const handleDelete = () => {
-    if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
-    }
-  };
+  // const handleDelete = () => {
+  //   if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
+  //   }
+  // };
 
   useEffect(() => {
     async function getData() {
@@ -59,9 +59,9 @@ const Cart = () => {
           <Input inputType="checkbox" />
           <AllCheckText>전체선택 (0/3)</AllCheckText>
         </AllCheck>
-        <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
+        {/* <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
           선택삭제
-        </Button>
+        </Button> */}
       </CheckBoxWrap>
       <CartContent>
         {Array.isArray(cart) ? (
