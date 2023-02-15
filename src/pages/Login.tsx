@@ -1,3 +1,4 @@
+import React from 'react';
 import { hideSignPage } from '@/store/signPageSlice';
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
