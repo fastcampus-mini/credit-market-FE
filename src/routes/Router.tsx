@@ -1,4 +1,5 @@
-import { createBrowserRouter, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
@@ -17,6 +18,7 @@ const Router = () => {
     <Layout>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
+        <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.CART} element={<Cart />} />
         <Route path={ROUTES.MYPAGE} element={<Mypage />} />
         <Route path={ROUTES.LOGIN} element={<Login />} />

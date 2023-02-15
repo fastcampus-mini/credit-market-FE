@@ -1,17 +1,34 @@
+import React from 'react';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from './Button';
 import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { showSignPage } from '@/store/signPageSlice';
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const homePath = location.pathname === '/';
+  const homePath = location.pathname === ROUTES.HOME;
+  const loginPath = location.pathname === ROUTES.LOGIN;
+  const signupPath = location.pathname === ROUTES.SIGNUP;
+  const dispatch = useDispatch();
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
+  };
+
+  if (loginPath || signupPath) return null;
+  const handleLogin = () => {
+    dispatch(showSignPage());
+    navigate(ROUTES.LOGIN);
+  };
+
+  const handleSignUp = () => {
+    dispatch(showSignPage());
+    navigate(ROUTES.SIGNUP);
   };
 
   return (
@@ -21,7 +38,7 @@ const Header = () => {
         <Button
           width="fit-content"
           height="fit-content"
-          onClick={() => navigate(ROUTES.LOGIN)}
+          onClick={handleLogin}
           buttonType={homePath ? 'transparent' : 'text'}
         >
           <FiLogIn />
@@ -30,7 +47,7 @@ const Header = () => {
         <Button
           width="fit-content"
           height="fit-content"
-          onClick={() => navigate(ROUTES.SIGNUP)}
+          onClick={handleSignUp}
           buttonType={homePath ? 'transparent' : 'text'}
         >
           <FaUserFriends />

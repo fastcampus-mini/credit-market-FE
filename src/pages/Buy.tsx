@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import CartItem from '@/components/Cart/CartItem';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
@@ -7,7 +8,6 @@ import { POLICIES } from '@/constants/policies';
 import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
 
 const Buy = () => {
@@ -48,12 +48,12 @@ const Buy = () => {
             <Input inputType="checkbox" classType="checkbox" onChange={handleCheck} />
             <AgreeText>필수 동의</AgreeText>
           </AgreeContainer>
-          {POLICIES.map((item) => (
+          {/* {POLICIES.map((item) => (
             <PolicyText>
               <AiOutlineCheck color={isChecked ? COLORS.secondary : ''} />
               {item}
             </PolicyText>
-          ))}
+          ))} */}
           <FinalCheckText>
             <p>본인은 대출상품에 대한 주요내용과 비용에 대한</p>
             <p>설명을 충분히 확인했습니다.</p>
