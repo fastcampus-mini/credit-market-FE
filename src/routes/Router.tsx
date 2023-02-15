@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import Home from '@/pages/Home';
 import NotFound from '@/pages/NotFound';
@@ -8,7 +8,6 @@ import Mypage from '@/pages/Mypage';
 import styled from '@emotion/styled';
 import ProductDetail from '@/pages/ProductDetail';
 import Buy from '@/pages/Buy';
-import App from '@/App';
 
 const Router = () => {
   return (
