@@ -9,12 +9,14 @@ import styled from '@emotion/styled';
 import ProductDetail from '@/pages/ProductDetail';
 import Buy from '@/pages/Buy';
 import App from '@/App';
+import Login from '@/pages/Login';
 
 const Router = () => {
   return (
     <Layout>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
+        <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.CART} element={<Cart />} />
         <Route path={ROUTES.MYPAGE} element={<Mypage />} />
         <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetail />} />
