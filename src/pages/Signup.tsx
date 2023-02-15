@@ -2,76 +2,20 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Global, css } from '@emotion/react';
 import { FiArrowLeft } from 'react-icons/fi';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import colors from '@/styles/colors';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 
-type FormValues = {
+interface FormValues {
   email: string;
   password: string;
   passwordConfirm: string;
   name: string;
   age: number;
   sex: string;
-};
-
-const SignupStyle = styled.div`
-  padding: 20px 10px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  #lottie {
-    width: 100px;
-  }
-`;
-
-const H1Style = css({
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%',
-  marginBottom: '5vh',
-});
-
-const LogoStyle = css({
-  width: '80%',
-});
-
-const ModalStyle = css`
-  text-align: center;
-  width: 15%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-`;
-
-const SignupFormStyle = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: space-between;
-  gap: 15px;
-`;
-
-const ButtonSpace = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ButtonWrapper = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+}
 
 const Signup = () => {
   const {
@@ -89,9 +33,6 @@ const Signup = () => {
     sex: '',
   });
   const onSubmit = (data: FormValues) => {
-    // await new Promise((r) => setTimeout(r, 1000));
-    // alert(JSON.stringify(data));
-    // goHome();
     setFormData(data);
     setModal2IsOpen(true);
   };
@@ -115,8 +56,9 @@ const Signup = () => {
   };
 
   const navigate = useNavigate();
-  const goHome = () => {
-    navigate('/', { state: '/signup' });
+  const location1 = useLocation();
+  const goBack = () => {
+    navigate(location1.state?.from || '/', { replace: true });
   };
 
   const goWelcome = () => {
@@ -130,12 +72,20 @@ const Signup = () => {
   };
 
   const [modal1IsOpen, setModal1IsOpen] = useState(false);
-  const [modal2IsOpen, setModal2IsOpen] = useState(false);
-  const openModal1 = () => setModal1IsOpen(true);
-  const closeModal1 = () => setModal1IsOpen(false);
+  const handleEvent = () => {
+    history.pushState(null, '', location.href);
+    setModal1IsOpen(true);
+  };
 
-  const openModal2 = () => setModal2IsOpen(true);
-  const closeModal2 = () => setModal2IsOpen(false);
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', handleEvent);
+    return () => {
+      window.removeEventListener('popstate', handleEvent);
+    };
+  }, []);
+
+  const [modal2IsOpen, setModal2IsOpen] = useState(false);
 
   return (
     <div>
@@ -152,7 +102,7 @@ const Signup = () => {
           <br />
           <ButtonSpace>
             <ButtonWrapper>
-              <button onClick={goHome}>네</button>
+              <button onClick={goBack}>네</button>
               <button onClick={() => setModal1IsOpen(false)}>아니요</button>
             </ButtonWrapper>
           </ButtonSpace>
@@ -256,7 +206,7 @@ const Signup = () => {
             <option value="female">여성</option>
           </select>
           {errors.sex && <small role="alert">{errors.sex.message}</small>}
-
+          {/* 
           <label>job</label>
           <select name="job" id="">
             <option value="job1">직업</option>
@@ -283,8 +233,8 @@ const Signup = () => {
           <select name="interest" id="">
             <option value="">선호 금리 종류</option>
             <option value="interest1">고정 금리</option>
-            <option value="interest2">변동 금리</option>
-          </select>
+            <option value="interest2">변동 금리</option> */}
+          {/* </select> */}
 
           <button type="submit" disabled={isSubmitting}>
             Submit
@@ -315,3 +265,59 @@ const Signup = () => {
 Modal.setAppElement('#root');
 
 export default Signup;
+
+const SignupStyle = styled.div`
+  padding: 20px 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  #lottie {
+    width: 100px;
+  }
+`;
+
+const H1Style = css({
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  marginBottom: '5vh',
+});
+
+const LogoStyle = css({
+  width: '80%',
+});
+
+const ModalStyle = css`
+  text-align: center;
+  width: 15%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+`;
+
+const SignupFormStyle = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 15px;
+`;
+
+const ButtonSpace = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

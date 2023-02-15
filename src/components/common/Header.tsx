@@ -21,6 +21,7 @@ const Header = () => {
   };
 
   if (loginPath || signupPath) return null;
+
   const handleLogin = () => {
     dispatch(showSignPage());
     navigate(ROUTES.LOGIN);

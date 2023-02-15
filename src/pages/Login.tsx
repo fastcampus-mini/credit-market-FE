@@ -4,20 +4,10 @@ import styled from '@emotion/styled';
 import Colors from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 
-type FormValues = {
+interface FormValues {
   email: string;
   password: string;
-};
-
-const HomeStyle = styled.div`
-  padding: 20px 10px;
-  position: relative;
-  z-index: 1;
-
-  #lottie {
-    width: 100px;
-  }
-`;
+}
 
 const Login = () => {
   const {
@@ -77,3 +67,13 @@ const Login = () => {
 };
 
 export default Login;
+
+const HomeStyle = styled.div`
+  padding: 20px 10px;
+  position: relative;
+  z-index: 1;
+
+  #lottie {
+    width: 100px;
+  }
+`;

@@ -45,7 +45,7 @@ const Buy = () => {
         </BuyItemContainer>
         <PolicyContainer>
           <AgreeContainer>
-            <Input inputType="checkbox" classType="checkbox" onChange={handleCheck} />
+            <Input inputType="checkbox" onChange={handleCheck} />
             <AgreeText>필수 동의</AgreeText>
           </AgreeContainer>
           {/* {POLICIES.map((item) => (
