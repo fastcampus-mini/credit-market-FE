@@ -1,3 +1,4 @@
+import React from 'react';
 import { css, Global } from '@emotion/react';
 import reset from 'emotion-reset';
 import COLORS from './colors';
@@ -12,6 +13,7 @@ const style = css`
   ${reset}
 
   * {
+    box-sizing: border-box;
     &::-webkit-scrollbar {
       width: 5px;
       background-color: inherit;
@@ -32,9 +34,12 @@ const style = css`
     justify-content: center;
     align-items: center;
     color: ${COLORS.mainText};
+    background: ${COLORS.secondary};
 
     #root {
-      background-color: ${COLORS.homeBackground};
+      display: flex;
+      flex-direction: column;
+      background-color: ${COLORS.background};
       border-radius: 30px;
       width: 390px;
       min-width: 390px;
