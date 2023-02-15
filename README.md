@@ -45,6 +45,40 @@
         </a>
       </td>
      </tr>
+     <tr>
+      <td align="center" width="150px">
+        <img width="100%" src="https://avatars.githubusercontent.com/u/113500771?v=4"  alt=""/>
+        <center>BE. 팀장</center>
+        <br/>
+        <a href="https://github.com/724thomas">
+          <img src="https://img.shields.io/badge/최원준-6e34bf?style=flat-round&logo=GitHub&logoColor=white"/>
+        </a>
+      </br>
+      <td align="center" width="150px">
+        <img width="100%" src="https://avatars.githubusercontent.com/u/113500815?v=4"  alt=""/>
+        <center>BE. 팀원</center>
+        <br/>
+        <a href="https://github.com/JeYeongR">
+          <img src="https://img.shields.io/badge/류제영-345ebf?style=flat-round&logo=GitHub&logoColor=white"/>
+        </a>
+      </td>
+      <td align="center" width="150px">
+        <img width="100%" src="https://avatars.githubusercontent.com/u/102227839?v=4"  alt=""/>
+        <center>BE. 팀원</center>
+        <br/>
+        <a href="https://github.com/Ryusunshine">
+          <img src="https://img.shields.io/badge/염류션-ff5e5e?style=flat-round&logo=GitHub&logoColor=white"/>
+        </a>
+      </td>
+      <td align="center" width="150px">
+        <img width="100%" src="https://avatars.githubusercontent.com/u/107986524?v=4"  alt=""/>
+        <center>BE. 팀원</center>
+        <br/>
+        <a href="https://github.com/devSojoong">
+          <img src="https://img.shields.io/badge/윤소중-34bfa6?style=flat-round&logo=GitHub&logoColor=white"/>
+        </a>
+      </td>
+     </tr>
   </tbody>
 </table>
 
