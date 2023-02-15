@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
@@ -10,11 +10,27 @@ import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
   const location = useLocation();
+  const homePath = location.pathname === ROUTES.HOME;
+  const productsPath = location.pathname === ROUTES.PRODUCTS;
+  const productsDetailPath = location.pathname === ROUTES.PRODUCT_DETAIL;
+  const cartPath = location.pathname === ROUTES.CART;
+  const buyPath = location.pathname === ROUTES.BUY;
+  const mypagePath = location.pathname === ROUTES.MYPAGE;
+  const mypageBuyPath = location.pathname === ROUTES.MYPAGE_BUY;
+  const mypageFavorPath = location.pathname === ROUTES.MYPAGE_FAVOR;
+  const mypageInfoPath = location.pathname === ROUTES.MYPAGE_INFO;
   const loginPath = location.pathname === ROUTES.LOGIN;
   const signupPath = location.pathname === ROUTES.SIGNUP;
-  const bubblePosition = (path: string, id: number, position: number, color: string) => {
-    return location.pathname === path && move(id, position, color);
-  };
+
+  useEffect(() => {
+    if (homePath || productsPath || productsDetailPath) {
+      move(1, 105, COLORS.homeBackground);
+    } else if (cartPath || buyPath) {
+      move(2, 235, COLORS.background);
+    } else if (mypagePath || mypageBuyPath || mypageFavorPath || mypageInfoPath) {
+      move(3, 365, COLORS.background);
+    }
+  }, []);
 
   if (loginPath || signupPath) return null;
 
@@ -87,26 +103,17 @@ const Navbar = () => {
               onClick={() => move(1, 105, COLORS.homeBackground)}
             >
               <Link to="/">
-                <>
-                  <AiFillHome />
-                  {bubblePosition(ROUTES.HOME, 1, 105, COLORS.homeBackground)}
-                </>
+                <AiFillHome />
               </Link>
             </div>
             <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
               <Link to="/cart">
-                <>
-                  <BsFillCartFill />
-                  {bubblePosition(ROUTES.CART, 2, 235, COLORS.background)}
-                </>
+                <BsFillCartFill />
               </Link>
             </div>
             <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
               <Link to="/mypage">
-                <>
-                  <FaUserAlt />
-                  {bubblePosition(ROUTES.MYPAGE, 3, 365, COLORS.background)}
-                </>
+                <FaUserAlt />
               </Link>
             </div>
           </div>
