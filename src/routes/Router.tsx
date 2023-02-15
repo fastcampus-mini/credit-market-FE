@@ -1,3 +1,4 @@
+import React from 'react';
 import { createBrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import Home from '@/pages/Home';

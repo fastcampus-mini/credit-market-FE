@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import CartItem from '@/components/Cart/CartItem';
 import Button from '@/components/common/Button';
 import Input from '@/components/common/Input';
@@ -7,7 +8,6 @@ import { POLICIES } from '@/constants/policies';
 import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
 
 const Buy = () => {

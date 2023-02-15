@@ -1,3 +1,4 @@
+import React from 'react';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
