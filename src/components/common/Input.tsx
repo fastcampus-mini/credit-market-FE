@@ -9,7 +9,10 @@ interface Prop {
   width?: string;
   height?: string;
   placeholder?: string;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  classType?: string;
+  ariaInvalid?: boolean;
 }
 
 const Input = ({
@@ -18,27 +21,57 @@ const Input = ({
   width = '',
   height = '',
   placeholder,
+  onClick,
   onChange,
+  classType = 'text-input',
+  ariaInvalid = true,
 }: Prop) => {
   return (
-    <StyledInputBox width={width} height={height} inputType={inputType}>
-      <input type={inputType} value={value} placeholder={placeholder} />
-      {inputType === 'text' && <BsSearch className="icon" />}
+    <StyledInputBox width={width} height={height} inputType={inputType} classType={classType}>
+      <input
+        type={inputType}
+        value={value}
+        placeholder={placeholder}
+        aria-invalid={ariaInvalid}
+        onClick={onClick}
+        onChange={onChange}
+      />
+      {classType === 'text-search' && <BsSearch className="icon" />}
     </StyledInputBox>
   );
 };
 
 export default Input;
 
-const StyledInputBox = styled.div<{ width: string; height: string; inputType: string }>`
-  ${({ inputType }) => handleInputType(inputType)};
+const StyledInputBox = styled.div<{
+  width: string;
+  height: string;
+  inputType: string;
+  classType: string;
+}>`
+  ${({ classType }) => handleInputType(classType)};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
 `;
 
-const handleInputType = (inputType: string) => {
-  switch (inputType) {
-    case 'text':
+const handleInputType = (classType: string) => {
+  switch (classType) {
+    case 'text-input':
+      return `
+        overflow: hidden;
+        background-color: ${COLORS.textInput};
+        display: flex;
+        align-items: center;
+
+        input {
+          width: 100%;
+          border: none;
+          padding: 10px 15px;
+          outline: none;
+          background: inherit;
+        }
+      `;
+    case 'text-search':
       return `
         border-radius: 50px;
         overflow: hidden;
@@ -46,7 +79,7 @@ const handleInputType = (inputType: string) => {
         display: flex;
         align-items: center;
 
-        input[type='text'] {
+        input {
           width: 100%;
           border: none;
           padding: 10px 15px;
@@ -59,6 +92,7 @@ const handleInputType = (inputType: string) => {
           color: ${COLORS.primary};
         }
       `;
+
     case 'checkbox':
       return ``;
   }

@@ -56,7 +56,7 @@ const Cart = () => {
       <PageTitle title="장바구니" />
       <CheckBoxWrap>
         <AllCheck>
-          <Input inputType="checkbox" />
+          <Input inputType="checkbox" classType="checkbox" />
           <AllCheckText>전체선택 (0/3)</AllCheckText>
         </AllCheck>
         {/* <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>

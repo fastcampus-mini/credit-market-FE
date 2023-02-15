@@ -26,7 +26,7 @@ const Home = () => {
         오늘도 즐거운 하루 보내세요!
       </p>
       <div className="panel">
-        <Input inputType="text" placeholder="검색" />
+        <Input inputType="text" placeholder="검색" classType="text-search" />
       </div>
     </StyledHome>
   );
