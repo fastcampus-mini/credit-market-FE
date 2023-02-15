@@ -10,14 +10,15 @@ import Router from './routes/Router';
 
 function App() {
   const loading = useSelector((state: IStore) => state.loading);
+  const signPage = useSelector((state: IStore) => state.signPage);
 
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Header />
+      {!signPage && <Header />}
       <Router />
       {loading && <Loading />}
-      <Navbar />
+      {!signPage && <Navbar />}
     </BrowserRouter>
   );
 }
