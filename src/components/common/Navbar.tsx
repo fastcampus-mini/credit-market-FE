@@ -1,38 +1,27 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import COLORS from '@/styles/colors';
+import locationPath from '@/constants/path';
 import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
-  const location = useLocation();
-  const homePath = location.pathname === ROUTES.HOME;
-  const productsPath = location.pathname === ROUTES.PRODUCTS;
-  const productsDetailPath = location.pathname === ROUTES.PRODUCT_DETAIL;
-  const cartPath = location.pathname === ROUTES.CART;
-  const buyPath = location.pathname === ROUTES.BUY;
-  const mypagePath = location.pathname === ROUTES.MYPAGE;
-  const mypageBuyPath = location.pathname === ROUTES.MYPAGE_BUY;
-  const mypageFavorPath = location.pathname === ROUTES.MYPAGE_FAVOR;
-  const mypageInfoPath = location.pathname === ROUTES.MYPAGE_INFO;
-  const loginPath = location.pathname === ROUTES.LOGIN;
-  const signupPath = location.pathname === ROUTES.SIGNUP;
-
   useEffect(() => {
-    if (homePath || productsPath || productsDetailPath) {
-      move(1, 105, COLORS.homeBackground);
-    } else if (cartPath || buyPath) {
-      move(2, 235, COLORS.background);
-    } else if (mypagePath || mypageBuyPath || mypageFavorPath || mypageInfoPath) {
-      move(3, 365, COLORS.background);
+    switch (location.pathname) {
+      case ROUTES.HOME || ROUTES.PRODUCTS || ROUTES.PRODUCT_DETAIL:
+        return move(1, 105, COLORS.homeBackground);
+      case ROUTES.CART || ROUTES.BUY:
+        return move(2, 235, COLORS.background);
+      case ROUTES.MYPAGE || ROUTES.MYPAGE_BUY || ROUTES.MYPAGE_FAVOR || ROUTES.MYPAGE_INFO:
+        return move(3, 365, COLORS.background);
     }
   }, []);
 
-  if (loginPath || signupPath) return null;
+  if (locationPath(ROUTES.LOGIN) || locationPath(ROUTES.SIGNUP)) return null;
 
   const move = (id: number, position: number, color: string) => {
     gsap.config({
