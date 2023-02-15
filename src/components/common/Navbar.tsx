@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
@@ -9,15 +10,19 @@ import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
   const location = useLocation();
+  const loginPath = location.pathname === ROUTES.LOGIN;
+  const signupPath = location.pathname === ROUTES.SIGNUP;
   const bubblePosition = (path: string, id: number, position: number, color: string) => {
     return location.pathname === path && move(id, position, color);
   };
+
+  if (loginPath || signupPath) return null;
 
   const move = (id: number, position: number, color: string) => {
     gsap.config({
       nullTargetWarn: false,
     });
-    var tl = gsap.timeline();
+    const tl = gsap.timeline();
     tl.to('#bgBubble', { duration: 0.15, bottom: '-30px', ease: 'ease-out' }, 0)
       .to('#bubble1', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
       .to('#bubble2', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)

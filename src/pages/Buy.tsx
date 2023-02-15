@@ -48,12 +48,12 @@ const Buy = () => {
             <Input inputType="checkbox" onChange={handleCheck} />
             <AgreeText>필수 동의</AgreeText>
           </AgreeContainer>
-          {POLICIES.map((item) => (
+          {/* {POLICIES.map((item) => (
             <PolicyText>
               <AiOutlineCheck color={isChecked ? COLORS.secondary : ''} />
               {item}
             </PolicyText>
-          ))}
+          ))} */}
           <FinalCheckText>
             <p>본인은 대출상품에 대한 주요내용과 비용에 대한</p>
             <p>설명을 충분히 확인했습니다.</p>

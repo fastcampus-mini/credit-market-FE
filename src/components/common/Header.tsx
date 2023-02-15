@@ -11,13 +11,16 @@ import { showSignPage } from '@/store/signPageSlice';
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const homePath = location.pathname === '/';
+  const homePath = location.pathname === ROUTES.HOME;
+  const loginPath = location.pathname === ROUTES.LOGIN;
+  const signupPath = location.pathname === ROUTES.SIGNUP;
   const dispatch = useDispatch();
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
+  if (loginPath || signupPath) return null;
   const handleLogin = () => {
     dispatch(showSignPage());
     navigate(ROUTES.LOGIN);
