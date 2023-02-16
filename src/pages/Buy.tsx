@@ -48,12 +48,12 @@ const Buy = () => {
             <Input inputType="checkbox" classType="checkbox" onChange={handleCheck} />
             <AgreeText>필수 동의</AgreeText>
           </AgreeContainer>
-          {/* {POLICIES.map((item) => (
-            <PolicyText>
+          {POLICIES.map((item, idx) => (
+            <PolicyText key={idx}>
               <AiOutlineCheck color={isChecked ? COLORS.secondary : ''} />
               {item}
             </PolicyText>
-          ))} */}
+          ))}
           <FinalCheckText>
             <p>본인은 대출상품에 대한 주요내용과 비용에 대한</p>
             <p>설명을 충분히 확인했습니다.</p>
@@ -61,7 +61,7 @@ const Buy = () => {
         </PolicyContainer>
       </BuyContent>
       <Button width="100%" onClick={handleClick}>
-        신청하기
+        신청완료
       </Button>
     </BuyContainer>
   );
@@ -94,10 +94,12 @@ const PolicyContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background-color: ${COLORS.white};
-  border: 1px solid ${COLORS.lightGray};
   margin: 10px 0 0;
   padding: 1rem;
+  background-color: ${COLORS.white};
+  border: 1px solid ${COLORS.lightGray};
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 `;
 
 const AgreeContainer = styled.div`
