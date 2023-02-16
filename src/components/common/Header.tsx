@@ -7,7 +7,7 @@ import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { showSignPage } from '@/store/signPageSlice';
-import locationPath from '@/constants/path';
+import isCurPath from '@/utils/path';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Header = () => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
-  if (locationPath(ROUTES.LOGIN) || locationPath(ROUTES.SIGNUP)) return null;
+  if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
   const handleLogin = () => {
     dispatch(showSignPage());
     navigate(ROUTES.LOGIN);
@@ -30,13 +30,13 @@ const Header = () => {
 
   return (
     <StyledHeader className="headerInner">
-      <Link to="/">{locationPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
+      <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
           width="fit-content"
           height="fit-content"
           onClick={handleLogin}
-          buttonType={locationPath(ROUTES.HOME) ? 'transparent' : 'text'}
+          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
         >
           <FiLogIn />
           <span>LOGIN</span>
@@ -45,7 +45,7 @@ const Header = () => {
           width="fit-content"
           height="fit-content"
           onClick={handleSignUp}
-          buttonType={locationPath(ROUTES.HOME) ? 'transparent' : 'text'}
+          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
         >
           <FaUserFriends />
           <span>JOIN</span>

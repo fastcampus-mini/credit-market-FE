@@ -6,7 +6,7 @@ import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import COLORS from '@/styles/colors';
-import locationPath from '@/constants/path';
+import isCurPath from '@/utils/path';
 import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
@@ -21,7 +21,7 @@ const Navbar = () => {
     }
   }, []);
 
-  if (locationPath(ROUTES.LOGIN) || locationPath(ROUTES.SIGNUP)) return null;
+  if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
 
   const move = (id: number, position: number, color: string) => {
     gsap.config({
