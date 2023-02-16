@@ -88,6 +88,7 @@ const CheckBoxWrap = styled.div`
   padding-bottom: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-right: 6px;
 `;
 

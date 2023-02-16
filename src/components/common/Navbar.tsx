@@ -12,12 +12,20 @@ import { ROUTES } from '@/constants/routes';
 const Navbar = () => {
   useEffect(() => {
     switch (location.pathname) {
-      case ROUTES.HOME || ROUTES.PRODUCTS || ROUTES.PRODUCT_DETAIL:
+      case ROUTES.HOME:
+      case ROUTES.PRODUCTS:
+      case ROUTES.PRODUCT_DETAIL:
         return move(1, 105, COLORS.homeBackground);
-      case ROUTES.CART || ROUTES.BUY:
+      case ROUTES.CART:
+      case ROUTES.BUY:
         return move(2, 235, COLORS.background);
-      case ROUTES.MYPAGE || ROUTES.MYPAGE_BUY || ROUTES.MYPAGE_FAVOR || ROUTES.MYPAGE_INFO:
+      case ROUTES.MYPAGE:
+      case ROUTES.MYPAGE_BUY:
+      case ROUTES.MYPAGE_FAVOR:
+      case ROUTES.MYPAGE_INFO:
         return move(3, 365, COLORS.background);
+      default:
+        break;
     }
   }, []);
 
