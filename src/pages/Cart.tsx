@@ -21,10 +21,10 @@ const Cart = () => {
     navigate('/buy');
   };
 
-  // const handleDelete = () => {
-  //   if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
-  //   }
-  // };
+  const handleDelete = () => {
+    if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
+    }
+  };
 
   useEffect(() => {
     async function getData() {
@@ -57,11 +57,11 @@ const Cart = () => {
       <CheckBoxWrap>
         <AllCheck>
           <Input inputType="checkbox" classType="checkbox" />
-          <AllCheckText>전체선택 (0/3)</AllCheckText>
+          <AllCheckText htmlFor="AllCheck">전체선택 (0/3)</AllCheckText>
         </AllCheck>
-        {/* <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
+        <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
           선택삭제
-        </Button> */}
+        </Button>
       </CheckBoxWrap>
       <CartContent>
         {Array.isArray(cart) ? (
@@ -80,8 +80,7 @@ const Cart = () => {
 export default Cart;
 
 const CartContainer = styled.div`
-  /* color: ${({ color }) => color}; */
-  /* background-color: ${COLORS.black}; */
+  height: 100%;
   padding: 0 10px;
 `;
 
@@ -97,16 +96,16 @@ const AllCheck = styled.div`
   gap: 6px;
 `;
 
-const AllCheckText = styled.span`
+const AllCheckText = styled.label`
   font-size: 14px;
   color: ${COLORS.secondary};
 `;
 
-const CartContent = styled.div`
+const CartContent = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  height: calc(90vh - 301px);
+  gap: 5px;
+  height: calc(100% - 180px);
   margin-bottom: 10px;
   overflow-y: auto;
 `;

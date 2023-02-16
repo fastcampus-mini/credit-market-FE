@@ -1,27 +1,23 @@
 import React from 'react';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
 import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { showSignPage } from '@/store/signPageSlice';
+import isCurPath from '@/utils/path';
 
 const Header = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const homePath = location.pathname === ROUTES.HOME;
-  const loginPath = location.pathname === ROUTES.LOGIN;
-  const signupPath = location.pathname === ROUTES.SIGNUP;
   const dispatch = useDispatch();
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
-  if (loginPath || signupPath) return null;
-
+  if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
   const handleLogin = () => {
     dispatch(showSignPage());
     navigate(ROUTES.LOGIN);
@@ -34,13 +30,13 @@ const Header = () => {
 
   return (
     <StyledHeader className="headerInner">
-      <Link to="/">{homePath ? logoImage('white') : logoImage('Main')}</Link>
+      <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
       <div className="buttons">
         <Button
           width="fit-content"
           height="fit-content"
           onClick={handleLogin}
-          buttonType={homePath ? 'transparent' : 'text'}
+          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
         >
           <FiLogIn />
           <span>LOGIN</span>
@@ -49,7 +45,7 @@ const Header = () => {
           width="fit-content"
           height="fit-content"
           onClick={handleSignUp}
-          buttonType={homePath ? 'transparent' : 'text'}
+          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
         >
           <FaUserFriends />
           <span>JOIN</span>

@@ -62,7 +62,6 @@ const handleInputType = (classType: string) => {
     case 'text-input':
       return `
         overflow: hidden;
-        background-color: ${COLORS.textInput};
         display: flex;
         align-items: center;
 
@@ -71,7 +70,7 @@ const handleInputType = (classType: string) => {
           border: none;
           padding: 10px 15px;
           outline: none;
-          background: inherit;
+          background: ${COLORS.textInput};
         }
       `;
     case 'text-search':
