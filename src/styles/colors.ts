@@ -8,7 +8,7 @@ const COLORS = {
   mainText: '#333',
   homeBackground: '#4831d4',
   background: '#f9fbff',
-  checkbox: '#4831d4',
+  checkbox: '#262e80',
   scrollbar: '#b1b1b1',
   textInput: '#D0DAEC',
 };

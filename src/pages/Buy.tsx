@@ -83,7 +83,7 @@ const BuyContent = styled.div`
   overflow-y: auto;
 `;
 
-const BuyItemContainer = styled.div`
+const BuyItemContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;

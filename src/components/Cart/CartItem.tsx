@@ -48,7 +48,7 @@ const CartItem = ({ data, isCheckBox }: Prop) => {
 
 export default CartItem;
 
-const CartItemContainer = styled.div`
+const CartItemContainer = styled.li`
   border: 1px solid ${COLORS.lightGray};
   padding: 0.6rem;
   display: flex;

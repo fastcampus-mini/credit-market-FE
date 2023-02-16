@@ -102,7 +102,7 @@ const AllCheckText = styled.span`
   color: ${COLORS.secondary};
 `;
 
-const CartContent = styled.div`
+const CartContent = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
