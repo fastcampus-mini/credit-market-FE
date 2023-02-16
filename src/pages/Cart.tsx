@@ -106,7 +106,7 @@ const CartContent = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  height: calc(100% - 180px);
+  height: calc(100% - 185px);
   margin-bottom: 10px;
   overflow-y: auto;
 `;
