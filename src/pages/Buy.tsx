@@ -87,7 +87,7 @@ const BuyContent = styled.div`
 const BuyItemContainer = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 `;
 
 const PolicyContainer = styled.div`
