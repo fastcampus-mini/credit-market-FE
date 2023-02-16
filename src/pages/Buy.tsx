@@ -73,17 +73,18 @@ const BuyContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 10px;
+  height: 100%;
 `;
 
 const BuyContent = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(90vh - 265px);
+  height: calc(100% - 149px);
   margin-bottom: 10px;
   overflow-y: auto;
 `;
 
-const BuyItemContainer = styled.div`
+const BuyItemContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;

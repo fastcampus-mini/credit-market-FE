@@ -25,9 +25,9 @@ const Home = () => {
         <br />
         오늘도 즐거운 하루 보내세요!
       </p>
-      <div className="panel">
+      {/* <div className="panel">
         <Input inputType="text" placeholder="검색" classType="text-search" />
-      </div>
+      </div> */}
     </StyledHome>
   );
 };
@@ -67,7 +67,7 @@ const StyledHome = styled.div`
 
   .panel {
     position: absolute;
-    z-index: -1;
+    // z-index: -1;
     width: 100%;
     left: 0;
     height: calc(90vh - 239px);

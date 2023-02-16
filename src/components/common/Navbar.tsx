@@ -57,11 +57,7 @@ const Navbar = () => {
         0,
       )
       .to('#bg', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0)
-      .to(
-        '#bgBubble',
-        { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
-        0,
-      );
+      .to('#bgBubble', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0);
   };
 
   return (
@@ -92,7 +88,10 @@ const Navbar = () => {
               onClick={() => move(1, 105, COLORS.homeBackground)}
             >
               <Link to="/">
-                <AiFillHome />
+                <>
+                  <AiFillHome />
+                  {isCurPath(ROUTES.HOME) && move(1, 105, COLORS.homeBackground)}
+                </>
               </Link>
             </div>
             <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
@@ -134,7 +133,10 @@ export default Navbar;
 
 const StyledNavbar = styled.nav`
   width: 100%;
+  height: 100%;
   overflow: hidden;
+  position: absolute;
+  bottom: 0;
 
   #navbar {
     width: 100%;
@@ -142,7 +144,7 @@ const StyledNavbar = styled.nav`
     background-color: ${COLORS.white};
     position: absolute;
     bottom: 0;
-    z-index: 9;
+    // z-index: 9;
   }
 
   #bubbleWrapper {
@@ -198,7 +200,7 @@ const StyledNavbar = styled.nav`
 
   #bgBubble {
     position: absolute;
-    background-color: ${COLORS.background};
+    background-color: ${COLORS.homeBackground};
     width: 75px;
     height: 75px;
     border-radius: 50%;

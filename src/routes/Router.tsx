@@ -37,5 +37,6 @@ export default Router;
 const Layout = styled.div`
   position: relative;
   z-index: 1;
+  height: calc(100% - 115px);
   // padding: 0 10px;
 `;
