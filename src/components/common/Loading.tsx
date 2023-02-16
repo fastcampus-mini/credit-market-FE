@@ -1,7 +1,12 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import { IStore } from '@/interfaces/store';
+import { useSelector } from 'react-redux';
+import styled from '@emotion/styled';
 
 const Loading = () => {
+  const loading = useSelector((state: IStore) => state.loading);
+  if (loading === false) return null;
+
   return (
     <StyledLoading>
       <iframe src="https://embed.lottiefiles.com/animation/97952"></iframe>
