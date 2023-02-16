@@ -9,17 +9,17 @@ const Mypage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function getData() {
-      try {
-        dispatch(showLoading());
-        const data = await getMypageItemList();
-      } catch (error) {
-        alert(MESSAGES.ERROR_MYPAGE);
-      } finally {
-        dispatch(hideLoading());
-      }
-    }
-    getData();
+    // // async function getData() {
+    // //   try {
+    // //     dispatch(showLoading());
+    // //     const data = await getMypageItemList();
+    // //   } catch (error) {
+    // //     alert(MESSAGES.ERROR_MYPAGE);
+    // //   } finally {
+    // //     dispatch(hideLoading());
+    // //   }
+    // // }
+    // getData();
   }, []);
 
   return <StyledMypage>Mypage</StyledMypage>;
