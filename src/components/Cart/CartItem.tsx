@@ -49,11 +49,11 @@ const CartItem = ({ data, isCheckBox }: Prop) => {
 export default CartItem;
 
 const CartItemContainer = styled.li`
-  border: 1px solid ${COLORS.lightGray};
   padding: 0.6rem;
   display: flex;
   justify-content: space-between;
   background-color: ${COLORS.white};
+  border: 1px solid ${COLORS.lightGray};
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 `;
