@@ -54,6 +54,8 @@ const CartItemContainer = styled.li`
   display: flex;
   justify-content: space-between;
   background-color: ${COLORS.white};
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 `;
 
 const CartItemWrap = styled.div`

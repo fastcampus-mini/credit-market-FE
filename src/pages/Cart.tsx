@@ -105,7 +105,7 @@ const AllCheckText = styled.span`
 const CartContent = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   height: calc(90vh - 301px);
   margin-bottom: 10px;
   overflow-y: auto;
