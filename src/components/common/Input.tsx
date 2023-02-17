@@ -13,6 +13,7 @@ interface Prop {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   classType?: string;
   ariaInvalid?: boolean;
+  register?: {};
 }
 
 const Input = ({
@@ -25,6 +26,7 @@ const Input = ({
   onChange,
   classType = 'text-input',
   ariaInvalid = true,
+  register = {},
 }: Prop) => {
   return (
     <StyledInputBox width={width} height={height} inputType={inputType} classType={classType}>
@@ -35,6 +37,7 @@ const Input = ({
         aria-invalid={ariaInvalid}
         onClick={onClick}
         onChange={onChange}
+        {...register}
       />
       {classType === 'text-search' && <BsSearch className="icon" />}
     </StyledInputBox>
@@ -67,9 +70,23 @@ const handleInputType = (classType: string) => {
           border: none;
           padding: 10px 15px;
           outline: none;
-          background: inherit;
+          background: ${COLORS.textInput};
         }
       `;
+    case 'text-input-white':
+      return `
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+  
+          input {
+            width: 100%;
+            border: none;
+            padding: 10px 15px;
+            outline: none;
+            background: ${COLORS.white};
+          }
+        `;
     case 'text-search':
       return `
         border-radius: 50px;

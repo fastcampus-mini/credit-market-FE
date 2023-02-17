@@ -12,20 +12,41 @@ import Login from '@/pages/Login';
 import Signup from '@/pages/Signup';
 import Welcome from '@/pages/Welcome';
 import App from '@/App';
+import PrivateRoute from './PrivateRoute';
 
 const Router = () => {
   return (
     <Layout>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
-        <Route path={ROUTES.LOGIN} element={<Login />} />
-        <Route path={ROUTES.CART} element={<Cart />} />
-        <Route path={ROUTES.MYPAGE} element={<Mypage />} />
-        <Route path={ROUTES.LOGIN} element={<Login />} />
-        <Route path={ROUTES.SIGNUP} element={<Signup />} />
         <Route path={ROUTES.SIGNUP + '/welcome'} element={<Welcome />} />
+        <Route path={ROUTES.SIGNUP} element={<Signup />} />
+        <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetail />} />
-        <Route path={ROUTES.BUY} element={<Buy />} />
+        <Route
+          path={ROUTES.CART}
+          element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={ROUTES.BUY}
+          element={
+            <PrivateRoute>
+              <Buy />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={ROUTES.MYPAGE}
+          element={
+            <PrivateRoute>
+              <Mypage />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

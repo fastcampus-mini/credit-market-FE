@@ -6,7 +6,6 @@ import Button from './Button';
 import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { showSignPage } from '@/store/signPageSlice';
 import isCurPath from '@/utils/path';
 
 const Header = () => {
@@ -18,15 +17,6 @@ const Header = () => {
   };
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
-  const handleLogin = () => {
-    dispatch(showSignPage());
-    navigate(ROUTES.LOGIN);
-  };
-
-  const handleSignUp = () => {
-    dispatch(showSignPage());
-    navigate(ROUTES.SIGNUP);
-  };
 
   return (
     <StyledHeader className="headerInner">
@@ -35,7 +25,7 @@ const Header = () => {
         <Button
           width="fit-content"
           height="fit-content"
-          onClick={handleLogin}
+          onClick={() => navigate(ROUTES.LOGIN)}
           buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
         >
           <FiLogIn />
@@ -44,7 +34,7 @@ const Header = () => {
         <Button
           width="fit-content"
           height="fit-content"
-          onClick={handleSignUp}
+          onClick={() => navigate(ROUTES.SIGNUP)}
           buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
         >
           <FaUserFriends />

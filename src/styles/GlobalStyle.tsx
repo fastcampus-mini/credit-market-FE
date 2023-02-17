@@ -34,7 +34,7 @@ const style = css`
     justify-content: center;
     align-items: center;
     color: ${COLORS.mainText};
-    background: #e8e8e8;
+    background: ${COLORS.bodyBackground};
 
     #root {
       display: flex;

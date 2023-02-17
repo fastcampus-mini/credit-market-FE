@@ -10,6 +10,8 @@ interface Props {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   color?: string;
   children: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset' | undefined;
+  fontWeight?: number;
 }
 
 const Button = ({
@@ -20,6 +22,8 @@ const Button = ({
   onClick,
   color = '',
   children,
+  type = 'button',
+  fontWeight = 400,
 }: Props) => {
   return (
     <StyledButton
@@ -29,6 +33,8 @@ const Button = ({
       disabled={isDisabled}
       color={color}
       onClick={onClick}
+      type={type}
+      fontWeight={fontWeight}
     >
       {children}
     </StyledButton>
@@ -42,11 +48,13 @@ export const StyledButton = styled.button<{
   width: string;
   height: string;
   color: string;
+  fontWeight: number;
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)};
   width: ${({ width }) => width};
   height: ${({ height }) => height}px;
   color: ${({ color }) => color};
+  font-weight: ${({ fontWeight }) => fontWeight};
   border-radius: 30px;
   text-align: center;
   cursor: pointer;
@@ -92,6 +100,11 @@ const handleButtonType = (buttonType: string) => {
       return `
         color: ${COLORS.secondary};
         background-color: transparent;
+      `;
+    case 'secondary':
+      return `
+        color: ${COLORS.white};
+        background-color: ${COLORS.secondary};
       `;
     default:
       return `

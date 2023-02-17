@@ -12,12 +12,20 @@ import { ROUTES } from '@/constants/routes';
 const Navbar = () => {
   useEffect(() => {
     switch (location.pathname) {
-      case ROUTES.HOME || ROUTES.PRODUCTS || ROUTES.PRODUCT_DETAIL:
+      case ROUTES.HOME:
+      case ROUTES.PRODUCTS:
+      case ROUTES.PRODUCT_DETAIL:
         return move(1, 105, COLORS.homeBackground);
-      case ROUTES.CART || ROUTES.BUY:
+      case ROUTES.CART:
+      case ROUTES.BUY:
         return move(2, 235, COLORS.background);
-      case ROUTES.MYPAGE || ROUTES.MYPAGE_BUY || ROUTES.MYPAGE_FAVOR || ROUTES.MYPAGE_INFO:
+      case ROUTES.MYPAGE:
+      case ROUTES.MYPAGE_BUY:
+      case ROUTES.MYPAGE_FAVOR:
+      case ROUTES.MYPAGE_INFO:
         return move(3, 365, COLORS.background);
+      default:
+        break;
     }
   }, []);
 
@@ -57,7 +65,11 @@ const Navbar = () => {
         0,
       )
       .to('#bg', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0)
-      .to('#bgBubble', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0);
+      .to(
+        '#bgBubble',
+        { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
+        0,
+      );
   };
 
   return (
@@ -109,6 +121,7 @@ const Navbar = () => {
         <div id="bgWrapper">
           <div id="bg"></div>
           <div id="bgBubble"></div>
+          <div id="abc"></div>
         </div>
       </div>
       <svg width="0" height="0">
@@ -153,6 +166,15 @@ const StyledNavbar = styled.nav`
     justify-content: space-around;
     width: 100%;
     bottom: 25px;
+  }
+
+  #abc {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: red;
+    background: ${COLORS.background};
   }
 
   .bubble {
