@@ -66,7 +66,7 @@ const Navbar = () => {
       )
       .to('#bg', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0)
       .to(
-        '#bgBubble',
+        '#bgBubble, #bgBubbleWrap',
         { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
         0,
       );
@@ -121,7 +121,7 @@ const Navbar = () => {
         <div id="bgWrapper">
           <div id="bg"></div>
           <div id="bgBubble"></div>
-          <div id="abc"></div>
+          <div id="bgBubbleWrap"></div>
         </div>
       </div>
       <svg width="0" height="0">
@@ -168,12 +168,11 @@ const StyledNavbar = styled.nav`
     bottom: 25px;
   }
 
-  #abc {
+  #bgBubbleWrap {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 50px;
-    background: red;
     background: ${COLORS.background};
   }
 
@@ -222,7 +221,7 @@ const StyledNavbar = styled.nav`
 
   #bgBubble {
     position: absolute;
-    background-color: ${COLORS.homeBackground};
+    background-color: ${COLORS.background};
     width: 75px;
     height: 75px;
     border-radius: 50%;
