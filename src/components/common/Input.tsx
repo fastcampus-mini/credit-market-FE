@@ -42,7 +42,7 @@ const Input = ({
         checked={checked}
         {...register}
       />
-      {classType === 'text-search' && <BsSearch className="icon" />}
+      {classType === 'text-search' && <BsSearch className="searchIcon" />}
     </StyledInputBox>
   );
 };
@@ -106,7 +106,7 @@ const handleInputType = (classType: string) => {
           background: inherit;
         }
 
-        .icon {
+        .searchIcon {
           width: 50px;
           color: ${COLORS.primary};
         }
