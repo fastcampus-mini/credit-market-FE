@@ -23,6 +23,12 @@ const Login = () => {
   const onSubmit = async (data: FormValues) => {
     await new Promise((r) => setTimeout(r, 1000));
     alert(JSON.stringify(data));
+    // try {
+    //   const response = await axios.post('/api/login', data);
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
     goHome();
   };
 
