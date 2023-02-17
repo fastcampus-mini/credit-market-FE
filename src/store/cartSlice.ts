@@ -8,7 +8,7 @@ const cart = createSlice({
     addCart(state, action) {
       let id = state.findIndex((obj: ICart) => obj.id === action.payload.id);
       if (id === -1) {
-        state.push(action.payload);
+        // state.push(action.payload);
       } else {
         return alert('이미 장바구니에 담은 상품입니다.');
       }
