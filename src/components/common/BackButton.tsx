@@ -23,13 +23,13 @@ const BackButtonStyle = css`
   position: relative;
   left: 0.5vw;
   top: 2vh;
-  background-color: ${COLORS.white};
+  background-color: transparent;
   border: none;
   cursor: pointer;
 `;
 
 const MypageButtonStyle = css`
-  background-color: ${COLORS.white};
+  background-color: transparent;
   border: none;
   cursor: pointer;
 `;
