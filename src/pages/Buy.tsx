@@ -60,7 +60,7 @@ const Buy = () => {
           </FinalCheckText>
         </PolicyContainer>
       </BuyContent>
-      <Button width="100%" onClick={handleClick}>
+      <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청완료
       </Button>
     </BuyContainer>
@@ -72,7 +72,7 @@ export default Buy;
 const BuyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
+  padding: 0 0 0 10px;
   height: 100%;
 `;
 
@@ -82,6 +82,7 @@ const BuyContent = styled.div`
   height: calc(100% - 149px);
   margin-bottom: 10px;
   overflow-y: auto;
+  padding-right: 10px;
 `;
 
 const BuyItemContainer = styled.ul`

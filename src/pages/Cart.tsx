@@ -70,7 +70,7 @@ const Cart = () => {
           <div>담으신 상품이 없습니다.</div>
         )}
       </CartContent>
-      <Button width="100%" onClick={handleClick}>
+      <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청하기
       </Button>
     </CartContainer>
@@ -81,7 +81,7 @@ export default Cart;
 
 const CartContainer = styled.div`
   height: 100%;
-  padding: 0 10px;
+  padding: 0 0 0 10px;
 `;
 
 const CheckBoxWrap = styled.div`
@@ -89,7 +89,7 @@ const CheckBoxWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 6px;
+  padding-right: 10px;
 `;
 
 const AllCheck = styled.div`
@@ -109,4 +109,5 @@ const CartContent = styled.ul`
   height: calc(100% - 185px);
   margin-bottom: 10px;
   overflow-y: auto;
+  padding-right: 10px;
 `;
