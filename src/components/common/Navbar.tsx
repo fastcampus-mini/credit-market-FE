@@ -102,18 +102,32 @@ const Navbar = () => {
               <Link to="/">
                 <>
                   <AiFillHome />
-                  {isCurPath(ROUTES.HOME) && move(1, 105, COLORS.homeBackground)}
+                  {(isCurPath(ROUTES.HOME) ||
+                    isCurPath(ROUTES.PRODUCTS) ||
+                    isCurPath(ROUTES.PRODUCT_DETAIL)) &&
+                    move(1, 105, COLORS.homeBackground)}
                 </>
               </Link>
             </div>
             <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
               <Link to="/cart">
-                <BsFillCartFill />
+                <>
+                  <BsFillCartFill />
+                  {(isCurPath(ROUTES.CART) || isCurPath(ROUTES.BUY)) &&
+                    move(2, 235, COLORS.background)}
+                </>
               </Link>
             </div>
             <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
               <Link to="/mypage">
-                <FaUserAlt />
+                <>
+                  <FaUserAlt />
+                  {(isCurPath(ROUTES.MYPAGE) ||
+                    isCurPath(ROUTES.MYPAGE_BUY) ||
+                    isCurPath(ROUTES.MYPAGE_FAVOR) ||
+                    isCurPath(ROUTES.MYPAGE_INFO)) &&
+                    move(3, 365, COLORS.background)}
+                </>
               </Link>
             </div>
           </div>
