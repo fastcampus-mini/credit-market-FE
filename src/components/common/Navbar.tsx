@@ -65,7 +65,11 @@ const Navbar = () => {
         0,
       )
       .to('#bg', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0)
-      .to('#bgBubble', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0);
+      .to(
+        '#bgBubble',
+        { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
+        0,
+      );
   };
 
   return (
@@ -117,6 +121,7 @@ const Navbar = () => {
         <div id="bgWrapper">
           <div id="bg"></div>
           <div id="bgBubble"></div>
+          <div id="abc"></div>
         </div>
       </div>
       <svg width="0" height="0">
@@ -161,6 +166,15 @@ const StyledNavbar = styled.nav`
     justify-content: space-around;
     width: 100%;
     bottom: 25px;
+  }
+
+  #abc {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: red;
+    background: ${COLORS.background};
   }
 
   .bubble {
