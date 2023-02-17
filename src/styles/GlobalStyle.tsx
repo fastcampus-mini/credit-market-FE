@@ -63,6 +63,10 @@ const style = css`
         text-decoration: none;
       }
 
+      input {
+        cursor: pointer;
+      }
+
       input[type='checkbox'] {
         display: flex;
         align-self: center;
@@ -70,7 +74,6 @@ const style = css`
         width: 15px;
         height: 15px;
         margin: 0;
-        cursor: pointer;
       }
 
       .selectBox {

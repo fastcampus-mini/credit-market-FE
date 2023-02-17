@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled';
 import PageTitle from '@/components/common/PageTitle';
 import Input from '@/components/common/Input';
@@ -9,7 +9,12 @@ const Search = () => {
       <PageTitle title="검색" />
       <div className="searchArea">
         <form action="">
-          <Input inputType="text" placeholder="검색어를 임력해 주세요." classType="text-search" />
+          <Input
+            inputType="text"
+            placeholder="검색어를 임력해 주세요."
+            classType="text-search"
+            autoFocus
+          />
           <div className="selectBox">
             <select name="" id="">
               <option value="">대출종류</option>
