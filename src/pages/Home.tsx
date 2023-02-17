@@ -6,7 +6,7 @@ import Input from '@/components/common/Input';
 
 const Home = () => {
   return (
-    <StyledHome className="homeInner">
+    <StyledHome>
       <Player
         className="welcome"
         autoplay
@@ -25,9 +25,9 @@ const Home = () => {
         <br />
         오늘도 즐거운 하루 보내세요!
       </p>
-      {/* <div className="panel">
+      <div className="panel">
         <Input inputType="text" placeholder="검색" classType="text-search" />
-      </div> */}
+      </div>
     </StyledHome>
   );
 };
@@ -36,6 +36,7 @@ export default Home;
 
 const StyledHome = styled.div`
   position: relative;
+  height: 100%;
   padding: 50px 0 0 10px;
 
   .welcome {
@@ -67,15 +68,13 @@ const StyledHome = styled.div`
 
   .panel {
     position: absolute;
-    // z-index: -1;
     width: 100%;
+    height: calc(100% - 182px);
     left: 0;
-    height: calc(90vh - 239px);
-    min-height: calc(90vh - 239px);
     border-radius: 15px 15px 0 0;
-    box-shadow: 0 -10px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.5);
     background: ${COLORS.background};
-    padding: 20px 10px 100px;
+    padding: 20px 10px;
     overflow-y: auto;
   }
 `;

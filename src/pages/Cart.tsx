@@ -88,6 +88,7 @@ const CheckBoxWrap = styled.div`
   padding-bottom: 1rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-right: 6px;
 `;
 
@@ -105,7 +106,7 @@ const CartContent = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  height: calc(100% - 180px);
+  height: calc(100% - 185px);
   margin-bottom: 10px;
   overflow-y: auto;
 `;
