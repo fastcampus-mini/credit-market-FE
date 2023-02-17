@@ -60,6 +60,7 @@ const style = css`
 
       a {
         color: inherit;
+        text-decoration: none;
       }
 
       input[type='checkbox'] {
