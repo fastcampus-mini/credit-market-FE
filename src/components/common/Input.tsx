@@ -76,6 +76,20 @@ const handleInputType = (classType: string) => {
           background: ${COLORS.textInput};
         }
       `;
+    case 'text-input-white':
+      return `
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+  
+          input {
+            width: 100%;
+            border: none;
+            padding: 10px 15px;
+            outline: none;
+            background: ${COLORS.white};
+          }
+        `;
     case 'text-search':
       return `
         border-radius: 50px;

@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
+import BackButton from '@/components/common/BackButton';
 
 interface FormValues {
   email: string;
@@ -97,10 +98,8 @@ const Signup = () => {
   const [modal2IsOpen, setModal2IsOpen] = useState(false);
 
   return (
-    <>
-      <button onClick={() => setModal1IsOpen(true)}>
-        <FiArrowLeft />
-      </button>
+    <SignForm>
+      <BackButton onClick={() => setModal1IsOpen(true)} size={25} />
       <Modal css={ModalStyle} isOpen={modal1IsOpen} onRequestClose={() => setModal1IsOpen(false)}>
         <h2 style={{ color: 'red' }}>주의!</h2>
         <br />
@@ -311,7 +310,7 @@ const Signup = () => {
               </small>
             )}
 
-            <Button type="submit" isDisabled={isSubmitting}>
+            <Button type="submit" isDisabled={isSubmitting} height="40">
               Submit
             </Button>
 
@@ -334,7 +333,7 @@ const Signup = () => {
           </SignupFormStyle>
         </SignupStyle>
       </FormContainer>
-    </>
+    </SignForm>
   );
 };
 
@@ -342,8 +341,12 @@ Modal.setAppElement('#root');
 
 export default Signup;
 
+export const SignForm = styled.div`
+  padding: 35px 5px;
+`;
+
 const SignupStyle = styled.div`
-  padding: 20px 10px;
+  padding: 30px 10px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -412,10 +415,9 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
 const FormContainer = styled.div`
   display: flex;
   overflow: scroll;
   height: 87vh;
-  padding: 15px 40px 15px;
+  padding: 20px 40px;
 `;
