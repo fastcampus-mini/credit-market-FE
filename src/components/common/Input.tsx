@@ -11,6 +11,7 @@ interface Prop {
   placeholder?: string;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  checked?: boolean;
   classType?: string;
   ariaInvalid?: boolean;
   register?: {};
@@ -24,6 +25,7 @@ const Input = ({
   placeholder,
   onClick,
   onChange,
+  checked,
   classType = 'text-input',
   ariaInvalid = true,
   register = {},
@@ -37,6 +39,7 @@ const Input = ({
         aria-invalid={ariaInvalid}
         onClick={onClick}
         onChange={onChange}
+        checked={checked}
         {...register}
       />
       {classType === 'text-search' && <BsSearch className="icon" />}
