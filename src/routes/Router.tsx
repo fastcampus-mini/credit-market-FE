@@ -13,6 +13,9 @@ import Signup from '@/pages/Signup';
 import Welcome from '@/pages/Welcome';
 import App from '@/App';
 import PrivateRoute from './PrivateRoute';
+import MyInfo from '@/pages/MyInfo';
+import MyFavor from '@/pages/MyFavor';
+import MyBuy from '@/pages/MyBuy';
 
 const Router = () => {
   return (
@@ -44,6 +47,30 @@ const Router = () => {
           element={
             <PrivateRoute>
               <Mypage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={ROUTES.MYPAGE_BUY}
+          element={
+            <PrivateRoute>
+              <MyBuy />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={ROUTES.MYPAGE_FAVOR}
+          element={
+            <PrivateRoute>
+              <MyFavor />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={ROUTES.MYPAGE_INFO}
+          element={
+            <PrivateRoute>
+              <MyInfo />
             </PrivateRoute>
           }
         />
