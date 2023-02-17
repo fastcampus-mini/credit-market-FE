@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import COLORS from '@/styles/colors';
+import isCurPath from '@/utils/path';
 import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
-  const location = useLocation();
-  const loginPath = location.pathname === ROUTES.LOGIN;
-  const signupPath = location.pathname === ROUTES.SIGNUP;
-  const bubblePosition = (path: string, id: number, position: number, color: string) => {
-    return location.pathname === path && move(id, position, color);
-  };
+  useEffect(() => {
+    switch (location.pathname) {
+      case ROUTES.HOME || ROUTES.PRODUCTS || ROUTES.PRODUCT_DETAIL:
+        return move(1, 105, COLORS.homeBackground);
+      case ROUTES.CART || ROUTES.BUY:
+        return move(2, 235, COLORS.background);
+      case ROUTES.MYPAGE || ROUTES.MYPAGE_BUY || ROUTES.MYPAGE_FAVOR || ROUTES.MYPAGE_INFO:
+        return move(3, 365, COLORS.background);
+    }
+  }, []);
 
-  if (loginPath || signupPath) return null;
+  if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
 
   const move = (id: number, position: number, color: string) => {
     gsap.config({
@@ -52,11 +57,7 @@ const Navbar = () => {
         0,
       )
       .to('#bg', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0)
-      .to(
-        '#bgBubble',
-        { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
-        0,
-      );
+      .to('#bgBubble', { duration: 0.3, backgroundColor: color, ease: 'ease-in-out' }, 0);
   };
 
   return (
@@ -89,24 +90,18 @@ const Navbar = () => {
               <Link to="/">
                 <>
                   <AiFillHome />
-                  {bubblePosition(ROUTES.HOME, 1, 105, COLORS.homeBackground)}
+                  {isCurPath(ROUTES.HOME) && move(1, 105, COLORS.homeBackground)}
                 </>
               </Link>
             </div>
             <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
               <Link to="/cart">
-                <>
-                  <BsFillCartFill />
-                  {bubblePosition(ROUTES.CART, 2, 235, COLORS.background)}
-                </>
+                <BsFillCartFill />
               </Link>
             </div>
             <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
               <Link to="/mypage">
-                <>
-                  <FaUserAlt />
-                  {bubblePosition(ROUTES.MYPAGE, 3, 365, COLORS.background)}
-                </>
+                <FaUserAlt />
               </Link>
             </div>
           </div>
@@ -138,7 +133,10 @@ export default Navbar;
 
 const StyledNavbar = styled.nav`
   width: 100%;
+  height: 100%;
   overflow: hidden;
+  position: absolute;
+  bottom: 0;
 
   #navbar {
     width: 100%;
@@ -146,7 +144,7 @@ const StyledNavbar = styled.nav`
     background-color: ${COLORS.white};
     position: absolute;
     bottom: 0;
-    z-index: 9;
+    // z-index: 9;
   }
 
   #bubbleWrapper {
@@ -202,7 +200,7 @@ const StyledNavbar = styled.nav`
 
   #bgBubble {
     position: absolute;
-    background-color: ${COLORS.background};
+    background-color: ${COLORS.homeBackground};
     width: 75px;
     height: 75px;
     border-radius: 50%;
