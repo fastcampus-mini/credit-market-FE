@@ -110,13 +110,13 @@ const StyledHome = styled.div`
     box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.5);
     background: ${COLORS.background};
     padding: 20px 0 0 10px;
-    overflow-y: auto;
+    // overflow-y: auto;
 
     .productsArea {
       height: calc(100% - 79px);
       margin-top: 10px;
       padding-right: 10px;
-      overflow-y: auto;
+      // overflow-y: auto;
     }
   }
 `;

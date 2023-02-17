@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import PageTitle from '@/components/common/PageTitle';
 import Input from '@/components/common/Input';
