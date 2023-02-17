@@ -16,15 +16,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const [cart, setCart] = useState<ICart[]>([]);
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/buy');
-  };
-
-  const handleDelete = () => {
-    if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
-    }
-  };
+  const [checkId, setCheckId] = useState<string[]>([]);
 
   useEffect(() => {
     async function getData() {
@@ -51,13 +43,48 @@ const Cart = () => {
     }
     getData();
   }, []);
+
+  const handleClick = () => {
+    navigate('/buy');
+  };
+
+  const handleDelete = () => {
+    if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
+    }
+  };
+
+  const handleCheck = (checked: HTMLInputElement['checked'], id: string) => {
+    if (checked) {
+      setCheckId((prev) => [...prev, id]);
+    } else {
+      setCheckId(checkId.filter((checkedId) => checkedId !== id));
+    }
+  };
+
+  const handleAllCheck: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    if (event.target.checked) {
+      const idArray: Array<string> = [];
+      cart.forEach((item) => idArray.push(item.id));
+      setCheckId(idArray);
+    } else {
+      setCheckId([]);
+    }
+  };
+
   return (
     <CartContainer>
       <PageTitle title="장바구니" />
       <CheckBoxWrap>
         <AllCheck>
-          <Input inputType="checkbox" classType="checkbox" />
-          <AllCheckText htmlFor="AllCheck">전체선택 (0/3)</AllCheckText>
+          <Input
+            inputType="checkbox"
+            classType="checkbox"
+            onChange={handleAllCheck}
+            checked={checkId.length === cart.length ? true : false}
+          />
+          <AllCheckText htmlFor="AllCheck">
+            전체선택 ({checkId.length}/{cart.length})
+          </AllCheckText>
         </AllCheck>
         <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
           선택삭제
@@ -65,7 +92,15 @@ const Cart = () => {
       </CheckBoxWrap>
       <CartContent>
         {Array.isArray(cart) ? (
-          cart.map((item) => <CartItem key={item.id} data={item} isCheckBox={true} />)
+          cart.map((item) => (
+            <CartItem
+              key={item.id}
+              data={item}
+              isCheckBox={true}
+              handleCheck={handleCheck}
+              checkId={checkId}
+            />
+          ))
         ) : (
           <div>담으신 상품이 없습니다.</div>
         )}

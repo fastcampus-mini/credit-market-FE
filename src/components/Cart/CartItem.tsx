@@ -9,20 +9,28 @@ import Button from '../common/Button';
 import Image from '../common/Image';
 import Input from '../common/Input';
 
-interface Prop {
+interface Props {
   data: ICart;
   isCheckBox?: boolean;
+  handleCheck?(checked: HTMLInputElement['checked'], id: string): void;
+  checkId?: Array<string>;
 }
 
-const CartItem = ({ data, isCheckBox }: Prop) => {
+const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
   const navigate = useNavigate();
-  const handleLike = () => {};
+  const handleFavor = () => {};
   const handleDelete = () => {};
 
   return (
     <CartItemContainer>
       <CartItemWrap>
-        {isCheckBox && <Input inputType="checkbox" />}
+        {isCheckBox && (
+          <Input
+            inputType="checkbox"
+            checked={checkId!.includes(data.id) ? true : false}
+            onChange={(e) => handleCheck!(e.target.checked, data.id)}
+          />
+        )}
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
           <Image src="/images/test-cat.jpg" width="50" height="50" />
           <TextContainer>
@@ -34,7 +42,7 @@ const CartItem = ({ data, isCheckBox }: Prop) => {
       {isCheckBox && (
         <IconWrap>
           {/* <AiFillHeart /> */}
-          <Button buttonType="text" width="fit-content" height="16" onClick={handleLike}>
+          <Button buttonType="text" width="fit-content" height="16" onClick={handleFavor}>
             <AiOutlineHeart />
           </Button>
           <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
