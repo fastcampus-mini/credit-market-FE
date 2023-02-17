@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
@@ -10,7 +10,9 @@ import isCurPath from '@/utils/path';
 import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
+  const location = useLocation();
   useEffect(() => {
+    // 새로고침 초기화 방지
     switch (location.pathname) {
       case ROUTES.HOME:
       case ROUTES.PRODUCTS:
@@ -18,6 +20,7 @@ const Navbar = () => {
         return move(1, 105, COLORS.homeBackground);
       case ROUTES.CART:
       case ROUTES.BUY:
+      case ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]):
         return move(2, 235, COLORS.background);
       case ROUTES.MYPAGE:
       case ROUTES.MYPAGE_BUY:
@@ -27,9 +30,7 @@ const Navbar = () => {
       default:
         break;
     }
-  }, []);
-
-  if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
+  }, [location]);
 
   const move = (id: number, position: number, color: string) => {
     gsap.config({
@@ -72,6 +73,8 @@ const Navbar = () => {
       );
   };
 
+  if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
+
   return (
     <StyledNavbar className="navInner">
       <div id="navbarContainer">
@@ -100,34 +103,17 @@ const Navbar = () => {
               onClick={() => move(1, 105, COLORS.homeBackground)}
             >
               <Link to="/">
-                <>
-                  <AiFillHome />
-                  {(isCurPath(ROUTES.HOME) ||
-                    isCurPath(ROUTES.PRODUCTS) ||
-                    isCurPath(ROUTES.PRODUCT_DETAIL)) &&
-                    move(1, 105, COLORS.homeBackground)}
-                </>
+                <AiFillHome />
               </Link>
             </div>
             <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
               <Link to="/cart">
-                <>
-                  <BsFillCartFill />
-                  {(isCurPath(ROUTES.CART) || isCurPath(ROUTES.BUY)) &&
-                    move(2, 235, COLORS.background)}
-                </>
+                <BsFillCartFill />
               </Link>
             </div>
             <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
               <Link to="/mypage">
-                <>
-                  <FaUserAlt />
-                  {(isCurPath(ROUTES.MYPAGE) ||
-                    isCurPath(ROUTES.MYPAGE_BUY) ||
-                    isCurPath(ROUTES.MYPAGE_FAVOR) ||
-                    isCurPath(ROUTES.MYPAGE_INFO)) &&
-                    move(3, 365, COLORS.background)}
-                </>
+                <FaUserAlt />
               </Link>
             </div>
           </div>
