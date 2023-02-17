@@ -76,7 +76,7 @@ const ProductDetail = () => {
           </DescBox>
         </ProductDesc>
       </ProductContent>
-      <Button width="100%" onClick={handleClick}>
+      <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청하기
       </Button>
     </ProductContainer>
@@ -86,7 +86,7 @@ const ProductDetail = () => {
 export default ProductDetail;
 
 const ProductContainer = styled.div`
-  padding: 0 10px;
+  padding: 0 0 0 10px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -96,6 +96,7 @@ const ProductContent = styled.div`
   overflow-y: auto;
   height: calc(100% - 149px);
   margin-bottom: 10px;
+  padding-right: 10px;
 `;
 
 const ProductTitle = styled.div`
