@@ -27,7 +27,7 @@ const Home = () => {
       </p>
 
       <div className="panel">
-        <Input inputType="text" placeholder="검색" classType="text-search" />
+        <Input inputType="text" placeholder="검색어를 임력해 주세요." classType="text-search" />
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae, suscipit dicta dignissimos
         molestias sed maxime quia temporibus a quaerat animi voluptas quasi iusto libero saepe
         obcaecati est. Voluptate, earum odio! Eius sint vero in non suscipit dolorem dolore

@@ -5,12 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
 import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
 import isCurPath from '@/utils/path';
 
 const Header = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
