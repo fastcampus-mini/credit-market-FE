@@ -10,6 +10,7 @@ interface Props {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   color?: string;
   children: React.ReactNode;
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 const Button = ({
@@ -20,6 +21,7 @@ const Button = ({
   onClick,
   color = '',
   children,
+  type = 'button',
 }: Props) => {
   return (
     <StyledButton
@@ -29,6 +31,7 @@ const Button = ({
       disabled={isDisabled}
       color={color}
       onClick={onClick}
+      type={type}
     >
       {children}
     </StyledButton>
