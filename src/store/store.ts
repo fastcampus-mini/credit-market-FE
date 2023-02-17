@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import signPage from './signPageSlice';
+import cart from './cartSlice';
 import loading from './loadingSlice';
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     loading: loading.reducer,
-    signPage: signPage.reducer,
+    cart: cart.reducer,
   },
 });
+
+export default store;
