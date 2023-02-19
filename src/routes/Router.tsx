@@ -11,6 +11,7 @@ import Buy from '@/pages/Buy';
 import Login from '@/pages/Login';
 import Signup from '@/pages/Signup';
 import Welcome from '@/pages/Welcome';
+import Search from '@/pages/Search';
 import App from '@/App';
 import PrivateRoute from './PrivateRoute';
 import MyInfo from '@/pages/MyInfo';
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path={ROUTES.SIGNUP + '/welcome'} element={<Welcome />} />
         <Route path={ROUTES.SIGNUP} element={<Signup />} />
         <Route path={ROUTES.LOGIN} element={<Login />} />
+        <Route path={ROUTES.SEARCH} element={<Search />} />
         <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetail />} />
         <Route
           path={ROUTES.CART}

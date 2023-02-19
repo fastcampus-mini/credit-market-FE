@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
+import { RiSearchLine } from 'react-icons/ri';
 import COLORS from '@/styles/colors';
 import isCurPath from '@/utils/path';
 import { ROUTES } from '@/constants/routes';
@@ -17,16 +18,18 @@ const Navbar = () => {
       case ROUTES.HOME:
       case ROUTES.PRODUCTS:
       case ROUTES.PRODUCT_DETAIL:
-        return move(1, 105, COLORS.homeBackground);
+        return move(1, 50, COLORS.homeBackground);
+      case ROUTES.SEARCH:
+        return move(2, 147, COLORS.background);
       case ROUTES.CART:
       case ROUTES.BUY:
       case ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]):
-        return move(2, 235, COLORS.background);
+        return move(3, 244, COLORS.background);
       case ROUTES.MYPAGE:
       case ROUTES.MYPAGE_BUY:
       case ROUTES.MYPAGE_FAVOR:
       case ROUTES.MYPAGE_INFO:
-        return move(3, 365, COLORS.background);
+        return move(4, 341, COLORS.background);
       default:
         break;
     }
@@ -41,6 +44,7 @@ const Navbar = () => {
       .to('#bubble1', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
       .to('#bubble2', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
       .to('#bubble3', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
+      .to('#bubble4', { duration: 0.1, y: '120%', boxShadow: 'none', ease: 'ease-out' }, 0)
       .to('.icon', { duration: 0.05, opacity: 0, ease: 'ease-out' }, 0)
       .to('#bgBubble', { duration: 0.2, left: `${position}px`, ease: 'ease-in-out' }, 0.1)
       .to('#bgBubble', { duration: 0.15, bottom: '-50px', ease: 'ease-out' }, '-=0.2')
@@ -76,7 +80,7 @@ const Navbar = () => {
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
 
   return (
-    <StyledNavbar className="navInner">
+    <StyledNavbar>
       <div id="navbarContainer">
         <div id="navbar">
           <div id="bubbleWrapper">
@@ -87,31 +91,37 @@ const Navbar = () => {
             </div>
             <div id="bubble2" className="bubble">
               <span className="icon">
-                <BsFillCartFill />
+                <RiSearchLine />
               </span>
             </div>
             <div id="bubble3" className="bubble">
+              <span className="icon">
+                <BsFillCartFill />
+              </span>
+            </div>
+            <div id="bubble4" className="bubble">
               <span className="icon">
                 <FaUserAlt />
               </span>
             </div>
           </div>
           <div id="menuWrapper">
-            <div
-              id="menu1"
-              className="menuElement"
-              onClick={() => move(1, 105, COLORS.homeBackground)}
-            >
+            <div id="menu1" className="menuElement">
               <Link to="/">
                 <AiFillHome />
               </Link>
             </div>
-            <div id="menu2" className="menuElement" onClick={() => move(2, 235, COLORS.background)}>
+            <div id="menu2" className="menuElement">
+              <Link to="/search">
+                <RiSearchLine />
+              </Link>
+            </div>
+            <div id="menu3" className="menuElement">
               <Link to="/cart">
                 <BsFillCartFill />
               </Link>
             </div>
-            <div id="menu3" className="menuElement" onClick={() => move(3, 365, COLORS.background)}>
+            <div id="menu4" className="menuElement">
               <Link to="/mypage">
                 <FaUserAlt />
               </Link>
@@ -171,15 +181,16 @@ const StyledNavbar = styled.nav`
   #bgBubbleWrap {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: -50px;
+    width: calc(100% + 50px);
     height: 50px;
     background: ${COLORS.background};
   }
 
   .bubble {
     background-color: ${COLORS.white};
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     bottom: 85px;
     border-radius: 50%;
     z-index: 10;
@@ -203,30 +214,30 @@ const StyledNavbar = styled.nav`
 
   #bgWrapper {
     filter: url(#goo);
-    width: 120%;
+    width: 100%;
     height: 100%;
-    margin-left: -10%;
     position: absolute;
-    bottom: 58px;
+    bottom: 60px;
   }
 
   #bg {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 120%;
     height: 100%;
+    margin-left: -10%;
     background-color: ${COLORS.homeBackground};
   }
 
   #bgBubble {
     position: absolute;
     background-color: ${COLORS.background};
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     bottom: -50px;
-    left: 105px;
+    left: 50px;
     transform: translateX(-50%);
   }
 

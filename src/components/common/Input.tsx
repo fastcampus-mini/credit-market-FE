@@ -15,6 +15,7 @@ interface Prop {
   classType?: string;
   ariaInvalid?: boolean;
   register?: {};
+  autoFocus?: boolean;
 }
 
 const Input = ({
@@ -29,6 +30,7 @@ const Input = ({
   classType = 'text-input',
   ariaInvalid = true,
   register = {},
+  autoFocus = false,
 }: Prop) => {
   return (
     <StyledInputBox width={width} height={height} inputType={inputType} classType={classType}>
@@ -41,8 +43,9 @@ const Input = ({
         onChange={onChange}
         checked={checked}
         {...register}
+        autoFocus={autoFocus}
       />
-      {classType === 'text-search' && <BsSearch className="icon" />}
+      {classType === 'text-search' && <BsSearch className="searchIcon" />}
     </StyledInputBox>
   );
 };
@@ -106,7 +109,7 @@ const handleInputType = (classType: string) => {
           background: inherit;
         }
 
-        .icon {
+        .searchIcon {
           width: 50px;
           color: ${COLORS.primary};
         }
