@@ -55,7 +55,9 @@ const style = css`
       max-height: 844px;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
-      overflow: hidden;
+      // overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       color: ${COLORS.mainText};
 
       iframe {
