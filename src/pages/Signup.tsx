@@ -282,7 +282,7 @@ const Signup = () => {
                 {errors.interest.message}
               </small>
             )}
-            <Button type="submit" isDisabled={isSubmitting} height="40">
+            <Button type="submit" isDisabled={isSubmitting} height="50px" width="100%">
               Submit
             </Button>
           </SignupFormStyle>
