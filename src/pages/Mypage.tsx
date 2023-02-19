@@ -96,6 +96,7 @@ const MypageMenu = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  z-index: 10;
 `;
 
 const MenuItem = styled.li`
