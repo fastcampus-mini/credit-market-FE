@@ -36,6 +36,14 @@ const style = css`
     color: ${COLORS.mainText};
     background: ${COLORS.bodyBackground};
 
+    .ReactModalPortal {
+      z-index: 50;
+    }
+
+    .ReactModal__Overlay {
+      z-index: 50;
+    }
+
     #root {
       display: flex;
       flex-direction: column;
