@@ -6,7 +6,7 @@ import Input from '@/components/common/Input';
 const Search = () => {
   return (
     <StyledSearch>
-      <PageTitle title="검색" />
+      <PageTitle title="상품 검색" />
       <div className="searchArea">
         <form action="">
           <Input
