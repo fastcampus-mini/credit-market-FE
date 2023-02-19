@@ -16,6 +16,9 @@ interface Prop {
   ariaInvalid?: boolean;
   register?: {};
   autoFocus?: boolean;
+  id?: string;
+  top?: string;
+  right?: string;
 }
 
 const Input = ({
@@ -31,9 +34,19 @@ const Input = ({
   ariaInvalid = true,
   register = {},
   autoFocus = false,
+  id,
+  top = '',
+  right = '',
 }: Prop) => {
   return (
-    <StyledInputBox width={width} height={height} inputType={inputType} classType={classType}>
+    <StyledInputBox
+      width={width}
+      height={height}
+      inputType={inputType}
+      classType={classType}
+      top={top}
+      right={right}
+    >
       <input
         type={inputType}
         value={value}
@@ -44,8 +57,10 @@ const Input = ({
         checked={checked}
         {...register}
         autoFocus={autoFocus}
+        id={id}
       />
       {classType === 'text-search' && <BsSearch className="searchIcon" />}
+      {classType === 'heartBtn' && <label htmlFor={id} title="찜하기"></label>}
     </StyledInputBox>
   );
 };
@@ -55,12 +70,16 @@ export default Input;
 const StyledInputBox = styled.div<{
   width: string;
   height: string;
+  top: string;
+  right: string;
   inputType: string;
   classType: string;
 }>`
   ${({ classType }) => handleInputType(classType)};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  top: ${({ top }) => top};
+  right: ${({ right }) => right};
 `;
 
 const handleInputType = (classType: string) => {
@@ -115,7 +134,47 @@ const handleInputType = (classType: string) => {
         }
       `;
 
-    case 'checkbox':
-      return ``;
+    case 'heartBtn':
+      return `
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+    
+        /*      CHECKBOX         */
+    
+        input[type='checkbox'] {
+          display: none !important;
+        }
+    
+        input[type='checkbox'] + label {
+          position: relative;
+          padding-left: 35px;
+          display: inline-block;
+          font-size: 16px;
+          cursor: pointer;
+        }
+    
+        input[type='checkbox'] + label:before {
+          content: '🤍';
+          border: 1px solid transparent;
+          border-radius: 3px;
+          display: block;
+          position: absolute;
+          transition: 0.5s ease;
+        }
+    
+        input[type='checkbox']:checked + label:before {
+          border: 1px solid transparent;
+          background-color: transparent;
+        }
+    
+        input[type='checkbox']:checked + label:after {
+          content: '❤️';
+          font-size: 18px;
+          position: absolute;
+          transition: 0.5s ease;
+        }
+      `;
   }
 };

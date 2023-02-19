@@ -42,9 +42,13 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
       {isCheckBox && (
         <IconWrap>
           {/* <AiFillHeart /> */}
-          <Button buttonType="text" width="fit-content" height="16" onClick={handleFavor}>
-            <AiOutlineHeart />
-          </Button>
+          <Input
+            classType="heartBtn"
+            inputType="checkbox"
+            id={data.id}
+            right="60px"
+            top="calc(50% - 0.6rem)"
+          />
           <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
             <AiOutlineClose />
           </Button>
@@ -64,6 +68,7 @@ const CartItemContainer = styled.li`
   border: 1px solid ${COLORS.lightGray};
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
 `;
 
 const CartItemWrap = styled.div`

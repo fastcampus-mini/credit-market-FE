@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import Input from './Input';
 
 interface Prop {
   data: { id: string; title: string; bank: string };
@@ -50,10 +51,7 @@ const ProductCard = ({
           자세히 보기
         </Button>
       </div>
-      <div className="heartCheck">
-        <input type="checkbox" id={data.id} />
-        <label htmlFor={data.id} title="찜하기"></label>
-      </div>
+      <Input classType="heartBtn" inputType="checkbox" id={data.id} top="15px" right="35px" />
     </StyledProductCard>
   );
 };
@@ -106,50 +104,6 @@ const StyledProductCard = styled.li`
           margin-top: 5px;
         }
       }
-    }
-  }
-
-  .heartCheck {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 15px;
-    right: 35px;
-
-    /*      CHECKBOX         */
-
-    input[type='checkbox'] {
-      display: none !important;
-    }
-
-    input[type='checkbox'] + label {
-      position: relative;
-      padding-left: 35px;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    input[type='checkbox'] + label:before {
-      content: '🤍';
-      border: 1px solid transparent;
-      border-radius: 3px;
-      display: block;
-      position: absolute;
-      transition: 0.5s ease;
-    }
-
-    input[type='checkbox']:checked + label:before {
-      border: 1px solid transparent;
-      background-color: transparent;
-    }
-
-    input[type='checkbox']:checked + label:after {
-      content: '❤️';
-      font-size: 18px;
-      position: absolute;
-      transition: 0.5s ease;
     }
   }
 `;

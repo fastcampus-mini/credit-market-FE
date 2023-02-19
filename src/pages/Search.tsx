@@ -105,5 +105,8 @@ const StyledSearch = styled.div`
     height: calc(100% - 170px);
     padding-right: 10px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 `;
