@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
+import ModalBox from '@/components/common/ModalBox';
 
 interface FormValues {
   email: string;
@@ -24,6 +25,11 @@ interface FormValues {
 }
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const location1 = useLocation();
+  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -42,50 +48,9 @@ const Signup = () => {
     credit: 0,
     interest: '',
   });
-  const onSubmit = (data: FormValues) => {
-    setFormData(data);
-    setModal2IsOpen(true);
-  };
-
-  const validateSelectOption = (value: string) => {
-    if (value === '') {
-      return 'Please select an option';
-    } else {
-      return true;
-    }
-  };
-
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
-
-  const modalSubmitHandler = async () => {
-    await new Promise((r) => setTimeout(r, 1000));
-    alert(JSON.stringify(FormData));
-    goWelcome();
-  };
-
-  const navigate = useNavigate();
-  const location1 = useLocation();
-  const goBack = () => {
-    navigate(location1.state?.from || '/', { replace: true });
-  };
-
-  const goWelcome = () => {
-    navigate('/signup/welcome', { state: '/signup' });
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
-  const [modal1IsOpen, setModal1IsOpen] = useState(false);
-  const handleEvent = () => {
-    history.pushState(null, '', location.href);
-    setModal1IsOpen(true);
-  };
 
   useEffect(() => {
     history.pushState(null, '', location.href);
@@ -95,35 +60,43 @@ const Signup = () => {
     };
   }, []);
 
-  const [modal2IsOpen, setModal2IsOpen] = useState(false);
+  const onSubmit = (data: FormValues) => {
+    setFormData(data);
+    setIsSubmitModalOpen(true);
+  };
+
+  const validateSelectOption = (value: string) => {
+    return value === '' ? 'Please select an option' : true;
+  };
+
+  const modalSubmitHandler = async () => {
+    await new Promise((r) => setTimeout(r, 1000));
+    alert(JSON.stringify(FormData));
+    goWelcome();
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
+  const handleEvent = () => {
+    history.pushState(null, '', location.href);
+    setIsBackModalOpen(true);
+  };
+
+  const goBack = () => {
+    navigate(location1.state?.from || '/', { replace: true });
+  };
+
+  const goWelcome = () => {
+    navigate('/signup/welcome', { state: '/signup' });
+  };
 
   return (
     <SignForm>
-      <BackButton onClick={() => setModal1IsOpen(true)} size={25} />
-      <Modal css={ModalStyle} isOpen={modal1IsOpen} onRequestClose={() => setModal1IsOpen(false)}>
-        <h2 style={{ color: 'red' }}>주의!</h2>
-        <br />
-        <p>정말 회원가입을 중단하고 홈으로 이동하실 건가요?</p>
-        <br />
-        <p>데이터는 보존되지 않습니다.</p>
-        <br />
-        <ButtonSpace>
-          <ButtonWrapper>
-            <button onClick={goBack}>네</button>
-            <button onClick={() => setModal1IsOpen(false)}>아니요</button>
-          </ButtonWrapper>
-        </ButtonSpace>
-      </Modal>
-      <Global
-        styles={css`
-          .ReactModalPortal {
-            z-index: 999;
-          }
-          .ReactModal__Overlay {
-            z-index: 999;
-          }
-        `}
-      />
+      <BackButton onClick={() => setIsBackModalOpen(true)} size={25} />
       <FormContainer>
         <SignupStyle>
           <div className="title">
@@ -309,30 +282,25 @@ const Signup = () => {
                 {errors.interest.message}
               </small>
             )}
-
             <Button type="submit" isDisabled={isSubmitting} height="40">
               Submit
             </Button>
-
-            <Modal
-              css={ModalStyle}
-              isOpen={modal2IsOpen}
-              onRequestClose={() => setModal2IsOpen(false)}
-            >
-              <h2 style={{ color: 'red' }}>Submit</h2>
-              <br />
-              <p>정말 제출하시겠어요?</p>
-              <br />
-              <ButtonSpace>
-                <ButtonWrapper>
-                  <button onClick={modalSubmitHandler}>네</button>
-                  <button onClick={() => setModal2IsOpen(false)}>아니요</button>
-                </ButtonWrapper>
-              </ButtonSpace>
-            </Modal>
           </SignupFormStyle>
         </SignupStyle>
       </FormContainer>
+
+      <ModalBox
+        isOpen={isBackModalOpen}
+        text={'메인 화면으로 이동하시겠습니까?\n입력하신 정보는 삭제됩니다.'}
+        onClickOk={goBack}
+        onClickCancel={setIsBackModalOpen}
+      />
+      <ModalBox
+        isOpen={isSubmitModalOpen}
+        text={'회원가입을 완료하시겠습니까?'}
+        onClickOk={modalSubmitHandler}
+        onClickCancel={setIsSubmitModalOpen}
+      />
     </SignForm>
   );
 };
@@ -367,20 +335,6 @@ const LogoStyle = css({
   width: '80%',
 });
 
-const ModalStyle = css`
-  text-align: center;
-  width: 15%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-`;
-
 const SelectStyle = css`
   background-color: ${COLORS.textInput};
   display: flex;
@@ -403,21 +357,9 @@ const SignupFormStyle = styled.form`
   gap: 15px;
 `;
 
-const ButtonSpace = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ButtonWrapper = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 const FormContainer = styled.div`
   display: flex;
   overflow: scroll;
-  height: 87vh;
+  height: 80vh;
   padding: 20px 40px;
 `;
