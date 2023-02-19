@@ -5,6 +5,8 @@ import COLORS from '@/styles/colors';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import PageTitle from '@/components/common/PageTitle';
+import { BsCartCheck, BsPerson } from 'react-icons/bs';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 const Mypage = () => {
   return (
@@ -21,13 +23,22 @@ const Mypage = () => {
         </ProfileContainer>
         <MypageMenu>
           <Link to={ROUTES.MYPAGE_BUY}>
-            <MenuItem>신청 상품</MenuItem>
+            <MenuItem>
+              <BsCartCheck size="20" />
+              <span>신청 상품</span>
+            </MenuItem>
           </Link>
           <Link to={ROUTES.MYPAGE_FAVOR}>
-            <MenuItem>관심 상품</MenuItem>
+            <MenuItem>
+              <AiOutlineHeart size="20" />
+              <span>관심 상품</span>
+            </MenuItem>
           </Link>
           <Link to={ROUTES.MYPAGE_INFO}>
-            <MenuItem>개인정보 수정</MenuItem>
+            <MenuItem>
+              <BsPerson size="20" />
+              <span>개인정보 수정</span>
+            </MenuItem>
           </Link>
         </MypageMenu>
       </MypageWrap>
@@ -47,7 +58,7 @@ const TitleWrap = styled.div`
 `;
 
 const BackgroundWrap = styled.div`
-  background-color: ${COLORS.homeBackground};
+  background-image: url('/images/mypage_background.png');
   height: 200px;
 `;
 
@@ -81,9 +92,20 @@ const UserDesc = styled.p`
 
 const MypageMenu = styled.ul`
   margin-top: 180px;
-  font-size: 18px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const MenuItem = styled.li`
   padding: 20px 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 20px;
+  background-color: ${COLORS.white};
+  border: 1px solid ${COLORS.lightGray};
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 `;

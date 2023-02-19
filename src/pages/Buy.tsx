@@ -34,7 +34,7 @@ const Buy = () => {
 
   return (
     <BuyContainer>
-      <PageTitle title="신청하기" />
+      <PageTitle title="상품 신청" />
       <BuyContent>
         <BuyItemContainer>
           {Array.isArray(cart) ? (
