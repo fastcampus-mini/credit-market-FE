@@ -9,10 +9,12 @@ import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { AiOutlineCheck } from 'react-icons/ai';
+import ModalBox from '@/components/common/ModalBox';
 
 const Buy = () => {
   const [cart, setCart] = useState<ICart[]>([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const data: ICart[] = [
@@ -29,12 +31,12 @@ const Buy = () => {
   };
 
   const handleClick = () => {
-    if (!isChecked) return alert(MESSAGES.CHECK_POLICY);
+    if (!isChecked) return setIsModalOpen(true);
   };
 
   return (
     <BuyContainer>
-      <PageTitle title="신청하기" />
+      <PageTitle title="상품 신청" />
       <BuyContent>
         <BuyItemContainer>
           {Array.isArray(cart) ? (
@@ -63,6 +65,11 @@ const Buy = () => {
       <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청완료
       </Button>
+      <ModalBox
+        isOpen={isModalOpen}
+        onClickOk={() => setIsModalOpen(false)}
+        text={MESSAGES.CHECK_POLICY}
+      />
     </BuyContainer>
   );
 };

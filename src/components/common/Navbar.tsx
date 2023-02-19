@@ -31,7 +31,7 @@ const Navbar = () => {
       case ROUTES.MYPAGE_INFO:
         return move(4, 341, COLORS.background);
       default:
-        break;
+        return move(1, 50, COLORS.background);
     }
   }, [location]);
 
