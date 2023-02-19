@@ -27,16 +27,28 @@ const Home = () => {
         오늘도 즐거운 하루 보내세요!
       </p>
 
-      <div className="panel">
+      <div id="panel">
         <Link to="/search">
           <Input
             inputType="text"
             width="calc(100% - 10px)"
-            placeholder="검색어를 임력해 주세요."
+            placeholder="검색어를 입력해 주세요."
             classType="text-search"
           />
         </Link>
         <ul className="productsArea">
+          <li>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores repellendus nemo
+            similique facere reiciendis id earum dicta repudiandae commodi? Quibusdam, nesciunt
+            veritatis ducimus dolorum, quidem perspiciatis quasi aspernatur corporis optio
+            accusantium cupiditate dolorem ex facere animi exercitationem, earum beatae nostrum
+            provident adipisci incidunt! Velit, exercitationem consectetur itaque repellat quod
+            vitae debitis harum ea est distinctio soluta fugiat dolor commodi quas minus. Unde enim
+            maxime reprehenderit aut ducimus eum assumenda hic nostrum dolorum excepturi possimus
+            expedita velit quod ratione illum rem repudiandae, pariatur voluptates molestias tempore
+            aspernatur debitis quisquam explicabo dolore. Earum natus voluptatibus dolores veritatis
+            inventore dolorum nam, quasi suscipit.
+          </li>
           <li>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores repellendus nemo
             similique facere reiciendis id earum dicta repudiandae commodi? Quibusdam, nesciunt
@@ -101,7 +113,7 @@ const StyledHome = styled.div`
     position: relative;
   }
 
-  .panel {
+  #panel {
     position: absolute;
     width: 100%;
     height: calc(100% - 182px);
@@ -110,13 +122,13 @@ const StyledHome = styled.div`
     box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.5);
     background: ${COLORS.background};
     padding: 20px 0 0 10px;
-    // overflow-y: auto;
+    overflow-y: auto;
 
     .productsArea {
       height: calc(100% - 79px);
       margin-top: 10px;
       padding-right: 10px;
-      // overflow-y: auto;
+      overflow-y: auto;
     }
   }
 `;

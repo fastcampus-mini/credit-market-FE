@@ -11,7 +11,7 @@ const Search = () => {
         <form action="">
           <Input
             inputType="text"
-            placeholder="검색어를 임력해 주세요."
+            placeholder="검색어를 입력해 주세요."
             classType="text-search"
             autoFocus
           />
