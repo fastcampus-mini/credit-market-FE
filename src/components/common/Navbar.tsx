@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,24 +6,37 @@ import { AiFillHome } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import { RiSearchLine } from 'react-icons/ri';
+import { BiDetail } from 'react-icons/bi';
 import COLORS from '@/styles/colors';
 import isCurPath from '@/utils/path';
 import { ROUTES } from '@/constants/routes';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { MESSAGES } from '@/constants/messages';
+import { useDispatch } from 'react-redux';
+
+interface Prop {
+  id: string;
+  title: string;
+  bank: string;
+}
 
 const Navbar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState<Prop[]>([]);
+
   useEffect(() => {
     // 새로고침 초기화 방지
     switch (location.pathname) {
       case ROUTES.HOME:
       case ROUTES.PRODUCTS:
-      case ROUTES.PRODUCT_DETAIL:
         return move(1, 50, COLORS.homeBackground);
+      case ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]):
+        return move(1, 50, COLORS.background);
       case ROUTES.SEARCH:
         return move(2, 147, COLORS.background);
       case ROUTES.CART:
       case ROUTES.BUY:
-      case ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]):
         return move(3, 244, COLORS.background);
       case ROUTES.MYPAGE:
       case ROUTES.MYPAGE_BUY:
@@ -35,7 +48,31 @@ const Navbar = () => {
     }
   }, [location]);
 
-  const move = (id: number, position: number, color: string) => {
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        dispatch(showLoading());
+        const data: Prop[] = [
+          { id: '1', title: '직장인 신용대출', bank: '우리' },
+          { id: '2', title: '주부 신용대출', bank: '국민' },
+          { id: '3', title: '고양이 신용대출', bank: '신한' },
+          { id: '4', title: '주부 신용대출', bank: '국민' },
+          { id: '5', title: '직장인 신용대출', bank: '우리' },
+          { id: '6', title: '주부 신용대출', bank: '신한' },
+          { id: '7', title: '고양이 신용대출', bank: '국민' },
+          { id: '8', title: '대학생 신용대출', bank: '제주' },
+        ];
+        setProducts(data);
+      } catch (error) {
+        alert(MESSAGES.ERROR_PRODUCT.GET_DETAIL);
+      } finally {
+        dispatch(hideLoading());
+      }
+    }
+    getProducts();
+  }, []);
+
+  function move(id: number, position: number, color: string) {
     gsap.config({
       nullTargetWarn: false,
     });
@@ -75,7 +112,7 @@ const Navbar = () => {
         { duration: 0.3, backgroundColor: COLORS.background, ease: 'ease-in-out' },
         0,
       );
-  };
+  }
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
 
@@ -86,7 +123,11 @@ const Navbar = () => {
           <div id="bubbleWrapper">
             <div id="bubble1" className="bubble">
               <span className="icon">
-                <AiFillHome />
+                {isCurPath(ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2])) ? (
+                  <BiDetail />
+                ) : (
+                  <AiFillHome />
+                )}
               </span>
             </div>
             <div id="bubble2" className="bubble">
@@ -108,7 +149,11 @@ const Navbar = () => {
           <div id="menuWrapper">
             <div id="menu1" className="menuElement">
               <Link to="/">
-                <AiFillHome />
+                {isCurPath(ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2])) ? (
+                  <BiDetail />
+                ) : (
+                  <AiFillHome />
+                )}
               </Link>
             </div>
             <div id="menu2" className="menuElement">
