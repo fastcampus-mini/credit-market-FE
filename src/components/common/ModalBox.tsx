@@ -7,7 +7,7 @@ interface Props {
   isOpen: any;
   text: string;
   onClickOk: any;
-  onClickCancel: any;
+  onClickCancel?: any;
 }
 
 const ModalBox = ({ isOpen, text, onClickOk, onClickCancel }: Props) => {
@@ -35,9 +35,16 @@ const ModalBox = ({ isOpen, text, onClickOk, onClickCancel }: Props) => {
         <Button buttonType="blue" width="80px" height="34px" onClick={onClickOk}>
           확인
         </Button>
-        <Button buttonType="white" width="80px" height="34px" onClick={() => onClickCancel(false)}>
-          취소
-        </Button>
+        {onClickCancel && (
+          <Button
+            buttonType="white"
+            width="80px"
+            height="34px"
+            onClick={() => onClickCancel(false)}
+          >
+            취소
+          </Button>
+        )}
       </ButtonWrap>
     </Modal>
   );
