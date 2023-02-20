@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Header from '@/components/common/Header';
+import Header from '@/components/template/Header';
 import Navbar from '@/components/common/Navbar';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import Loading from './components/common/Loading';

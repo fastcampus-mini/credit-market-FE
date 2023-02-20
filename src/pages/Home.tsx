@@ -4,35 +4,94 @@ import styled from '@emotion/styled';
 import { Player } from '@lottiefiles/react-lottie-player';
 import Input from '@/components/common/Input';
 import { Link } from 'react-router-dom';
-import ProductCard from '@/components/common/ProductCard';
+import ProductCard from '@/components/Product/ProductCard';
 import { getBankLogo } from '@/utils/bankLogo';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
-
-interface Prop {
-  id: string;
-  title: string;
-  bank: string;
-}
+import { IProducts } from '@/interfaces/product';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState<Prop[]>([]);
+  const [products, setProducts] = useState<IProducts[]>([]);
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        const data: Prop[] = [
-          { id: '1', title: '직장인 신용대출', bank: '우리' },
-          { id: '2', title: '주부 신용대출', bank: '국민' },
-          { id: '3', title: '고양이 신용대출', bank: '신한' },
-          { id: '4', title: '주부 신용대출', bank: '국민' },
-          { id: '5', title: '직장인 신용대출', bank: '우리' },
-          { id: '6', title: '주부 신용대출', bank: '신한' },
-          { id: '7', title: '고양이 신용대출', bank: '국민' },
-          { id: '8', title: '대학생 신용대출', bank: '제주' },
+        const data: IProducts[] = [
+          {
+            id: '1',
+            productName: '직장인 신용대출',
+            bankName: '우리',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
+          {
+            id: '2',
+            productName: '주부 신용대출',
+            bankName: '국민',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
+          {
+            id: '3',
+            productName: '고양이 신용대출',
+            bankName: '신한',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
+          {
+            id: '4',
+            productName: '주부 신용대출',
+            bankName: '국민',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
+          {
+            id: '5',
+            productName: '직장인 신용대출',
+            bankName: '우리',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
+          {
+            id: '6',
+            productName: '주부 신용대출',
+            bankName: '신한',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
+          {
+            id: '7',
+            productName: '고양이 신용대출',
+            bankName: '국민',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
+          {
+            id: '8',
+            productName: '대학생 신용대출',
+            bankName: '제주',
+            isFavor: false,
+            loanType: '대출',
+            rateAvg: '3.4%',
+            rateType: '대출',
+          },
         ];
         setProducts(data);
       } catch (error) {
@@ -77,14 +136,14 @@ const Home = () => {
           {products.map((product) => (
             <ProductCard
               key={product.id}
-              data={product}
-              bankLogo={getBankLogo(product.bank)}
-              bankTitle={`${product.bank}은행`}
-              productName={product.title}
-              loanTitle="대출"
-              rateAverage="3.4%"
-              rateSort="대출"
-              Favor={false}
+              id={product.id}
+              bankLogo={getBankLogo(product.bankName)}
+              bankName={`${product.bankName}은행`}
+              productName={product.productName}
+              isFavor={false}
+              loanType={product.loanType}
+              rateAvg={product.rateAvg}
+              rateType={product.rateType}
             />
           ))}
         </ul>

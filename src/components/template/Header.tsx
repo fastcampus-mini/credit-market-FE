@@ -2,7 +2,7 @@ import React from 'react';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
-import Button from './Button';
+import Button from '../common/Button';
 import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';

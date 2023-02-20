@@ -1,6 +1,21 @@
+export interface IProducts {
+  id: string;
+  bankLogo?: string;
+  productName: string;
+  bankName: string;
+  isFavor: boolean;
+  loanType: string;
+  rateAvg: string;
+  rateType: string;
+}
+
 export interface IProduct {
-  name: string;
+  id: string;
+  title: string;
   bank: string;
-  type: string;
-  interestRate: number;
+  interestRate: string;
+  description1: string;
+  description2: string;
+  description3: string;
+  description4: string;
 }

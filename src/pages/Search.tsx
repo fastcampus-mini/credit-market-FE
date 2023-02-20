@@ -5,7 +5,7 @@ import Input from '@/components/common/Input';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
-import ProductCard from '@/components/common/ProductCard';
+import ProductCard from '@/components/Product/ProductCard';
 import { getBankLogo } from '@/utils/bankLogo';
 
 interface Prop {
