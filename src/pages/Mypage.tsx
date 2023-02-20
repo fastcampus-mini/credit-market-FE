@@ -153,7 +153,7 @@ const MenuItem = styled.li`
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: ${COLORS.darkGray};
+    color: ${COLORS.gray};
   }
 `;
 
