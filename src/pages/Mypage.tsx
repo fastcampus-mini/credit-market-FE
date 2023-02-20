@@ -24,7 +24,7 @@ const Mypage = () => {
         <MypageMenu>
           <Link to={ROUTES.MYPAGE_BUY}>
             <MenuItem>
-              <BsCartCheck size="20" />
+              <span>🛒</span>
               <p>
                 신청 상품<span>신청한 상품 목록을 확인하실 수 있습니다.</span>
                 <AiOutlineRight className="rightArrow" />
@@ -33,7 +33,7 @@ const Mypage = () => {
           </Link>
           <Link to={ROUTES.MYPAGE_FAVOR}>
             <MenuItem>
-              <AiOutlineHeart size="20" />
+              <span>❤️</span>
               <p>
                 관심 상품<span>등록한 관심 상품 목록을 확인하실 수 있습니다.</span>
                 <AiOutlineRight className="rightArrow" />
@@ -42,7 +42,7 @@ const Mypage = () => {
           </Link>
           <Link to={ROUTES.MYPAGE_INFO}>
             <MenuItem>
-              <BsPerson size="20" />
+              <span>✏️</span>
               <p>
                 개인정보 수정<span>내 정보를 수정하실 수 있습니다.</span>
                 <AiOutlineRight className="rightArrow" />
@@ -65,6 +65,7 @@ export default Mypage;
 const MypageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const TitleWrap = styled.div`
@@ -96,14 +97,15 @@ const ProfileContainer = styled.div`
 `;
 
 const UserNickname = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin: 15px 0 10px;
 `;
 
 const UserDesc = styled.p`
-  font-size: 14px;
+  font-size: 13px;
   color: ${COLORS.gray};
+  margin-top: 14px;
 `;
 
 const MypageMenu = styled.ul`
