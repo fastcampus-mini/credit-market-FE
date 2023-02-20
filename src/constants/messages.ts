@@ -19,4 +19,6 @@ export const MESSAGES = {
   CHECK_POLICY: '약관 내용에 동의해주세요.',
   CHECK_BUY: '신청을 완료하시겠습니까?',
   COMPLETE_BUY: '신청이 완료되었습니다.',
+  CHECK_DELETE_CART: '선택하신 상품을 삭제하시겠습니까?',
+  COMPLETE_DELETE_CART: '삭제가 완료되었습니다.',
 };
