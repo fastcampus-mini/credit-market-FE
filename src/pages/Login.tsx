@@ -45,8 +45,8 @@ const Login = () => {
     navigate(location1.state?.from || '/', { replace: true });
   };
 
-  const handleChange = (e) => {
-    const inputBox = e.target.closest('div');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputBox = e.target.closest('div') as HTMLDivElement;
     e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
   };
 

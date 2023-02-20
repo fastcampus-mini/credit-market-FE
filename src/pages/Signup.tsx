@@ -96,8 +96,8 @@ const Signup = () => {
     navigate(ROUTES.WELCOME, { state: ROUTES.SIGNUP });
   };
 
-  const handleChange = (e) => {
-    const inputBox = e.target.closest('div');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputBox = e.target.closest('div') as HTMLDivElement;
     e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
   };
 
