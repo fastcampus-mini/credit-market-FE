@@ -17,7 +17,13 @@ const Mypage = () => {
       <BackgroundWrap />
       <MypageWrap>
         <ProfileContainer>
-          <Image src="/images/test-cat.jpg" width="130px" height="130px" borderRadius="80px" />
+          <Image
+            src="/images/test-cat.jpg"
+            width="130px"
+            height="130px"
+            borderRadius="80px"
+            alt="cat"
+          />
           <UserNickname>냥냥이</UserNickname>
           <UserDesc>2001년 1월 1일</UserDesc>
         </ProfileContainer>
