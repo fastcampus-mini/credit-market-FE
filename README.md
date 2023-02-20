@@ -67,7 +67,7 @@
         <center>BE. 팀원</center>
         <br/>
         <a href="https://github.com/Ryusunshine">
-          <img src="https://img.shields.io/badge/염류션-ff5e5e?style=flat-round&logo=GitHub&logoColor=white"/>
+          <img src="https://img.shields.io/badge/염류선-ff5e5e?style=flat-round&logo=GitHub&logoColor=white"/>
         </a>
       </td>
       <td align="center" width="150px">

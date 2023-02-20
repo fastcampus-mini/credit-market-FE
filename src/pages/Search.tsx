@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
 import ProductCard from '@/components/Product/ProductCard';
-import { getBankLogo } from '@/utils/bankLogo';
 import { IProducts } from '@/interfaces/product';
 
 const Search = () => {
@@ -133,7 +132,16 @@ const Search = () => {
       </div>
       <ul className="productsArea">
         {products.map((product) => (
-          <ProductCard key={product.id} data={product} />
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            bankName={product.bankName}
+            productName={product.productName}
+            isFavor={false}
+            loanType={product.loanType}
+            rateAvg={product.rateAvg}
+            rateType={product.rateType}
+          />
         ))}
       </ul>
     </StyledSearch>

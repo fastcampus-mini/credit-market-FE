@@ -58,7 +58,7 @@ const TitleWrap = styled.div`
 
 const BackgroundWrap = styled.div`
   background-image: url('/images/mypage_background.png');
-  height: 200px;
+  height: 150px;
 `;
 
 const MypageWrap = styled.div`

@@ -81,6 +81,7 @@ const Cart = () => {
             classType="checkbox"
             onChange={handleAllCheck}
             checked={checkId.length === cart.length ? true : false}
+            id="AllCheck"
           />
           <AllCheckText htmlFor="AllCheck">
             전체선택 ({checkId.length}/{cart.length})
@@ -135,6 +136,7 @@ const AllCheck = styled.div`
 const AllCheckText = styled.label`
   font-size: 14px;
   color: ${COLORS.secondary};
+  cursor: pointer;
 `;
 
 const CartContent = styled.ul`
