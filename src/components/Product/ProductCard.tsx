@@ -10,9 +10,10 @@ import Input from '../common/Input';
 
 interface Props {
   data: IProducts;
+  isDetail?: boolean;
 }
 
-const ProductCard = ({ data }: Props) => {
+const ProductCard = ({ data, isDetail }: Props) => {
   const navigate = useNavigate();
   return (
     <StyledProductCard>
@@ -37,9 +38,15 @@ const ProductCard = ({ data }: Props) => {
             금리구분<span>{data.rateType}</span>
           </p>
         </div>
-        <Button width="100%" height="40px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
-          자세히 보기
-        </Button>
+        {!isDetail && (
+          <Button
+            width="100%"
+            height="40px"
+            onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}
+          >
+            자세히 보기
+          </Button>
+        )}
       </div>
       <Input classType="heartBtn" inputType="checkbox" id={data.id} top="15px" right="35px" />
     </StyledProductCard>
