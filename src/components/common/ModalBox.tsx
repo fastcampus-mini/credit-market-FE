@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import Button from './Button';
 
 interface Props {
-  isOpen: any;
+  isOpen: boolean;
   text: string;
   onClickOk: any;
   onClickCancel?: any;

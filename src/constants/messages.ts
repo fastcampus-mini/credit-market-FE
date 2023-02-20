@@ -17,4 +17,6 @@ export const MESSAGES = {
     GET_DETAIL: '상품 상세 조회 중 에러가 발생했습니다.',
   },
   CHECK_POLICY: '약관 내용에 동의해주세요.',
+  CHECK_BUY: '신청을 완료하시겠습니까?',
+  COMPLETE_BUY: '신청이 완료되었습니다.',
 };
