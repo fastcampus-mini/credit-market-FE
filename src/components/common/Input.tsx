@@ -103,6 +103,9 @@ const handleInputType = (classType: string) => {
           overflow: hidden;
           display: flex;
           align-items: center;
+          &:focus-within{
+            border-bottom : 2px solid ${COLORS.primary};
+          }
   
           input {
             width: 100%;
@@ -111,12 +114,13 @@ const handleInputType = (classType: string) => {
             outline: none;
             background: ${COLORS.white};
           }
+
         `;
     case 'text-search':
       return `
         border-radius: 50px;
         overflow: hidden;
-        background-color: ${COLORS.textInput};
+        background: ${COLORS.textInput};
         display: flex;
         align-items: center;
 

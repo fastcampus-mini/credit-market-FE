@@ -41,7 +41,22 @@ const style = css`
     }
 
     .ReactModal__Overlay {
-      z-index: 50;
+      border-radius: 30px;
+      width: 390px;
+      min-width: 390px;
+      height: 90vh;
+      max-height: 844px;
+      margin: auto;
+      font-size: 14px;
+    }
+
+    .ReactModal__Content {
+      width: 260px !important;
+      height: 160px !important;
+      border-radius: 14px !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     #root {
@@ -55,7 +70,6 @@ const style = css`
       max-height: 844px;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
-      // overflow: hidden;
       overflow-x: hidden;
       overflow-y: auto;
       color: ${COLORS.mainText};

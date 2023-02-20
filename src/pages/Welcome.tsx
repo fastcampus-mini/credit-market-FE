@@ -1,23 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router';
+import { ROUTES } from '@/constants/routes';
 
-type Props = {};
-
-const Welcome = (props: Props) => {
-  const WelcomeStyle = styled.div`
-    padding: 20px 10px;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `;
-
+const Welcome = () => {
   const navigate = useNavigate();
 
   const goLogin = () => {
-    navigate('/login', { state: '/signup/welcome' });
+    navigate(ROUTES.LOGIN, { state: ROUTES.WELCOME });
   };
 
   return (
@@ -34,3 +24,12 @@ const Welcome = (props: Props) => {
 };
 
 export default Welcome;
+
+const WelcomeStyle = styled.div`
+  padding: 20px 10px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
