@@ -83,8 +83,8 @@ const Buy = () => {
         </BuyItemContainer>
         <PolicyContainer>
           <AgreeContainer>
-            <Input inputType="checkbox" onChange={handleCheck} />
-            <AgreeText>필수 동의</AgreeText>
+            <Input inputType="checkbox" onChange={handleCheck} id="AllAgree" />
+            <AgreeText htmlFor="AllAgree">필수 동의</AgreeText>
           </AgreeContainer>
           {POLICIES.map((item, idx) => (
             <PolicyText key={idx}>
@@ -152,10 +152,11 @@ const AgreeContainer = styled.div`
   margin: 5px 0 8px 0;
 `;
 
-const AgreeText = styled.p`
+const AgreeText = styled.label`
   font-size: 14px;
   margin-left: 10px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const PolicyText = styled.p`
