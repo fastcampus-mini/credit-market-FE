@@ -1,6 +1,5 @@
 export interface IProducts {
   id: string;
-  bankLogo?: string;
   productName: string;
   bankName: string;
   isFavor: boolean;

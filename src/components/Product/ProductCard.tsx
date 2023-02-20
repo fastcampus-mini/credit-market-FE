@@ -1,6 +1,7 @@
 import { ROUTES } from '@/constants/routes';
 import { IProducts } from '@/interfaces/product';
 import COLORS from '@/styles/colors';
+import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,9 +10,8 @@ import Input from '../common/Input';
 
 const ProductCard = ({
   id,
-  bankLogo,
-  bankName,
   productName,
+  bankName,
   isFavor = false,
   loanType,
   rateAvg,
@@ -22,7 +22,7 @@ const ProductCard = ({
     <StyledProductCard>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={bankLogo} alt={bankName} />
+          <img className="bankLogo" src={bankName && getBankLogo(bankName)} alt={bankName} />
           <h2 className="bankTitle">{bankName}</h2>
         </div>
         <p className="productName">{productName}</p>
@@ -37,7 +37,7 @@ const ProductCard = ({
             금리구분<span>{rateType}</span>
           </p>
         </div>
-        <Button width="100%" height="50px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(id))}>
+        <Button width="100%" height="40px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(id))}>
           자세히 보기
         </Button>
       </div>

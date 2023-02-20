@@ -137,7 +137,6 @@ const Home = () => {
             <ProductCard
               key={product.id}
               id={product.id}
-              bankLogo={getBankLogo(product.bankName)}
               bankName={`${product.bankName}은행`}
               productName={product.productName}
               isFavor={false}
