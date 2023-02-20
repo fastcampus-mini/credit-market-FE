@@ -20,7 +20,7 @@ const ProductCard = ({
     <StyledProductCard>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={getBankLogo(bankName!)} alt={bankName} />
+          <img className="bankLogo" src={bankName && getBankLogo(bankName)} alt={bankName} />
           <h2 className="bankTitle">{bankName}</h2>
         </div>
         <p className="productName">{productName}</p>
