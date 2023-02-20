@@ -11,12 +11,20 @@ import PageTitle from '@/components/common/PageTitle';
 import { ICart } from '@/interfaces/cart';
 import Input from '@/components/common/Input';
 import { useNavigate } from 'react-router-dom';
+import ModalBox from '@/components/common/ModalBox';
+import { IModal } from '@/interfaces/modal';
+import { ROUTES } from '@/constants/routes';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const [cart, setCart] = useState<ICart[]>([]);
   const navigate = useNavigate();
   const [checkId, setCheckId] = useState<string[]>([]);
+  const [modalState, setModalState] = useState<IModal>({
+    isOpen: false,
+    onClickOk: {},
+    text: '',
+  });
 
   useEffect(() => {
     async function getData() {
@@ -45,12 +53,24 @@ const Cart = () => {
   }, []);
 
   const handleClick = () => {
-    navigate('/buy');
+    navigate(ROUTES.BUY);
   };
 
   const handleDelete = () => {
-    if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
-    }
+    setModalState({
+      isOpen: true,
+      onClickOk: handleDeleteCart,
+      onClickCancel: () => setModalState((prev) => ({ ...prev, isOpen: false })),
+      text: MESSAGES.CHECK_DELETE_CART,
+    });
+  };
+
+  const handleDeleteCart = () => {
+    setModalState({
+      isOpen: true,
+      onClickOk: () => setModalState((prev) => ({ ...prev, isOpen: false })),
+      text: MESSAGES.COMPLETE_DELETE_CART,
+    });
   };
 
   const handleCheck = (checked: HTMLInputElement['checked'], id: string) => {
@@ -109,6 +129,12 @@ const Cart = () => {
       <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청하기
       </Button>
+      <ModalBox
+        isOpen={modalState.isOpen}
+        onClickOk={modalState.onClickOk}
+        onClickCancel={modalState.onClickCancel}
+        text={modalState.text}
+      />
     </CartContainer>
   );
 };

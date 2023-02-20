@@ -1,5 +1,6 @@
 import BackButton from '@/components/common/BackButton';
 import PageTitle from '@/components/common/PageTitle';
+import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import React, { useRef, useEffect, useState } from 'react';
 import { Global, css } from '@emotion/react';
@@ -95,7 +96,7 @@ const MyInfo = () => {
   return (
     <MypageContainer>
       <MypageHeader>
-        <BackButton onClick={() => navigate(-1)} size={25} isMypage={true} />
+        <BackButton onClick={() => navigate(ROUTES.MYPAGE)} size={25} isMypage={true} />
         <PageTitle title="개인정보 수정" />
       </MypageHeader>
       <MyInfoWrap>
