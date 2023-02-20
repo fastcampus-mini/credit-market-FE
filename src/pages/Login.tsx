@@ -5,9 +5,9 @@ import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
-import { FiArrowLeft } from 'react-icons/fi';
 import { css } from '@emotion/react';
 import BackButton from '@/components/common/BackButton';
+import { ROUTES } from '@/constants/routes';
 
 interface FormValues {
   email: string;
@@ -35,10 +35,10 @@ const Login = () => {
   const navigate = useNavigate();
   const location1 = useLocation();
   const goHome = () => {
-    navigate('/', { state: '/login' });
+    navigate(ROUTES.HOME, { state: ROUTES.LOGIN });
   };
   const goSignup = () => {
-    navigate('/signup', { state: '/login' });
+    navigate(ROUTES.SIGNUP, { state: ROUTES.LOGIN });
   };
   const goBack = () => {
     navigate(location1.state?.from || '/', { replace: true });
@@ -70,7 +70,12 @@ const Login = () => {
                 }),
               }}
             />
-            {errors.email && <small role="alert">{errors.email.message}</small>}
+            {errors.email && (
+              <small css={ErrStyle} role="alert">
+                {errors.email.message}
+              </small>
+            )}
+
             <Input
               inputType="password"
               classType="text-input-white"
@@ -83,7 +88,12 @@ const Login = () => {
                 }),
               }}
             />
-            {errors.password && <small role="alert">{errors.password.message}</small>}
+            {errors.password && (
+              <small css={ErrStyle} role="alert">
+                {errors.password.message}
+              </small>
+            )}
+
             <Button type="submit" isDisabled={isSubmitting} height="40px" fontWeight={800}>
               LOGIN
             </Button>
@@ -112,12 +122,11 @@ const Login = () => {
 export default Login;
 
 export const SignForm = styled.div`
-  padding: 9vw 5px;
   background-color: ${COLORS.textInput};
 `;
 
 const SigninStyle = styled.div`
-  padding: 20px 10px;
+  padding: 20vh 20px 20px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -136,8 +145,6 @@ const SigninFormStyle = styled.form`
 
 const FormContainer = styled.div`
   display: flex;
-  overflow: scroll;
-  height: 87vh;
   padding: 15px 40px 15px;
 `;
 
@@ -158,4 +165,9 @@ const LoginBackground = styled.div`
   justify-content: center;
   align-items: center;
   height: 10vh;
+`;
+
+export const ErrStyle = css`
+  color: red;
+  font-size: 0.7em;
 `;

@@ -6,7 +6,7 @@ import Button from '../common/Button';
 import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';
-import LogoutButton from './LogoutButton';
+import LogoutButton from '../common/LogoutButton';
 
 const Header = () => {
   const navigate = useNavigate();

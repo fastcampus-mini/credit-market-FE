@@ -10,6 +10,8 @@ import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
 import ModalBox from '@/components/common/ModalBox';
+import { ROUTES } from '@/constants/routes';
+import { ErrStyle } from './Login';
 
 interface FormValues {
   email: string;
@@ -91,7 +93,7 @@ const Signup = () => {
   };
 
   const goWelcome = () => {
-    navigate('/signup/welcome', { state: '/signup' });
+    navigate(ROUTES.WELCOME, { state: ROUTES.SIGNUP });
   };
 
   return (
@@ -105,10 +107,9 @@ const Signup = () => {
             </h1>
           </div>
           <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
-            <label>email</label>
             <Input
               inputType="text"
-              classType="text-input"
+              classType="text-input-white"
               placeholder="이메일"
               aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
               register={{
@@ -121,12 +122,15 @@ const Signup = () => {
                 }),
               }}
             />
-            {errors.email && <small role="alert">{errors.email.message}</small>}
+            {errors.email && (
+              <small css={ErrStyle} role="alert">
+                {errors.email.message}
+              </small>
+            )}
 
-            <label>password</label>
             <Input
               inputType="password"
-              classType="text-input"
+              classType="text-input-white"
               placeholder="비밀번호"
               aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
               register={{
@@ -136,12 +140,15 @@ const Signup = () => {
                 }),
               }}
             />
-            {errors.password && <small role="alert">{errors.password.message}</small>}
+            {errors.password && (
+              <small css={ErrStyle} role="alert">
+                {errors.password.message}
+              </small>
+            )}
 
-            <label>password confirm</label>
             <Input
               inputType="password"
-              classType="text-input"
+              classType="text-input-white"
               placeholder="비밀번호 확인"
               aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
               register={{
@@ -152,13 +159,14 @@ const Signup = () => {
               }}
             />
             {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
-              <small role="alert">비밀번호가 일치하지 않습니다.</small>
+              <small css={ErrStyle} role="alert">
+                비밀번호가 일치하지 않습니다.
+              </small>
             )}
 
-            <label>name</label>
             <Input
               inputType="text"
-              classType="text-input"
+              classType="text-input-white"
               placeholder="이름"
               aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
               register={{
@@ -171,12 +179,15 @@ const Signup = () => {
                 }),
               }}
             />
-            {errors.name && <small role="alert">{errors.name.message}</small>}
+            {errors.name && (
+              <small css={ErrStyle} role="alert">
+                {errors.name.message}
+              </small>
+            )}
 
-            <label>age</label>
             <Input
               inputType="number"
-              classType="text-input"
+              classType="text-input-white"
               placeholder="나이"
               aria-invalid={!isDirty ? undefined : errors.age ? 'true' : 'false'}
               register={{
@@ -189,49 +200,15 @@ const Signup = () => {
                 }),
               }}
             />
-            {errors.age && <small role="alert">{errors.age.message}</small>}
-
-            <label>sex</label>
-            <select
-              css={SelectStyle}
-              {...register('sex', {
-                required: '성별을 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="">성별</option>
-              <option value="male">남성</option>
-              <option value="female">여성</option>
-            </select>
-            {errors.sex && (
-              <small style={{ color: 'red' }} role="alert">
-                {errors.sex.message}
+            {errors.age && (
+              <small css={ErrStyle} role="alert">
+                {errors.age.message}
               </small>
             )}
 
-            <label>bank</label>
-            <select
-              css={SelectStyle}
-              {...register('bank', {
-                required: '성별을 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="bank1">선호 은행</option>
-              <option value="bank2">공무원</option>
-              <option value="bank3">개인사업자</option>
-              <option value="bank4">무직</option>
-            </select>
-            {errors.bank && (
-              <small style={{ color: 'red' }} role="alert">
-                {errors.bank!.message}
-              </small>
-            )}
-
-            <label>credit score</label>
             <Input
               inputType="number"
-              classType="text-input"
+              classType="text-input-white"
               placeholder="개인신용점수"
               aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
               register={{
@@ -244,9 +221,47 @@ const Signup = () => {
                 }),
               }}
             />
-            {errors.password && <small role="alert">{errors.password.message}</small>}
+            {errors.credit && (
+              <small css={ErrStyle} role="alert">
+                {errors.credit.message}
+              </small>
+            )}
 
-            <label>loan</label>
+            <select
+              css={SelectStyle}
+              {...register('sex', {
+                required: '성별을 선택해주세요.',
+                validate: validateSelectOption,
+              })}
+            >
+              <option value="">성별</option>
+              <option value="male">남성</option>
+              <option value="female">여성</option>
+            </select>
+            {errors.sex && (
+              <small css={ErrStyle} role="alert">
+                {errors.sex.message}
+              </small>
+            )}
+
+            <select
+              css={SelectStyle}
+              {...register('bank', {
+                required: '은행을 선택해주세요.',
+                validate: validateSelectOption,
+              })}
+            >
+              <option value="">선호 은행</option>
+              <option value="bank1">공무원</option>
+              <option value="bank2">개인사업자</option>
+              <option value="bank3">무직</option>
+            </select>
+            {errors.bank && (
+              <small css={ErrStyle} role="alert">
+                {errors.bank.message}
+              </small>
+            )}
+
             <select
               css={SelectStyle}
               {...register('loan', {
@@ -260,12 +275,11 @@ const Signup = () => {
               <option value="">소액 신용 대출</option>
             </select>
             {errors.loan && (
-              <small style={{ color: 'red' }} role="alert">
+              <small css={ErrStyle} style={{ color: 'red' }} role="alert">
                 {errors.loan.message}
               </small>
             )}
 
-            <label>interest rate</label>
             <select
               css={SelectStyle}
               {...register('interest', {
@@ -278,7 +292,7 @@ const Signup = () => {
               <option value="interest2">변동 금리</option>
             </select>
             {errors.interest && (
-              <small style={{ color: 'red' }} role="alert">
+              <small css={ErrStyle} style={{ color: 'red' }} role="alert">
                 {errors.interest.message}
               </small>
             )}
@@ -310,11 +324,11 @@ Modal.setAppElement('#root');
 export default Signup;
 
 export const SignForm = styled.div`
-  padding: 35px 5px;
+  background-color: ${COLORS.textInput};
 `;
 
 const SignupStyle = styled.div`
-  padding: 30px 10px;
+  padding: 5vh 20px 20px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -336,17 +350,16 @@ const LogoStyle = css({
 });
 
 const SelectStyle = css`
-  background-color: ${COLORS.textInput};
+  background-color: ${COLORS.white};
   display: flex;
   align-items: center;
   width: 100%;
   border: none;
   padding: 10px 15px;
   outline: none;
+
   option {
     background-color: white;
-    height: 40px;
-    padding: 10px;
   }
 `;
 
@@ -359,7 +372,5 @@ const SignupFormStyle = styled.form`
 
 const FormContainer = styled.div`
   display: flex;
-  overflow: scroll;
-  height: 80vh;
   padding: 20px 40px;
 `;
