@@ -5,15 +5,17 @@ interface Prop {
   src: string;
   width?: string;
   height?: string;
+  borderRadius?: string;
 }
 
-const Image = ({ src, width, height }: Prop) => {
-  return <StyledImage src={src} width={width} height={height} />;
+const Image = ({ src, width, height, borderRadius }: Prop) => {
+  return <StyledImage src={src} width={width} height={height} borderRadius={borderRadius} />;
 };
 
 export default Image;
 
 const StyledImage = styled.img<Prop>`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  border-radius: ${({ borderRadius }) => borderRadius};
 `;

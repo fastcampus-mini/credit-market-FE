@@ -36,6 +36,14 @@ const style = css`
     color: ${COLORS.mainText};
     background: ${COLORS.bodyBackground};
 
+    .ReactModalPortal {
+      z-index: 50;
+    }
+
+    .ReactModal__Overlay {
+      z-index: 50;
+    }
+
     #root {
       display: flex;
       flex-direction: column;
@@ -47,7 +55,9 @@ const style = css`
       max-height: 844px;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
-      overflow: hidden;
+      // overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       color: ${COLORS.mainText};
 
       iframe {
@@ -60,6 +70,11 @@ const style = css`
 
       a {
         color: inherit;
+        text-decoration: none;
+      }
+
+      input {
+        cursor: pointer;
       }
 
       input[type='checkbox'] {
@@ -69,7 +84,21 @@ const style = css`
         width: 15px;
         height: 15px;
         margin: 0;
-        cursor: pointer;
+      }
+
+      .selectBox {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+
+        select {
+          width: 73px;
+          border-radius: 5px;
+          border: none;
+          padding: 5px 3px;
+          font-size: 11px;
+          border: 1px solid ${COLORS.textInput};
+        }
       }
     }
   }

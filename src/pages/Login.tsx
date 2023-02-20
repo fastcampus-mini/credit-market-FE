@@ -84,7 +84,7 @@ const Login = () => {
               }}
             />
             {errors.password && <small role="alert">{errors.password.message}</small>}
-            <Button type="submit" isDisabled={isSubmitting} height="40" fontWeight={800}>
+            <Button type="submit" isDisabled={isSubmitting} height="40px" fontWeight={800}>
               LOGIN
             </Button>
           </SigninFormStyle>
@@ -100,7 +100,7 @@ const Login = () => {
               <rect y="8" width="231" height="1" fill="#B7C6E0" />
             </svg>
           </LoginBackground>
-          <Button onClick={goSignup} height="40" buttonType="secondary" fontWeight={800}>
+          <Button onClick={goSignup} height="40px" buttonType="secondary" fontWeight={800}>
             JOIN
           </Button>
         </SigninStyle>

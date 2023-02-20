@@ -1,15 +1,17 @@
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { css } from '@emotion/react';
+import COLORS from '@/styles/colors';
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   size?: number;
+  isMypage?: boolean;
 };
 
-const BackButton = ({ onClick, size }: Props) => {
+const BackButton = ({ onClick, size, isMypage }: Props) => {
   return (
-    <button css={BackButtonStyle} onClick={onClick}>
+    <button css={isMypage ? MypageButtonStyle : BackButtonStyle} onClick={onClick}>
       <FiArrowLeft size={size} />
     </button>
   );
@@ -18,10 +20,19 @@ const BackButton = ({ onClick, size }: Props) => {
 export default BackButton;
 
 const BackButtonStyle = css`
-  position: absolute;
+  position: relative;
   left: 0.5vw;
   top: 2vh;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border: none;
   cursor: pointer;
+`;
+
+const MypageButtonStyle = css`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  top: 3px;
+  left: 2px;
 `;
