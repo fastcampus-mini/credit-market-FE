@@ -1,7 +1,7 @@
 export interface IProducts {
   id: string;
-  bankName: string | undefined;
   productName: string;
+  bankName: string;
   isFavor: boolean;
   loanType: string;
   rateAvg: string;
