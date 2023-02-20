@@ -83,9 +83,9 @@ const StyledProductCard = styled.li`
     }
 
     .productName {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     .textBox {
@@ -95,12 +95,15 @@ const StyledProductCard = styled.li`
 
       p {
         display: flex;
+        width: 25%;
         flex-direction: column;
         color: ${COLORS.gray};
+        font-weight: normal;
 
         span {
           color: ${COLORS.mainText};
-          font-size: 17px;
+          font-size: 16px;
+          font-weight: bold;
           margin-top: 5px;
         }
       }
