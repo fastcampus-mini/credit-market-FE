@@ -6,6 +6,7 @@ import Button from '../common/Button';
 import { FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';
+import LogoutButton from '../common/LogoutButton';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,10 +17,10 @@ const Header = () => {
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
 
-  return (
-    <StyledHeader className="headerInner">
-      <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
-      <div className="buttons">
+  const isLoggedIn = false; // redux로 관리해야할듯..
+  const Buttons = () => {
+    return (
+      <>
         <Button
           width="fit-content"
           height="fit-content"
@@ -38,7 +39,14 @@ const Header = () => {
           <FaUserFriends />
           <span>JOIN</span>
         </Button>
-      </div>
+      </>
+    );
+  };
+
+  return (
+    <StyledHeader className="headerInner">
+      <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
+      <div className="buttons">{isLoggedIn ? <LogoutButton /> : <Buttons />}</div>
     </StyledHeader>
   );
 };
