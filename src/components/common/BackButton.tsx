@@ -20,9 +20,9 @@ const BackButton = ({ onClick, size, isMypage }: Props) => {
 export default BackButton;
 
 const BackButtonStyle = css`
-  position: relative;
+  position: absolute;
   left: 0.5vw;
-  top: 2vh;
+  top: 20px;
   background-color: transparent;
   border: none;
   cursor: pointer;

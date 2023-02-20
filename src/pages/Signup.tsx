@@ -1,17 +1,17 @@
+/* eslint-disable react/no-unknown-property */
 import React, { useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Global, css } from '@emotion/react';
-import { FiArrowLeft } from 'react-icons/fi';
+import { css } from '@emotion/react';
 import { useNavigate, useLocation } from 'react-router';
 import COLORS from '@/styles/colors';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
 import ModalBox from '@/components/common/ModalBox';
 import { ROUTES } from '@/constants/routes';
-import { ErrStyle } from './Login';
+import { ErrStyle, InputBox, LogoStyle } from './Login';
 
 interface FormValues {
   email: string;
@@ -99,209 +99,198 @@ const Signup = () => {
   return (
     <SignForm>
       <BackButton onClick={() => setIsBackModalOpen(true)} size={25} />
-      <FormContainer>
-        <SignupStyle>
-          <div className="title">
-            <h1 css={H1Style}>
-              <img css={LogoStyle} src="../../images/logo_Main.png" alt="" />
-            </h1>
-          </div>
-          <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
-            <Input
-              inputType="text"
-              classType="text-input-white"
-              placeholder="이메일"
-              aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
-              register={{
-                ...register('email', {
-                  required: '이메일을 입력해주세요.',
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: '이메일 형식을 올바르게 작성해주세요.',
-                  },
-                }),
-              }}
-            />
-            {errors.email && (
-              <small css={ErrStyle} role="alert">
-                {errors.email.message}
-              </small>
-            )}
+      <SignupStyle>
+        <h1 css={mb30}>
+          <LogoStyle src="../../images/logo_Main.png" alt="" />
+        </h1>
+        <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
+          <SignupFormPanel>
+            <InputBox>
+              <Input
+                id="SignupEmail"
+                label="Email"
+                inputType="text"
+                classType="text-input-white"
+                aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
+                register={{
+                  ...register('email', {
+                    required: '이메일을 입력해주세요.',
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: '이메일 형식을 올바르게 작성해주세요.',
+                    },
+                  }),
+                }}
+              />
+              {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
+            </InputBox>
+            <InputBox>
+              <Input
+                id="SignupPw"
+                label="Password"
+                inputType="password"
+                classType="text-input-white"
+                aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
+                register={{
+                  ...register('password', {
+                    required: '비밀번호를 입력해주세요.',
+                    minLength: { value: 8, message: '비밀번호를 8자리 이상 입력해주세요.' },
+                  }),
+                }}
+              />
+              {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
+            </InputBox>
 
-            <Input
-              inputType="password"
-              classType="text-input-white"
-              placeholder="비밀번호"
-              aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
-              register={{
-                ...register('password', {
-                  required: '비밀번호를 입력해주세요.',
-                  minLength: { value: 8, message: '비밀번호를 8자리 이상 입력해주세요.' },
-                }),
-              }}
-            />
-            {errors.password && (
-              <small css={ErrStyle} role="alert">
-                {errors.password.message}
-              </small>
-            )}
+            <InputBox>
+              <Input
+                id="SignupPwConfirm"
+                label="Password Confirm"
+                inputType="password"
+                classType="text-input-white"
+                aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
+                register={{
+                  ...register('passwordConfirm', {
+                    required: true,
+                    validate: (value) => value === passwordRef.current,
+                  }),
+                }}
+              />
+              {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
+                <ErrStyle role="alert">비밀번호가 일치하지 않습니다.</ErrStyle>
+              )}
+            </InputBox>
 
-            <Input
-              inputType="password"
-              classType="text-input-white"
-              placeholder="비밀번호 확인"
-              aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
-              register={{
-                ...register('passwordConfirm', {
-                  required: true,
-                  validate: (value) => value === passwordRef.current,
-                }),
-              }}
-            />
-            {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
-              <small css={ErrStyle} role="alert">
-                비밀번호가 일치하지 않습니다.
-              </small>
-            )}
+            <InputBox>
+              <Input
+                id="SignupName"
+                label="Name"
+                inputType="text"
+                classType="text-input-white"
+                aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
+                register={{
+                  ...register('name', {
+                    required: '이름을 입력해주세요.',
+                    pattern: {
+                      value: /^[가-힣]{2,4}$/,
+                      message: '이름을 한글로 올바르게 작성해주세요.',
+                    },
+                  }),
+                }}
+              />
+              {errors.name && <ErrStyle role="alert">{errors.name.message}</ErrStyle>}
+            </InputBox>
 
-            <Input
-              inputType="text"
-              classType="text-input-white"
-              placeholder="이름"
-              aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
-              register={{
-                ...register('name', {
-                  required: '이름을 입력해주세요.',
-                  pattern: {
-                    value: /^[가-힣]{2,4}$/,
-                    message: '이름을 한글로 올바르게 작성해주세요.',
-                  },
-                }),
-              }}
-            />
-            {errors.name && (
-              <small css={ErrStyle} role="alert">
-                {errors.name.message}
-              </small>
-            )}
+            <InputBox>
+              <Input
+                id="SignupAge"
+                label="Age"
+                inputType="number"
+                classType="text-input-white"
+                aria-invalid={!isDirty ? undefined : errors.age ? 'true' : 'false'}
+                register={{
+                  ...register('age', {
+                    required: '나이를 입력해주세요.',
+                    pattern: {
+                      value: /^(0|[1-9]|[1-9][0-9])$/,
+                      message: '나이는 0 이상 100 미만의 숫자로 입력해주세요.',
+                    },
+                  }),
+                }}
+              />
+              {errors.age && <ErrStyle role="alert">{errors.age.message}</ErrStyle>}
+            </InputBox>
 
-            <Input
-              inputType="number"
-              classType="text-input-white"
-              placeholder="나이"
-              aria-invalid={!isDirty ? undefined : errors.age ? 'true' : 'false'}
-              register={{
-                ...register('age', {
-                  required: '나이를 입력해주세요.',
-                  pattern: {
-                    value: /^(0|[1-9]|[1-9][0-9])$/,
-                    message: '나이는 0 이상 100 미만의 숫자로 입력해주세요.',
-                  },
-                }),
-              }}
-            />
-            {errors.age && (
-              <small css={ErrStyle} role="alert">
-                {errors.age.message}
-              </small>
-            )}
+            <InputBox>
+              <Input
+                id="SignupCreditScore"
+                label="Personality Credit Score"
+                inputType="number"
+                classType="text-input-white"
+                aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
+                register={{
+                  ...register('credit', {
+                    required: '개인신용점수를 입력해주세요.',
+                    pattern: {
+                      value: /^(0|[1-9]|[1-9][0-9]|[1-9][1-9][1-9])$/,
+                      message: '신용점수는 0 이상 999 미만의 숫자로 입력해주세요.',
+                    },
+                  }),
+                }}
+              />
+              {errors.credit && <ErrStyle role="alert">{errors.credit.message}</ErrStyle>}
+            </InputBox>
 
-            <Input
-              inputType="number"
-              classType="text-input-white"
-              placeholder="개인신용점수"
-              aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
-              register={{
-                ...register('credit', {
-                  required: '개인신용점수를 입력해주세요.',
-                  pattern: {
-                    value: /^(0|[1-9]|[1-9][0-9]|[1-9][1-9][1-9])$/,
-                    message: '신용점수는 0 이상 999 미만의 숫자로 입력해주세요.',
-                  },
-                }),
-              }}
-            />
-            {errors.credit && (
-              <small css={ErrStyle} role="alert">
-                {errors.credit.message}
-              </small>
-            )}
+            <InputBox>
+              <SelectStyle
+                {...register('sex', {
+                  required: '성별을 선택해주세요.',
+                  validate: validateSelectOption,
+                })}
+              >
+                <option value="">성별</option>
+                <option value="male">남성</option>
+                <option value="female">여성</option>
+              </SelectStyle>
+              {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
+            </InputBox>
 
-            <select
-              css={SelectStyle}
-              {...register('sex', {
-                required: '성별을 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="">성별</option>
-              <option value="male">남성</option>
-              <option value="female">여성</option>
-            </select>
-            {errors.sex && (
-              <small css={ErrStyle} role="alert">
-                {errors.sex.message}
-              </small>
-            )}
+            <InputBox>
+              <SelectStyle
+                {...register('bank', {
+                  required: '은행을 선택해주세요.',
+                  validate: validateSelectOption,
+                })}
+              >
+                <option value="">선호 은행</option>
+                <option value="bank1">공무원</option>
+                <option value="bank2">개인사업자</option>
+                <option value="bank3">무직</option>
+              </SelectStyle>
+              {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
+            </InputBox>
 
-            <select
-              css={SelectStyle}
-              {...register('bank', {
-                required: '은행을 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="">선호 은행</option>
-              <option value="bank1">공무원</option>
-              <option value="bank2">개인사업자</option>
-              <option value="bank3">무직</option>
-            </select>
-            {errors.bank && (
-              <small css={ErrStyle} role="alert">
-                {errors.bank.message}
-              </small>
-            )}
+            <InputBox>
+              <SelectStyle
+                {...register('loan', {
+                  required: '선호하는 대출 종류를 선택해주세요.',
+                  validate: validateSelectOption,
+                })}
+              >
+                <option value="">선호 대출 종류</option>
+                <option value="">중장기 신용 대출</option>
+                <option value="">단기 신용 대출</option>
+                <option value="">소액 신용 대출</option>
+              </SelectStyle>
+              {errors.loan && (
+                <ErrStyle style={{ color: 'red' }} role="alert">
+                  {errors.loan.message}
+                </ErrStyle>
+              )}
+            </InputBox>
 
-            <select
-              css={SelectStyle}
-              {...register('loan', {
-                required: '선호하는 대출 종류를 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="">선호 대출 종류</option>
-              <option value="">중장기 신용 대출</option>
-              <option value="">단기 신용 대출</option>
-              <option value="">소액 신용 대출</option>
-            </select>
-            {errors.loan && (
-              <small css={ErrStyle} style={{ color: 'red' }} role="alert">
-                {errors.loan.message}
-              </small>
-            )}
-
-            <select
-              css={SelectStyle}
-              {...register('interest', {
-                required: '선호하는 금리 종류를 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="">선호 금리 종류</option>
-              <option value="interest1">고정 금리</option>
-              <option value="interest2">변동 금리</option>
-            </select>
-            {errors.interest && (
-              <small css={ErrStyle} style={{ color: 'red' }} role="alert">
-                {errors.interest.message}
-              </small>
-            )}
-            <Button type="submit" isDisabled={isSubmitting} height="50px" width="100%">
-              Submit
-            </Button>
-          </SignupFormStyle>
-        </SignupStyle>
-      </FormContainer>
+            <InputBox>
+              <SelectStyle
+                {...register('interest', {
+                  required: '선호하는 금리 종류를 선택해주세요.',
+                  validate: validateSelectOption,
+                })}
+              >
+                <option value="">선호 금리 종류</option>
+                <option value="interest1">고정 금리</option>
+                <option value="interest2">변동 금리</option>
+              </SelectStyle>
+              {errors.interest && (
+                <ErrStyle style={{ color: 'red' }} role="alert">
+                  {errors.interest.message}
+                </ErrStyle>
+              )}
+            </InputBox>
+          </SignupFormPanel>
+          <Button type="submit" isDisabled={isSubmitting} height="50px" width="calc(100% - 140px)">
+            Submit
+          </Button>
+        </SignupFormStyle>
+      </SignupStyle>
 
       <ModalBox
         isOpen={isBackModalOpen}
@@ -325,10 +314,14 @@ export default Signup;
 
 export const SignForm = styled.div`
   background-color: ${COLORS.textInput};
+  height: calc(100% + 115px);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SignupStyle = styled.div`
-  padding: 5vh 20px 20px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -338,18 +331,7 @@ const SignupStyle = styled.div`
   }
 `;
 
-const H1Style = css({
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%',
-  marginBottom: '5vh',
-});
-
-const LogoStyle = css({
-  width: '80%',
-});
-
-const SelectStyle = css`
+const SelectStyle = styled.select`
   background-color: ${COLORS.white};
   display: flex;
   align-items: center;
@@ -357,6 +339,7 @@ const SelectStyle = css`
   border: none;
   padding: 10px 15px;
   outline: none;
+  cursor: pointer;
 
   option {
     background-color: white;
@@ -366,11 +349,19 @@ const SelectStyle = css`
 const SignupFormStyle = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: space-between;
-  gap: 15px;
+  align-items: center;
 `;
 
-const FormContainer = styled.div`
-  display: flex;
-  padding: 20px 40px;
+const SignupFormPanel = styled.div`
+  width: 100%;
+  padding: 20px 70px;
+  margin-bottom: 30px;
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+`;
+
+const mb30 = css`
+  margin-bottom: 30px;
+  padding: 0 70px;
 `;

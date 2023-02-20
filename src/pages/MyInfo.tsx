@@ -110,11 +110,7 @@ const MyInfo = () => {
               }),
             }}
           />
-          {errors.password && (
-            <small css={ErrStyle} role="alert">
-              {errors.password.message}
-            </small>
-          )}
+          {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
 
           <Input
             inputType="password"
@@ -129,9 +125,7 @@ const MyInfo = () => {
             }}
           />
           {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
-            <small css={ErrStyle} role="alert">
-              비밀번호가 일치하지 않습니다.
-            </small>
+            <ErrStyle role="alert">비밀번호가 일치하지 않습니다.</ErrStyle>
           )}
 
           <Input
@@ -149,14 +143,9 @@ const MyInfo = () => {
               }),
             }}
           />
-          {errors.credit && (
-            <small css={ErrStyle} role="alert">
-              {errors.credit.message}
-            </small>
-          )}
+          {errors.credit && <ErrStyle role="alert">{errors.credit.message}</ErrStyle>}
 
-          <select
-            css={SelectStyle}
+          <SelectStyle
             {...register('sex', {
               required: '성별을 선택해주세요.',
               validate: validateSelectOption,
@@ -165,15 +154,10 @@ const MyInfo = () => {
             <option value="">성별</option>
             <option value="male">남성</option>
             <option value="female">여성</option>
-          </select>
-          {errors.sex && (
-            <small css={ErrStyle} role="alert">
-              {errors.sex.message}
-            </small>
-          )}
+          </SelectStyle>
+          {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
 
-          <select
-            css={SelectStyle}
+          <SelectStyle
             {...register('bank', {
               required: '은행을 선택해주세요.',
               validate: validateSelectOption,
@@ -183,15 +167,10 @@ const MyInfo = () => {
             <option value="bank1">공무원</option>
             <option value="bank2">개인사업자</option>
             <option value="bank3">무직</option>
-          </select>
-          {errors.bank && (
-            <small css={ErrStyle} role="alert">
-              {errors.bank.message}
-            </small>
-          )}
+          </SelectStyle>
+          {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
 
-          <select
-            css={SelectStyle}
+          <SelectStyle
             {...register('loan', {
               required: '선호하는 대출 종류를 선택해주세요.',
               validate: validateSelectOption,
@@ -201,15 +180,14 @@ const MyInfo = () => {
             <option value="">중장기 신용 대출</option>
             <option value="">단기 신용 대출</option>
             <option value="">소액 신용 대출</option>
-          </select>
+          </SelectStyle>
           {errors.loan && (
-            <small css={ErrStyle} style={{ color: 'red' }} role="alert">
+            <ErrStyle style={{ color: 'red' }} role="alert">
               {errors.loan.message}
-            </small>
+            </ErrStyle>
           )}
 
-          <select
-            css={SelectStyle}
+          <SelectStyle
             {...register('interest', {
               required: '선호하는 금리 종류를 선택해주세요.',
               validate: validateSelectOption,
@@ -218,11 +196,11 @@ const MyInfo = () => {
             <option value="">선호 금리 종류</option>
             <option value="interest1">고정 금리</option>
             <option value="interest2">변동 금리</option>
-          </select>
+          </SelectStyle>
           {errors.interest && (
-            <small css={ErrStyle} style={{ color: 'red' }} role="alert">
+            <ErrStyle css={ErrStyle} role="alert">
               {errors.interest.message}
-            </small>
+            </ErrStyle>
           )}
           <Button type="submit" isDisabled={isSubmitting} height="50px" width="100%">
             Submit
@@ -266,7 +244,7 @@ const MyInfoWrap = styled.div`
   height: 100%;
 `;
 
-const SelectStyle = css`
+const SelectStyle = styled.select`
   background-color: ${COLORS.textInput};
   display: flex;
   align-items: center;
