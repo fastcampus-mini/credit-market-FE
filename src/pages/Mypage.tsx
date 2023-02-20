@@ -51,6 +51,7 @@ export default Mypage;
 const MypageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const TitleWrap = styled.div`
@@ -91,12 +92,12 @@ const UserDesc = styled.p`
 `;
 
 const MypageMenu = styled.ul`
-  margin-top: 180px;
-  font-size: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   z-index: 10;
+  font-size: 15px;
+  margin-top: 18vh;
 `;
 
 const MenuItem = styled.li`
