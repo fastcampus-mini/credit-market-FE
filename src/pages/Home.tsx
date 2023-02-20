@@ -1,11 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { Player } from '@lottiefiles/react-lottie-player';
 import Input from '@/components/common/Input';
 import { Link } from 'react-router-dom';
+import ProductCard from '@/components/common/ProductCard';
+import { getBankLogo } from '@/utils/bankLogo';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { MESSAGES } from '@/constants/messages';
+
+interface Prop {
+  id: string;
+  title: string;
+  bank: string;
+}
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState<Prop[]>([]);
+
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        dispatch(showLoading());
+        const data: Prop[] = [
+          { id: '1', title: '직장인 신용대출', bank: '우리' },
+          { id: '2', title: '주부 신용대출', bank: '국민' },
+          { id: '3', title: '고양이 신용대출', bank: '신한' },
+          { id: '4', title: '주부 신용대출', bank: '국민' },
+          { id: '5', title: '직장인 신용대출', bank: '우리' },
+          { id: '6', title: '주부 신용대출', bank: '신한' },
+          { id: '7', title: '고양이 신용대출', bank: '국민' },
+          { id: '8', title: '대학생 신용대출', bank: '제주' },
+        ];
+        setProducts(data);
+      } catch (error) {
+        alert(MESSAGES.ERROR_PRODUCT.GET_DETAIL);
+      } finally {
+        dispatch(hideLoading());
+      }
+    }
+    getProducts();
+  }, []);
+
   return (
     <StyledHome>
       <Player
@@ -21,13 +59,12 @@ const Home = () => {
           src="https://assets2.lottiefiles.com/packages/lf20_kK73MQ.json"
         ></Player>
       </div>
-      <p>
+      <p className="welcomeText">
         방문자님,
         <br />
         오늘도 즐거운 하루 보내세요!
       </p>
-
-      <div className="panel">
+      <div id="panel">
         <Link to="/search">
           <Input
             inputType="text"
@@ -37,30 +74,19 @@ const Home = () => {
           />
         </Link>
         <ul className="productsArea">
-          <li>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores repellendus nemo
-            similique facere reiciendis id earum dicta repudiandae commodi? Quibusdam, nesciunt
-            veritatis ducimus dolorum, quidem perspiciatis quasi aspernatur corporis optio
-            accusantium cupiditate dolorem ex facere animi exercitationem, earum beatae nostrum
-            provident adipisci incidunt! Velit, exercitationem consectetur itaque repellat quod
-            vitae debitis harum ea est distinctio soluta fugiat dolor commodi quas minus. Unde enim
-            maxime reprehenderit aut ducimus eum assumenda hic nostrum dolorum excepturi possimus
-            expedita velit quod ratione illum rem repudiandae, pariatur voluptates molestias tempore
-            aspernatur debitis quisquam explicabo dolore. Earum natus voluptatibus dolores veritatis
-            inventore dolorum nam, quasi suscipit.
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores repellendus nemo
-            similique facere reiciendis id earum dicta repudiandae commodi? Quibusdam, nesciunt
-            veritatis ducimus dolorum, quidem perspiciatis quasi aspernatur corporis optio
-            accusantium cupiditate dolorem ex facere animi exercitationem, earum beatae nostrum
-            provident adipisci incidunt! Velit, exercitationem consectetur itaque repellat quod
-            vitae debitis harum ea est distinctio soluta fugiat dolor commodi quas minus. Unde enim
-            maxime reprehenderit aut ducimus eum assumenda hic nostrum dolorum excepturi possimus
-            expedita velit quod ratione illum rem repudiandae, pariatur voluptates molestias tempore
-            aspernatur debitis quisquam explicabo dolore. Earum natus voluptatibus dolores veritatis
-            inventore dolorum nam, quasi suscipit.
-          </li>
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              data={product}
+              bankLogo={getBankLogo(product.bank)}
+              bankTitle={`${product.bank}은행`}
+              productName={product.title}
+              loanTitle="대출"
+              rateAverage="3.4%"
+              rateSort="대출"
+              Favor={false}
+            />
+          ))}
         </ul>
       </div>
     </StyledHome>
@@ -80,7 +106,7 @@ const StyledHome = styled.div`
     top: -40px;
   }
 
-  p {
+  p.welcomeText {
     position: absolute;
     top: 100px;
     left: 32%;
@@ -101,7 +127,7 @@ const StyledHome = styled.div`
     position: relative;
   }
 
-  .panel {
+  #panel {
     position: absolute;
     width: 100%;
     height: calc(100% - 182px);
@@ -110,13 +136,16 @@ const StyledHome = styled.div`
     box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.5);
     background: ${COLORS.background};
     padding: 20px 0 0 10px;
-    // overflow-y: auto;
+    overflow-y: auto;
 
     .productsArea {
       height: calc(100% - 79px);
       margin-top: 10px;
       padding-right: 10px;
-      // overflow-y: auto;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
   }
 `;
