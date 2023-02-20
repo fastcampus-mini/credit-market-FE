@@ -133,16 +133,7 @@ const Home = () => {
         </Link>
         <ul className="productsArea">
           {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              bankName={product.bankName}
-              productName={product.productName}
-              isFavor={false}
-              loanType={product.loanType}
-              rateAvg={product.rateAvg}
-              rateType={product.rateType}
-            />
+            <ProductCard key={product.id} data={product} />
           ))}
         </ul>
       </div>
