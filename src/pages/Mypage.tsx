@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import PageTitle from '@/components/common/PageTitle';
 import { BsCartCheck, BsPerson } from 'react-icons/bs';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineRight } from 'react-icons/ai';
 
 const Mypage = () => {
   return (
@@ -25,23 +25,37 @@ const Mypage = () => {
           <Link to={ROUTES.MYPAGE_BUY}>
             <MenuItem>
               <BsCartCheck size="20" />
-              <span>신청 상품</span>
+              <p>
+                신청 상품<span>신청한 상품 목록을 확인하실 수 있습니다.</span>
+                <AiOutlineRight className="rightArrow" />
+              </p>
             </MenuItem>
           </Link>
           <Link to={ROUTES.MYPAGE_FAVOR}>
             <MenuItem>
               <AiOutlineHeart size="20" />
-              <span>관심 상품</span>
+              <p>
+                관심 상품<span>등록한 관심 상품 목록을 확인하실 수 있습니다.</span>
+                <AiOutlineRight className="rightArrow" />
+              </p>
             </MenuItem>
           </Link>
           <Link to={ROUTES.MYPAGE_INFO}>
             <MenuItem>
               <BsPerson size="20" />
-              <span>개인정보 수정</span>
+              <p>
+                개인정보 수정<span>내 정보를 수정하실 수 있습니다.</span>
+                <AiOutlineRight className="rightArrow" />
+              </p>
             </MenuItem>
           </Link>
         </MypageMenu>
       </MypageWrap>
+      <MyPageCopyright>
+        &copy; Copyright KDT3 Mini-project Team4 in Fast campus,
+        <br />
+        All Rights Reserved.
+      </MyPageCopyright>
     </MypageContainer>
   );
 };
@@ -65,24 +79,26 @@ const BackgroundWrap = styled.div`
 const MypageWrap = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
   position: relative;
+  background-color: ${COLORS.white};
+  padding-bottom: 50px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 `;
 
 const ProfileContainer = styled.div`
-  height: 300px;
   position: absolute;
-  top: -70px;
-  left: 130px;
+  top: -65px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 `;
 
 const UserNickname = styled.p`
   font-size: 18px;
   font-weight: 600;
+  margin: 15px 0 10px;
 `;
 
 const UserDesc = styled.p`
@@ -91,22 +107,53 @@ const UserDesc = styled.p`
 `;
 
 const MypageMenu = styled.ul`
-  margin-top: 180px;
+  margin-top: 160px;
   font-size: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  z-index: 10;
+  border-top: 1px solid ${COLORS.lightGray};
+  border-bottom: 1px solid ${COLORS.lightGray};
+
+  a {
+    border-bottom: 1px solid ${COLORS.lightGray};
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 `;
 
 const MenuItem = styled.li`
   padding: 20px 10px;
   display: flex;
-  gap: 10px;
+  gap: 15px;
   align-items: center;
   padding: 20px;
   background-color: ${COLORS.white};
-  border: 1px solid ${COLORS.lightGray};
-  border-radius: 10px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  p {
+    span {
+      display: block;
+      margin-top: 5px;
+      font-size: 13px;
+      color: ${COLORS.gray};
+    }
+  }
+
+  .rightArrow {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: ${COLORS.darkGray};
+  }
+`;
+
+const MyPageCopyright = styled.p`
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.4;
+  color: ${COLORS.mediumGray};
+  margin: 25px 0;
 `;
