@@ -47,7 +47,7 @@ const ProductCard = ({
             금리구분<span>{rateSort}</span>
           </p>
         </div>
-        <Button width="100%" height="50px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
+        <Button width="100%" height="40px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
           자세히 보기
         </Button>
       </div>
@@ -71,7 +71,7 @@ const StyledProductCard = styled.li`
   .cardCon {
     .logoTitle {
       display: flex;
-      gap: 10px;
+      gap: 7px;
       font-weight: bold;
       align-items: center;
       margin-bottom: 10px;
@@ -91,19 +91,18 @@ const StyledProductCard = styled.li`
     .textBox {
       display: flex;
       gap: 1.6rem;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
 
       p {
         display: flex;
         width: 25%;
         flex-direction: column;
         color: ${COLORS.gray};
-        font-weight: normal;
+        font-size: 12px;
 
         span {
           color: ${COLORS.mainText};
-          font-size: 16px;
-          font-weight: bold;
+          font-size: 15px;
           margin-top: 5px;
         }
       }
