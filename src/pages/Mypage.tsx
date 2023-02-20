@@ -111,7 +111,6 @@ const UserNickname = styled.p`
 const UserDesc = styled.p`
   font-size: 13px;
   color: ${COLORS.gray};
-  margin-top: 14px;
 `;
 
 const MypageMenu = styled.ul`
