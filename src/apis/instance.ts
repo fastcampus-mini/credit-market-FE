@@ -12,6 +12,7 @@ const axiosApi = (url: string) => {
       return response.data;
     },
     (error) => {
+      console.log(error);
       return Promise.reject(error);
     },
   );
@@ -23,6 +24,7 @@ const axiosApi = (url: string) => {
       return config;
     },
     (error) => {
+      console.log(error);
       return Promise.reject(error);
     },
   );

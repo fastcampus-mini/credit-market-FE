@@ -10,9 +10,9 @@ export const API_URLS = {
   FAVOR: (id: string) => `/favor/${id}`,
   BUY: (id: string) => `/buy/${id}`,
   ORDER: (id: string) => `/order/${id}`,
-  CART_LIST: (page: string) => `/cart/${page}`,
-  BUY_LIST: (page: string) => `/buy/${page}`,
-  FAVOR_LIST: (page: string) => `/favor/${page}`,
+  CART_LIST: (page: number) => `/cart/${page}`,
+  BUY_LIST: (page: number) => `/buy/${page}`,
+  FAVOR_LIST: (page: number) => `/favor/${page}`,
   SEARCH: {
     RESULTS_BY_KEYWORD: (keyword: string) => `/search/results?keyword=${keyword}`,
   },
