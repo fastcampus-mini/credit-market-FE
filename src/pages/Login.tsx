@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React, { useRef } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import styled from '@emotion/styled';
 import COLORS from '@/styles/colors';
@@ -9,8 +9,6 @@ import Button from '@/components/common/Button';
 import { css } from '@emotion/react';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
-import { on } from 'events';
-import isCurPath from '@/utils/path';
 
 interface FormValues {
   email: string;
