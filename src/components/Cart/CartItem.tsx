@@ -1,6 +1,7 @@
 import { ROUTES } from '@/constants/routes';
 import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
+import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
 import React from 'react';
 import { AiFillHeart, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai';
@@ -34,7 +35,12 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
           <Image src="/images/test-cat.jpg" width="50" height="50" />
           <TextContainer>
-            <BankText>{data.bank}</BankText>
+            <BankText>
+              <span className="bankLogo">
+                <img src={data.bank && getBankLogo(data.bank)} alt="" />
+              </span>
+              {data.bank}
+            </BankText>
             <ProductText>{data.title}</ProductText>
           </TextContainer>
         </InfoContainer>
@@ -91,6 +97,18 @@ const TextContainer = styled.div`
 
 const BankText = styled.p`
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  .bankLogo {
+    display: inline-block;
+
+    width: 20px;
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 const ProductText = styled.p`

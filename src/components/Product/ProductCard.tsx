@@ -8,40 +8,40 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Input from '../common/Input';
 
-const ProductCard = ({
-  id,
-  productName,
-  bankName,
-  isFavor = false,
-  loanType,
-  rateAvg,
-  rateType,
-}: IProducts) => {
+interface Props {
+  data: IProducts;
+}
+
+const ProductCard = ({ data }: Props) => {
   const navigate = useNavigate();
   return (
     <StyledProductCard>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={bankName && getBankLogo(bankName)} alt={bankName} />
-          <h2 className="bankTitle">{bankName}</h2>
+          <img
+            className="bankLogo"
+            src={data.bankName && getBankLogo(data.bankName)}
+            alt={data.bankName}
+          />
+          <h2 className="bankTitle">{data.bankName}</h2>
         </div>
-        <p className="productName">{productName}</p>
+        <p className="productName">{data.productName}</p>
         <div className="textBox">
           <p>
-            대출종류<span>{loanType}</span>
+            대출종류<span>{data.loanType}</span>
           </p>
           <p>
-            평균금리<span>{rateAvg}</span>
+            평균금리<span>{data.rateAvg}</span>
           </p>
           <p>
-            금리구분<span>{rateType}</span>
+            금리구분<span>{data.rateType}</span>
           </p>
         </div>
-        <Button width="100%" height="40px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(id))}>
+        <Button width="100%" height="40px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
           자세히 보기
         </Button>
       </div>
-      <Input classType="heartBtn" inputType="checkbox" id={id} top="15px" right="35px" />
+      <Input classType="heartBtn" inputType="checkbox" id={data.id} top="15px" right="35px" />
     </StyledProductCard>
   );
 };
