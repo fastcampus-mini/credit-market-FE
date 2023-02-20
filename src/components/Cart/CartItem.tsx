@@ -4,7 +4,7 @@ import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
 import React from 'react';
-import { AiFillHeart, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
@@ -33,21 +33,17 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
           />
         )}
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
-          <Image src="/images/test-cat.jpg" width="50" height="50" />
+          <ImageWrap>
+            <Image src={getBankLogo(data.bank) as string} width="34" height="34" alt={data.bank} />
+          </ImageWrap>
           <TextContainer>
-            <BankText>
-              <span className="bankLogo">
-                <img src={data.bank && getBankLogo(data.bank)} alt="" />
-              </span>
-              {data.bank}
-            </BankText>
+            <BankText>{data.bank}</BankText>
             <ProductText>{data.title}</ProductText>
           </TextContainer>
         </InfoContainer>
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          {/* <AiFillHeart /> */}
           <Input
             classType="heartBtn"
             inputType="checkbox"
@@ -88,10 +84,14 @@ const InfoContainer = styled.div`
   cursor: pointer;
 `;
 
+const ImageWrap = styled.div`
+  padding: 4px;
+`;
+
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 6px;
   justify-content: center;
 `;
 
