@@ -5,8 +5,6 @@ import COLORS from '@/styles/colors';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import PageTitle from '@/components/common/PageTitle';
-import { BsCartCheck, BsPerson } from 'react-icons/bs';
-import { AiOutlineHeart } from 'react-icons/ai';
 
 const Mypage = () => {
   return (
@@ -24,19 +22,19 @@ const Mypage = () => {
         <MypageMenu>
           <Link to={ROUTES.MYPAGE_BUY}>
             <MenuItem>
-              <BsCartCheck size="20" />
+              <span>🛒</span>
               <span>신청 상품</span>
             </MenuItem>
           </Link>
           <Link to={ROUTES.MYPAGE_FAVOR}>
             <MenuItem>
-              <AiOutlineHeart size="20" />
+              <span>❤️</span>
               <span>관심 상품</span>
             </MenuItem>
           </Link>
           <Link to={ROUTES.MYPAGE_INFO}>
             <MenuItem>
-              <BsPerson size="20" />
+              <span>✏️</span>
               <span>개인정보 수정</span>
             </MenuItem>
           </Link>
@@ -51,6 +49,7 @@ export default Mypage;
 const MypageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const TitleWrap = styled.div`
@@ -77,26 +76,27 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 `;
 
 const UserNickname = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
+  margin-top: 20px;
 `;
 
 const UserDesc = styled.p`
-  font-size: 14px;
+  font-size: 13px;
   color: ${COLORS.gray};
+  margin-top: 14px;
 `;
 
 const MypageMenu = styled.ul`
-  margin-top: 180px;
-  font-size: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   z-index: 10;
+  font-size: 14px;
+  margin-top: 18vh;
 `;
 
 const MenuItem = styled.li`
