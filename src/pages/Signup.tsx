@@ -1,18 +1,17 @@
 /* eslint-disable react/no-unknown-property */
 import React, { useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { Global, css } from '@emotion/react';
-import { FiArrowLeft } from 'react-icons/fi';
+import { css } from '@emotion/react';
 import { useNavigate, useLocation } from 'react-router';
 import COLORS from '@/styles/colors';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
 import ModalBox from '@/components/common/ModalBox';
 import { ROUTES } from '@/constants/routes';
-import { ErrStyle, InputBox, LogoStyle, Title } from './Login';
+import { ErrStyle, InputBox, LogoStyle } from './Login';
 
 interface FormValues {
   email: string;
