@@ -135,7 +135,7 @@ const Search = () => {
           <ProductCard
             key={product.id}
             id={product.id}
-            bankName={`${product.bankName}은행`}
+            bankName={product.bankName}
             productName={product.productName}
             isFavor={false}
             loanType={product.loanType}

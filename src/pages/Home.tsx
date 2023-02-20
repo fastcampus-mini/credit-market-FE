@@ -5,7 +5,6 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import Input from '@/components/common/Input';
 import { Link } from 'react-router-dom';
 import ProductCard from '@/components/Product/ProductCard';
-import { getBankLogo } from '@/utils/bankLogo';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
@@ -23,7 +22,7 @@ const Home = () => {
           {
             id: '1',
             productName: '직장인 신용대출',
-            bankName: '우리',
+            bankName: '우리은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -32,7 +31,7 @@ const Home = () => {
           {
             id: '2',
             productName: '주부 신용대출',
-            bankName: '국민',
+            bankName: '국민은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -41,7 +40,7 @@ const Home = () => {
           {
             id: '3',
             productName: '고양이 신용대출',
-            bankName: '신한',
+            bankName: '신한은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -50,7 +49,7 @@ const Home = () => {
           {
             id: '4',
             productName: '주부 신용대출',
-            bankName: '국민',
+            bankName: '국민은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -59,7 +58,7 @@ const Home = () => {
           {
             id: '5',
             productName: '직장인 신용대출',
-            bankName: '우리',
+            bankName: '우리은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -68,7 +67,7 @@ const Home = () => {
           {
             id: '6',
             productName: '주부 신용대출',
-            bankName: '신한',
+            bankName: '신한은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -77,7 +76,7 @@ const Home = () => {
           {
             id: '7',
             productName: '고양이 신용대출',
-            bankName: '국민',
+            bankName: '국민은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -86,7 +85,7 @@ const Home = () => {
           {
             id: '8',
             productName: '대학생 신용대출',
-            bankName: '제주',
+            bankName: '제주은행',
             isFavor: false,
             loanType: '대출',
             rateAvg: '3.4%',
@@ -137,7 +136,7 @@ const Home = () => {
             <ProductCard
               key={product.id}
               id={product.id}
-              bankName={`${product.bankName}은행`}
+              bankName={product.bankName}
               productName={product.productName}
               isFavor={false}
               loanType={product.loanType}
