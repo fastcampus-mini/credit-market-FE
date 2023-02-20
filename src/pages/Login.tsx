@@ -45,6 +45,11 @@ const Login = () => {
     navigate(location1.state?.from || '/', { replace: true });
   };
 
+  const handleChange = (e) => {
+    const inputBox = e.target.closest('div');
+    e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
+  };
+
   return (
     <SignForm>
       <BackButton onClick={goBack} size={25} />
@@ -53,7 +58,7 @@ const Login = () => {
           <LogoStyle src="../../images/logo_Main.png" alt="" />
         </h1>
         <SigninFormStyle onSubmit={handleSubmit(onSubmit)}>
-          <InputBox>
+          <InputBox onChange={handleChange}>
             <Input
               id="LoginEmail"
               label="Email"
@@ -73,7 +78,7 @@ const Login = () => {
             {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
           </InputBox>
 
-          <InputBox>
+          <InputBox onChange={handleChange}>
             <Input
               id="LoginPw"
               label="Password"
