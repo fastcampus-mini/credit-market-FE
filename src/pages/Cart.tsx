@@ -11,8 +11,6 @@ import PageTitle from '@/components/common/PageTitle';
 import { ICart } from '@/interfaces/cart';
 import Input from '@/components/common/Input';
 import { useNavigate } from 'react-router-dom';
-import ModalBox from '@/components/template/ModalBox';
-import { IModal } from '@/interfaces/modal';
 import { ROUTES } from '@/constants/routes';
 import { setModal } from '@/store/modalSlice';
 
@@ -29,14 +27,62 @@ const Cart = () => {
         // const data = await getCartList(1);
         // setCart(data);
         const data: ICart[] = [
-          { id: '1', title: '직장인 신용대출', bank: '우리은행' },
-          { id: '2', title: '주부 신용대출', bank: '국민은행' },
-          { id: '3', title: '고양이 신용대출', bank: '신한은행' },
-          { id: '4', title: '주부 신용대출', bank: '국민은행' },
-          { id: '5', title: '직장인 신용대출', bank: '우리은행' },
-          { id: '6', title: '주부 신용대출', bank: '신한은행' },
-          { id: '7', title: '고양이 신용대출', bank: '국민은행' },
-          { id: '8', title: '대학생 신용대출', bank: '제주은행' },
+          {
+            cartId: '1',
+            fproductName: '직장인 신용대출',
+            fproductCompanyName: '우리은행',
+            fproductCreditProductTypeName: '',
+            favorite: true,
+          },
+          {
+            cartId: '2',
+            fproductName: '주부 신용대출',
+            fproductCompanyName: '신한은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '3',
+            fproductName: '고양이 신용대출',
+            fproductCompanyName: '국민은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '4',
+            fproductName: '직장인 신용대출',
+            fproductCompanyName: '우리은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '5',
+            fproductName: '고양이 신용대출',
+            fproductCompanyName: '신한은행',
+            fproductCreditProductTypeName: '',
+            favorite: true,
+          },
+          {
+            cartId: '6',
+            fproductName: '대학생 신용대출',
+            fproductCompanyName: '국민은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '7',
+            fproductName: '고양이 신용대출',
+            fproductCompanyName: '제주은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '8',
+            fproductName: '대학생 신용대출',
+            fproductCompanyName: '신한은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
         ];
         setCart(data);
       } catch (error) {
@@ -84,7 +130,7 @@ const Cart = () => {
   const handleAllCheck: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.checked) {
       const idArray: Array<string> = [];
-      cart.forEach((item) => idArray.push(item.id));
+      cart.forEach((item) => idArray.push(item.cartId));
       setCheckId(idArray);
     } else {
       setCheckId([]);
@@ -115,7 +161,7 @@ const Cart = () => {
         {Array.isArray(cart) ? (
           cart.map((item) => (
             <CartItem
-              key={item.id}
+              key={item.cartId}
               data={item}
               isCheckBox={true}
               handleCheck={handleCheck}

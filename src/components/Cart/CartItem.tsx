@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
 import Input from '../common/Input';
-import CartButton from '../Product/CartButton';
 import FavorButton from '../Product/FavorButton';
 
 interface Props {
@@ -21,7 +20,6 @@ interface Props {
 
 const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
   const navigate = useNavigate();
-  const handleFavor = () => {};
   const handleDelete = () => {};
 
   return (
@@ -30,23 +28,28 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
         {isCheckBox && (
           <Input
             inputType="checkbox"
-            checked={checkId!.includes(data.id) ? true : false}
-            onChange={(e) => handleCheck!(e.target.checked, data.id)}
+            checked={checkId!.includes(data.cartId) ? true : false}
+            onChange={(e) => handleCheck!(e.target.checked, data.cartId)}
           />
         )}
-        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
+        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.cartId))}>
           <ImageWrap>
-            <Image src={getBankLogo(data.bank) as string} width="34" height="34" alt={data.bank} />
+            <Image
+              src={getBankLogo(data.fproductCompanyName) as string}
+              width="34"
+              height="34"
+              alt={data.fproductCompanyName}
+            />
           </ImageWrap>
           <TextContainer>
-            <BankText>{data.bank}</BankText>
-            <ProductText>{data.title}</ProductText>
+            <BankText>{data.fproductCompanyName}</BankText>
+            <ProductText>{data.fproductName}</ProductText>
           </TextContainer>
         </InfoContainer>
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          <FavorButton id={data.id} right="60px" top="calc(50% - 0.6rem)" />
+          <FavorButton id={data.cartId} isFavor={data.favorite} />
           <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
             <AiOutlineClose />
           </Button>
