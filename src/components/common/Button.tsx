@@ -12,6 +12,7 @@ interface Props {
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset' | undefined;
   fontWeight?: number;
+  fontSize?: string;
 }
 
 const Button = ({
@@ -24,6 +25,7 @@ const Button = ({
   children,
   type = 'button',
   fontWeight = 400,
+  fontSize = '14px',
 }: Props) => {
   return (
     <StyledButton
@@ -35,6 +37,7 @@ const Button = ({
       onClick={onClick}
       type={type}
       fontWeight={fontWeight}
+      fontSize={fontSize}
     >
       {children}
     </StyledButton>
@@ -49,12 +52,14 @@ export const StyledButton = styled.button<{
   height: string;
   color: string;
   fontWeight: number;
+  fontSize: string;
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   color: ${({ color }) => color};
   font-weight: ${({ fontWeight }) => fontWeight};
+  font-size: ${({ fontSize }) => fontSize};
   border-radius: 30px;
   text-align: center;
   cursor: pointer;
