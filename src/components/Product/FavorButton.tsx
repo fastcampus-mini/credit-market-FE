@@ -18,7 +18,11 @@ const FavorButton = ({ id, isFavor }: Props) => {
     alert('Click!❤️');
   };
 
-  return <StyledButton onClick={handleFavor}>{isFavor ? '❤️' : '🤍'}</StyledButton>;
+  return (
+    <StyledButton onClick={handleFavor} title="찜하기">
+      {isFavor ? '❤️' : '🤍'}
+    </StyledButton>
+  );
 };
 
 export default FavorButton;
