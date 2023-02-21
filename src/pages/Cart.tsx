@@ -14,17 +14,13 @@ import { useNavigate } from 'react-router-dom';
 import ModalBox from '@/components/template/ModalBox';
 import { IModal } from '@/interfaces/modal';
 import { ROUTES } from '@/constants/routes';
+import { setModal } from '@/store/modalSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const [cart, setCart] = useState<ICart[]>([]);
   const navigate = useNavigate();
   const [checkId, setCheckId] = useState<string[]>([]);
-  const [modalState, setModalState] = useState<IModal>({
-    isOpen: false,
-    onClickOk: {},
-    text: '',
-  });
 
   useEffect(() => {
     async function getData() {
@@ -57,20 +53,24 @@ const Cart = () => {
   };
 
   const handleDelete = () => {
-    setModalState({
-      isOpen: true,
-      onClickOk: handleDeleteCart,
-      onClickCancel: () => setModalState((prev) => ({ ...prev, isOpen: false })),
-      text: MESSAGES.CART.CHECK_DELETE,
-    });
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: handleDeleteCart,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.CART.CHECK_DELETE,
+      }),
+    );
   };
 
   const handleDeleteCart = () => {
-    setModalState({
-      isOpen: true,
-      onClickOk: () => setModalState((prev) => ({ ...prev, isOpen: false })),
-      text: MESSAGES.CART.COMPLETE_DELETE,
-    });
+    return dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.CART.COMPLETE_DELETE,
+      }),
+    );
   };
 
   const handleCheck = (checked: HTMLInputElement['checked'], id: string) => {
@@ -129,12 +129,6 @@ const Cart = () => {
       <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청하기
       </Button>
-      <ModalBox
-        isOpen={modalState.isOpen}
-        onClickOk={modalState.onClickOk}
-        onClickCancel={modalState.onClickCancel}
-        text={modalState.text}
-      />
     </CartContainer>
   );
 };
