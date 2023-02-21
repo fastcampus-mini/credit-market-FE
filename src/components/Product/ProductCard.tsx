@@ -6,7 +6,8 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
-import Input from '../common/Input';
+import CartButton from './CartButton';
+import FavorButton from './FavorButton';
 
 interface Props {
   data: IProducts;
@@ -48,7 +49,9 @@ const ProductCard = ({ data, isDetail }: Props) => {
           </Button>
         )}
       </div>
-      <Input classType="heartBtn" inputType="checkbox" id={data.id} top="15px" right="35px" />
+
+      {isDetail && <CartButton id={data.id} top="12px" right="40px" />}
+      <FavorButton id={data.id} top="15px" right="35px" />
     </StyledProductCard>
   );
 };
