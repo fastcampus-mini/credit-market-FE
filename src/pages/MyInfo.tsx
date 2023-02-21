@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
-import ModalBox from '@/components/common/ModalBox';
+import ModalBox from '@/components/template/ModalBox';
 import { ErrStyle } from './Login';
 
 const MyInfo = () => {
