@@ -26,7 +26,7 @@ const CartButton = ({ id }: Props) => {
   };
 
   return (
-    <StyledButton type="button" id={id} onClick={handleCart}>
+    <StyledButton type="button" id={id} onClick={handleCart} title="장바구니">
       🛒
     </StyledButton>
   );
