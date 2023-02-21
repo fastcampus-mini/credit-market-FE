@@ -8,8 +8,8 @@ import COLORS from '@/styles/colors';
 const Welcome = () => {
   const navigate = useNavigate();
 
-  const goLogin = () => {
-    navigate(ROUTES.LOGIN, { state: ROUTES.WELCOME });
+  const goHome = () => {
+    navigate(ROUTES.HOME, { state: ROUTES.WELCOME });
   };
 
   const username = 'USER'; // axios를 통해 데이터 받아오기
@@ -26,7 +26,7 @@ const Welcome = () => {
           <h1>Credit Market에</h1>
           <h1>오신것을 환영해요!</h1>
         </TextStyle>
-        <Button onClick={goLogin} fontWeight={900} fontSize="1.1rem">
+        <Button onClick={goHome} fontWeight={900} fontSize="1.1rem">
           별말씀을요!
         </Button>
         <SpanStyle>버튼을 누르시면 홈화면으로 이동해요</SpanStyle>

@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+/* eslint-disable react/no-unknown-property */
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import styled from '@emotion/styled';
 import COLORS from '@/styles/colors';
@@ -44,21 +45,25 @@ const Login = () => {
     navigate(location1.state?.from || '/', { replace: true });
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputBox = e.target.closest('div') as HTMLDivElement;
+    e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
+  };
+
   return (
     <SignForm>
       <BackButton onClick={goBack} size={25} />
-      <FormContainer>
-        <SigninStyle>
-          <div className="title">
-            <h1 css={H1Style}>
-              <img css={LogoStyle} src="../../images/logo_Main.png" alt="" />
-            </h1>
-          </div>
-          <SigninFormStyle onSubmit={handleSubmit(onSubmit)}>
+      <SigninStyle>
+        <h1 css={mb70}>
+          <LogoStyle src="../../images/logo_Main.png" alt="" />
+        </h1>
+        <SigninFormStyle onSubmit={handleSubmit(onSubmit)}>
+          <InputBox onChange={handleChange}>
             <Input
+              id="LoginEmail"
+              label="Email"
               inputType="text"
               classType="text-input-white"
-              placeholder="이메일"
               aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
               register={{
                 ...register('email', {
@@ -70,16 +75,15 @@ const Login = () => {
                 }),
               }}
             />
-            {errors.email && (
-              <small css={ErrStyle} role="alert">
-                {errors.email.message}
-              </small>
-            )}
+            {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
+          </InputBox>
 
+          <InputBox onChange={handleChange}>
             <Input
+              id="LoginPw"
+              label="Password"
               inputType="password"
               classType="text-input-white"
-              placeholder="Password"
               aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
               register={{
                 ...register('password', {
@@ -88,40 +92,29 @@ const Login = () => {
                 }),
               }}
             />
-            {errors.password && (
-              <small css={ErrStyle} role="alert">
-                {errors.password.message}
-              </small>
-            )}
+            {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
+          </InputBox>
 
-            {/* 로그인 접속 실패 시 결과 리턴 */}
-            {/* {errors && (
-              <small css={ErrStyle} role="alert">
-                {'아이디와 비밀번호가 일치하지 않습니다.'}
-              </small>
-            )} */}
-
-            <Button type="submit" isDisabled={isSubmitting} height="40px" fontWeight={800}>
-              LOGIN
-            </Button>
-          </SigninFormStyle>
-          <LoginBackground>
-            <svg
-              width="231"
-              height="18"
-              viewBox="0 0 231 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="116" cy="9" r="9" fill="#B7C6E0" />
-              <rect y="8" width="231" height="1" fill="#B7C6E0" />
-            </svg>
-          </LoginBackground>
-          <Button onClick={goSignup} height="40px" buttonType="secondary" fontWeight={800}>
-            JOIN
+          <Button type="submit" isDisabled={isSubmitting} height="40px" fontWeight={800}>
+            LOGIN
           </Button>
-        </SigninStyle>
-      </FormContainer>
+        </SigninFormStyle>
+        <LoginBackground>
+          <svg
+            width="231"
+            height="18"
+            viewBox="0 0 231 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="116" cy="9" r="9" fill="#B7C6E0" />
+            <rect y="8" width="231" height="1" fill="#B7C6E0" />
+          </svg>
+        </LoginBackground>
+        <Button onClick={goSignup} height="40px" buttonType="secondary" fontWeight={800}>
+          JOIN
+        </Button>
+      </SigninStyle>
     </SignForm>
   );
 };
@@ -130,40 +123,45 @@ export default Login;
 
 export const SignForm = styled.div`
   background-color: ${COLORS.textInput};
+  height: calc(100% + 115px);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SigninStyle = styled.div`
-  padding: 20vh 20px 20px;
   position: relative;
   display: flex;
   flex-direction: column;
+  padding: 0 70px;
 
   #lottie {
     width: 100px;
   }
 `;
 
+const mb70 = css`
+  margin-bottom: 70px;
+`;
+
 const SigninFormStyle = styled.form`
   display: flex;
   flex-direction: column;
   align-items: space-between;
-  gap: 15px;
 `;
 
-const FormContainer = styled.div`
-  display: flex;
-  padding: 15px 40px 15px;
+export const InputBox = styled.div`
+  position: relative;
+  margin-bottom: 30px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
-const H1Style = css({
-  display: 'flex',
-  justifyContent: 'center',
+export const LogoStyle = styled.img({
   width: '100%',
-  marginBottom: '5vh',
-});
-
-const LogoStyle = css({
-  width: '80%',
 });
 
 const LoginBackground = styled.div`
@@ -171,10 +169,13 @@ const LoginBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  margin: 60px 0;
 `;
 
-export const ErrStyle = css`
+export const ErrStyle = styled.p`
   color: red;
   font-size: 0.7em;
+  position: absolute;
+  bottom: -15px;
+  right: 0;
 `;

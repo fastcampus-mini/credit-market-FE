@@ -17,7 +17,13 @@ const Mypage = () => {
       <BackgroundWrap />
       <MypageWrap>
         <ProfileContainer>
-          <Image src="/images/test-cat.jpg" width="130px" height="130px" borderRadius="80px" />
+          <Image
+            src="/images/test-cat.jpg"
+            width="130px"
+            height="130px"
+            borderRadius="80px"
+            alt="cat"
+          />
           <UserNickname>냥냥이</UserNickname>
           <UserDesc>2001년 1월 1일</UserDesc>
         </ProfileContainer>
@@ -105,7 +111,6 @@ const UserNickname = styled.p`
 const UserDesc = styled.p`
   font-size: 13px;
   color: ${COLORS.gray};
-  margin-top: 14px;
 `;
 
 const MypageMenu = styled.ul`
@@ -148,7 +153,7 @@ const MenuItem = styled.li`
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    color: ${COLORS.darkGray};
+    color: ${COLORS.gray};
   }
 `;
 

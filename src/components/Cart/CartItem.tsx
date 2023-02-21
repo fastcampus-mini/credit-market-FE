@@ -4,11 +4,13 @@ import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
 import React from 'react';
-import { AiFillHeart, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
 import Input from '../common/Input';
+import CartButton from '../Product/CartButton';
+import FavorButton from '../Product/FavorButton';
 
 interface Props {
   data: ICart;
@@ -33,28 +35,18 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
           />
         )}
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
-          <Image src="/images/test-cat.jpg" width="50" height="50" />
+          <ImageWrap>
+            <Image src={getBankLogo(data.bank) as string} width="34" height="34" alt={data.bank} />
+          </ImageWrap>
           <TextContainer>
-            <BankText>
-              <span className="bankLogo">
-                <img src={data.bank && getBankLogo(data.bank)} alt="" />
-              </span>
-              {data.bank}
-            </BankText>
+            <BankText>{data.bank}</BankText>
             <ProductText>{data.title}</ProductText>
           </TextContainer>
         </InfoContainer>
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          {/* <AiFillHeart /> */}
-          <Input
-            classType="heartBtn"
-            inputType="checkbox"
-            id={data.id}
-            right="60px"
-            top="calc(50% - 0.6rem)"
-          />
+          <FavorButton id={data.id} right="60px" top="calc(50% - 0.6rem)" />
           <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
             <AiOutlineClose />
           </Button>
@@ -88,10 +80,14 @@ const InfoContainer = styled.div`
   cursor: pointer;
 `;
 
+const ImageWrap = styled.div`
+  padding: 4px;
+`;
+
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 6px;
   justify-content: center;
 `;
 
@@ -100,15 +96,6 @@ const BankText = styled.p`
   display: flex;
   align-items: center;
   gap: 5px;
-
-  .bankLogo {
-    display: inline-block;
-
-    width: 20px;
-    img {
-      width: 100%;
-    }
-  }
 `;
 
 const ProductText = styled.p`

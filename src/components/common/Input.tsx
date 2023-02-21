@@ -19,6 +19,7 @@ interface Prop {
   id?: string;
   top?: string;
   right?: string;
+  label?: string;
 }
 
 const Input = ({
@@ -37,6 +38,7 @@ const Input = ({
   id,
   top = '',
   right = '',
+  label = '',
 }: Prop) => {
   return (
     <StyledInputBox
@@ -61,6 +63,7 @@ const Input = ({
       />
       {classType === 'text-search' && <BsSearch className="searchIcon" />}
       {classType === 'heartBtn' && <label htmlFor={id} title="찜하기"></label>}
+      {classType === 'text-input-white' && <label htmlFor={id}>{label}</label>}
     </StyledInputBox>
   );
 };
@@ -100,13 +103,36 @@ const handleInputType = (classType: string) => {
       `;
     case 'text-input-white':
       return `
-          overflow: hidden;
           display: flex;
           align-items: center;
-          &:focus-within{
-            border-bottom : 2px solid ${COLORS.primary};
+          position:relative;
+          
+          &::after {
+            position:absolute;
+            content:'';
+            width:0;
+            left:50%;
+            transform:translateX(-50%);
+            height:2px;
+            background:${COLORS.primary};
+            bottom:0;
+            transition:0.5s;
           }
-  
+
+          &.active::after,
+          &:focus-within::after{
+            width : 100%;
+          }
+
+          &.active label,
+          &:focus-within label {
+            top:-13px;
+            left:0;
+            color:${COLORS.primary};
+            font-weight:bold;
+            font-size:14px;
+          }
+
           input {
             width: 100%;
             border: none;
@@ -115,6 +141,16 @@ const handleInputType = (classType: string) => {
             background: ${COLORS.white};
           }
 
+          label {
+            position:absolute;
+            font-size:13px;
+            left:15px;
+            top:50%;
+            transform:translateY(-50%);
+            color:${COLORS.gray};
+            cursor:pointer;
+            transition:0.5s;
+          }
         `;
     case 'text-search':
       return `

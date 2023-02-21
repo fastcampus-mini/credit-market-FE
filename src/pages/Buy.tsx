@@ -13,19 +13,13 @@ import ModalBox from '@/components/common/ModalBox';
 import { useNavigate } from 'react-router-dom';
 import Router from '@/routes/Router';
 import { ROUTES } from '@/constants/routes';
-
-interface BuyModal {
-  isOpen: boolean;
-  onClickOk: {};
-  onClickCancel?: {};
-  text: string;
-}
+import { IModal } from '@/interfaces/modal';
 
 const Buy = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState<ICart[]>([]);
   const [isChecked, setIsChecked] = useState(false);
-  const [modalState, setModalState] = useState<BuyModal>({
+  const [modalState, setModalState] = useState<IModal>({
     isOpen: false,
     onClickOk: {},
     text: '',
@@ -83,8 +77,8 @@ const Buy = () => {
         </BuyItemContainer>
         <PolicyContainer>
           <AgreeContainer>
-            <Input inputType="checkbox" onChange={handleCheck} />
-            <AgreeText>필수 동의</AgreeText>
+            <Input inputType="checkbox" onChange={handleCheck} id="AllAgree" />
+            <AgreeText htmlFor="AllAgree">필수 동의</AgreeText>
           </AgreeContainer>
           {POLICIES.map((item, idx) => (
             <PolicyText key={idx}>
@@ -152,10 +146,11 @@ const AgreeContainer = styled.div`
   margin: 5px 0 8px 0;
 `;
 
-const AgreeText = styled.p`
+const AgreeText = styled.label`
   font-size: 14px;
   margin-left: 10px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const PolicyText = styled.p`
