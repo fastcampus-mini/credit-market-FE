@@ -9,21 +9,16 @@ import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { AiOutlineCheck } from 'react-icons/ai';
-import ModalBox from '@/components/common/ModalBox';
 import { useNavigate } from 'react-router-dom';
-import Router from '@/routes/Router';
 import { ROUTES } from '@/constants/routes';
-import { IModal } from '@/interfaces/modal';
+import { useDispatch } from 'react-redux';
+import { setModal } from '@/store/modalSlice';
 
 const Buy = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState<ICart[]>([]);
   const [isChecked, setIsChecked] = useState(false);
-  const [modalState, setModalState] = useState<IModal>({
-    isOpen: false,
-    onClickOk: {},
-    text: '',
-  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const data: ICart[] = [
@@ -41,27 +36,36 @@ const Buy = () => {
 
   const handleClick = () => {
     if (!isChecked) {
-      return setModalState({
-        isOpen: true,
-        onClickOk: () => setModalState((prev) => ({ ...prev, isOpen: false })),
-        text: MESSAGES.CHECK_POLICY,
-      });
+      return dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.BUY.CHECK_POLICY,
+        }),
+      );
     } else {
-      return setModalState({
-        isOpen: true,
-        onClickOk: handleBuy,
-        onClickCancel: () => setModalState((prev) => ({ ...prev, isOpen: false })),
-        text: MESSAGES.CHECK_BUY,
-      });
+      return dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: handleBuy,
+          onClickCancel: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.BUY.CHECK_BUY,
+        }),
+      );
     }
   };
 
   const handleBuy = () => {
-    setModalState({
-      isOpen: true,
-      onClickOk: () => navigate(ROUTES.MYPAGE_BUY),
-      text: MESSAGES.COMPLETE_BUY,
-    });
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => {
+          dispatch(setModal({ isOpen: false }));
+          navigate(ROUTES.MYPAGE_BUY);
+        },
+        text: MESSAGES.BUY.COMPLETE_BUY,
+      }),
+    );
   };
 
   return (
@@ -95,12 +99,6 @@ const Buy = () => {
       <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청완료
       </Button>
-      <ModalBox
-        isOpen={modalState.isOpen}
-        onClickOk={modalState.onClickOk}
-        onClickCancel={modalState.onClickCancel}
-        text={modalState.text}
-      />
     </BuyContainer>
   );
 };

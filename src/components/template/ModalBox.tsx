@@ -1,16 +1,13 @@
+import { IStore } from '@/interfaces/store';
 import styled from '@emotion/styled';
 import React from 'react';
 import Modal from 'react-modal';
-import Button from './Button';
+import { useSelector } from 'react-redux';
+import Button from '../common/Button';
 
-interface Props {
-  isOpen: boolean;
-  text: string;
-  onClickOk: any;
-  onClickCancel?: any;
-}
+const ModalBox = () => {
+  const modalState = useSelector((state: IStore) => state.modal);
 
-const ModalBox = ({ isOpen, text, onClickOk, onClickCancel }: Props) => {
   const customStyles = {
     content: {
       width: '15%',
@@ -27,20 +24,20 @@ const ModalBox = ({ isOpen, text, onClickOk, onClickCancel }: Props) => {
   };
 
   return (
-    <Modal isOpen={isOpen} style={customStyles}>
+    <Modal isOpen={modalState.isOpen} style={customStyles}>
       <ModalText>
-        <p>{text}</p>
+        <p>{modalState.text}</p>
       </ModalText>
       <ButtonWrap>
-        <Button buttonType="blue" width="80px" height="34px" onClick={onClickOk}>
+        <Button buttonType="blue" width="80px" height="34px" onClick={modalState.onClickOk}>
           확인
         </Button>
-        {onClickCancel && (
+        {modalState.onClickCancel && (
           <Button
             buttonType="white"
             width="80px"
             height="34px"
-            onClick={() => onClickCancel(false)}
+            onClick={() => modalState.onClickCancel!(false)}
           >
             취소
           </Button>

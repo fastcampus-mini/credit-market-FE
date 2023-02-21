@@ -33,7 +33,7 @@ const ProductDetail = () => {
         // const data = await getProduct();
         // setProduct(data);
       } catch (error) {
-        alert(MESSAGES.ERROR_PRODUCT.GET_DETAIL);
+        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
       } finally {
         dispatch(hideLoading());
       }
