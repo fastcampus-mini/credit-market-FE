@@ -1,6 +1,5 @@
 import { createCart } from '@/apis/cart';
 import { MESSAGES } from '@/constants/messages';
-import { IModal } from '@/interfaces/modal';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
 import React from 'react';
@@ -8,11 +7,9 @@ import { useDispatch } from 'react-redux';
 
 interface Props {
   id: string;
-  top: string;
-  right: string;
 }
 
-const CartButton = ({ id, top, right }: Props) => {
+const CartButton = ({ id }: Props) => {
   const dispatch = useDispatch();
 
   const handleCart = async () => {
@@ -29,7 +26,7 @@ const CartButton = ({ id, top, right }: Props) => {
   };
 
   return (
-    <StyledButton type="button" id={id} top={top} right={right} onClick={handleCart}>
+    <StyledButton type="button" id={id} onClick={handleCart}>
       🛒
     </StyledButton>
   );
@@ -37,10 +34,7 @@ const CartButton = ({ id, top, right }: Props) => {
 
 export default CartButton;
 
-const StyledButton = styled.button<{ top: string; right: string }>`
-  position: absolute;
-  top: ${({ top }) => top};
-  right: ${({ right }) => right};
+const StyledButton = styled.button`
   outline: none;
   border: none;
   background-color: transparent;

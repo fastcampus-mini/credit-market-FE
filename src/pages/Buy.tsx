@@ -22,10 +22,34 @@ const Buy = () => {
 
   useEffect(() => {
     const data: ICart[] = [
-      { id: '1', title: '개발자 신용대출', bank: '우리은행' },
-      { id: '2', title: '감자튀김 신용대출', bank: '국민은행' },
-      { id: '3', title: '고양이 신용대출', bank: '신한은행' },
-      { id: '4', title: '대학생 신용대출', bank: '제주은행' },
+      {
+        cartId: '1',
+        fproductName: '개발자 신용대출',
+        fproductCompanyName: '우리은행',
+        fproductCreditProductTypeName: '',
+        favorite: true,
+      },
+      {
+        cartId: '2',
+        fproductName: '감자튀김 신용대출',
+        fproductCompanyName: '신한은행',
+        fproductCreditProductTypeName: '',
+        favorite: false,
+      },
+      {
+        cartId: '3',
+        fproductName: '고양이 신용대출',
+        fproductCompanyName: '국민은행',
+        fproductCreditProductTypeName: '',
+        favorite: false,
+      },
+      {
+        cartId: '4',
+        fproductName: '직장인 신용대출',
+        fproductCompanyName: '우리은행',
+        fproductCreditProductTypeName: '',
+        favorite: false,
+      },
     ];
     setCart(data);
   }, []);
@@ -74,7 +98,7 @@ const Buy = () => {
       <BuyContent>
         <BuyItemContainer>
           {Array.isArray(cart) ? (
-            cart.map((item) => <CartItem key={item.id} data={item} />)
+            cart.map((item) => <CartItem key={item.cartId} data={item} />)
           ) : (
             <div>담으신 상품이 없습니다.</div>
           )}
