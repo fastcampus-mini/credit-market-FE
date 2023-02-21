@@ -19,15 +19,20 @@ const ProductCard = ({ data, isDetail }: Props) => {
 
   return (
     <StyledProductCard>
-      <div className="cardCon">
-        <div className="logoTitle">
-          <img
-            className="bankLogo"
-            src={data.companyName && getBankLogo(data.companyName)}
-            alt={data.companyName}
-          />
-          <h2 className="bankTitle">{data.companyName}</h2>
-        </div>
+      <CardContainer>
+        <LogoTitle>
+          <BankWrap>
+            <BankLogo
+              src={data.companyName && getBankLogo(data.companyName)}
+              alt={data.companyName}
+            />
+            <h2>{data.companyName}</h2>
+          </BankWrap>
+          <div>
+            {isDetail && <CartButton id={data.id} />}
+            <FavorButton id={data.id} isFavor={data.favorite} />
+          </div>
+        </LogoTitle>
         <p className="productName">{data.productName}</p>
         <div className="textBox">
           <p>
@@ -49,10 +54,7 @@ const ProductCard = ({ data, isDetail }: Props) => {
             자세히 보기
           </Button>
         )}
-      </div>
-
-      {isDetail && <CartButton id={data.id} top="12px" right="40px" />}
-      <FavorButton id={data.id} top="15px" right="35px" />
+      </CardContainer>
     </StyledProductCard>
   );
 };
@@ -69,45 +71,55 @@ const StyledProductCard = styled.li`
   font-weight: bold;
   position: relative;
 
-  .cardCon {
-    .logoTitle {
+  .productName {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 25px;
+  }
+
+  .textBox {
+    display: flex;
+    gap: 1.6rem;
+    margin-bottom: 20px;
+
+    p {
       display: flex;
-      gap: 10px;
-      font-weight: bold;
-      align-items: center;
-      margin-bottom: 10px;
-      color: ${COLORS.primary};
+      width: 25%;
+      flex-direction: column;
+      color: ${COLORS.gray};
+      font-weight: normal;
 
-      .bankLogo {
-        width: 30px;
-      }
-    }
-
-    .productName {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 25px;
-    }
-
-    .textBox {
-      display: flex;
-      gap: 1.6rem;
-      margin-bottom: 20px;
-
-      p {
-        display: flex;
-        width: 25%;
-        flex-direction: column;
-        color: ${COLORS.gray};
-        font-weight: normal;
-
-        span {
-          color: ${COLORS.mainText};
-          font-size: 16px;
-          font-weight: bold;
-          margin-top: 5px;
-        }
+      span {
+        color: ${COLORS.mainText};
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 5px;
       }
     }
   }
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const BankWrap = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const LogoTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: bold;
+  align-items: center;
+  margin-bottom: 10px;
+  color: ${COLORS.primary};
+`;
+
+const BankLogo = styled.img`
+  width: 30px;
+  margin-right: 10px;
 `;

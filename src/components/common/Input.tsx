@@ -65,7 +65,6 @@ const Input = ({
         id={id}
       />
       {classType === 'text-search' && <BsSearch className="searchIcon" />}
-      {classType === 'heartBtn' && <label htmlFor={id} title="찜하기"></label>}
       {classType === 'text-input-white' && <label htmlFor={id}>{label}</label>}
     </StyledInputBox>
   );
@@ -174,49 +173,6 @@ const handleInputType = (classType: string) => {
         .searchIcon {
           width: 50px;
           color: ${COLORS.primary};
-        }
-      `;
-
-    case 'heartBtn':
-      return `
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-    
-        /*      CHECKBOX         */
-    
-        input[type='checkbox'] {
-          display: none !important;
-        }
-    
-        input[type='checkbox'] + label {
-          position: relative;
-          padding-left: 35px;
-          display: inline-block;
-          font-size: 16px;
-          cursor: pointer;
-        }
-    
-        input[type='checkbox'] + label:before {
-          content: '🤍';
-          border: 1px solid transparent;
-          border-radius: 3px;
-          display: block;
-          position: absolute;
-          transition: 0.5s ease;
-        }
-    
-        input[type='checkbox']:checked + label:before {
-          border: 1px solid transparent;
-          background-color: transparent;
-        }
-    
-        input[type='checkbox']:checked + label:after {
-          content: '❤️';
-          font-size: 18px;
-          position: absolute;
-          transition: 0.5s ease;
         }
       `;
   }

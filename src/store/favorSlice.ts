@@ -4,12 +4,12 @@ const favor = createSlice({
   name: 'favor',
   initialState: [],
   reducers: {
-    addFavor(state, action) {
+    toggleFavor(state, action) {
       return state;
     },
   },
 });
 
-export let { addFavor } = favor.actions;
+export let { toggleFavor } = favor.actions;
 
 export default favor;
