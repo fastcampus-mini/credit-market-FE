@@ -18,12 +18,12 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<IProduct>({
     id: '3',
     productName: '고양이 신용대출',
-    bankName: '신한은행',
-    isFavor: false,
-    loanType: '대출',
-    rateAvg: '3.4%',
-    rateType: '대출',
-    signupHow: '영업점,인터넷,스마트폰',
+    companyName: '신한은행',
+    favorite: false,
+    productTypeName: '대출',
+    interestRateAvg: '3.4%',
+    interestType: '대출',
+    productJoinMethod: '영업점,인터넷,스마트폰',
   });
 
   useEffect(() => {
@@ -53,13 +53,13 @@ const ProductDetail = () => {
         <ProductDesc>
           <DescBox>
             <DescTitle>가입 방법</DescTitle>
-            <DescContent>{product.signupHow}</DescContent>
+            <DescContent>{product.productJoinMethod}</DescContent>
           </DescBox>
           <DescBox>
             <DescTitle>부가 설명</DescTitle>
             <DescContent>
-              {ADDITIONAL_TEXTS.map((item) => (
-                <p>{item}</p>
+              {ADDITIONAL_TEXTS.map((item, idx) => (
+                <p key={idx}>{item}</p>
               ))}
             </DescContent>
           </DescBox>
@@ -111,7 +111,7 @@ const DescBox = styled.div`
     height: 1px;
     background-color: ${COLORS.lightGray};
   }
-  &:first-child::after {
+  &:first-of-type::after {
     content: none;
   }
 `;
@@ -122,7 +122,7 @@ const DescTitle = styled.p`
   padding-bottom: 14px;
 `;
 
-const DescContent = styled.p`
+const DescContent = styled.div`
   font-size: 13px;
   line-height: 1.4;
 `;
