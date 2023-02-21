@@ -13,6 +13,7 @@ interface Prop {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   checked?: boolean;
   classType?: string;
+  className?: string;
   ariaInvalid?: boolean;
   register?: {};
   autoFocus?: boolean;
@@ -32,6 +33,7 @@ const Input = ({
   onChange,
   checked,
   classType = 'text-input',
+  className,
   ariaInvalid = true,
   register = {},
   autoFocus = false,
@@ -46,6 +48,7 @@ const Input = ({
       height={height}
       inputType={inputType}
       classType={classType}
+      className={className}
       top={top}
       right={right}
     >
