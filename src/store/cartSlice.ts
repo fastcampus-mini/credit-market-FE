@@ -6,7 +6,7 @@ const cart = createSlice({
   initialState: [],
   reducers: {
     addCart(state, action) {
-      let id = state.findIndex((obj: ICart) => obj.id === action.payload.id);
+      let id = state.findIndex((obj: ICart) => obj.cartId === action.payload.id);
       if (id === -1) {
         // state.push(action.payload);
       } else {
@@ -14,7 +14,7 @@ const cart = createSlice({
       }
     },
     deleteCart(state, action) {
-      let num = state.findIndex((obj: ICart) => obj.id === action.payload);
+      let num = state.findIndex((obj: ICart) => obj.cartId === action.payload);
       state.splice(num, 1);
     },
   },
