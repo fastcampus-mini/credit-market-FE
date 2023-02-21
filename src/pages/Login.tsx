@@ -94,6 +94,13 @@ const Login = () => {
               </small>
             )}
 
+            {/* 로그인 접속 실패 시 결과 리턴 */}
+            {/* {errors && (
+              <small css={ErrStyle} role="alert">
+                {'아이디와 비밀번호가 일치하지 않습니다.'}
+              </small>
+            )} */}
+
             <Button type="submit" isDisabled={isSubmitting} height="40px" fontWeight={800}>
               LOGIN
             </Button>

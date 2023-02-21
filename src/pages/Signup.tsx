@@ -18,7 +18,9 @@ interface FormValues {
   password: string;
   passwordConfirm: string;
   name: string;
-  age: number;
+  birthYear: string;
+  birthMonth: string;
+  birthDay: string;
   sex: string;
   bank: string;
   loan: string;
@@ -43,7 +45,9 @@ const Signup = () => {
     password: '',
     passwordConfirm: '',
     name: '',
-    age: 0,
+    birthYear: '',
+    birthMonth: '',
+    birthDay: '',
     sex: '',
     bank: '',
     loan: '',
@@ -94,6 +98,31 @@ const Signup = () => {
 
   const goWelcome = () => {
     navigate(ROUTES.WELCOME, { state: ROUTES.SIGNUP });
+  };
+
+  //birth
+  const [birthMonth, setBirthMonth] = useState('');
+  const [birthDay, setBirthDay] = useState('');
+  const [birthYear, setBirthYear] = useState('');
+
+  const handleChangeMonth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthMonth(event.target.value);
+  };
+
+  const handleChangeDay = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthDay(event.target.value);
+  };
+
+  const handleChangeYear = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthYear(event.target.value);
+  };
+  const [age, setAge] = useState<number | null>(null);
+  const calculateAge = () => {
+    const currentYear = new Date().getFullYear();
+    const birthYearNum = parseInt(birthYear);
+    if (!isNaN(birthYearNum)) {
+      setAge(currentYear - birthYearNum);
+    }
   };
 
   return (
@@ -185,7 +214,7 @@ const Signup = () => {
               </small>
             )}
 
-            <Input
+            {/* <Input
               inputType="number"
               classType="text-input-white"
               placeholder="나이"
@@ -203,6 +232,34 @@ const Signup = () => {
             {errors.age && (
               <small css={ErrStyle} role="alert">
                 {errors.age.message}
+              </small>
+            )} */}
+
+            <div css={BirthStyle}>
+              <select
+                css={SelectStyle}
+                {...register('birthYear', {
+                  required: '생년월일을 선택해주세요.',
+                })}
+              >
+                <option value="">연도</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+              </select>
+              <select css={SelectStyle} {...register('birthMonth')}>
+                <option value="">월</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+              <select css={SelectStyle} {...register('birthDay')}>
+                <option value="">일</option>
+                <option value="1">1</option>
+                <option value="">2</option>
+              </select>
+            </div>
+            {(errors.birthYear || errors.birthDay || errors.birthMonth) && (
+              <small css={ErrStyle} style={{ color: 'red' }} role="alert">
+                {errors.birthYear!.message}
               </small>
             )}
 
@@ -373,4 +430,10 @@ const SignupFormStyle = styled.form`
 const FormContainer = styled.div`
   display: flex;
   padding: 20px 40px;
+`;
+
+const BirthStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
