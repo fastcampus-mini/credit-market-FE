@@ -1,6 +1,5 @@
 import { createCart } from '@/apis/cart';
 import { MESSAGES } from '@/constants/messages';
-import { IModal } from '@/interfaces/modal';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
 import React from 'react';

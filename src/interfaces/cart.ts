@@ -1,5 +1,7 @@
 export interface ICart {
-  id: string;
-  title: string;
-  bank: string;
+  cartId: string;
+  fproductCompanyName: string;
+  fproductName: string;
+  fproductCreditProductTypeName: string;
+  favorite: boolean;
 }
