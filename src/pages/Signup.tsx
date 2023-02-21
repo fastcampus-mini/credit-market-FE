@@ -96,6 +96,11 @@ const Signup = () => {
     navigate(ROUTES.WELCOME, { state: ROUTES.SIGNUP });
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputBox = e.target.closest('div') as HTMLDivElement;
+    e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
+  };
+
   return (
     <SignForm>
       <BackButton onClick={() => setIsBackModalOpen(true)} size={25} />
@@ -105,7 +110,7 @@ const Signup = () => {
         </h1>
         <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
           <SignupFormPanel>
-            <InputBox>
+            <InputBox onChange={handleChange}>
               <Input
                 id="SignupEmail"
                 label="Email"
@@ -124,7 +129,7 @@ const Signup = () => {
               />
               {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
             </InputBox>
-            <InputBox>
+            <InputBox onChange={handleChange}>
               <Input
                 id="SignupPw"
                 label="Password"
@@ -141,7 +146,7 @@ const Signup = () => {
               {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox onChange={handleChange}>
               <Input
                 id="SignupPwConfirm"
                 label="Password Confirm"
@@ -160,7 +165,7 @@ const Signup = () => {
               )}
             </InputBox>
 
-            <InputBox>
+            <InputBox onChange={handleChange}>
               <Input
                 id="SignupName"
                 label="Name"
@@ -180,7 +185,7 @@ const Signup = () => {
               {errors.name && <ErrStyle role="alert">{errors.name.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox onChange={handleChange}>
               <Input
                 id="SignupAge"
                 label="Age"
@@ -200,7 +205,7 @@ const Signup = () => {
               {errors.age && <ErrStyle role="alert">{errors.age.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox onChange={handleChange}>
               <Input
                 id="SignupCreditScore"
                 label="Personality Credit Score"

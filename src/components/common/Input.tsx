@@ -119,10 +119,12 @@ const handleInputType = (classType: string) => {
             transition:0.5s;
           }
 
+          &.active::after,
           &:focus-within::after{
             width : 100%;
           }
 
+          &.active label,
           &:focus-within label {
             top:-13px;
             left:0;
@@ -137,7 +139,6 @@ const handleInputType = (classType: string) => {
             padding: 10px 15px;
             outline: none;
             background: ${COLORS.white};
-
           }
 
           label {
@@ -150,7 +151,6 @@ const handleInputType = (classType: string) => {
             cursor:pointer;
             transition:0.5s;
           }
-
         `;
     case 'text-search':
       return `
