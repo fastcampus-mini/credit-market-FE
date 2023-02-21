@@ -64,6 +64,7 @@ const Login = () => {
               label="Email"
               inputType="text"
               classType="text-input-white"
+              className={errors.email && 'active'}
               aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
               register={{
                 ...register('email', {
@@ -84,6 +85,7 @@ const Login = () => {
               label="Password"
               inputType="password"
               classType="text-input-white"
+              className={errors.password && 'active'}
               aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
               register={{
                 ...register('password', {
