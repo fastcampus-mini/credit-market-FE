@@ -9,7 +9,6 @@ import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
-import ModalBox from '@/components/common/ModalBox';
 import { ROUTES } from '@/constants/routes';
 import { ErrStyle, InputBox, LogoStyle } from './Login';
 
@@ -38,7 +37,7 @@ const Signup = () => {
     register,
     handleSubmit,
     watch,
-    formState: { isSubmitting, isDirty, errors },
+    formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<FormValues>();
   const [FormData, setFormData] = useState<FormValues>({
     email: '',
@@ -100,11 +99,6 @@ const Signup = () => {
     navigate(ROUTES.WELCOME, { state: ROUTES.SIGNUP });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputBox = e.target.closest('div') as HTMLDivElement;
-    e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
-  };
-
   return (
     <SignForm>
       <BackButton onClick={() => setIsBackModalOpen(true)} size={25} />
@@ -114,12 +108,13 @@ const Signup = () => {
         </h1>
         <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
           <SignupFormPanel>
-            <InputBox onChange={handleChange}>
+            <InputBox>
               <Input
                 id="SignupEmail"
                 label="Email"
                 inputType="text"
                 classType="text-input-white"
+                className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
                 register={{
                   ...register('email', {
@@ -133,12 +128,13 @@ const Signup = () => {
               />
               {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
             </InputBox>
-            <InputBox onChange={handleChange}>
+            <InputBox>
               <Input
                 id="SignupPw"
                 label="Password"
                 inputType="password"
                 classType="text-input-white"
+                className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
                 register={{
                   ...register('password', {
@@ -150,12 +146,15 @@ const Signup = () => {
               {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox onChange={handleChange}>
+            <InputBox>
               <Input
                 id="SignupPwConfirm"
                 label="Password Confirm"
                 inputType="password"
                 classType="text-input-white"
+                className={
+                  errors.passwordConfirm ? 'active' : dirtyFields.passwordConfirm ? 'active' : ''
+                }
                 aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
                 register={{
                   ...register('passwordConfirm', {
@@ -169,12 +168,13 @@ const Signup = () => {
               )}
             </InputBox>
 
-            <InputBox onChange={handleChange}>
+            <InputBox>
               <Input
                 id="SignupName"
                 label="Name"
                 inputType="text"
                 classType="text-input-white"
+                className={errors.name ? 'active' : dirtyFields.name ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
                 register={{
                   ...register('name', {
@@ -230,18 +230,18 @@ const Signup = () => {
                 <option value="1">1</option>
                 <option value="">2</option>
               </SelectStyle>
+              {(errors.birthYear || errors.birthDay || errors.birthMonth) && (
+                <ErrStyle role="alert">{errors.birthYear!.message}</ErrStyle>
+              )}
             </InputBox>
 
-            {(errors.birthYear || errors.birthDay || errors.birthMonth) && (
-              <ErrStyle role="alert">{errors.birthYear!.message}</ErrStyle>
-            )}
-
-            <InputBox onChange={handleChange}>
+            <InputBox>
               <Input
                 id="SignupCreditScore"
                 label="Personality Credit Score"
                 inputType="number"
                 classType="text-input-white"
+                className={errors.credit ? 'active' : dirtyFields.credit ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
                 register={{
                   ...register('credit', {
@@ -327,19 +327,6 @@ const Signup = () => {
           </Button>
         </SignupFormStyle>
       </SignupStyle>
-
-      <ModalBox
-        isOpen={isBackModalOpen}
-        text={'메인 화면으로 이동하시겠습니까?\n입력하신 정보는 삭제됩니다.'}
-        onClickOk={goBack}
-        onClickCancel={setIsBackModalOpen}
-      />
-      <ModalBox
-        isOpen={isSubmitModalOpen}
-        text={'회원가입을 완료하시겠습니까?'}
-        onClickOk={modalSubmitHandler}
-        onClickCancel={setIsSubmitModalOpen}
-      />
     </SignForm>
   );
 };

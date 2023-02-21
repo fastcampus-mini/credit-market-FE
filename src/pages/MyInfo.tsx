@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
-import ModalBox from '@/components/common/ModalBox';
+import ModalBox from '@/components/template/ModalBox';
 import { ErrStyle } from './Login';
 
 const MyInfo = () => {
@@ -206,19 +206,6 @@ const MyInfo = () => {
             Submit
           </Button>
         </SignupFormStyle>
-
-        <ModalBox
-          isOpen={isBackModalOpen}
-          text={'메인 화면으로 이동하시겠습니까?\n입력하신 정보는 삭제됩니다.'}
-          onClickOk={goBack}
-          onClickCancel={setIsBackModalOpen}
-        />
-        <ModalBox
-          isOpen={isSubmitModalOpen}
-          text={'회원가입을 완료하시겠습니까?'}
-          onClickOk={modalSubmitHandler}
-          onClickCancel={setIsSubmitModalOpen}
-        />
       </MyInfoWrap>
     </MypageContainer>
   );

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import styled from '@emotion/styled';
 import COLORS from '@/styles/colors';
@@ -19,7 +19,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isDirty, errors },
+    formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<FormValues>();
   const onSubmit = async (data: FormValues) => {
     await new Promise((r) => setTimeout(r, 1000));
@@ -45,11 +45,6 @@ const Login = () => {
     navigate(location1.state?.from || '/', { replace: true });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputBox = e.target.closest('div') as HTMLDivElement;
-    e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
-  };
-
   return (
     <SignForm>
       <BackButton onClick={goBack} size={25} />
@@ -58,12 +53,13 @@ const Login = () => {
           <LogoStyle src="../../images/logo_Main.png" alt="" />
         </h1>
         <SigninFormStyle onSubmit={handleSubmit(onSubmit)}>
-          <InputBox onChange={handleChange}>
+          <InputBox>
             <Input
               id="LoginEmail"
               label="Email"
               inputType="text"
               classType="text-input-white"
+              className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}
               aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
               register={{
                 ...register('email', {
@@ -78,12 +74,13 @@ const Login = () => {
             {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
           </InputBox>
 
-          <InputBox onChange={handleChange}>
+          <InputBox>
             <Input
               id="LoginPw"
               label="Password"
               inputType="password"
               classType="text-input-white"
+              className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}
               aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
               register={{
                 ...register('password', {

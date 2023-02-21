@@ -1,5 +1,5 @@
 import { ROUTES } from '@/constants/routes';
-import { IProducts } from '@/interfaces/product';
+import { IProduct } from '@/interfaces/product';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
@@ -10,33 +10,34 @@ import CartButton from './CartButton';
 import FavorButton from './FavorButton';
 
 interface Props {
-  data: IProducts;
+  data: IProduct;
   isDetail?: boolean;
 }
 
 const ProductCard = ({ data, isDetail }: Props) => {
   const navigate = useNavigate();
+
   return (
     <StyledProductCard>
       <div className="cardCon">
         <div className="logoTitle">
           <img
             className="bankLogo"
-            src={data.bankName && getBankLogo(data.bankName)}
-            alt={data.bankName}
+            src={data.companyName && getBankLogo(data.companyName)}
+            alt={data.companyName}
           />
-          <h2 className="bankTitle">{data.bankName}</h2>
+          <h2 className="bankTitle">{data.companyName}</h2>
         </div>
         <p className="productName">{data.productName}</p>
         <div className="textBox">
           <p>
-            대출종류<span>{data.loanType}</span>
+            대출종류<span>{data.productTypeName}</span>
           </p>
           <p>
-            평균금리<span>{data.rateAvg}</span>
+            평균금리<span>{data.interestRateAvg}</span>
           </p>
           <p>
-            금리구분<span>{data.rateType}</span>
+            금리구분<span>{data.interestType}</span>
           </p>
         </div>
         {!isDetail && (

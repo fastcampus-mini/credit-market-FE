@@ -11,26 +11,22 @@ import PageTitle from '@/components/common/PageTitle';
 import { ICart } from '@/interfaces/cart';
 import Input from '@/components/common/Input';
 import { useNavigate } from 'react-router-dom';
-import ModalBox from '@/components/common/ModalBox';
+import ModalBox from '@/components/template/ModalBox';
 import { IModal } from '@/interfaces/modal';
 import { ROUTES } from '@/constants/routes';
+import { setModal } from '@/store/modalSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const [cart, setCart] = useState<ICart[]>([]);
   const navigate = useNavigate();
   const [checkId, setCheckId] = useState<string[]>([]);
-  const [modalState, setModalState] = useState<IModal>({
-    isOpen: false,
-    onClickOk: {},
-    text: '',
-  });
 
   useEffect(() => {
     async function getData() {
       try {
         dispatch(showLoading());
-        // const data = await getCartList();
+        // const data = await getCartList(1);
         // setCart(data);
         const data: ICart[] = [
           { id: '1', title: '직장인 신용대출', bank: '우리은행' },
@@ -44,7 +40,7 @@ const Cart = () => {
         ];
         setCart(data);
       } catch (error) {
-        alert(MESSAGES.ERROR_CART.GET);
+        alert(MESSAGES.CART.ERROR_GET);
       } finally {
         dispatch(hideLoading());
       }
@@ -57,20 +53,24 @@ const Cart = () => {
   };
 
   const handleDelete = () => {
-    setModalState({
-      isOpen: true,
-      onClickOk: handleDeleteCart,
-      onClickCancel: () => setModalState((prev) => ({ ...prev, isOpen: false })),
-      text: MESSAGES.CHECK_DELETE_CART,
-    });
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: handleDeleteCart,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.CART.CHECK_DELETE,
+      }),
+    );
   };
 
   const handleDeleteCart = () => {
-    setModalState({
-      isOpen: true,
-      onClickOk: () => setModalState((prev) => ({ ...prev, isOpen: false })),
-      text: MESSAGES.COMPLETE_DELETE_CART,
-    });
+    return dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.CART.COMPLETE_DELETE,
+      }),
+    );
   };
 
   const handleCheck = (checked: HTMLInputElement['checked'], id: string) => {
@@ -129,12 +129,6 @@ const Cart = () => {
       <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청하기
       </Button>
-      <ModalBox
-        isOpen={modalState.isOpen}
-        onClickOk={modalState.onClickOk}
-        onClickCancel={modalState.onClickCancel}
-        text={modalState.text}
-      />
     </CartContainer>
   );
 };

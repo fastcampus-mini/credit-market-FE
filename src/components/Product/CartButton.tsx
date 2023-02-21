@@ -1,6 +1,10 @@
 import { createCart } from '@/apis/cart';
+import { MESSAGES } from '@/constants/messages';
+import { IModal } from '@/interfaces/modal';
+import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   id: string;
@@ -9,9 +13,19 @@ interface Props {
 }
 
 const CartButton = ({ id, top, right }: Props) => {
+  const dispatch = useDispatch();
+
   const handleCart = async () => {
     // await createCart(id);
-    alert('Click!🛒');
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => {
+          dispatch(setModal({ isOpen: false }));
+        },
+        text: MESSAGES.CART.COMPLETE_ADD,
+      }),
+    );
   };
 
   return (
