@@ -1,11 +1,13 @@
 import { ROUTES } from '@/constants/routes';
+import { IModal } from '@/interfaces/modal';
 import { IProducts } from '@/interfaces/product';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
+import ModalBox from '../template/ModalBox';
 import CartButton from './CartButton';
 import FavorButton from './FavorButton';
 
@@ -16,6 +18,7 @@ interface Props {
 
 const ProductCard = ({ data, isDetail }: Props) => {
   const navigate = useNavigate();
+
   return (
     <StyledProductCard>
       <div className="cardCon">

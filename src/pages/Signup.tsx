@@ -9,7 +9,7 @@ import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
-import ModalBox from '@/components/common/ModalBox';
+import ModalBox from '@/components/template/ModalBox';
 import { ROUTES } from '@/constants/routes';
 import { ErrStyle } from './Login';
 

@@ -5,6 +5,7 @@ import Navbar from '@/components/template/Navbar';
 import ScrollToTop from '@/components/template/ScrollToTop';
 import Loading from './components/template/Loading';
 import Router from './routes/Router';
+import ModalBox from './components/template/ModalBox';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router />
       <Loading />
       <Navbar />
+      <ModalBox />
     </BrowserRouter>
   );
 }
