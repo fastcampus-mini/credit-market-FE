@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
 import Input from '../common/Input';
+import CartButton from '../Product/CartButton';
+import FavorButton from '../Product/FavorButton';
 
 interface Props {
   data: ICart;
@@ -44,13 +46,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          <Input
-            classType="heartBtn"
-            inputType="checkbox"
-            id={data.id}
-            right="60px"
-            top="calc(50% - 0.6rem)"
-          />
+          <FavorButton id={data.id} right="60px" top="calc(50% - 0.6rem)" />
           <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
             <AiOutlineClose />
           </Button>
@@ -100,15 +96,6 @@ const BankText = styled.p`
   display: flex;
   align-items: center;
   gap: 5px;
-
-  .bankLogo {
-    display: inline-block;
-
-    width: 20px;
-    img {
-      width: 100%;
-    }
-  }
 `;
 
 const ProductText = styled.p`
