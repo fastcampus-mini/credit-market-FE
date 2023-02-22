@@ -28,18 +28,19 @@ const Login = () => {
 
   const [cookies, setCookie] = useCookies(['userName', 'accessToken']);
 
-  const onSubmit = async (event: any) => {
-    event.preventDefault();
+  const onSubmit = async (data: any) => {
     await new Promise((r) => setTimeout(r, 1000));
-    alert(JSON.stringify(event));
+    alert(JSON.stringify(data));
 
     const response = await axiosInstance.post(API_URLS.LOGIN, {
-      userEmail: 'test@abc.com',
-      userPassword: '11111111',
+      userEmail: data.email,
+      userPassword: data.password,
     });
-    console.log(response.data);
+
+    console.log(response);
+
     setCookie('userName', '방문자');
-    setCookie('accessToken', response.data.accessToken);
+    setCookie('accessToken', response);
     goHome();
   };
 
