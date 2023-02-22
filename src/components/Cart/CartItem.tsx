@@ -36,8 +36,8 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
           <ImageWrap>
             <Image
               src={getBankLogo(data.fproductCompanyName) as string}
-              width="34"
-              height="34"
+              width="34px"
+              height="34px"
               alt={data.fproductCompanyName}
             />
           </ImageWrap>
@@ -50,7 +50,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
       {isCheckBox && (
         <IconWrap>
           <FavorButton id={data.cartId} isFavor={data.favorite} />
-          <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
+          <Button buttonType="text" width="fit-content" height="16px" onClick={handleDelete}>
             <AiOutlineClose />
           </Button>
         </IconWrap>

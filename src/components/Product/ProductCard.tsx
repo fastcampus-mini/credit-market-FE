@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
+import Image from '../common/Image';
 import CartButton from './CartButton';
 import FavorButton from './FavorButton';
 
@@ -22,9 +23,10 @@ const ProductCard = ({ data, isDetail }: Props) => {
       <CardContainer>
         <LogoTitle>
           <BankWrap>
-            <BankLogo
+            <Image
               src={data.companyName && getBankLogo(data.companyName)}
               alt={data.companyName}
+              width="30px"
             />
             <h2>{data.companyName}</h2>
           </BankWrap>
@@ -107,6 +109,7 @@ const CardContainer = styled.div`
 const BankWrap = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
 `;
 
 const LogoTitle = styled.div`
@@ -117,9 +120,4 @@ const LogoTitle = styled.div`
   align-items: center;
   margin-bottom: 10px;
   color: ${COLORS.primary};
-`;
-
-const BankLogo = styled.img`
-  width: 30px;
-  margin-right: 10px;
 `;
