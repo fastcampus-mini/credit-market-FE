@@ -13,6 +13,8 @@ import Input from '@/components/common/Input';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import { setModal } from '@/store/modalSlice';
+import Lottie from 'lottie-react';
+import CartLottie from '@/lotties/animated-shopping-cart.json';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -24,69 +26,16 @@ const Cart = () => {
     async function getData() {
       try {
         dispatch(showLoading());
-        // const data = await getCartList(1);
-        // setCart(data);
-        const data: ICart[] = [
-          {
-            cartId: '1',
-            fproductName: '직장인 신용대출',
-            fproductCompanyName: '우리은행',
-            fproductCreditProductTypeName: '',
-            favorite: true,
-          },
-          {
-            cartId: '2',
-            fproductName: '주부 신용대출',
-            fproductCompanyName: '서울은행',
-            fproductCreditProductTypeName: '',
-            favorite: false,
-          },
-          {
-            cartId: '3',
-            fproductName: '고양이 신용대출',
-            fproductCompanyName: '국민은행',
-            fproductCreditProductTypeName: '',
-            favorite: false,
-          },
-          {
-            cartId: '4',
-            fproductName: '직장인 신용대출',
-            fproductCompanyName: '우리은행',
-            fproductCreditProductTypeName: '',
-            favorite: false,
-          },
-          {
-            cartId: '5',
-            fproductName: '고양이 신용대출',
-            fproductCompanyName: '신한은행',
-            fproductCreditProductTypeName: '',
-            favorite: true,
-          },
-          // {
-          //   cartId: '6',
-          //   fproductName: '대학생 신용대출',
-          //   fproductCompanyName: '국민은행',
-          //   fproductCreditProductTypeName: '',
-          //   favorite: false,
-          // },
-          // {
-          //   cartId: '7',
-          //   fproductName: '고양이 신용대출',
-          //   fproductCompanyName: '제주은행',
-          //   fproductCreditProductTypeName: '',
-          //   favorite: false,
-          // },
-          // {
-          //   cartId: '8',
-          //   fproductName: '대학생 신용대출',
-          //   fproductCompanyName: '어떤은행',
-          //   fproductCreditProductTypeName: '',
-          //   favorite: false,
-          // },
-        ];
-        setCart(data);
+        const data = await getCartList(1);
+        if (data) setCart(data);
       } catch (error) {
-        alert(MESSAGES.CART.ERROR_GET);
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.CART.ERROR_GET,
+          }),
+        );
       } finally {
         dispatch(hideLoading());
       }
@@ -140,25 +89,28 @@ const Cart = () => {
   return (
     <CartContainer>
       <PageTitle title="장바구니" />
-      <CheckBoxWrap>
-        <AllCheck>
-          <Input
-            inputType="checkbox"
-            classType="checkbox"
-            onChange={handleAllCheck}
-            checked={checkId.length === cart.length ? true : false}
-            id="AllCheck"
-          />
-          <AllCheckText htmlFor="AllCheck">
-            전체선택 ({checkId.length}/{cart.length})
-          </AllCheckText>
-        </AllCheck>
-        <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
-          선택삭제
-        </Button>
-      </CheckBoxWrap>
+      {cart.length > 0 && (
+        <CheckBoxWrap>
+          <AllCheck>
+            <Input
+              inputType="checkbox"
+              classType="checkbox"
+              onChange={handleAllCheck}
+              checked={checkId.length === cart.length ? true : false}
+              id="AllCheck"
+            />
+            <AllCheckText htmlFor="AllCheck">
+              전체선택 ({checkId.length}/{cart.length})
+            </AllCheckText>
+          </AllCheck>
+          <Button buttonType="text" width="fit-content" height="fit-content" onClick={handleDelete}>
+            선택삭제
+          </Button>
+        </CheckBoxWrap>
+      )}
+
       <CartContent>
-        {Array.isArray(cart) ? (
+        {cart.length > 0 ? (
           cart.map((item) => (
             <CartItem
               key={item.cartId}
@@ -169,12 +121,22 @@ const Cart = () => {
             />
           ))
         ) : (
-          <div>담으신 상품이 없습니다.</div>
+          <NoCart>
+            <LottieWrap>
+              <Lottie animationData={CartLottie} loop={true} />
+            </LottieWrap>
+            <NoCartText>아직 담으신 상품이 없습니다.</NoCartText>
+            <Button buttonType="blue" width="200px" onClick={() => navigate(ROUTES.SEARCH)}>
+              상품 보러가기
+            </Button>
+          </NoCart>
         )}
       </CartContent>
-      <Button width="calc(100% - 10px)" onClick={handleClick}>
-        신청하기
-      </Button>
+      {cart.length > 0 && (
+        <Button width="calc(100% - 10px)" onClick={handleClick}>
+          신청하기
+        </Button>
+      )}
     </CartContainer>
   );
 };
@@ -213,4 +175,19 @@ const CartContent = styled.ul`
   margin-bottom: 10px;
   overflow-y: auto;
   padding-right: 10px;
+`;
+
+const NoCart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 170px;
+`;
+
+const LottieWrap = styled.div`
+  width: 120px;
+`;
+
+const NoCartText = styled.p`
+  margin-bottom: 20px;
 `;
