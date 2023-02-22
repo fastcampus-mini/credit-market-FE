@@ -58,6 +58,7 @@ const ModalText = styled.div`
   justify-content: center;
   text-align: center;
   line-height: 1.6;
+  white-space: pre-wrap;
 `;
 
 const ButtonWrap = styled.div`

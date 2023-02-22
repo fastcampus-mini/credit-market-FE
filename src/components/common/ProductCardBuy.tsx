@@ -35,9 +35,15 @@ const ProductCardBuy = ({
           <img className="bankLogo" src={bankLogo} alt={bankTitle} />          
           <h2 className="bankTitle">{bankTitle}</h2>          
         </div>
-        {/* <div>
-          <FavorButton id={data.id} isFavor={data.favorite} />
-        </div> */}
+        <div className='cancelBuy'>
+          <Button 
+            width="30%"
+            height="30px"
+            marginTop="10px" 
+          >
+            신청 취소하기
+          </Button>
+        </div>
         
         <p className="productName">{productName}</p>
         <div className="textBox">
@@ -82,6 +88,12 @@ const StyledProductCardBuy = styled.li`
         width: 30px;
         margin-right: 10px;
       }      
+    }
+    
+    .cancelBuy button {
+      position: absolute;
+      right: 15px;
+      top: 15px;
     }
 
     .productName {
