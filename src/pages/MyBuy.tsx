@@ -10,7 +10,7 @@ import { getBankLogo } from '@/utils/bankLogo';
 const MyBuy = () => {
   const navigate = useNavigate();
 
-  const datas: Prop [] = [
+  const datas: any[] = [
     { id: '1', title: '무직자 신용대출', bank: '국민', interestRate: 5.04},
     { id: '2', title: '고용주 신용대출', bank: '기업', interestRate: 5.04},
     { id: '3', title: '고양이 신용대출', bank: '수협', interestRate: 5.04},
