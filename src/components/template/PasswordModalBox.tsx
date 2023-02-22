@@ -8,8 +8,9 @@ import { ErrStyle, InputBox } from '@/pages/Login';
 import { SignupFormStyle } from '@/pages/Signup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PasswordModalStore } from '@/interfaces/store';
+import { setPasswordModal } from '@/store/passModalSlice';
 
 interface PassWordForm {
   password: string;
@@ -39,15 +40,20 @@ const PasswordModalBox = () => {
     formState: { isSubmitting, isDirty, errors },
   } = useForm<PassWordForm>();
 
+  const dispatch = useDispatch();
+
   const onSubmit = async (data: PassWordForm) => {
-    await new Promise((r) => setTimeout(r, 1000));
-    alert(JSON.stringify(data));
+    // await new Promise((r) => setTimeout(r, 1000));
+    // alert(JSON.stringify(data));
     // try {
     //   const response = await axios.post('/api/login', data);
     //   console.log(response.data);
     // } catch (error) {
     //   console.error(error);
     // }
+
+    dispatch(setPasswordModal({ isOpen: false }));
+
     // const navigate = useNavigate();
 
     // const goTo = () => {
