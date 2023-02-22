@@ -35,9 +35,9 @@ const ProductCardFav = ({
           <img className="bankLogo" src={bankLogo} alt={bankTitle} />          
           <h2 className="bankTitle">{bankTitle}</h2>          
         </div>
-        {/* <div>
-          <FavorButton id={data.id} isFavor={data.favorite} />
-        </div> */}
+        <div>
+          <FavorButton id={data.id} isFavor={isFavor} />
+        </div>
         
         <p className="productName">{productName}</p>
         <div className="textBox">

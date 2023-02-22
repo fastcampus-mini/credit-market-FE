@@ -19,7 +19,7 @@ interface Prop {
 const MyFavor = () => {
   const navigate = useNavigate();
 
-  const datas: Prop [] = [
+  const datas: any[] = [
     { id: '1', title: '직장인 신용대출', bank: '우리', interestRate: 5.04},
     { id: '2', title: '주부 신용대출', bank: '국민', interestRate: 5.04},
     { id: '3', title: '무직자 신용대출', bank: '신한', interestRate: 5.04},
@@ -44,7 +44,7 @@ const MyFavor = () => {
             loanTitle="대출"
             rateAverage="3.4%"
             rateSort="대출"
-            Favor={false}
+            isFavor={false}
           />
         )
       })}</MyFavorWrap>
