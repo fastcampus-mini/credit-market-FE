@@ -5,6 +5,8 @@ export interface IModal {
   text: string;
   onClickOk: Function;
   onClickCancel?: Function;
+  okText?: string;
+  cancelText?: string;
 }
 
 export interface PasswordModal {
