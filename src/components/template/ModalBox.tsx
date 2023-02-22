@@ -30,16 +30,16 @@ const ModalBox = () => {
       </ModalText>
       <ButtonWrap>
         <Button buttonType="blue" width="80px" height="34px" onClick={modalState.onClickOk}>
-          확인
+          {modalState.okText ? modalState.okText : '확인'}
         </Button>
         {modalState.onClickCancel && (
           <Button
             buttonType="white"
-            width="80px"
+            width={modalState.cancelText ? '110px' : '80px'}
             height="34px"
             onClick={() => modalState.onClickCancel!(false)}
           >
-            취소
+            {modalState.cancelText ? modalState.cancelText : '취소'}
           </Button>
         )}
       </ButtonWrap>

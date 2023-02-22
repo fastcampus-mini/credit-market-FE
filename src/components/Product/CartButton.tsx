@@ -1,9 +1,12 @@
 import { createCart } from '@/apis/cart';
 import { MESSAGES } from '@/constants/messages';
+import { ROUTES } from '@/constants/routes';
 import { setModal } from '@/store/modalSlice';
+import { getCookie } from '@/utils/cookie';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   id: string;
@@ -11,8 +14,22 @@ interface Props {
 
 const CartButton = ({ id }: Props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userName = getCookie('userName');
 
   const handleCart = async () => {
+    if (!userName) {
+      return dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => {
+            dispatch(setModal({ isOpen: false }));
+          },
+          text: MESSAGES.INVALID_AUTH,
+        }),
+      );
+    }
+
     // await createCart(id);
     dispatch(
       setModal({
@@ -20,6 +37,11 @@ const CartButton = ({ id }: Props) => {
         onClickOk: () => {
           dispatch(setModal({ isOpen: false }));
         },
+        onClickCancel: () => {
+          dispatch(setModal({ isOpen: false }));
+          navigate(ROUTES.CART);
+        },
+        cancelText: '장바구니 이동',
         text: MESSAGES.CART.COMPLETE_ADD,
       }),
     );
