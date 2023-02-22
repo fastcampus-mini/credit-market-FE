@@ -94,9 +94,13 @@ const StyledProductCard = styled.li`
 
       span {
         color: ${COLORS.mainText};
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         margin-top: 5px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

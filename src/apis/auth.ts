@@ -11,5 +11,10 @@ export const signup = async (data: Object) => {
 };
 
 export const logout = async () => {
-  await axiosInstance.post(API_URLS.LOGOUT);
+  try {
+    const response = await axiosInstance.post(API_URLS.LOGOUT);
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
 };
