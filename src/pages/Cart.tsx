@@ -37,7 +37,7 @@ const Cart = () => {
           {
             cartId: '2',
             fproductName: '주부 신용대출',
-            fproductCompanyName: '신한은행',
+            fproductCompanyName: '서울은행',
             fproductCreditProductTypeName: '',
             favorite: false,
           },
@@ -79,7 +79,7 @@ const Cart = () => {
           {
             cartId: '8',
             fproductName: '대학생 신용대출',
-            fproductCompanyName: '신한은행',
+            fproductCompanyName: '어떤은행',
             fproductCreditProductTypeName: '',
             favorite: false,
           },
