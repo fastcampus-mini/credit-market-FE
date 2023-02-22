@@ -11,90 +11,99 @@ import { IProduct } from '@/interfaces/product';
 import Lottie from 'lottie-react';
 import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
+import { axiosInstance } from '@/apis/instance';
+import { API_URLS } from '@/constants/apiUrls';
+import { getCookie } from '@/utils/cookie';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [products, setProducts] = useState<IProduct>([] as never);
+  const { productId } = products;
+  const userName = getCookie('userName');
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        const data: IProduct[] = [
+        const recommendedData: IProduct = (await axiosInstance.get(API_URLS.RECOMMEND)) as never;
+        const randomData: IProduct = [
           {
-            id: '1',
+            productId: '1',
             productName: '직장인 신용대출',
             companyName: '우리은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '2',
+            productId: '2',
             productName: '주부 신용대출',
             companyName: '국민은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '3',
+            productId: '3',
             productName: '고양이 신용대출',
             companyName: '신한은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '4',
+            productId: '4',
             productName: '주부 신용대출',
             companyName: '국민은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '5',
+            productId: '5',
             productName: '직장인 신용대출',
             companyName: '우리은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '6',
+            productId: '6',
             productName: '주부 신용대출',
             companyName: '신한은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '7',
+            productId: '7',
             productName: '고양이 신용대출',
             companyName: '국민은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '8',
+            productId: '8',
             productName: '대학생 신용대출',
             companyName: '제주은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
-        ];
-        setProducts(data);
+        ] as never;
+
+        {
+          userName ? setProducts(recommendedData) : setProducts(randomData);
+        }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
       } finally {
@@ -103,7 +112,6 @@ const Home = () => {
     }
     getProducts();
   }, []);
-
   return (
     <StyledHome>
       <Lottie animationData={WelcomeLottie} loop={false} className="welcome" />
@@ -111,9 +119,9 @@ const Home = () => {
         <Lottie animationData={BackgroundLottie} loop={true} className="background" />
       </div>
       <p className="welcomeText">
-        방문자님,
+        {userName ? userName : '방문자'}님,
         <br />
-        오늘도 즐거운 하루 보내세요!
+        {userName ? '근사한 상품을 준비해 놓았어요!' : '오늘도 즐거운 하루 보내세요!'}
       </p>
       <div id="panel">
         <Link to="/search">
@@ -125,8 +133,8 @@ const Home = () => {
           />
         </Link>
         <ul className="productsArea">
-          {products.map((product) => (
-            <ProductCard key={product.id} data={product} />
+          {products.map((product: IProduct) => (
+            <ProductCard key={productId} data={product} />
           ))}
         </ul>
       </div>
