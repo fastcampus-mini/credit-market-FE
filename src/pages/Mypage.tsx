@@ -138,11 +138,11 @@ const MenuItem = styled.li`
   padding: 20px;
   background-color: ${COLORS.white};
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   &:hover {
     background-color: #d0daec60;
     & > span {
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       scale: 1.3;
     }
   }
