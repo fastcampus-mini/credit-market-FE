@@ -24,9 +24,8 @@ export const PrivateRoute = ({ children }: Props) => {
         text: MESSAGES.INVALID_AUTH,
       }),
     );
-  } else {
-    return children;
   }
+  return userName && children;
 };
 
 export default PrivateRoute;
