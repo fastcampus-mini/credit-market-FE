@@ -34,5 +34,8 @@ export const MESSAGES = {
     FAV: {
       ERROR_GET: '관심 상품 조회 중\n에러가 발생하였습니다.',
     },
+    INFO: {
+      CHECK_MODAL: '본인 확인을 위해\n비밀번호를 입력해주세요.',
+    },
   },
 };
