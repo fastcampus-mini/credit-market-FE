@@ -1,16 +1,19 @@
 import axios from 'axios';
 import Button from './Button';
+import { axiosInstance } from '@/apis/instance';
+import { API_URLS } from '@/constants/apiUrls';
+import useCookies from 'react-cookie/cjs/useCookies';
 
 type Props = {};
 
+const [cookies, setCookies] = useCookies(['userName', 'accessToken']);
+
 const LogoutButton = (props: Props) => {
   const handleLogout = async () => {
-    try {
-      const response = await axios.post('api/logout');
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await axiosInstance.post(API_URLS.LOGOUT, {
+      Authorization: cookies.accessToken,
+    });
+    console.log(response);
   };
 
   return <Button onClick={handleLogout}> Logout </Button>;
