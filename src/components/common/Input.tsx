@@ -13,7 +13,6 @@ interface Prop {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   checked?: boolean;
   classType?: string;
-  className?: string;
   ariaInvalid?: boolean;
   register?: {};
   autoFocus?: boolean;
@@ -33,7 +32,6 @@ const Input = ({
   onChange,
   checked,
   classType = 'text-input',
-  className,
   ariaInvalid = true,
   register = {},
   autoFocus = false,
@@ -48,7 +46,6 @@ const Input = ({
       height={height}
       inputType={inputType}
       classType={classType}
-      className={className}
       top={top}
       right={right}
     >
@@ -108,51 +105,6 @@ const handleInputType = (classType: string) => {
           display: flex;
           align-items: center;
           position:relative;
-          
-          &::after {
-            position:absolute;
-            content:'';
-            width:0;
-            left:50%;
-            transform:translateX(-50%);
-            height:2px;
-            background:${COLORS.primary};
-            bottom:0;
-            transition:0.5s;
-          }
-
-          &.active::after,
-          &:focus-within::after{
-            width : 100%;
-          }
-
-          &.active label,
-          &:focus-within label {
-            top:-13px;
-            left:0;
-            color:${COLORS.primary};
-            font-weight:bold;
-            font-size:14px;
-          }
-
-          input {
-            width: 100%;
-            border: none;
-            padding: 10px 15px;
-            outline: none;
-            background: ${COLORS.white};
-          }
-
-          label {
-            position:absolute;
-            font-size:13px;
-            left:15px;
-            top:50%;
-            transform:translateY(-50%);
-            color:${COLORS.gray};
-            cursor:pointer;
-            transition:0.5s;
-          }
         `;
     case 'text-search':
       return `

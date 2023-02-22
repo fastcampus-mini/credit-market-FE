@@ -108,13 +108,12 @@ const Signup = () => {
         </h1>
         <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
           <SignupFormPanel>
-            <InputBox>
+            <InputBox className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}>
               <Input
                 id="SignupEmail"
                 label="Email"
                 inputType="text"
                 classType="text-input-white"
-                className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
                 register={{
                   ...register('email', {
@@ -128,13 +127,12 @@ const Signup = () => {
               />
               {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
             </InputBox>
-            <InputBox>
+            <InputBox className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}>
               <Input
                 id="SignupPw"
                 label="Password"
                 inputType="password"
                 classType="text-input-white"
-                className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
                 register={{
                   ...register('password', {
@@ -146,15 +144,16 @@ const Signup = () => {
               {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox
+              className={
+                errors.passwordConfirm ? 'active' : dirtyFields.passwordConfirm ? 'active' : ''
+              }
+            >
               <Input
                 id="SignupPwConfirm"
                 label="Password Confirm"
                 inputType="password"
                 classType="text-input-white"
-                className={
-                  errors.passwordConfirm ? 'active' : dirtyFields.passwordConfirm ? 'active' : ''
-                }
                 aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
                 register={{
                   ...register('passwordConfirm', {
@@ -168,13 +167,12 @@ const Signup = () => {
               )}
             </InputBox>
 
-            <InputBox>
+            <InputBox className={errors.name ? 'active' : dirtyFields.name ? 'active' : ''}>
               <Input
                 id="SignupName"
                 label="Name"
                 inputType="text"
                 classType="text-input-white"
-                className={errors.name ? 'active' : dirtyFields.name ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
                 register={{
                   ...register('name', {
@@ -210,7 +208,18 @@ const Signup = () => {
               </small>
             )} */}
 
-            <InputBox css={BirthStyle}>
+            <InputBox
+              id="birth"
+              css={BirthStyle}
+              className={
+                errors.birthYear || errors.birthDay || errors.birthMonth
+                  ? 'active'
+                  : dirtyFields.birthYear || dirtyFields.birthDay || dirtyFields.birthMonth
+                  ? 'active'
+                  : ''
+              }
+            >
+              <SelectLabel htmlFor="birth">Birth</SelectLabel>
               <SelectStyle
                 {...register('birthYear', {
                   required: '생년월일을 선택해주세요.',
@@ -235,13 +244,12 @@ const Signup = () => {
               )}
             </InputBox>
 
-            <InputBox>
+            <InputBox className={errors.credit ? 'active' : dirtyFields.credit ? 'active' : ''}>
               <Input
                 id="SignupCreditScore"
                 label="Personality Credit Score"
                 inputType="number"
                 classType="text-input-white"
-                className={errors.credit ? 'active' : dirtyFields.credit ? 'active' : ''}
                 aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
                 register={{
                   ...register('credit', {
@@ -256,7 +264,8 @@ const Signup = () => {
               {errors.credit && <ErrStyle role="alert">{errors.credit.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox className={errors.sex ? 'active' : dirtyFields.sex ? 'active' : ''}>
+              <SelectLabel>Gender</SelectLabel>
               <SelectStyle
                 {...register('sex', {
                   required: '성별을 선택해주세요.',
@@ -270,7 +279,8 @@ const Signup = () => {
               {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox className={errors.bank ? 'active' : dirtyFields.bank ? 'active' : ''}>
+              <SelectLabel>Bank</SelectLabel>
               <SelectStyle
                 {...register('bank', {
                   required: '은행을 선택해주세요.',
@@ -285,7 +295,8 @@ const Signup = () => {
               {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox className={errors.loan ? 'active' : dirtyFields.loan ? 'active' : ''}>
+              <SelectLabel>Type of Loan</SelectLabel>
               <SelectStyle
                 {...register('loan', {
                   required: '선호하는 대출 종류를 선택해주세요.',
@@ -297,14 +308,11 @@ const Signup = () => {
                 <option value="">단기 신용 대출</option>
                 <option value="">소액 신용 대출</option>
               </SelectStyle>
-              {errors.loan && (
-                <ErrStyle style={{ color: 'red' }} role="alert">
-                  {errors.loan.message}
-                </ErrStyle>
-              )}
+              {errors.loan && <ErrStyle role="alert">{errors.loan.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox>
+            <InputBox className={errors.interest ? 'active' : dirtyFields.interest ? 'active' : ''}>
+              <SelectLabel>Type of Rate</SelectLabel>
               <SelectStyle
                 {...register('interest', {
                   required: '선호하는 금리 종류를 선택해주세요.',
@@ -393,4 +401,17 @@ const BirthStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const SelectLabel = styled.label`
+  position: absolute;
+  font-size: 13px;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: ${COLORS.gray};
+  cursor: pointer;
+  transition: 0.5s;
+  opacity: 0;
+  z-index: -1;
 `;
