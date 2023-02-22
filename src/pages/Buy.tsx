@@ -9,19 +9,47 @@ import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { AiOutlineCheck } from 'react-icons/ai';
-import ModalBox from '@/components/common/ModalBox';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
+import { useDispatch } from 'react-redux';
+import { setModal } from '@/store/modalSlice';
 
 const Buy = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState<ICart[]>([]);
   const [isChecked, setIsChecked] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const data: ICart[] = [
-      { id: '1', title: '개발자 신용대출', bank: '우리은행' },
-      { id: '2', title: '감자튀김 신용대출', bank: '국민은행' },
-      { id: '3', title: '고양이 신용대출', bank: '신한은행' },
-      { id: '4', title: '대학생 신용대출', bank: '제주은행' },
+      {
+        cartId: '1',
+        fproductName: '개발자 신용대출',
+        fproductCompanyName: '우리은행',
+        fproductCreditProductTypeName: '',
+        favorite: true,
+      },
+      {
+        cartId: '2',
+        fproductName: '감자튀김 신용대출',
+        fproductCompanyName: '신한은행',
+        fproductCreditProductTypeName: '',
+        favorite: false,
+      },
+      {
+        cartId: '3',
+        fproductName: '고양이 신용대출',
+        fproductCompanyName: '국민은행',
+        fproductCreditProductTypeName: '',
+        favorite: false,
+      },
+      {
+        cartId: '4',
+        fproductName: '직장인 신용대출',
+        fproductCompanyName: '우리은행',
+        fproductCreditProductTypeName: '',
+        favorite: false,
+      },
     ];
     setCart(data);
   }, []);
@@ -31,7 +59,37 @@ const Buy = () => {
   };
 
   const handleClick = () => {
-    if (!isChecked) return setIsModalOpen(true);
+    if (!isChecked) {
+      return dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.BUY.CHECK_POLICY,
+        }),
+      );
+    } else {
+      return dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: handleBuy,
+          onClickCancel: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.BUY.CHECK_BUY,
+        }),
+      );
+    }
+  };
+
+  const handleBuy = () => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => {
+          dispatch(setModal({ isOpen: false }));
+          navigate(ROUTES.MYPAGE_BUY);
+        },
+        text: MESSAGES.BUY.COMPLETE_BUY,
+      }),
+    );
   };
 
   return (
@@ -40,15 +98,15 @@ const Buy = () => {
       <BuyContent>
         <BuyItemContainer>
           {Array.isArray(cart) ? (
-            cart.map((item) => <CartItem key={item.id} data={item} />)
+            cart.map((item) => <CartItem key={item.cartId} data={item} />)
           ) : (
             <div>담으신 상품이 없습니다.</div>
           )}
         </BuyItemContainer>
         <PolicyContainer>
           <AgreeContainer>
-            <Input inputType="checkbox" onChange={handleCheck} />
-            <AgreeText>필수 동의</AgreeText>
+            <Input inputType="checkbox" onChange={handleCheck} id="AllAgree" />
+            <AgreeText htmlFor="AllAgree">필수 동의</AgreeText>
           </AgreeContainer>
           {POLICIES.map((item, idx) => (
             <PolicyText key={idx}>
@@ -65,11 +123,6 @@ const Buy = () => {
       <Button width="calc(100% - 10px)" onClick={handleClick}>
         신청완료
       </Button>
-      <ModalBox
-        isOpen={isModalOpen}
-        onClickOk={() => setIsModalOpen(false)}
-        text={MESSAGES.CHECK_POLICY}
-      />
     </BuyContainer>
   );
 };
@@ -115,10 +168,11 @@ const AgreeContainer = styled.div`
   margin: 5px 0 8px 0;
 `;
 
-const AgreeText = styled.p`
+const AgreeText = styled.label`
   font-size: 14px;
   margin-left: 10px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const PolicyText = styled.p`

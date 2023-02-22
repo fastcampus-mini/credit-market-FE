@@ -5,36 +5,94 @@ import Input from '@/components/common/Input';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
-import ProductCard from '@/components/common/ProductCard';
-import { getBankLogo } from '@/utils/bankLogo';
-
-interface Prop {
-  id: string;
-  title: string;
-  bank: string;
-}
+import ProductCard from '@/components/Product/ProductCard';
+import { IProduct } from '@/interfaces/product';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState<Prop[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        const data: Prop[] = [
-          { id: '1', title: '직장인 신용대출', bank: '우리' },
-          { id: '2', title: '주부 신용대출', bank: '국민' },
-          { id: '3', title: '고양이 신용대출', bank: '신한' },
-          { id: '4', title: '주부 신용대출', bank: '국민' },
-          { id: '5', title: '직장인 신용대출', bank: '우리' },
-          { id: '6', title: '주부 신용대출', bank: '신한' },
-          { id: '7', title: '고양이 신용대출', bank: '국민' },
-          { id: '8', title: '대학생 신용대출', bank: '제주' },
+        const data: IProduct[] = [
+          {
+            id: '1',
+            productName: '직장인 신용대출',
+            companyName: '우리은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
+          {
+            id: '2',
+            productName: '주부 신용대출',
+            companyName: '국민은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
+          {
+            id: '3',
+            productName: '고양이 신용대출',
+            companyName: '신한은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
+          {
+            id: '4',
+            productName: '주부 신용대출',
+            companyName: '국민은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
+          {
+            id: '5',
+            productName: '직장인 신용대출',
+            companyName: '우리은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
+          {
+            id: '6',
+            productName: '주부 신용대출',
+            companyName: '신한은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
+          {
+            id: '7',
+            productName: '고양이 신용대출',
+            companyName: '국민은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
+          {
+            id: '8',
+            productName: '대학생 신용대출',
+            companyName: '제주은행',
+            favorite: false,
+            productTypeName: '대출',
+            interestRateAvg: '3.4%',
+            interestType: '대출',
+          },
         ];
         setProducts(data);
       } catch (error) {
-        alert(MESSAGES.ERROR_PRODUCT.GET_DETAIL);
+        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
       } finally {
         dispatch(hideLoading());
       }
@@ -74,17 +132,7 @@ const Search = () => {
       </div>
       <ul className="productsArea">
         {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            data={product}
-            bankLogo={getBankLogo(product.bank)}
-            bankTitle={`${product.bank}은행`}
-            productName={product.title}
-            loanTitle="대출"
-            rateAverage="3.4%"
-            rateSort="대출"
-            Favor={false}
-          />
+          <ProductCard key={product.id} data={product} />
         ))}
       </ul>
     </StyledSearch>

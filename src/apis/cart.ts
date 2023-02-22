@@ -1,8 +1,10 @@
+import { useDispatch } from 'react-redux';
+import { showLoading } from '@/store/loadingSlice';
 import { axiosInstance } from './instance';
 import { API_URLS } from '../constants/apiUrls';
 
-export const getCartList = async () => {
-  const { data } = await axiosInstance.get(API_URLS.CART);
+export const getCartList = async (page: number) => {
+  const { data } = await axiosInstance.get(API_URLS.CART_LIST(page));
   return data;
 };
 
@@ -14,6 +16,6 @@ export const updateCart = async (data: Object) => {
   await axiosInstance.patch(API_URLS.CART, data);
 };
 
-export const deleteCart = async (id: string) => {
-  await axiosInstance.delete(`${API_URLS.CART}/${id}`);
+export const deleteCart = async (data: Object) => {
+  await axiosInstance.delete(API_URLS.CART, data);
 };

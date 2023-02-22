@@ -30,7 +30,7 @@ const Navbar = () => {
     switch (location.pathname) {
       case ROUTES.HOME:
       case ROUTES.PRODUCTS:
-        return move(1, 50, COLORS.homeBackground);
+        return move(1, 50, COLORS.primary);
       case ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]):
         return move(1, 50, COLORS.background);
       case ROUTES.SEARCH:
@@ -64,7 +64,7 @@ const Navbar = () => {
         ];
         setProducts(data);
       } catch (error) {
-        alert(MESSAGES.ERROR_PRODUCT.GET_DETAIL);
+        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
       } finally {
         dispatch(hideLoading());
       }
@@ -272,7 +272,7 @@ const StyledNavbar = styled.nav`
     width: 120%;
     height: 100%;
     margin-left: -10%;
-    background-color: ${COLORS.homeBackground};
+    background-color: ${COLORS.primary};
   }
 
   #bgBubble {

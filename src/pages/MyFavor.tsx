@@ -9,7 +9,6 @@ import { MESSAGES } from '@/constants/messages';
 import styled from '@emotion/styled';
 import { getBankLogo } from '@/utils/bankLogo';
 
-
 interface Prop {
   id: string;
   title: string;

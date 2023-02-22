@@ -11,6 +11,8 @@ import PageTitle from '@/components/common/PageTitle';
 import { ICart } from '@/interfaces/cart';
 import Input from '@/components/common/Input';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
+import { setModal } from '@/store/modalSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -22,21 +24,69 @@ const Cart = () => {
     async function getData() {
       try {
         dispatch(showLoading());
-        // const data = await getCartList();
+        // const data = await getCartList(1);
         // setCart(data);
         const data: ICart[] = [
-          { id: '1', title: '직장인 신용대출', bank: '우리은행' },
-          { id: '2', title: '주부 신용대출', bank: '국민은행' },
-          { id: '3', title: '고양이 신용대출', bank: '신한은행' },
-          { id: '4', title: '주부 신용대출', bank: '국민은행' },
-          { id: '5', title: '직장인 신용대출', bank: '우리은행' },
-          { id: '6', title: '주부 신용대출', bank: '신한은행' },
-          { id: '7', title: '고양이 신용대출', bank: '국민은행' },
-          { id: '8', title: '대학생 신용대출', bank: '제주은행' },
+          {
+            cartId: '1',
+            fproductName: '직장인 신용대출',
+            fproductCompanyName: '우리은행',
+            fproductCreditProductTypeName: '',
+            favorite: true,
+          },
+          {
+            cartId: '2',
+            fproductName: '주부 신용대출',
+            fproductCompanyName: '신한은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '3',
+            fproductName: '고양이 신용대출',
+            fproductCompanyName: '국민은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '4',
+            fproductName: '직장인 신용대출',
+            fproductCompanyName: '우리은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '5',
+            fproductName: '고양이 신용대출',
+            fproductCompanyName: '신한은행',
+            fproductCreditProductTypeName: '',
+            favorite: true,
+          },
+          {
+            cartId: '6',
+            fproductName: '대학생 신용대출',
+            fproductCompanyName: '국민은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '7',
+            fproductName: '고양이 신용대출',
+            fproductCompanyName: '제주은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
+          {
+            cartId: '8',
+            fproductName: '대학생 신용대출',
+            fproductCompanyName: '신한은행',
+            fproductCreditProductTypeName: '',
+            favorite: false,
+          },
         ];
         setCart(data);
       } catch (error) {
-        alert(MESSAGES.ERROR_CART.GET);
+        alert(MESSAGES.CART.ERROR_GET);
       } finally {
         dispatch(hideLoading());
       }
@@ -45,12 +95,28 @@ const Cart = () => {
   }, []);
 
   const handleClick = () => {
-    navigate('/buy');
+    navigate(ROUTES.BUY);
   };
 
   const handleDelete = () => {
-    if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
-    }
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: handleDeleteCart,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.CART.CHECK_DELETE,
+      }),
+    );
+  };
+
+  const handleDeleteCart = () => {
+    return dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.CART.COMPLETE_DELETE,
+      }),
+    );
   };
 
   const handleCheck = (checked: HTMLInputElement['checked'], id: string) => {
@@ -64,7 +130,7 @@ const Cart = () => {
   const handleAllCheck: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.checked) {
       const idArray: Array<string> = [];
-      cart.forEach((item) => idArray.push(item.id));
+      cart.forEach((item) => idArray.push(item.cartId));
       setCheckId(idArray);
     } else {
       setCheckId([]);
@@ -81,6 +147,7 @@ const Cart = () => {
             classType="checkbox"
             onChange={handleAllCheck}
             checked={checkId.length === cart.length ? true : false}
+            id="AllCheck"
           />
           <AllCheckText htmlFor="AllCheck">
             전체선택 ({checkId.length}/{cart.length})
@@ -94,7 +161,7 @@ const Cart = () => {
         {Array.isArray(cart) ? (
           cart.map((item) => (
             <CartItem
-              key={item.id}
+              key={item.cartId}
               data={item}
               isCheckBox={true}
               handleCheck={handleCheck}
@@ -135,6 +202,7 @@ const AllCheck = styled.div`
 const AllCheckText = styled.label`
   font-size: 14px;
   color: ${COLORS.secondary};
+  cursor: pointer;
 `;
 
 const CartContent = styled.ul`

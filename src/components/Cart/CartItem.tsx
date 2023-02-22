@@ -1,13 +1,15 @@
 import { ROUTES } from '@/constants/routes';
 import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
+import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
 import React from 'react';
-import { AiFillHeart, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
 import Input from '../common/Input';
+import FavorButton from '../Product/FavorButton';
 
 interface Props {
   data: ICart;
@@ -18,7 +20,6 @@ interface Props {
 
 const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
   const navigate = useNavigate();
-  const handleFavor = () => {};
   const handleDelete = () => {};
 
   return (
@@ -27,28 +28,28 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
         {isCheckBox && (
           <Input
             inputType="checkbox"
-            checked={checkId!.includes(data.id) ? true : false}
-            onChange={(e) => handleCheck!(e.target.checked, data.id)}
+            checked={checkId!.includes(data.cartId) ? true : false}
+            onChange={(e) => handleCheck!(e.target.checked, data.cartId)}
           />
         )}
-        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
-          <Image src="/images/test-cat.jpg" width="50" height="50" />
+        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.cartId))}>
+          <ImageWrap>
+            <Image
+              src={getBankLogo(data.fproductCompanyName) as string}
+              width="34"
+              height="34"
+              alt={data.fproductCompanyName}
+            />
+          </ImageWrap>
           <TextContainer>
-            <BankText>{data.bank}</BankText>
-            <ProductText>{data.title}</ProductText>
+            <BankText>{data.fproductCompanyName}</BankText>
+            <ProductText>{data.fproductName}</ProductText>
           </TextContainer>
         </InfoContainer>
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          {/* <AiFillHeart /> */}
-          <Input
-            classType="heartBtn"
-            inputType="checkbox"
-            id={data.id}
-            right="60px"
-            top="calc(50% - 0.6rem)"
-          />
+          <FavorButton id={data.cartId} isFavor={data.favorite} />
           <Button buttonType="text" width="fit-content" height="16" onClick={handleDelete}>
             <AiOutlineClose />
           </Button>
@@ -82,15 +83,22 @@ const InfoContainer = styled.div`
   cursor: pointer;
 `;
 
+const ImageWrap = styled.div`
+  padding: 4px;
+`;
+
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 6px;
   justify-content: center;
 `;
 
 const BankText = styled.p`
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 const ProductText = styled.p`

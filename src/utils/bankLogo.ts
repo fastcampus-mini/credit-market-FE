@@ -1,15 +1,27 @@
 export const getBankLogo = (bank: string) => {
   if (bank.match(/국민|KB/g)) return '/images/banks/kb.png';
-  else if (bank.match(/신한/g)) return 'images/banks/shinhan.png';
-  else if (bank.match(/농협/g)) return 'images/banks/nh.png';
-  else if (bank.match(/우리/g)) return 'images/banks/woori.png';
-  else if (bank.match(/카카오/g)) return 'images/banks/kakao.png';
-  else if (bank.match(/케이뱅크/g)) return 'images/banks/kbank.png';
-  else if (bank.match(/제일/g)) return 'images/banks/sc.png';
-  else if (bank.match(/토스/g)) return 'images/banks/toss.png';
-  else if (bank.match(/기업/g)) return 'images/banks/ibk.png';
-  else if (bank.match(/하나/g)) return 'images/banks/hana.png';
-  else;
+  else if (bank.match(/신한|제주/g)) return '/images/banks/shinhan.png';
+  else if (bank.match(/농협/g)) return '/images/banks/nh.png';
+  else if (bank.match(/우리/g)) return '/images/banks/woori.png';
+  else if (bank.match(/카카오/g)) return '/images/banks/kakao.png';
+  else if (bank.match(/케이뱅크/g)) return '/images/banks/kbank.png';
+  else if (bank.match(/제일/g)) return '/images/banks/sc.png';
+  else if (bank.match(/토스/g)) return '/images/banks/toss.png';
+  else if (bank.match(/부산|경남/g)) return '/images/banks/busan_kyungnam.png';
+  else if (bank.match(/대구/g)) return '/images/banks/daegu.png';
+  else if (bank.match(/대신/g)) return '/images/banks/daeshin.png';
+  else if (bank.match(/한화/g)) return '/images/banks/hanhwa.png';
+  else if (bank.match(/한국/g)) return '/images/banks/hankuk.png';
+  else if (bank.match(/현대/g)) return '/images/banks/hyundai.png';
+  else if (bank.match(/전북|광주/g)) return '/images/banks/jeonbuk_gwangju.png';
+  else if (bank.match(/키움/g)) return '/images/banks/kium.png';
+  else if (bank.match(/교보/g)) return '/images/banks/kyobo.png';
+  else if (bank.match(/메리츠/g)) return '/images/banks/meritz.png';
+  else if (bank.match(/미래/g)) return '/images/banks/mirae.png';
+  else if (bank.match(/삼성/g)) return '/images/banks/samsung.png';
+  else if (bank.match(/산업/g)) return '/images/banks/sanup.png';
+  else if (bank.match(/수협/g)) return '/images/banks/suhyup.png';
+  else '';
 };
 
 /*

@@ -1,6 +1,10 @@
 export interface IProduct {
-  name: string;
-  bank: string;
-  type: string;
-  interestRate: number;
+  id: string;
+  productName: string;
+  companyName: string;
+  favorite: boolean;
+  productTypeName: string;
+  interestRateAvg: string;
+  interestType: string;
+  productJoinMethod?: string;
 }
