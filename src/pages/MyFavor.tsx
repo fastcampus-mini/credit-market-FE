@@ -1,33 +1,43 @@
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import BackButton from '@/components/common/BackButton';
 import PageTitle from '@/components/common/PageTitle';
+import ProductCardFav from '@/components/common/ProductCardFav';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { MESSAGES } from '@/constants/messages';
 import styled from '@emotion/styled';
-import React from 'react';
-import MyFavCard from '@/components/common/MyFavCard';
 import { getBankLogo } from '@/utils/bankLogo';
-import { useNavigate } from 'react-router-dom';
 
 
+interface Prop {
+  id: string;
+  title: string;
+  bank: string;
+  interestRate: number,
+}
 
 const MyFavor = () => {
   const navigate = useNavigate();
 
-  const datas: any [] = [
-    { id: '1', title: '직장인 신용대출', bank: '우리은행', interestRate: 5.04, aveLoanAmt: 3420, hashTag: ['마이너스통장', '직장인대출'] },
-    { id: '2', title: '직장인 신용대출', bank: '우리은행', interestRate: 5.04, aveLoanAmt: 3420, hashTag: ['마이너스통장', '직장인대출'] },
-    { id: '3', title: '직장인 신용대출', bank: '우리은행', interestRate: 5.04, aveLoanAmt: 3420, hashTag: ['마이너스통장', '직장인대출'] },
-  ];
+  const datas: Prop [] = [
+    { id: '1', title: '직장인 신용대출', bank: '우리', interestRate: 5.04},
+    { id: '2', title: '주부 신용대출', bank: '국민', interestRate: 5.04},
+    { id: '3', title: '고양이 신용대출', bank: '신한', interestRate: 5.04},
+    { id: '4', title: '무직자 신용대출', bank: '제주', interestRate: 5.04},
+    { id: '5', title: '고용주 신용대출', bank: '기업', interestRate: 5.04},
+    { id: '6', title: '고양이 신용대출', bank: '신한', interestRate: 5.04},
+  ];  
 
   return (
-    
-
-    <MypageContainer>
-      <MypageHeader>
+    <MyFavorContainer>
+      <MyFavorHeader>
         <BackButton onClick={() => navigate(-1)} size={25} isMypage={true} />
         <PageTitle title="관심 상품" />
-      </MypageHeader>
+      </MyFavorHeader>
       <MyFavorWrap>{datas.map((data) => {
         return (
-          <MyFavCard
+          <ProductCardFav
             key={data.id}
             data={data}
             bankLogo={getBankLogo(data.bank)}
@@ -40,18 +50,20 @@ const MyFavor = () => {
           />
         )
       })}</MyFavorWrap>
-    </MypageContainer>
+    </MyFavorContainer>
   );
 };
 
 export default MyFavor;
 
-const MypageContainer = styled.div`
+const MyFavorContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
+  padding-right: 10px;
 `;
 
-const MypageHeader = styled.div`
+const MyFavorHeader = styled.div`
   display: flex;
 `;
 
@@ -59,5 +71,7 @@ const MyFavorWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 0 0 10px;
-  height: 100%;
+  height: calc(100% - 115px) ;
+  overflow-y: auto;
+  gap: 5px;
 `;
