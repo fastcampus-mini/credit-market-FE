@@ -1,5 +1,5 @@
+import { getCookie } from '@/utils/cookie';
 import axios from 'axios';
-import { getStorageItem } from './../utils/storage';
 
 const API_BASE_URL: string = import.meta.env.VITE_BASE_URL;
 
@@ -19,7 +19,7 @@ const axiosApi = (url: string) => {
 
   instance.interceptors.request.use(
     (config) => {
-      const token = getStorageItem('token', '');
+      const token = getCookie('accessToken');
       if (token) config.headers['Authorization'] = `Bearer ${token}`;
       return config;
     },
