@@ -53,13 +53,12 @@ const Login = () => {
           <LogoStyle src="../../images/logo_Main.png" alt="" />
         </h1>
         <SigninFormStyle onSubmit={handleSubmit(onSubmit)}>
-          <InputBox>
+          <InputBox className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}>
             <Input
               id="LoginEmail"
               label="Email"
               inputType="text"
               classType="text-input-white"
-              className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}
               aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
               register={{
                 ...register('email', {
@@ -74,13 +73,12 @@ const Login = () => {
             {errors.email && <ErrStyle role="alert">{errors.email.message}</ErrStyle>}
           </InputBox>
 
-          <InputBox>
+          <InputBox className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}>
             <Input
               id="LoginPw"
               label="Password"
               inputType="password"
               classType="text-input-white"
-              className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}
               aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
               register={{
                 ...register('password', {
@@ -152,8 +150,51 @@ export const InputBox = styled.div`
   position: relative;
   margin-bottom: 30px;
 
-  &:last-child {
-    margin-bottom: 0;
+  &::after {
+    position: absolute;
+    content: '';
+    width: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    background: ${COLORS.primary};
+    bottom: 0;
+    transition: 0.5s;
+  }
+
+  &.active::after,
+  &:focus-within::after {
+    width: 100%;
+  }
+
+  &.active label,
+  &:focus-within label {
+    top: -13px;
+    left: 0;
+    color: ${COLORS.primary};
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 1;
+    z-index: 0;
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    padding: 10px 15px;
+    outline: none;
+    background: ${COLORS.white};
+  }
+
+  label {
+    position: absolute;
+    font-size: 13px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: ${COLORS.gray};
+    cursor: pointer;
+    transition: 0.5s;
   }
 `;
 
