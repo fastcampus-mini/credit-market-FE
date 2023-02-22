@@ -74,7 +74,13 @@ const PasswordModalBox = () => {
   };
 
   return (
-    <Modal isOpen={passwordModalState.isOpen} style={customStyles}>
+    <Modal
+      isOpen={passwordModalState.isOpen}
+      style={customStyles}
+      onRequestClose={() => {
+        dispatch(setPasswordModal({ isOpen: false }));
+      }}
+    >
       <ModalText>
         <p>{MESSAGES.MYPAGE.INFO.CHECK_MODAL}</p>
       </ModalText>

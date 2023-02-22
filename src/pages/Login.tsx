@@ -9,6 +9,10 @@ import Button from '@/components/common/Button';
 import { css } from '@emotion/react';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
+import { AxiosInstance } from 'axios';
+import { axiosInstance } from '@/apis/instance';
+import { API_URLS } from '@/constants/apiUrls';
+import useCookies from 'react-cookie/cjs/useCookies';
 
 interface FormValues {
   email: string;
@@ -21,15 +25,22 @@ const Login = () => {
     handleSubmit,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<FormValues>();
-  const onSubmit = async (data: FormValues) => {
+
+  const [cookies, setCookie] = useCookies(['userName', 'accessToken']);
+
+  const onSubmit = async (data: any) => {
     await new Promise((r) => setTimeout(r, 1000));
     alert(JSON.stringify(data));
-    // try {
-    //   const response = await axios.post('/api/login', data);
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+
+    const response = await axiosInstance.post(API_URLS.LOGIN, {
+      userEmail: data.email,
+      userPassword: data.password,
+    });
+
+    console.log(response);
+
+    setCookie('userName', '방문자');
+    setCookie('accessToken', response);
     goHome();
   };
 

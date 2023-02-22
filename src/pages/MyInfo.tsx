@@ -94,7 +94,6 @@ const MyInfo = () => {
   dispatch(
     setPasswordModal({
       isOpen: true,
-      linkURL: ROUTES.HOME,
     }),
   );
 
