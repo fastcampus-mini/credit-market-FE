@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { PasswordModalStore } from '@/interfaces/store';
 import { setPasswordModal } from '@/store/passModalSlice';
+import { MESSAGES } from '@/constants/messages';
 
 interface PassWordForm {
   password: string;
@@ -18,10 +19,12 @@ interface PassWordForm {
 
 const PasswordModalBox = () => {
   const passwordModalState = useSelector((state: PasswordModalStore) => state.passwordModal);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const customStyles = {
     content: {
-      width: '15%',
+      width: '80%',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
@@ -30,7 +33,7 @@ const PasswordModalBox = () => {
       backgroundColor: 'white',
       boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
       zIndex: '500',
-      height: '220px',
+      height: '230px',
     },
   };
 
@@ -40,7 +43,10 @@ const PasswordModalBox = () => {
     formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<PassWordForm>();
 
-  const dispatch = useDispatch();
+  const handleCancel = () => {
+    dispatch(setPasswordModal({ isOpen: false }));
+    navigate(ROUTES.MYPAGE);
+  };
 
   const onSubmit = async (data: PassWordForm) => {
     // await new Promise((r) => setTimeout(r, 1000));
@@ -68,10 +74,15 @@ const PasswordModalBox = () => {
   };
 
   return (
-    <Modal isOpen={passwordModalState.isOpen} style={customStyles}>
+    <Modal
+      isOpen={passwordModalState.isOpen}
+      style={customStyles}
+      onRequestClose={() => {
+        dispatch(setPasswordModal({ isOpen: false }));
+      }}
+    >
       <ModalText>
-        <p>회원님 본인이 맞으신가요?.</p>
-        <p>비밀번호를 입력해주세요.</p>
+        <p>{MESSAGES.MYPAGE.INFO.CHECK_MODAL}</p>
       </ModalText>
       <SignupFormStyle>
         <InputBox
@@ -101,7 +112,10 @@ const PasswordModalBox = () => {
             onClick={handleSubmit(onSubmit)}
             isDisabled={isSubmitting}
           >
-            입력 완료
+            확인
+          </Button>
+          <Button buttonType="white" width="80px" height="34px" onClick={handleCancel}>
+            취소
           </Button>
         </ButtonWrap>
       </SignupFormStyle>
@@ -115,11 +129,11 @@ const ModalText = styled.div`
   height: 100px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   align-items: center;
   justify-content: center;
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.4;
+  white-space: pre-wrap;
 `;
 
 const ButtonWrap = styled.div`
@@ -127,5 +141,5 @@ const ButtonWrap = styled.div`
   align-items: center;
   justify-content: center;
   gap: 20px;
-  height: 38px;
+  margin-top: 10px;
 `;

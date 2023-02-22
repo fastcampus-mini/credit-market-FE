@@ -11,10 +11,15 @@ import { IProduct } from '@/interfaces/product';
 import Lottie from 'lottie-react';
 import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
+import { useCookies } from 'react-cookie';
 
 const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
+
+  // const [cookies, setCookie] = useCookies(['userName', 'accessToken']);
+  // setCookie('accessToken', '1');
+  // console.log(cookies.accessToken);
 
   useEffect(() => {
     async function getProducts() {
