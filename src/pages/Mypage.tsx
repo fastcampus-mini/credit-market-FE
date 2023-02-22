@@ -5,8 +5,9 @@ import COLORS from '@/styles/colors';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import PageTitle from '@/components/common/PageTitle';
-import { BsCartCheck, BsPerson } from 'react-icons/bs';
-import { AiOutlineHeart, AiOutlineRight } from 'react-icons/ai';
+import { AiOutlineRight } from 'react-icons/ai';
+import Lottie from 'lottie-react';
+import FundLottie from '@/lotties/funding.json';
 
 const Mypage = () => {
   return (
@@ -14,7 +15,9 @@ const Mypage = () => {
       <TitleWrap>
         <PageTitle title="마이페이지" />
       </TitleWrap>
-      <BackgroundWrap />
+      <BackgroundWrap>
+        <Lottie animationData={FundLottie} loop={true} />
+      </BackgroundWrap>
       <MypageWrap>
         <ProfileContainer>
           <Image
@@ -25,7 +28,6 @@ const Mypage = () => {
             alt="cat"
           />
           <UserNickname>냥냥이</UserNickname>
-          <UserDesc>2001년 1월 1일</UserDesc>
         </ProfileContainer>
         <MypageMenu>
           <Link to={ROUTES.MYPAGE_BUY}>
@@ -79,8 +81,7 @@ const TitleWrap = styled.div`
 `;
 
 const BackgroundWrap = styled.div`
-  background-image: url('/images/mypage_background.png');
-  height: 150px;
+  /* height: 200px; */
 `;
 
 const MypageWrap = styled.div`
@@ -88,7 +89,6 @@ const MypageWrap = styled.div`
   flex-direction: column;
   position: relative;
   background-color: ${COLORS.white};
-  padding-bottom: 50px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 `;
 
@@ -114,7 +114,7 @@ const UserDesc = styled.p`
 `;
 
 const MypageMenu = styled.ul`
-  margin-top: 160px;
+  margin-top: 120px;
   font-size: 15px;
   display: flex;
   flex-direction: column;
@@ -138,6 +138,14 @@ const MenuItem = styled.li`
   padding: 20px;
   background-color: ${COLORS.white};
   position: relative;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #d0daec60;
+    & > span {
+      transition: all 0.3s ease;
+      scale: 1.3;
+    }
+  }
 
   p {
     span {
@@ -162,5 +170,5 @@ const MyPageCopyright = styled.p`
   font-size: 11px;
   line-height: 1.4;
   color: ${COLORS.mediumGray};
-  margin: 25px 0;
+  margin: 32px 0;
 `;
