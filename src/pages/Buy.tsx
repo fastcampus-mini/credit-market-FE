@@ -176,17 +176,17 @@ const AgreeText = styled.label`
 `;
 
 const PolicyText = styled.p`
-  font-size: 12px;
+  font-size: 13px;
   color: ${COLORS.gray};
   display: flex;
   gap: 8px;
 `;
 
 const FinalCheckText = styled.div`
-  font-size: 13px;
+  font-size: 14px;
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin: 10px 0;
+  margin: 16px 0 12px;
 `;

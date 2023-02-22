@@ -62,27 +62,27 @@ const Cart = () => {
             fproductCreditProductTypeName: '',
             favorite: true,
           },
-          {
-            cartId: '6',
-            fproductName: '대학생 신용대출',
-            fproductCompanyName: '국민은행',
-            fproductCreditProductTypeName: '',
-            favorite: false,
-          },
-          {
-            cartId: '7',
-            fproductName: '고양이 신용대출',
-            fproductCompanyName: '제주은행',
-            fproductCreditProductTypeName: '',
-            favorite: false,
-          },
-          {
-            cartId: '8',
-            fproductName: '대학생 신용대출',
-            fproductCompanyName: '어떤은행',
-            fproductCreditProductTypeName: '',
-            favorite: false,
-          },
+          // {
+          //   cartId: '6',
+          //   fproductName: '대학생 신용대출',
+          //   fproductCompanyName: '국민은행',
+          //   fproductCreditProductTypeName: '',
+          //   favorite: false,
+          // },
+          // {
+          //   cartId: '7',
+          //   fproductName: '고양이 신용대출',
+          //   fproductCompanyName: '제주은행',
+          //   fproductCreditProductTypeName: '',
+          //   favorite: false,
+          // },
+          // {
+          //   cartId: '8',
+          //   fproductName: '대학생 신용대출',
+          //   fproductCompanyName: '어떤은행',
+          //   fproductCreditProductTypeName: '',
+          //   favorite: false,
+          // },
         ];
         setCart(data);
       } catch (error) {
