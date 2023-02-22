@@ -52,6 +52,7 @@ const ProductCard = ({ data, isDetail }: Props) => {
             width="100%"
             height="40px"
             onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}
+            marginTop="10px"
           >
             자세히 보기
           </Button>
@@ -82,7 +83,7 @@ const StyledProductCard = styled.li`
   .textBox {
     display: flex;
     gap: 1.6rem;
-    margin-bottom: 20px;
+    padding-bottom: 10px;
 
     p {
       display: flex;
