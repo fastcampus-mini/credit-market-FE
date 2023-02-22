@@ -398,7 +398,7 @@ const BirthStyle = css`
   align-items: center;
 `;
 
-const SelectLabel = styled.label`
+export const SelectLabel = styled.label`
   position: absolute;
   font-size: 13px;
   left: 15px;

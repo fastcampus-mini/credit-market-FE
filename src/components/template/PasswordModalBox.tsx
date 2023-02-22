@@ -30,14 +30,14 @@ const PasswordModalBox = () => {
       backgroundColor: 'white',
       boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
       zIndex: '500',
-      height: '180px',
+      height: '220px',
     },
   };
 
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isDirty, errors },
+    formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<PassWordForm>();
 
   const dispatch = useDispatch();
@@ -74,7 +74,10 @@ const PasswordModalBox = () => {
         <p>비밀번호를 입력해주세요.</p>
       </ModalText>
       <SignupFormStyle>
-        <InputBox onChange={handleChange}>
+        <InputBox
+          onChange={handleChange}
+          className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}
+        >
           <Input
             id="PasswordCheckPw"
             label="Password"
@@ -87,7 +90,8 @@ const PasswordModalBox = () => {
                 minLength: { value: 8, message: '비밀번호를 8자리 이상 입력해주세요.' },
               }),
             }}
-          ></Input>
+          />
+          {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
         </InputBox>
         <ButtonWrap>
           <Button
@@ -100,7 +104,6 @@ const PasswordModalBox = () => {
             입력 완료
           </Button>
         </ButtonWrap>
-        {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
       </SignupFormStyle>
     </Modal>
   );
