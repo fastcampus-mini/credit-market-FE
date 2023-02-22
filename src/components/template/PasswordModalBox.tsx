@@ -68,7 +68,13 @@ const PasswordModalBox = () => {
   };
 
   return (
-    <Modal isOpen={passwordModalState.isOpen} style={customStyles}>
+    <Modal
+      isOpen={passwordModalState.isOpen}
+      style={customStyles}
+      onRequestClose={() => {
+        dispatch(setPasswordModal({ isOpen: false }));
+      }}
+    >
       <ModalText>
         <p>회원님 본인이 맞으신가요?.</p>
         <p>비밀번호를 입력해주세요.</p>

@@ -11,6 +11,8 @@ import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
 import { ErrStyle, InputBox, LogoStyle } from './Login';
+import { Dispatch } from 'react';
+import { setModal } from '@/store/modalSlice';
 
 interface FormValues {
   email: string;
