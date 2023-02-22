@@ -27,5 +27,12 @@ export const MESSAGES = {
     CHECK_BUY: '신청을 완료하시겠습니까?',
     COMPLETE_BUY: '신청이 완료되었습니다.',
   },
-  MYPAGE: {},
+  MYPAGE: {
+    BUY: {
+      ERROR_GET: '신청완료 상품 조회 중 에러가 발생했습니다.'
+    },
+    FAV: {
+      ERROR_GET: '관심 상품 조회 중 에러가 발생했습니다.',
+    },
+  },
 };
