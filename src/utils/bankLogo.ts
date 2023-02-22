@@ -7,6 +7,8 @@ export const getBankLogo = (bank: string) => {
   else if (bank.match(/케이뱅크/g)) return 'images/banks/kbank.png';
   else if (bank.match(/제일/g)) return 'images/banks/sc.png';
   else if (bank.match(/토스/g)) return 'images/banks/toss.png';
+  else if (bank.match(/기업/g)) return 'images/banks/ibk.png';
+  else if (bank.match(/하나/g)) return 'images/banks/hana.png';
   else;
 };
 
