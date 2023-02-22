@@ -2,6 +2,8 @@ import React from 'react';
 import { IStore } from '@/interfaces/store';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
+import Lottie from 'lottie-react';
+import LoadingLottie from '@/lotties/loading-animation-blue.json';
 
 const Loading = () => {
   const loading = useSelector((state: IStore) => state.loading);
@@ -9,7 +11,7 @@ const Loading = () => {
 
   return (
     <StyledLoading>
-      <iframe src="https://embed.lottiefiles.com/animation/97952"></iframe>
+      <Lottie animationData={LoadingLottie} loop={true} />
     </StyledLoading>
   );
 };
