@@ -49,8 +49,15 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          <FavorButton id={data.cartId} isFavor={data.favorite} />
-          <Button buttonType="text" width="fit-content" height="16px" onClick={handleDelete}>
+          <FavorButton id={data.cartId} isFavor={data.favorite} isCart={true} />
+          <Button
+            buttonType="text"
+            width="fit-content"
+            height="16px"
+            onClick={handleDelete}
+            title={'삭제'}
+            scale={'1.2'}
+          >
             <AiOutlineClose />
           </Button>
         </IconWrap>
@@ -107,5 +114,6 @@ const ProductText = styled.p`
 
 const IconWrap = styled.div`
   display: flex;
-  gap: 8px;
+  align-items: center;
+  position: relative;
 `;
