@@ -98,7 +98,9 @@ const handleButtonType = (buttonType: string) => {
         transition:0.3s ease all;
         border: 1px solid ${COLORS.primary};
         &:hover {
-          opacity: 0.7;
+          color: ${COLORS.white};
+          background-color: ${COLORS.primary};
+          border: none;
         }
       `;
     case 'blue':

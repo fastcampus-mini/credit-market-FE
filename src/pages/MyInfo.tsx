@@ -3,49 +3,37 @@ import PageTitle from '@/components/common/PageTitle';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import React, { useRef, useEffect, useState } from 'react';
-import { css } from '@emotion/react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate } from 'react-router';
 import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
-import ModalBox from '@/components/template/ModalBox';
 import { ErrStyle, InputBox } from './Login';
 import { useDispatch } from 'react-redux';
-import { setPasswordModal } from '@/store/passModalSlice';
 import { SelectLabel } from './Signup';
+import { setModal } from '@/store/modalSlice';
+import { IPassword, IUser } from '@/interfaces/user';
+import { MESSAGES } from '@/constants/messages';
 
 const MyInfo = () => {
-  interface FormValues {
-    email: string;
-    password: string;
-    passwordConfirm: string;
-    name: string;
-    age: number;
-    sex: string;
-    bank: string;
-    loan: string;
-    credit: number;
-    interest: string;
-  }
   const navigate = useNavigate();
-  const location1 = useLocation();
-  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
-  } = useForm<FormValues>();
-  const [FormData, setFormData] = useState<FormValues>({
+  } = useForm<IUser>();
+  const [FormData, setFormData] = useState<IUser>({
     email: '',
     password: '',
     passwordConfirm: '',
     name: '',
-    age: 0,
+    birthYear: '',
+    birthMonth: '',
+    birthDay: '',
     sex: '',
     bank: '',
     loan: '',
@@ -59,15 +47,21 @@ const MyInfo = () => {
   useEffect(() => {
     history.pushState(null, '', location.href);
     window.addEventListener('popstate', handleEvent);
+
+    dispatch(
+      setModal({
+        isOpen: true,
+        isPassword: true,
+        text: MESSAGES.MYPAGE.INFO.CHECK_MODAL,
+        onClickOk: handleModalSubmit,
+        onClickCancel: handleModalCancel,
+      }),
+    );
+
     return () => {
       window.removeEventListener('popstate', handleEvent);
     };
   }, []);
-
-  const onSubmit = (data: FormValues) => {
-    setFormData(data);
-    setIsSubmitModalOpen(true);
-  };
 
   const validateSelectOption = (value: string) => {
     return value === '' ? 'Please select an option' : true;
@@ -84,18 +78,51 @@ const MyInfo = () => {
     }
   };
 
-  const handleEvent = () => {
-    history.pushState(null, '', location.href);
-    setIsBackModalOpen(true);
+  const onSubmit = (data: IUser) => {
+    setFormData(data);
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: '모달 내용 작성',
+        onClickOk: () => {},
+        onClickCancel: () => {},
+      }),
+    );
   };
 
-  const dispatch = useDispatch();
+  const handleEvent = () => {
+    history.pushState(null, '', location.href);
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: '모달 내용 작성',
+        onClickOk: () => {},
+        onClickCancel: () => {},
+      }),
+    );
+  };
 
-  dispatch(
-    setPasswordModal({
-      isOpen: true,
-    }),
-  );
+  const handleModalCancel = () => {
+    dispatch(setModal({ isOpen: false }));
+    navigate(ROUTES.MYPAGE);
+  };
+
+  const handleModalSubmit = async (data: IPassword) => {
+    // await new Promise((r) => setTimeout(r, 1000));
+    // alert(JSON.stringify(data));
+    // try {
+    //   const response = await axios.post('/api/login', data);
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    dispatch(setModal({ isOpen: false }));
+    // const navigate = useNavigate();
+    // const goTo = () => {
+    //   navigate(modalState.linkURL);
+    // };
+    // goTo();
+  };
 
   return (
     <MypageContainer>
