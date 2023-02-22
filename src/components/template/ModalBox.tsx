@@ -1,16 +1,21 @@
 import { IStore } from '@/interfaces/store';
+import { IPassword } from '@/interfaces/user';
+import { ErrStyle, InputBox } from '@/pages/Login';
+import { SignupFormStyle } from '@/pages/Signup';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import Button from '../common/Button';
+import Input from '../common/Input';
 
 const ModalBox = () => {
   const modalState = useSelector((state: IStore) => state.modal);
 
   const customStyles = {
     content: {
-      width: '15%',
+      width: modalState.isPassword ? '80%' : '15%',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
@@ -19,8 +24,19 @@ const ModalBox = () => {
       backgroundColor: 'white',
       boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
       zIndex: '500',
-      height: '180px',
+      height: modalState.isPassword ? '230px' : '180px',
     },
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, isDirty, dirtyFields, errors },
+  } = useForm<IPassword>();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputBox = e.target.closest('div') as HTMLDivElement;
+    e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
   };
 
   return (
@@ -28,21 +44,54 @@ const ModalBox = () => {
       <ModalText>
         <p>{modalState.text}</p>
       </ModalText>
-      <ButtonWrap>
-        <Button buttonType="blue" width="80px" height="34px" onClick={modalState.onClickOk}>
-          {modalState.okText ? modalState.okText : '확인'}
-        </Button>
-        {modalState.onClickCancel && (
-          <Button
-            buttonType="white"
-            width={modalState.cancelText ? '110px' : '80px'}
-            height="34px"
-            onClick={() => modalState.onClickCancel!(false)}
-          >
-            {modalState.cancelText ? modalState.cancelText : '취소'}
-          </Button>
+      <SignupFormStyle>
+        {modalState.isPassword && (
+          <div>
+            <InputBox
+              onChange={handleChange}
+              className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}
+            >
+              <Input
+                id="PasswordCheckPw"
+                label="Password"
+                inputType="password"
+                classType="text-input"
+                aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
+                register={{
+                  ...register('password', {
+                    required: '비밀번호를 입력해주세요.',
+                    minLength: { value: 8, message: '비밀번호를 8자리 이상 입력해주세요.' },
+                  }),
+                }}
+              />
+              {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
+            </InputBox>
+          </div>
         )}
-      </ButtonWrap>
+        <ButtonWrap>
+          <Button
+            buttonType="blue"
+            width="80px"
+            height="34px"
+            onClick={
+              modalState.isPassword ? handleSubmit(modalState.onClickOk) : modalState.onClickOk
+            }
+            isDisabled={modalState.isPassword && isSubmitting}
+          >
+            {modalState.okText ? modalState.okText : '확인'}
+          </Button>
+          {modalState.onClickCancel && (
+            <Button
+              buttonType="white"
+              width={modalState.cancelText ? '110px' : '80px'}
+              height="34px"
+              onClick={() => modalState.onClickCancel!(false)}
+            >
+              {modalState.cancelText ? modalState.cancelText : '취소'}
+            </Button>
+          )}
+        </ButtonWrap>
+      </SignupFormStyle>
     </Modal>
   );
 };
@@ -53,7 +102,6 @@ const ModalText = styled.div`
   height: 100px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   align-items: center;
   justify-content: center;
   text-align: center;
