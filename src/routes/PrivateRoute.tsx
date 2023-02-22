@@ -1,18 +1,32 @@
-import { ROUTES } from '@/constants/routes';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { MESSAGES } from '@/constants/messages';
+import { setModal } from '@/store/modalSlice';
+import { getCookie } from '@/utils/cookie';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   children: React.ReactElement;
 }
 
 export const PrivateRoute = ({ children }: Props) => {
-  // const user = useSelector(getUser);
-  // if (!user.isLogin) alert('회원 전용 페이지 입니다.\n로그인 페이지로 이동합니다.');
-  // return user.isLogin ? children : <Navigate to={ROUTES.HOME} replace />;
+  const userName = getCookie('userName');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // test
-  return children;
+  if (!userName) {
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => {
+          dispatch(setModal({ isOpen: false }));
+          navigate(-1);
+        },
+        text: MESSAGES.INVALID_AUTH,
+      }),
+    );
+  } else {
+    return children;
+  }
 };
 
 export default PrivateRoute;

@@ -38,4 +38,5 @@ export const MESSAGES = {
       CHECK_MODAL: '본인 확인을 위해\n비밀번호를 입력해주세요.',
     },
   },
+  INVALID_AUTH: '회원 전용 메뉴입니다.\n로그인 후 이용해 주세요.',
 };
