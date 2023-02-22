@@ -81,7 +81,17 @@ const TitleWrap = styled.div`
 `;
 
 const BackgroundWrap = styled.div`
-  /* height: 200px; */
+  height: 190px;
+  position: relative;
+  overflow: hidden;
+
+  > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
 `;
 
 const MypageWrap = styled.div`
@@ -90,6 +100,7 @@ const MypageWrap = styled.div`
   position: relative;
   background-color: ${COLORS.white};
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  padding-bottom: 27px;
 `;
 
 const ProfileContainer = styled.div`
@@ -114,7 +125,7 @@ const UserDesc = styled.p`
 `;
 
 const MypageMenu = styled.ul`
-  margin-top: 120px;
+  margin-top: 130px;
   font-size: 15px;
   display: flex;
   flex-direction: column;
