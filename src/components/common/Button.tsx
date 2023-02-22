@@ -14,6 +14,8 @@ interface Props {
   fontWeight?: number;
   fontSize?: string;
   marginTop?: string;
+  title?: string;
+  scale?: string;
 }
 
 const Button = ({
@@ -28,6 +30,8 @@ const Button = ({
   fontWeight = 400,
   fontSize = '14px',
   marginTop = '0px',
+  title = '',
+  scale = '',
 }: Props) => {
   return (
     <StyledButton
@@ -41,6 +45,8 @@ const Button = ({
       fontWeight={fontWeight}
       fontSize={fontSize}
       marginTop={marginTop}
+      title={title}
+      scale={scale}
     >
       {children}
     </StyledButton>
@@ -57,6 +63,7 @@ export const StyledButton = styled.button<{
   fontWeight: number;
   fontSize: string;
   marginTop: string;
+  scale: string;
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)};
   width: ${({ width }) => width};
@@ -69,9 +76,13 @@ export const StyledButton = styled.button<{
   text-align: center;
   cursor: pointer;
   outline: none;
+  transition: all 0.2s ease;
   &:disabled {
     opacity: 1;
     cursor: default;
+  }
+  &:hover {
+    scale: ${({ scale }) => scale};
   }
 `;
 

@@ -30,10 +30,10 @@ const ProductCard = ({ data, isDetail }: Props) => {
             />
             <h2>{data.companyName}</h2>
           </BankWrap>
-          <div>
+          <ButtonWrap>
             {isDetail && <CartButton id={data.id} />}
             <FavorButton id={data.id} isFavor={data.favorite} />
-          </div>
+          </ButtonWrap>
         </LogoTitle>
         <p className="productName">{data.productName}</p>
         <div className="textBox">
@@ -121,4 +121,11 @@ const LogoTitle = styled.div`
   align-items: center;
   margin-bottom: 10px;
   color: ${COLORS.primary};
+`;
+
+const ButtonWrap = styled.div`
+  width: 100px;
+  height: 30px;
+  display: flex;
+  position: relative;
 `;
