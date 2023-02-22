@@ -17,19 +17,19 @@ interface Prop {
   rateSort: string;
 }
 
-const MyFavCard = ({
+const ProductCardFav = ({
   data,
   bankLogo,
   bankTitle,
   productName,
-  Favor = false,
+  Favor = true,
   loanTitle,
   rateAverage,
   rateSort,
 }: Prop) => {
   const navigate = useNavigate();
   return (
-    <StyledMyFavCard>
+    <StyledProductCardFav>
       <div className="cardCon">
         <div className="logoTitle">
           <img className="bankLogo" src={bankLogo} alt={bankTitle} />
@@ -52,13 +52,13 @@ const MyFavCard = ({
         </Button>
       </div>
       <Input classType="heartBtn" inputType="checkbox" id={data.id} top="15px" right="35px" />
-    </StyledMyFavCard>
+    </StyledProductCardFav>
   );
 };
 
-export default MyFavCard;
+export default ProductCardFav;
 
-const StyledMyFavCard = styled.li`
+const StyledProductCardFav = styled.li`
   background-color: ${COLORS.white};
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);

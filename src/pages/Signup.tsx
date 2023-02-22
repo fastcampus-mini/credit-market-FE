@@ -369,7 +369,7 @@ const SelectStyle = styled.select`
   }
 `;
 
-const SignupFormStyle = styled.form`
+export const SignupFormStyle = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;

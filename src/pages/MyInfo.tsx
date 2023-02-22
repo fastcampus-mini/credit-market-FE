@@ -12,6 +12,8 @@ import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import ModalBox from '@/components/template/ModalBox';
 import { ErrStyle } from './Login';
+import { useDispatch } from 'react-redux';
+import { setPasswordModal } from '@/store/passModalSlice';
 
 const MyInfo = () => {
   interface FormValues {
@@ -86,9 +88,14 @@ const MyInfo = () => {
     setIsBackModalOpen(true);
   };
 
-  const goBack = () => {
-    navigate(location1.state?.from || '/', { replace: true });
-  };
+  const dispatch = useDispatch();
+
+  dispatch(
+    setPasswordModal({
+      isOpen: true,
+      linkURL: ROUTES.HOME,
+    }),
+  );
 
   return (
     <MypageContainer>
