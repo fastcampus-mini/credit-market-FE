@@ -6,7 +6,6 @@ import ScrollToTop from '@/components/template/ScrollToTop';
 import Loading from './components/template/Loading';
 import Router from './routes/Router';
 import ModalBox from './components/template/ModalBox';
-import PasswordModalBox from './components/template/PasswordModalBox';
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
       <Loading />
       <Navbar />
       <ModalBox />
-      <PasswordModalBox />
     </BrowserRouter>
   );
 }

@@ -15,11 +15,7 @@ import { login } from '@/apis/auth';
 import { setModal } from '@/store/modalSlice';
 import { MESSAGES } from '@/constants/messages';
 import { setCookie } from '@/utils/cookie';
-
-interface FormValues {
-  email: string;
-  password: string;
-}
+import { ILogin } from '@/interfaces/user';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -29,7 +25,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
-  } = useForm<FormValues>();
+  } = useForm<ILogin>();
 
   const onSubmit = async (data: any) => {
     await new Promise((r) => setTimeout(r, 1000));

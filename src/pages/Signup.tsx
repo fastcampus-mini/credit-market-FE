@@ -13,21 +13,7 @@ import { ROUTES } from '@/constants/routes';
 import { ErrStyle, InputBox, LogoStyle } from './Login';
 import { Dispatch } from 'react';
 import { setModal } from '@/store/modalSlice';
-
-interface FormValues {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  birthYear: string;
-  birthMonth: string;
-  birthDay: string;
-  sex: string;
-  bank: string;
-  loan: string;
-  credit: number;
-  interest: string;
-}
+import { IUser } from '@/interfaces/user';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -40,8 +26,8 @@ const Signup = () => {
     handleSubmit,
     watch,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
-  } = useForm<FormValues>();
-  const [FormData, setFormData] = useState<FormValues>({
+  } = useForm<IUser>();
+  const [FormData, setFormData] = useState<IUser>({
     email: '',
     password: '',
     passwordConfirm: '',
@@ -67,7 +53,7 @@ const Signup = () => {
     };
   }, []);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: IUser) => {
     setFormData(data);
     setIsSubmitModalOpen(true);
   };
