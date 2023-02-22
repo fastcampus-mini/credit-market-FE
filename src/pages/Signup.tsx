@@ -209,7 +209,6 @@ const Signup = () => {
             )} */}
 
             <InputBox
-              id="birth"
               css={BirthStyle}
               className={
                 errors.birthYear || errors.birthDay || errors.birthMonth
@@ -219,7 +218,7 @@ const Signup = () => {
                   : ''
               }
             >
-              <SelectLabel htmlFor="birth">Birth</SelectLabel>
+              <SelectLabel>Birth</SelectLabel>
               <SelectStyle
                 {...register('birthYear', {
                   required: '생년월일을 선택해주세요.',
@@ -323,11 +322,7 @@ const Signup = () => {
                 <option value="interest1">고정 금리</option>
                 <option value="interest2">변동 금리</option>
               </SelectStyle>
-              {errors.interest && (
-                <ErrStyle style={{ color: 'red' }} role="alert">
-                  {errors.interest.message}
-                </ErrStyle>
-              )}
+              {errors.interest && <ErrStyle role="alert">{errors.interest.message}</ErrStyle>}
             </InputBox>
           </SignupFormPanel>
           <Button type="submit" isDisabled={isSubmitting} height="50px" width="calc(100% - 140px)">

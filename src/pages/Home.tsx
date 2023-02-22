@@ -106,7 +106,7 @@ const Home = () => {
 
   return (
     <StyledHome>
-      <Lottie animationData={WelcomeLottie} loop={true} className="welcome" />
+      <Lottie animationData={WelcomeLottie} loop={false} className="welcome" />
       <div className="bannerBg">
         <Lottie animationData={BackgroundLottie} loop={true} className="background" />
       </div>
