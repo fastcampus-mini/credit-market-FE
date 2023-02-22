@@ -35,7 +35,7 @@ const StyledButton = styled.button<{ isCart: boolean }>`
   font-size: 16px;
   cursor: pointer;
   position: absolute;
-  top: ${({ isCart }) => (isCart ? '10px' : '0')};
+  top: ${({ isCart }) => (isCart ? '12px' : '0')};
   right: ${({ isCart }) => (isCart ? '30px' : '0')};
   font-size: 18px;
   transition: all 0.2s ease;

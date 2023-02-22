@@ -17,7 +17,7 @@ interface Prop {
   rateSort: string;
 }
 
-const ProductCardFav = ({
+const ProductCardBuy = ({
   data,
   bankLogo,
   bankTitle,
@@ -29,7 +29,7 @@ const ProductCardFav = ({
 }: Prop) => {
   const navigate = useNavigate();
   return (
-    <StyledProductCardFav>
+    <StyledProductCardBuy>
       <div className="cardCon">
         <div className="logoTitle">
           <img className="bankLogo" src={bankLogo} alt={bankTitle} />          
@@ -51,17 +51,15 @@ const ProductCardFav = ({
             금리구분<span>{rateSort}</span>
           </p>
         </div>
-        <Button width="100%" height="50px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
-          자세히 보기
-        </Button>
+        
       </div>
-    </StyledProductCardFav>
+    </StyledProductCardBuy>
   );
 };
 
-export default ProductCardFav;
+export default ProductCardBuy;
 
-const StyledProductCardFav = styled.li`
+const StyledProductCardBuy = styled.li`
   background-color: ${COLORS.white};
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);

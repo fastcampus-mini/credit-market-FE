@@ -36,8 +36,8 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
           <ImageWrap>
             <Image
               src={getBankLogo(data.fproductCompanyName) as string}
-              width="34px"
-              height="34px"
+              width="36px"
+              height="36px"
               alt={data.fproductCompanyName}
             />
           </ImageWrap>
@@ -56,9 +56,9 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
             height="16px"
             onClick={handleDelete}
             title={'삭제'}
-            scale={'1.2'}
+            scale={'1.3'}
           >
-            <AiOutlineClose />
+            <AiOutlineClose size="16px" />
           </Button>
         </IconWrap>
       )}
@@ -69,7 +69,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
 export default CartItem;
 
 const CartItemContainer = styled.li`
-  padding: 0.6rem;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   background-color: ${COLORS.white};
@@ -81,7 +81,9 @@ const CartItemContainer = styled.li`
 
 const CartItemWrap = styled.div`
   display: flex;
+  align-items: center;
   gap: 10px;
+  height: 50px;
 `;
 
 const InfoContainer = styled.div`
@@ -97,7 +99,7 @@ const ImageWrap = styled.div`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   justify-content: center;
 `;
 
@@ -106,14 +108,18 @@ const BankText = styled.p`
   display: flex;
   align-items: center;
   gap: 5px;
+  color: ${COLORS.primary};
+  font-weight: 600;
 `;
 
 const ProductText = styled.p`
   font-size: 14px;
+  font-weight: 600;
 `;
 
 const IconWrap = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
 `;

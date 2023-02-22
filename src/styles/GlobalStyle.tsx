@@ -51,8 +51,8 @@ const style = css`
     }
 
     .ReactModal__Content {
-      width: 260px !important;
-      height: 160px !important;
+      min-width: 260px;
+      min-height: 160px;
       border-radius: 14px !important;
       display: flex;
       flex-direction: column;

@@ -22,10 +22,9 @@ const MyFavor = () => {
   const datas: Prop [] = [
     { id: '1', title: '직장인 신용대출', bank: '우리', interestRate: 5.04},
     { id: '2', title: '주부 신용대출', bank: '국민', interestRate: 5.04},
-    { id: '3', title: '고양이 신용대출', bank: '신한', interestRate: 5.04},
-    { id: '4', title: '무직자 신용대출', bank: '제주', interestRate: 5.04},
-    { id: '5', title: '고용주 신용대출', bank: '기업', interestRate: 5.04},
-    { id: '6', title: '고양이 신용대출', bank: '신한', interestRate: 5.04},
+    { id: '3', title: '무직자 신용대출', bank: '신한', interestRate: 5.04},
+    { id: '4', title: '고용주 신용대출', bank: '기업', interestRate: 5.04},
+    { id: '5', title: '고양이 신용대출', bank: '수협', interestRate: 5.04},
   ];  
 
   return (
@@ -73,4 +72,7 @@ const MyFavorWrap = styled.div`
   height: calc(100% - 115px) ;
   overflow-y: auto;
   gap: 5px;
+  li {
+    list-style-type: none;
+  }
 `;

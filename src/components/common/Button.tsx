@@ -77,6 +77,9 @@ export const StyledButton = styled.button<{
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:disabled {
     opacity: 1;
     cursor: default;
