@@ -21,7 +21,7 @@ export default Loading;
 const StyledLoading = styled.div`
   border: none;
   position: absolute;
-  z-index: 10;
+  z-index: 20;
   width: 100%;
   height: 100%;
   top: 0;
@@ -29,8 +29,8 @@ const StyledLoading = styled.div`
   background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(1.5px);
 
-  iframe {
-    width: 110px;
+  div {
+    width: 200px;
     position: absolute;
     top: 50%;
     left: 50%;
