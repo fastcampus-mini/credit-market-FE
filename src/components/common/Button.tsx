@@ -13,6 +13,9 @@ interface Props {
   type?: 'button' | 'submit' | 'reset' | undefined;
   fontWeight?: number;
   fontSize?: string;
+  marginTop?: string;
+  title?: string;
+  scale?: string;
 }
 
 const Button = ({
@@ -26,6 +29,9 @@ const Button = ({
   type = 'button',
   fontWeight = 400,
   fontSize = '14px',
+  marginTop = '0px',
+  title = '',
+  scale = '',
 }: Props) => {
   return (
     <StyledButton
@@ -38,6 +44,9 @@ const Button = ({
       type={type}
       fontWeight={fontWeight}
       fontSize={fontSize}
+      marginTop={marginTop}
+      title={title}
+      scale={scale}
     >
       {children}
     </StyledButton>
@@ -53,6 +62,8 @@ export const StyledButton = styled.button<{
   color: string;
   fontWeight: number;
   fontSize: string;
+  marginTop: string;
+  scale: string;
 }>`
   ${({ buttonType }) => handleButtonType(buttonType)};
   width: ${({ width }) => width};
@@ -60,13 +71,18 @@ export const StyledButton = styled.button<{
   color: ${({ color }) => color};
   font-weight: ${({ fontWeight }) => fontWeight};
   font-size: ${({ fontSize }) => fontSize};
+  margin-top: ${({ marginTop }) => marginTop};
   border-radius: 30px;
   text-align: center;
   cursor: pointer;
   outline: none;
+  transition: all 0.2s ease;
   &:disabled {
     opacity: 1;
     cursor: default;
+  }
+  &:hover {
+    scale: ${({ scale }) => scale};
   }
 `;
 

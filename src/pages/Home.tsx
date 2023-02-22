@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
-import { Player } from '@lottiefiles/react-lottie-player';
 import Input from '@/components/common/Input';
 import { Link } from 'react-router-dom';
 import ProductCard from '@/components/Product/ProductCard';
@@ -9,6 +8,9 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
 import { IProduct } from '@/interfaces/product';
+import Lottie from 'lottie-react';
+import WelcomeLottie from '@/lotties/welcome.json';
+import BackgroundLottie from '@/lotties/background.json';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -104,18 +106,9 @@ const Home = () => {
 
   return (
     <StyledHome>
-      <Player
-        className="welcome"
-        autoplay
-        src="https://lottie.host/a8eaabb9-8b3e-4593-a292-691432650b13/erB13ry72Q.json"
-        style={{ margin: 0 }}
-      ></Player>
+      <Lottie animationData={WelcomeLottie} loop={false} className="welcome" />
       <div className="bannerBg">
-        <Player
-          autoplay
-          loop
-          src="https://assets2.lottiefiles.com/packages/lf20_kK73MQ.json"
-        ></Player>
+        <Lottie animationData={BackgroundLottie} loop={true} className="background" />
       </div>
       <p className="welcomeText">
         방문자님,
@@ -169,7 +162,7 @@ const StyledHome = styled.div`
     justify-content: end;
     margin-top: 30px;
 
-    #lottie {
+    .background {
       width: 230px;
     }
     position: relative;

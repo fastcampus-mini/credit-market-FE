@@ -22,7 +22,7 @@ export const getBankLogo = (bank: string) => {
   else if (bank.match(/산업/g)) return '/images/banks/sanup.png';
   else if (bank.match(/수협/g)) return '/images/banks/suhyup.png';
   else if (bank.match(/기업/g)) return '/images/banks/ibk.png';
-  else '';
+  else return '/images/banks/no-bank.png';
 };
 
 /*
