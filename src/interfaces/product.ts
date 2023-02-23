@@ -1,5 +1,4 @@
 export interface IProduct {
-  map: React.FunctionComponent;
   productId: string;
   productName: string;
   companyName: string;
