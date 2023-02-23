@@ -2,9 +2,9 @@ import { ROUTES } from '@/constants/routes';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import React from 'react';
-import Button from './Button';
+import Button from './components/common/Button';
 import { useNavigate } from 'react-router-dom';
-import FavorButton from '../Product/FavorButton';
+import FavorButton from './components/Product/FavorButton';
 
 interface Prop {
   data: { id: string; title: string; bank: string; favorite: boolean };
@@ -32,19 +32,15 @@ const ProductCardBuy = ({
     <StyledProductCardBuy>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={bankLogo} alt={bankTitle} />          
-          <h2 className="bankTitle">{bankTitle}</h2>          
+          <img className="bankLogo" src={bankLogo} alt={bankTitle} />
+          <h2 className="bankTitle">{bankTitle}</h2>
         </div>
-        <div className='cancelBuy'>
-          <Button 
-            width="30%"
-            height="30px"
-            marginTop="10px" 
-          >
+        <div className="cancelBuy">
+          <Button width="30%" height="30px" marginTop="10px">
             신청 취소하기
           </Button>
         </div>
-        
+
         <p className="productName">{productName}</p>
         <div className="textBox">
           <p>
@@ -57,7 +53,6 @@ const ProductCardBuy = ({
             금리구분<span>{rateSort}</span>
           </p>
         </div>
-        
       </div>
     </StyledProductCardBuy>
   );
@@ -87,9 +82,9 @@ const StyledProductCardBuy = styled.li`
       .bankLogo {
         width: 30px;
         margin-right: 10px;
-      }      
+      }
     }
-    
+
     .cancelBuy button {
       position: absolute;
       right: 15px;

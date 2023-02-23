@@ -11,9 +11,25 @@ export default GlobalStyle;
 
 const style = css`
   ${reset}
+  @font-face {
+    font-family: 'Binggrae-Two';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae-Bold.woff')
+      format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'ONE-Mobile-Title';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff')
+      format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
 
   * {
     box-sizing: border-box;
+
     &::-webkit-scrollbar {
       width: 5px;
       background-color: inherit;

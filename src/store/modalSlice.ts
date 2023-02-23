@@ -10,6 +10,7 @@ const modal = createSlice({
     onClickCancel: () => {},
     okText: '',
     cancelText: '',
+    route: '',
     isPassword: false,
   },
   reducers: {

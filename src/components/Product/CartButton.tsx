@@ -25,7 +25,8 @@ const CartButton = ({ id }: Props) => {
         setModal({
           isOpen: true,
           onClickOk: () => {
-            dispatch(setModal({ isOpen: false }));
+            // dispatch(setModal({ isOpen: false }));
+            dispatch(setModal({ route: navigate(ROUTES.LOGIN) }));
           },
           text: MESSAGES.INVALID_AUTH,
         }),

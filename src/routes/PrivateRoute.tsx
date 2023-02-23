@@ -1,4 +1,5 @@
 import { MESSAGES } from '@/constants/messages';
+import { ROUTES } from '@/constants/routes';
 import { setModal } from '@/store/modalSlice';
 import { getCookie } from '@/utils/cookie';
 import { useDispatch } from 'react-redux';
@@ -18,8 +19,9 @@ export const PrivateRoute = ({ children }: Props) => {
       setModal({
         isOpen: true,
         onClickOk: () => {
-          dispatch(setModal({ isOpen: false }));
-          navigate(-1);
+          // dispatch(setModal({ isOpen: false }));
+          dispatch(setModal({ route: navigate(ROUTES.LOGIN) }));
+          // navigate(-1);
         },
         text: MESSAGES.INVALID_AUTH,
       }),
