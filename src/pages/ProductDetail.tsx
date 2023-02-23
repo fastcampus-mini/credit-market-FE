@@ -7,14 +7,18 @@ import React, { useEffect, useState } from 'react';
 import { MESSAGES } from '@/constants/messages';
 import COLORS from '@/styles/colors';
 import Button from '@/components/common/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ADDITIONAL_TEXTS } from '@/constants/additional';
 import { ROUTES } from '@/constants/routes';
 import ProductCard from '@/components/Product/ProductCard';
+import { getProductDetail } from '@/apis/product';
+import { setModal } from '@/store/modalSlice';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const [product, setProduct] = useState<IProduct>();
+  const productId = useLocation().pathname.split('/')[2];
   const [product, setProduct] = useState<IProduct>({
     productId: '3',
     productName: '고양이 신용대출',
@@ -30,10 +34,16 @@ const ProductDetail = () => {
     async function getData() {
       try {
         dispatch(showLoading());
-        // const data = await getProduct();
-        // setProduct(data);
+        const data = await getProductDetail(productId);
+        setProduct(data);
       } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.PRODUCT.ERROR_GET_DETAIL,
+          }),
+        );
       } finally {
         dispatch(hideLoading());
       }
@@ -42,18 +52,18 @@ const ProductDetail = () => {
   }, []);
 
   const handleClick = () => {
-    navigate(ROUTES.BUY);
+    navigate(ROUTES.BUY, { state: [product] });
   };
 
   return (
     <ProductContainer>
       <PageTitle title="상품 상세" />
       <ProductContent>
-        <ProductCard data={product} isDetail={true} />
+        <ProductCard data={product!} isDetail={true} />
         <ProductDesc>
           <DescBox>
             <DescTitle>가입 방법</DescTitle>
-            <DescContent>{product.productJoinMethod}</DescContent>
+            <DescContent>{product?.productJoinMethod}</DescContent>
           </DescBox>
           <DescBox>
             <DescTitle>부가 설명</DescTitle>
