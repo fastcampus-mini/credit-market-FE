@@ -9,6 +9,7 @@ const modal = createSlice({
     text: '',
     okText: '',
     cancelText: '',
+    route: '',
   },
   reducers: {
     setModal(state, action) {
