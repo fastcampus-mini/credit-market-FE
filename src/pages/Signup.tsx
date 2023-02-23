@@ -178,6 +178,7 @@ const Signup = () => {
                 label="이메일"
                 inputType="text"
                 classType="text-input-white"
+                autoFocus
                 aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
                 register={{
                   ...register('email', {
@@ -354,11 +355,12 @@ const Signup = () => {
             </InputBox>
           </SignupFormPanel>
           <Button
-            buttonType="secondary"
+            buttonType="white"
             type="submit"
             isDisabled={isSubmitting}
             height="40px"
             width="100%"
+            fontWeight={800}
           >
             SUBMIT
           </Button>
@@ -406,6 +408,7 @@ const SelectStyle = styled.select`
   cursor: pointer;
   color: ${COLORS.gray};
   transition: 0.5s;
+  font-size: 12px;
 `;
 
 export const SignupFormStyle = styled.form`
@@ -413,16 +416,11 @@ export const SignupFormStyle = styled.form`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-  padding: 0 40px;
+  padding: 0 50px;
 
   > button {
     margin-top: 20px;
     font-weight: bold;
-
-    &:hover {
-      background-color: ${COLORS.white};
-      color: ${COLORS.primary};
-    }
   }
 `;
 
@@ -431,7 +429,7 @@ const SignupFormPanel = styled.div`
   background: ${COLORS.background};
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  padding: 50px 30px 10px;
+  padding: 50px 20px 10px;
   min-height: 300px;
   max-height: 550px;
   overflow-y: auto;

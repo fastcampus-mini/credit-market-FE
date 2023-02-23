@@ -243,18 +243,14 @@ export const InputBox = styled.div`
     left: 0;
     color: ${COLORS.primary};
     font-weight: bold;
-    font-size: 14px;
     opacity: 1;
     z-index: 0;
   }
 
   &.active svg,
   &:focus-within svg {
-    top: -13px;
-    left: 0;
     color: ${COLORS.primary};
     font-weight: bold;
-    font-size: 14px;
     opacity: 1;
     z-index: 0;
     transition: 0.5s;
