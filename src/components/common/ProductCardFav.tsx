@@ -32,13 +32,13 @@ const ProductCardFav = ({
     <StyledProductCardFav>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={bankLogo} alt={bankTitle} />          
-          <h2 className="bankTitle">{bankTitle}</h2>          
+          <img className="bankLogo" src={bankLogo} alt={bankTitle} />
+          <h2 className="bankTitle">{bankTitle}</h2>
         </div>
         <div>
           <FavorButton id={data.id} isFavor={isFavor} />
         </div>
-        
+
         <p className="productName">{productName}</p>
         <div className="textBox">
           <p>
@@ -83,7 +83,7 @@ const StyledProductCardFav = styled.li`
       .bankLogo {
         width: 30px;
         margin-right: 10px;
-      }      
+      }
     }
 
     .productName {
