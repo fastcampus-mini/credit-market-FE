@@ -22,6 +22,7 @@ const Buy = () => {
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
   const data = useLocation().state;
+  console.log(data.product);
 
   useEffect(() => {
     if (!data) {
@@ -36,7 +37,7 @@ const Buy = () => {
         }),
       );
     } else {
-      setCart(data);
+      setCart(data.product);
     }
   }, []);
 
@@ -80,7 +81,7 @@ const Buy = () => {
   const handleBuy = async () => {
     try {
       dispatch(showLoading());
-      await createBuy({ productIds: [data] });
+      await createBuy({ productIds: data.productIds });
       dispatch(
         setModal({
           isOpen: true,

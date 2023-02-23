@@ -57,7 +57,8 @@ const Cart = () => {
     }
 
     const checkData = cart.filter((item) => checkId.includes(item.cartId));
-    navigate(ROUTES.BUY, { state: checkData });
+    const checkDataId = checkData.map((item) => item.productId);
+    navigate(ROUTES.BUY, { state: { product: checkData, productIds: checkDataId } });
   };
 
   const handleDelete = () => {
@@ -120,7 +121,7 @@ const Cart = () => {
   const handleAllCheck: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.checked) {
       const idArray: Array<string> = [];
-      cart.forEach((item) => idArray.push(item.productId));
+      cart.forEach((item) => idArray.push(item.cartId));
       setCheckId(idArray);
     } else {
       setCheckId([]);
