@@ -5,7 +5,7 @@
     "companyName": "우리은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   },
   {
@@ -14,7 +14,7 @@
     "companyName": "국민은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   },
   {
@@ -23,7 +23,7 @@
     "companyName": "신한은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   },
   {
@@ -32,7 +32,7 @@
     "companyName": "국민은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   },
   {
@@ -41,7 +41,7 @@
     "companyName": "우리은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   },
   {
@@ -50,7 +50,7 @@
     "companyName": "신한은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   },
   {
@@ -59,7 +59,7 @@
     "companyName": "국민은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   },
   {
@@ -68,7 +68,7 @@
     "companyName": "제주은행",
     "favorite": false,
     "productTypeName": "대출",
-    "avgInterest": "3.4%",
+    "avgInterest": "3.4",
     "optionsInterestType": "대출"
   }
 ]
