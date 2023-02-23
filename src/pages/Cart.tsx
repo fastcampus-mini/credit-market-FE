@@ -26,7 +26,7 @@ const Cart = () => {
     async function getData() {
       try {
         dispatch(showLoading());
-        const data = await getCartList(1);
+        const data = await getCartList();
         if (data) setCart(data);
       } catch (error) {
         dispatch(
