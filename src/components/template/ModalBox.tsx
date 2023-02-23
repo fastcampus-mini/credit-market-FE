@@ -1,9 +1,9 @@
-import { IStore } from '@/interfaces/store';
 import { IPassword } from '@/interfaces/user';
 import { ErrStyle, InputBox } from '@/pages/Login';
 import { SignupFormStyle } from '@/pages/Signup';
+import { RootState } from '@/store/store';
 import styled from '@emotion/styled';
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,14 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 
 const ModalBox = () => {
-  const modalState = useSelector((state: IStore) => state.modal);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const handleClick = () => {
+    modalState.onClickOk();
+    setIsButtonDisabled(true);
+    setTimeout(() => setIsButtonDisabled(false), 1000);
+  };
+
+  const modalState = useSelector((state: RootState) => state.modal);
 
   const customStyles = {
     content: {
@@ -73,10 +80,8 @@ const ModalBox = () => {
             buttonType="blue"
             width="80px"
             height="34px"
-            onClick={
-              modalState.isPassword ? handleSubmit(modalState.onClickOk) : modalState.onClickOk
-            }
-            isDisabled={modalState.isPassword && isSubmitting}
+            onClick={modalState.isPassword ? handleSubmit(modalState.onClickOk) : handleClick}
+            isDisabled={(modalState.isPassword && isSubmitting) || isButtonDisabled}
           >
             {modalState.okText ? modalState.okText : '확인'}
           </Button>
@@ -85,7 +90,7 @@ const ModalBox = () => {
               buttonType="white"
               width={modalState.cancelText ? '110px' : '80px'}
               height="34px"
-              onClick={() => modalState.onClickCancel!(false)}
+              onClick={modalState.onClickCancel}
             >
               {modalState.cancelText ? modalState.cancelText : '취소'}
             </Button>
