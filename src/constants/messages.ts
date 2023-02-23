@@ -5,6 +5,9 @@ export const MESSAGES = {
     ERROR_LOGIN: '로그인 중\n에러가 발생하였습니다.',
     COMPLETE_LOGIN: '로그인이 완료되었습니다.',
   },
+  LOGOUT: {
+    ERROR_LOGOUT: '로그아웃 중\n에러가 발생하였습니다.',
+  },
   SIGNUP: {
     CHECK_EMAIL_DUPLICATE: '이미 존재하는 이메일입니다.',
     ERROR_SIGNUP: '회원 가입 중\n에러가 발생하였습니다.',
