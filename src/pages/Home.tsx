@@ -28,10 +28,7 @@ const Home = () => {
         dispatch(showLoading());
         const recommendedData: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
         const randomData: IProduct[] = await axios.get('/mockData/randomProducts.json');
-
-        {
-          userName ? setProducts(recommendedData) : setProducts(randomData);
-        }
+        userName ? setProducts(recommendedData) : setProducts(randomData);
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
@@ -85,12 +82,12 @@ const StyledHome = styled.div`
 
   p.welcomeText {
     position: absolute;
-    top: 100px;
-    left: 32%;
+    top: 110px;
+    left: 37%;
     transform: translate(-50%, -50%);
     color: ${COLORS.white};
-    font-size: 13px;
-    line-height: 20px;
+    font-size: 15px;
+    line-height: 30px;
   }
 
   .bannerBg {
