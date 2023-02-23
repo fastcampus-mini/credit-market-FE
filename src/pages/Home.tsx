@@ -14,91 +14,20 @@ import BackgroundLottie from '@/lotties/background.json';
 import { axiosInstance } from '@/apis/instance';
 import { API_URLS } from '@/constants/apiUrls';
 import { getCookie } from '@/utils/cookie';
+import axios from 'axios';
 
 const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
   const userName = getCookie('userName');
+  console.log(userName);
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
         const recommendedData: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
-        const randomData: IProduct[] = [
-          {
-            productId: '1',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-          {
-            productId: '2',
-            productName: '주부 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-          {
-            productId: '3',
-            productName: '고양이 신용대출',
-            companyName: '신한은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-          {
-            productId: '4',
-            productName: '주부 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-          {
-            productId: '5',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-          {
-            productId: '6',
-            productName: '주부 신용대출',
-            companyName: '신한은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-          {
-            productId: '7',
-            productName: '고양이 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-          {
-            productId: '8',
-            productName: '대학생 신용대출',
-            companyName: '제주은행',
-            favorite: false,
-            productTypeName: '대출',
-            avgInterest: '3.4%',
-            optionsInterestType: '대출',
-          },
-        ];
+        const randomData: IProduct[] = await axios.get('/mockData/randomProducts.json');
 
         {
           userName ? setProducts(recommendedData) : setProducts(randomData);
