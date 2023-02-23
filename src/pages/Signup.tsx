@@ -18,6 +18,7 @@ import { MESSAGES } from '@/constants/messages';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { setCookie } from '@/utils/cookie';
 import { login, signup } from '@/apis/auth';
+import { AxiosError } from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -29,21 +30,6 @@ const Signup = () => {
     watch,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<IUser>();
-
-  // const [FormData, setFormData] = useState<IUser>({
-  //   email: '',
-  //   password: '',
-  //   passwordConfirm: '',
-  //   // name: '',
-  //   job: '',
-  //   birthYear: '',
-  //   birthMonth: '',
-  //   birthDay: '',
-  //   sex: '',
-  //   loan: '',
-  //   credit: '',
-  //   interest: '',
-  // });
 
   const initialFormData = {
     email: '',
@@ -92,7 +78,6 @@ const Signup = () => {
     alert(JSON.stringify(FormData));
     try {
       dispatch(showLoading());
-
       const response = await signup({
         userEmail: FormData.email,
         userPassword: FormData.password,
@@ -103,13 +88,11 @@ const Signup = () => {
         userPrefInterestType: FormData.interest,
         userCreditScore: FormData.credit,
       });
-
       dispatch(
         setModal({
           isOpen: false,
         }),
       );
-
       dispatch(showLoading());
       const loginResponse = await login({
         userEmail: FormData.email,
@@ -118,14 +101,24 @@ const Signup = () => {
       setCookie('userName', '방문자');
       setCookie('accessToken', loginResponse);
       goWelcome();
-    } catch (error) {
-      dispatch(
-        setModal({
-          isOpen: true,
-          onClickOk: () => dispatch(setModal({ isOpen: false })),
-          text: MESSAGES.SIGNUP.ERROR_SIGNUP,
-        }),
-      );
+    } catch (error: any) {
+      if (error.response && error.response.status === 409) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.SIGNUP.CHECK_EMAIL_DUPLICATE,
+          }),
+        );
+      } else {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.SIGNUP.ERROR_SIGNUP,
+          }),
+        );
+      }
     } finally {
       dispatch(hideLoading());
     }
