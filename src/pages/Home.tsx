@@ -104,7 +104,7 @@ const Home = () => {
           userName ? setProducts(recommendedData) : setProducts(randomData);
         }
       } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
+        alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
         dispatch(hideLoading());
       }
