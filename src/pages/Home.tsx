@@ -88,7 +88,7 @@ const StyledHome = styled.div`
     left: 39%;
     transform: translate(-50%, -50%);
     color: ${COLORS.white};
-    font-family: 'Binggrae-Two';
+    font-family: 'GmarketSansMedium';
     line-height: 30px;
   }
 
