@@ -30,7 +30,22 @@ const Signup = () => {
     formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<IUser>();
 
-  const [FormData, setFormData] = useState<IUser>({
+  // const [FormData, setFormData] = useState<IUser>({
+  //   email: '',
+  //   password: '',
+  //   passwordConfirm: '',
+  //   // name: '',
+  //   job: '',
+  //   birthYear: '',
+  //   birthMonth: '',
+  //   birthDay: '',
+  //   sex: '',
+  //   loan: '',
+  //   credit: '',
+  //   interest: '',
+  // });
+
+  const initialFormData = {
     email: '',
     password: '',
     passwordConfirm: '',
@@ -43,7 +58,7 @@ const Signup = () => {
     loan: '',
     credit: '',
     interest: '',
-  });
+  };
 
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
@@ -57,8 +72,23 @@ const Signup = () => {
     };
   }, []);
 
+  let FormData: IUser;
+
+  const onSubmit = async (data: IUser) => {
+    FormData = { ...initialFormData, ...data };
+    console.log(FormData);
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: modalSubmitHandler,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.SUBMIT_CHECK,
+      }),
+    );
+  };
+
   const modalSubmitHandler = async (event: any) => {
-    await new Promise((r) => setTimeout(r, 1000));
+    // await new Promise((r) => setTimeout(r, 1000));
     alert(JSON.stringify(FormData));
     try {
       dispatch(showLoading());
@@ -100,20 +130,6 @@ const Signup = () => {
     } finally {
       dispatch(hideLoading());
     }
-  };
-
-  const onSubmit = (data: IUser) => {
-    setFormData(data);
-    console.log(data);
-    console.log(FormData);
-    dispatch(
-      setModal({
-        isOpen: true,
-        onClickOk: modalSubmitHandler,
-        onClickCancel: () => dispatch(setModal({ isOpen: false })),
-        text: MESSAGES.SIGNUP.SUBMIT_CHECK,
-      }),
-    );
   };
 
   const validateSelectOption = (value: string) => {

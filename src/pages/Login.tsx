@@ -28,7 +28,6 @@ const Login = () => {
   } = useForm<ILogin>();
 
   const onSubmit = async (data: any) => {
-    await new Promise((r) => setTimeout(r, 1000));
     alert(JSON.stringify(data));
 
     try {
