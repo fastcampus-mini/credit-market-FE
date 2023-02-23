@@ -30,14 +30,14 @@ const MyInfo = () => {
     email: '',
     password: '',
     passwordConfirm: '',
-    name: '',
+    // name: '',
+    job: '',
     birthYear: '',
     birthMonth: '',
     birthDay: '',
     sex: '',
-    bank: '',
     loan: '',
-    credit: 0,
+    credit: '',
     interest: '',
   });
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
