@@ -5,53 +5,41 @@ import React from 'react';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import FavorButton from '../Product/FavorButton';
+import { IFavor } from '@/interfaces/favor';
+import { getBankLogo } from '@/utils/bankLogo';
 
 interface Prop {
-  data: { id: string; title: string; bank: string; favorite: boolean };
-  bankLogo: string | undefined;
-  bankTitle: string;
-  productName: string;
-  isFavor: boolean;
-  loanTitle: string;
-  rateAverage: string;
-  rateSort: string;
+  item: IFavor
+  isFavor: true
 }
 
-const ProductCardFav = ({
-  data,
-  bankLogo,
-  bankTitle,
-  productName,
-  isFavor = true,
-  loanTitle,
-  rateAverage,
-  rateSort,
-}: Prop) => {
+const ProductCardFav = ({ item, isFavor }: Prop) => {
   const navigate = useNavigate();
+
   return (
     <StyledProductCardFav>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={bankLogo} alt={bankTitle} />          
-          <h2 className="bankTitle">{bankTitle}</h2>          
+          <img className="bankLogo" src={item.companyName && getBankLogo(item.companyName)} alt={item.companyName} />          
+          <h2 className="bankTitle">{item.companyName}</h2>          
         </div>
         <div>
-          <FavorButton id={data.id} isFavor={isFavor} />
+          <FavorButton id={item.id} isFavor={isFavor} />
         </div>
         
-        <p className="productName">{productName}</p>
+        <p className="productName">{item.productName}</p>
         <div className="textBox">
           <p>
-            대출종류<span>{loanTitle}</span>
+            대출종류<span>{item.productTypeName}</span>
           </p>
           <p>
-            평균금리<span>{rateAverage}</span>
+            평균금리<span>{item.interestRateAvg}</span>
           </p>
           <p>
-            금리구분<span>{rateSort}</span>
+            금리구분<span>{item.interestType}</span>
           </p>
         </div>
-        <Button width="100%" height="50px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}>
+        <Button width="100%" height="50px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(item.id))}>
           자세히 보기
         </Button>
       </div>
