@@ -25,7 +25,6 @@ const Home = () => {
       try {
         dispatch(showLoading());
         const recommendedData: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
-        console.log(recommendedData);
         const randomData: IProduct[] = [
           {
             productId: '1',

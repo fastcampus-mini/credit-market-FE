@@ -10,7 +10,6 @@ export const API_URLS = {
   FAVOR: (id: string) => `/favor/${id}`,
   BUY: (id: string) => `/buy/${id}`,
   ORDER: (id: string) => `/order/${id}`,
-  CART_LIST: (page: number) => `/cart/${page}`,
   BUY_LIST: (page: number) => `/buy/${page}`,
   FAVOR_LIST: (page: number) => `/favor/${page}`,
   SEARCH: {
