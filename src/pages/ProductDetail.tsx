@@ -125,4 +125,5 @@ const DescTitle = styled.p`
 const DescContent = styled.div`
   font-size: 13px;
   line-height: 1.4;
+  white-space: pre-wrap;
 `;
