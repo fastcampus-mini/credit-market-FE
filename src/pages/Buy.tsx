@@ -82,7 +82,7 @@ const Buy = () => {
     try {
       dispatch(showLoading());
       await createBuy({ productIds: data.productIds });
-      await deleteCart({ cartIds: data.cartIds });
+      if (data.cartIds) await deleteCart({ cartIds: data.cartIds });
       dispatch(
         setModal({
           isOpen: true,
