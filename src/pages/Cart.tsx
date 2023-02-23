@@ -90,6 +90,7 @@ const Cart = () => {
       await deleteCart({ cartIds: checkId });
       const data = await getCartList();
       setCart(data);
+      setCheckId(checkId.filter((item) => !checkId.includes(item)));
       dispatch(setCartState(data));
     } catch (error) {
       dispatch(
@@ -162,6 +163,7 @@ const Cart = () => {
               isCheckBox={true}
               handleCheck={handleCheck}
               checkId={checkId}
+              setCheckId={setCheckId}
               setCart={setCart}
             />
           ))
