@@ -1,12 +1,12 @@
 import React from 'react';
-import { IStore } from '@/interfaces/store';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import Lottie from 'lottie-react';
 import LoadingLottie from '@/lotties/loading-animation-blue.json';
+import { RootState } from '@/store/store';
 
 const Loading = () => {
-  const loading = useSelector((state: IStore) => state.loading);
+  const loading = useSelector((state: RootState) => state.loading);
   if (loading === false) return null;
 
   return (
