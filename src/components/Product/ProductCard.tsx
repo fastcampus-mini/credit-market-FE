@@ -1,4 +1,5 @@
 import { ROUTES } from '@/constants/routes';
+import { ICart } from '@/interfaces/cart';
 import { IProduct } from '@/interfaces/product';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';

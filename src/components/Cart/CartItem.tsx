@@ -1,10 +1,16 @@
+import { deleteCart, getCartList } from '@/apis/cart';
+import { MESSAGES } from '@/constants/messages';
 import { ROUTES } from '@/constants/routes';
-import { IProduct } from '@/interfaces/product';
+import { ICart } from '@/interfaces/cart';
+import { setCartState } from '@/store/cartSlice';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { setModal } from '@/store/modalSlice';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
 import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
@@ -12,15 +18,45 @@ import Input from '../common/Input';
 import FavorButton from '../Product/FavorButton';
 
 interface Props {
-  data: IProduct;
+  data: ICart;
   isCheckBox?: boolean;
   handleCheck?(checked: HTMLInputElement['checked'], id: string): void;
   checkId?: Array<string>;
+  setCart?: any;
 }
 
-const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
+const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCart }: Props) => {
   const navigate = useNavigate();
-  const handleDelete = () => {};
+  const dispatch = useDispatch();
+
+  const handleDelete = async () => {
+    try {
+      dispatch(showLoading());
+      await deleteCart({ cartIds: [data.productId] });
+      const cartList = await getCartList();
+      setCart(cartList);
+      dispatch(setCartState(cartList));
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => {
+            dispatch(setModal({ isOpen: false }));
+          },
+          text: MESSAGES.CART.COMPLETE_DELETE,
+        }),
+      );
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.CART.ERROR_DELETE,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
 
   return (
     <CartItemContainer>
@@ -35,7 +71,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.productId))}>
           <ImageWrap>
             <Image
-              src={getBankLogo(data.companyName) as string}
+              src={data.companyName && (getBankLogo(data.companyName) as string)}
               width="36px"
               height="36px"
               alt={data.companyName}

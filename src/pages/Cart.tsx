@@ -15,11 +15,11 @@ import { setModal } from '@/store/modalSlice';
 import Lottie from 'lottie-react';
 import CartLottie from '@/lotties/animated-shopping-cart.json';
 import { setCartState } from '@/store/cartSlice';
-import { IProduct } from '@/interfaces/product';
+import { ICart } from '@/interfaces/cart';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const [cart, setCart] = useState<IProduct[]>([]);
+  const [cart, setCart] = useState<ICart[]>([]);
   const navigate = useNavigate();
   const [checkId, setCheckId] = useState<string[]>([]);
 
@@ -27,45 +27,7 @@ const Cart = () => {
     async function getData() {
       try {
         dispatch(showLoading());
-        // const data = await getCartList();
-        // if (data) setCart(data);
-        const data: IProduct[] = [
-          {
-            productId: '1',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            productTypeName: '',
-            favorite: true,
-          },
-          {
-            productId: '2',
-            productName: '주부 신용대출',
-            companyName: '서울은행',
-            productTypeName: '',
-            favorite: false,
-          },
-          {
-            productId: '3',
-            productName: '고양이 신용대출',
-            companyName: '국민은행',
-            productTypeName: '',
-            favorite: false,
-          },
-          {
-            productId: '4',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            productTypeName: '',
-            favorite: false,
-          },
-          {
-            productId: '5',
-            productName: '고양이 신용대출',
-            companyName: '신한은행',
-            productTypeName: '',
-            favorite: true,
-          },
-        ];
+        const data = await getCartList();
         setCart(data);
         dispatch(setCartState(data));
       } catch (error) {
@@ -197,6 +159,7 @@ const Cart = () => {
               isCheckBox={true}
               handleCheck={handleCheck}
               checkId={checkId}
+              setCart={setCart}
             />
           ))
         ) : (
