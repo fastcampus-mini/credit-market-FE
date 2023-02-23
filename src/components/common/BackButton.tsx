@@ -7,12 +7,13 @@ type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   size?: number;
   isMypage?: boolean;
+  color?: string;
 };
 
-const BackButton = ({ onClick, size, isMypage }: Props) => {
+const BackButton = ({ onClick, size, isMypage, color }: Props) => {
   return (
     <button css={isMypage ? MypageButtonStyle : BackButtonStyle} onClick={onClick}>
-      <FiArrowLeft size={size} />
+      <FiArrowLeft size={size} color={color} />
     </button>
   );
 };

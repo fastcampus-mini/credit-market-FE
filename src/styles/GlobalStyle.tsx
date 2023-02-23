@@ -12,8 +12,8 @@ export default GlobalStyle;
 const style = css`
   ${reset}
   @font-face {
-    font-family: 'Binggrae-Two';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae-Bold.woff')
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
       format('woff');
     font-weight: normal;
     font-style: normal;
@@ -49,8 +49,8 @@ const style = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${COLORS.mainText};
     background: ${COLORS.bodyBackground};
+    color: ${COLORS.mainText};
 
     .ReactModalPortal {
       z-index: 50;
@@ -105,6 +105,7 @@ const style = css`
 
       input {
         cursor: pointer;
+        color: ${COLORS.mainText};
       }
 
       input[type='checkbox'] {

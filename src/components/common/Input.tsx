@@ -2,6 +2,8 @@ import React from 'react';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
+import { RiLockPasswordLine } from 'react-icons/ri';
+import { MdAlternateEmail, MdWork, MdOutlineCreditScore } from 'react-icons/md';
 
 interface Prop {
   inputType: string;
@@ -63,6 +65,10 @@ const Input = ({
       />
       {classType === 'text-search' && <BsSearch className="searchIcon" />}
       {classType === 'text-input-white' && <label htmlFor={id}>{label}</label>}
+      {label === '이메일' && <MdAlternateEmail />}
+      {label.includes('비밀번호') && <RiLockPasswordLine />}
+      {label === '직업' && <MdWork />}
+      {label === '개인신용점수' && <MdOutlineCreditScore />}
     </StyledInputBox>
   );
 };
