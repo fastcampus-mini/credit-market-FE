@@ -72,7 +72,7 @@ export const StyledButton = styled.button<{
   font-weight: ${({ fontWeight }) => fontWeight};
   font-size: ${({ fontSize }) => fontSize};
   margin-top: ${({ marginTop }) => marginTop};
-  border-radius: 30px;
+  border-radius: 10px;
   text-align: center;
   cursor: pointer;
   outline: none;
@@ -110,7 +110,8 @@ const handleButtonType = (buttonType: string) => {
         transition:0.3s ease all;
         border: none;
         &:hover {
-          opacity: 0.7;
+          // opacity: 0.7;
+          background-color:${COLORS.secondary};
         }
       `;
     case 'disabled':
