@@ -17,7 +17,7 @@ import { IUser } from '@/interfaces/user';
 import { MESSAGES } from '@/constants/messages';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { setCookie } from '@/utils/cookie';
-import { signup } from '@/apis/auth';
+import { login, signup } from '@/apis/auth';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -92,16 +92,7 @@ const Signup = () => {
     alert(JSON.stringify(FormData));
     try {
       dispatch(showLoading());
-      console.log({
-        userEmail: FormData.email,
-        userPassword: FormData.password,
-        userGender: FormData.sex,
-        userBirthDate: FormData.birthYear + FormData.birthMonth + FormData.birthDay,
-        userJob: FormData.job,
-        userPrefCreditProductTypeName: FormData.loan,
-        userPrefInterestType: FormData.interest,
-        userCreditScore: FormData.credit,
-      });
+
       const response = await signup({
         userEmail: FormData.email,
         userPassword: FormData.password,
@@ -118,6 +109,14 @@ const Signup = () => {
           isOpen: false,
         }),
       );
+
+      dispatch(showLoading());
+      const loginResponse = await login({
+        userEmail: FormData.email,
+        userPassword: FormData.password,
+      });
+      setCookie('userName', '방문자');
+      setCookie('accessToken', loginResponse);
       goWelcome();
     } catch (error) {
       dispatch(
