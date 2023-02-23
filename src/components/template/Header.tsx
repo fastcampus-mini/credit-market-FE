@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,21 +6,43 @@ import Button from '../common/Button';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';
-import { getCookie } from '@/utils/cookie';
+import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
 import { logout } from '@/apis/auth';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { setModal } from '@/store/modalSlice';
+import { MESSAGES } from '@/constants/messages';
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userName = getCookie('userName');
-
-  console.log(userName);
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
-  console.log(logout());
+
+  const handleLogout = async () => {
+    try {
+      dispatch(showLoading());
+      await logout();
+      removeCookie('userName');
+      removeCookie('accessToken');
+      navigate(ROUTES.HOME);
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.LOGOUT.ERROR_LOGOUT,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
 
   return (
     <StyledHeader className="headerInner">
@@ -30,9 +52,7 @@ const Header = () => {
           <Button
             width="fit-content"
             height="fit-content"
-            onClick={() => (userName ? logout() : navigate(ROUTES.LOGIN))}
-            // onClick={() => navigate(ROUTES.LOGIN)}
-            // onClick={logout()}
+            onClick={userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
             buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
           >
             {!userName ? <FiLogIn /> : <FiLogOut />}
