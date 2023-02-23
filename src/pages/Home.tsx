@@ -13,13 +13,12 @@ import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
 import { getCookie } from '@/utils/cookie';
 import { getRecommentList } from '@/apis/product';
-import { axiosInstance } from '@/apis/instance';
+import axios from 'axios';
 
 const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
   const userName = getCookie('userName');
-  console.log(userName);
 
   useEffect(() => {
     async function getProducts() {
@@ -29,8 +28,8 @@ const Home = () => {
           const data = await getRecommentList();
           setProducts(data);
         } else {
-          const randomData: IProduct[] = await axiosInstance.get('/mockData/randomProducts.json');
-          setProducts(randomData);
+          const randomData = await axios.get('/mockData/randomProducts.json');
+          setProducts(randomData.data);
         }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
