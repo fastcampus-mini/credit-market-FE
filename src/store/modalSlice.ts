@@ -5,10 +5,12 @@ const modal = createSlice({
   name: 'modal',
   initialState: {
     isOpen: false,
-    onClickOk: () => {},
     text: '',
+    onClickOk: () => {},
+    onClickCancel: () => {},
     okText: '',
     cancelText: '',
+    isPassword: false,
   },
   reducers: {
     setModal(state, action) {
