@@ -71,15 +71,6 @@ const Header = () => {
               <span>JOIN</span>
             </Button>
           )}
-          {/* <Button
-            width="fit-content"
-            height="fit-content"
-            onClick={() => navigate(ROUTES.SIGNUP)}
-            buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
-          >
-            <FaUserFriends />
-            <span>JOIN</span>
-          </Button> */}
         </div>
       </>
     </StyledHeader>

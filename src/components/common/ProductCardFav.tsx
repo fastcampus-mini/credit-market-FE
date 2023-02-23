@@ -9,8 +9,8 @@ import { IFavor } from '@/interfaces/favor';
 import { getBankLogo } from '@/utils/bankLogo';
 
 interface Prop {
-  item: IFavor
-  isFavor: true
+  item: IFavor;
+  isFavor: true;
 }
 
 const ProductCardFav = ({ item, isFavor }: Prop) => {
@@ -20,13 +20,16 @@ const ProductCardFav = ({ item, isFavor }: Prop) => {
     <StyledProductCardFav>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={item.companyName && getBankLogo(item.companyName)} alt={item.companyName} />          
-          <h2 className="bankTitle">{item.companyName}</h2>          
+          <img
+            className="bankLogo"
+            src={item.companyName && getBankLogo(item.companyName)}
+            alt={item.companyName}
+          />
+          <h2 className="bankTitle">{item.companyName}</h2>
         </div>
         <div>
           <FavorButton id={item.id} isFavor={isFavor} />
         </div>
-        
         <p className="productName">{item.productName}</p>
         <div className="textBox">
           <p>
@@ -71,7 +74,7 @@ const StyledProductCardFav = styled.li`
       .bankLogo {
         width: 30px;
         margin-right: 10px;
-      }      
+      }
     }
 
     .productName {
