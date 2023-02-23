@@ -204,22 +204,6 @@ const MyInfo = () => {
             {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
           </InputBox>
 
-          <InputBox className={errors.bank ? 'active' : dirtyFields.bank ? 'active' : ''}>
-            <SelectLabel>Bank</SelectLabel>
-            <SelectStyle
-              {...register('bank', {
-                required: '은행을 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="">선호 은행</option>
-              <option value="bank1">공무원</option>
-              <option value="bank2">개인사업자</option>
-              <option value="bank3">무직</option>
-            </SelectStyle>
-            {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
-          </InputBox>
-
           <InputBox className={errors.loan ? 'active' : dirtyFields.loan ? 'active' : ''}>
             <SelectLabel>Type of Loan</SelectLabel>
             <SelectStyle
