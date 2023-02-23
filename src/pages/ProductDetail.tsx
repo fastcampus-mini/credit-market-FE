@@ -16,13 +16,13 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [product, setProduct] = useState<IProduct>({
-    id: '3',
+    productId: '3',
     productName: '고양이 신용대출',
     companyName: '신한은행',
     favorite: false,
     productTypeName: '대출',
-    interestRateAvg: '3.4%',
-    interestType: '대출',
+    avgInterest: '3.4%',
+    optionsInterestType: '대출',
     productJoinMethod: '영업점,인터넷,스마트폰',
   });
 
