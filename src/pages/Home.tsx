@@ -49,7 +49,7 @@ const Home = () => {
       <p className="welcomeText">
         {userName ? userName : '방문자'}님,
         <br />
-        {userName ? '근사한 상품을 준비해 놓았어요!' : '오늘도 즐거운 하루 보내세요!'}
+        {userName ? '근사한 상품을 준비해 놓았어요!' : '오늘도 행복한 하루 보내세요!'}
       </p>
       <div id="panel">
         <Link to="/search">
@@ -85,10 +85,10 @@ const StyledHome = styled.div`
   p.welcomeText {
     position: absolute;
     top: 110px;
-    left: 37%;
+    left: 39%;
     transform: translate(-50%, -50%);
     color: ${COLORS.white};
-    font-size: 15px;
+    font-family: 'Binggrae-Two';
     line-height: 30px;
   }
 
