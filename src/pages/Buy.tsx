@@ -15,6 +15,7 @@ import { setModal } from '@/store/modalSlice';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { createBuy } from '@/apis/buy';
 import { ICart } from '@/interfaces/cart';
+import { deleteCart } from '@/apis/cart';
 
 const Buy = () => {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ const Buy = () => {
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
   const data = useLocation().state;
-  console.log(data.product);
 
   useEffect(() => {
     if (!data) {
@@ -82,6 +82,7 @@ const Buy = () => {
     try {
       dispatch(showLoading());
       await createBuy({ productIds: data.productIds });
+      await deleteCart({ cartIds: data.cartIds });
       dispatch(
         setModal({
           isOpen: true,

@@ -58,7 +58,9 @@ const Cart = () => {
 
     const checkData = cart.filter((item) => checkId.includes(item.cartId));
     const checkDataId = checkData.map((item) => item.productId);
-    navigate(ROUTES.BUY, { state: { product: checkData, productIds: checkDataId } });
+    navigate(ROUTES.BUY, {
+      state: { product: checkData, productIds: checkDataId, cartIds: checkId },
+    });
   };
 
   const handleDelete = () => {
