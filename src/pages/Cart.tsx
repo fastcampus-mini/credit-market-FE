@@ -56,7 +56,7 @@ const Cart = () => {
       );
     }
 
-    const checkData = cart.filter((item) => checkId.includes(item.productId));
+    const checkData = cart.filter((item) => checkId.includes(item.cartId));
     navigate(ROUTES.BUY, { state: checkData });
   };
 
@@ -84,7 +84,7 @@ const Cart = () => {
   const handleDeleteCart = async () => {
     try {
       dispatch(showLoading());
-      await deleteCart({ cartIds: [checkId] });
+      await deleteCart({ cartIds: checkId });
       const data = await getCartList();
       setCart(data);
       dispatch(setCartState(data));

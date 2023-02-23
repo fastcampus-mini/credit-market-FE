@@ -21,7 +21,7 @@ interface Props {
   data: ICart;
   isCheckBox?: boolean;
   handleCheck?(checked: HTMLInputElement['checked'], id: string): void;
-  checkId?: Array<string>;
+  checkId?: string[];
   setCart?: any;
 }
 
@@ -32,7 +32,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCart }: Props) =>
   const handleDelete = async () => {
     try {
       dispatch(showLoading());
-      await deleteCart({ cartIds: [data.productId] });
+      await deleteCart({ cartIds: [data.cartId] });
       const cartList = await getCartList();
       setCart(cartList);
       dispatch(setCartState(cartList));
@@ -64,8 +64,8 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCart }: Props) =>
         {isCheckBox && (
           <Input
             inputType="checkbox"
-            checked={checkId!.includes(data.productId) ? true : false}
-            onChange={(e) => handleCheck!(e.target.checked, data.productId)}
+            checked={checkId!.includes(data.cartId) ? true : false}
+            onChange={(e) => handleCheck!(e.target.checked, data.cartId)}
           />
         )}
         <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.productId))}>

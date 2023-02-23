@@ -14,11 +14,11 @@ import { useDispatch } from 'react-redux';
 import { setModal } from '@/store/modalSlice';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { createBuy } from '@/apis/buy';
-import { IProduct } from '@/interfaces/product';
+import { ICart } from '@/interfaces/cart';
 
 const Buy = () => {
   const navigate = useNavigate();
-  const [cart, setCart] = useState<IProduct[]>([]);
+  const [cart, setCart] = useState<ICart[]>([]);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
   const data = useLocation().state;
