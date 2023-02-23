@@ -2,10 +2,11 @@ import { createCart } from '@/apis/cart';
 import { MESSAGES } from '@/constants/messages';
 import { ROUTES } from '@/constants/routes';
 import { setModal } from '@/store/modalSlice';
+import { RootState } from '@/store/store';
 import { getCookie } from '@/utils/cookie';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -16,6 +17,7 @@ const CartButton = ({ id }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userName = getCookie('userName');
+  const cartState = useSelector((state: RootState) => state.cart);
 
   const handleCart = async () => {
     if (!userName) {

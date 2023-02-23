@@ -1,7 +1,7 @@
-import { IStore } from '@/interfaces/store';
 import { IPassword } from '@/interfaces/user';
 import { ErrStyle, InputBox } from '@/pages/Login';
 import { SignupFormStyle } from '@/pages/Signup';
+import { RootState } from '@/store/store';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -18,7 +18,7 @@ const ModalBox = () => {
     setTimeout(() => setIsButtonDisabled(false), 1000);
   };
 
-  const modalState = useSelector((state: IStore) => state.modal);
+  const modalState = useSelector((state: RootState) => state.modal);
 
   const customStyles = {
     content: {
@@ -90,7 +90,7 @@ const ModalBox = () => {
               buttonType="white"
               width={modalState.cancelText ? '110px' : '80px'}
               height="34px"
-              onClick={() => modalState.onClickCancel!(false)}
+              onClick={modalState.onClickCancel}
             >
               {modalState.cancelText ? modalState.cancelText : '취소'}
             </Button>
