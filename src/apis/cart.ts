@@ -1,8 +1,8 @@
 import { axiosInstance } from './instance';
 import { API_URLS } from '../constants/apiUrls';
 
-export const getCartList = async (page: number) => {
-  const { data } = await axiosInstance.get(API_URLS.CART_LIST(page));
+export const getCartList = async () => {
+  const { data } = await axiosInstance.get(API_URLS.CART);
   return data;
 };
 
