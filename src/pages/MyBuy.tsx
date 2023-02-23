@@ -38,17 +38,7 @@ const MyBuy = () => {
     getBuyList();
   }, []);
 
-  const handleDeleteFromBuy = () => {
-    dispatch(
-      setModal({ 
-        isOpen: true,
-        onClickOk: handleDeleteFromBuy,
-        text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
-      })
-    )
-    console.log('deleted')
-    navigate(ROUTES.MYPAGE_BUY)    
-  }
+  
 
   const handleCancelClick = () => {
     return (
@@ -62,6 +52,20 @@ const MyBuy = () => {
       )      
     )
   }
+
+  const handleDeleteFromBuy = () => {
+    dispatch(
+    setModal({ 
+      isOpen: true,
+      onClickOk: () => {
+        dispatch(setModal({ isOpen: false }))
+        navigate(ROUTES.MYPAGE_BUY)  
+      },
+      text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
+    })
+  )
+  console.log('deleted')    
+}
 
   return (
     <MyBuyContainer>

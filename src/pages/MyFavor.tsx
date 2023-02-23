@@ -9,10 +9,13 @@ import { MESSAGES } from '@/constants/messages';
 import { IFavor } from '@/interfaces/favor';
 import styled from '@emotion/styled';
 
+
+
 const MyFavor = () => {
   const dispatch = useDispatch()
   const [favorList, setFavorList] = useState<IFavor[]>([])
   const navigate = useNavigate();
+
 
   useEffect(() => {
     async function getFavorList() {

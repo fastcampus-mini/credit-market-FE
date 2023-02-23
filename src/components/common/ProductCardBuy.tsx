@@ -20,21 +20,32 @@ const ProductCardBuy = ({ item }: Prop) => {
   const dispatch = useDispatch();
 
   const handleCancelClick = () => {
+    return (
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: handleDeleteFromBuy,
+          onClickCancel: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.MYPAGE.BUY.CHECK_DELETE,          
+        }),
+      )      
+    )
+  }
+
+  const handleDeleteFromBuy = () => {
     dispatch(
-      setModal({
-        isOpen: true,
-        onClickOk: () => {
-          dispatch(setModal({ isOpen: false }));
-          navigate(ROUTES.MYPAGE_BUY)
-        },        
-        onClickCancel: () => {
-          dispatch(setModal({ isOpen: false }));
-          navigate(ROUTES.MYPAGE_BUY)
-        },
-        text: MESSAGES.MYPAGE.BUY.CHECK_DELETE,
-      }),
-    );
-  };
+    setModal({ 
+      isOpen: true,
+      onClickOk: () => {
+        dispatch(setModal({ isOpen: false }))
+        navigate(ROUTES.MYPAGE_BUY)  
+      },
+      text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
+    })
+  )
+  console.log('deleted')    
+}
+
 
   return (
     <StyledProductCardBuy>
