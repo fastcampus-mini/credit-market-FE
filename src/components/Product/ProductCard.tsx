@@ -36,7 +36,7 @@ const ProductCard = ({ data, isDetail }: Props) => {
             <h2>{companyName}</h2>
           </BankWrap>
           <ButtonWrap>
-            {isDetail && <CartButton id={productId} />}
+            {isDetail && <CartButton productId={productId} />}
             <FavorButton id={productId} isFavor={favorite} />
           </ButtonWrap>
         </LogoTitle>
@@ -56,7 +56,7 @@ const ProductCard = ({ data, isDetail }: Props) => {
           <Button
             width="100%"
             height="40px"
-            onClick={() => navigate(ROUTES.PRODUCT_BY_ID(productId))}
+            onClick={() => navigate(ROUTES.PRODUCT_BY_ID(productId), { state: productId })}
             marginTop="10px"
           >
             자세히 보기
