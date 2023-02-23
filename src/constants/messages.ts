@@ -29,7 +29,9 @@ export const MESSAGES = {
   },
   MYPAGE: {
     BUY: {
-      ERROR_GET: '신청완료 상품 조회 중 에러가 발생했습니다.'
+      ERROR_GET: '신청완료 상품 조회 중 에러가 발생했습니다.',
+      CHECK_DELETE: '신청완료 상품을 정말 취소하시겠습니까?',
+      COMPLETE_DELETE: '상품 신청이 취소되었습니다.'
     },
     FAV: {
       ERROR_GET: '관심 상품 조회 중 에러가 발생했습니다.',
