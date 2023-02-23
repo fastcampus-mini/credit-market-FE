@@ -355,11 +355,12 @@ const Signup = () => {
             </InputBox>
           </SignupFormPanel>
           <Button
-            buttonType="secondary"
+            buttonType="white"
             type="submit"
             isDisabled={isSubmitting}
             height="40px"
             width="100%"
+            fontWeight={800}
           >
             SUBMIT
           </Button>
@@ -419,11 +420,6 @@ export const SignupFormStyle = styled.form`
   > button {
     margin-top: 20px;
     font-weight: bold;
-
-    &:hover {
-      background-color: ${COLORS.white};
-      color: ${COLORS.primary};
-    }
   }
 `;
 
