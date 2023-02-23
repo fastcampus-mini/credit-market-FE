@@ -3,7 +3,7 @@ import { ErrStyle, InputBox } from '@/pages/Login';
 import { SignupFormStyle } from '@/pages/Signup';
 import { RootState } from '@/store/store';
 import styled from '@emotion/styled';
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,13 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 
 const ModalBox = () => {
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const handleClick = () => {
+    modalState.onClickOk();
+    setIsButtonDisabled(true);
+    setTimeout(() => setIsButtonDisabled(false), 1000);
+  };
+
   const modalState = useSelector((state: RootState) => state.modal);
 
   const customStyles = {
@@ -73,10 +80,8 @@ const ModalBox = () => {
             buttonType="blue"
             width="80px"
             height="34px"
-            onClick={
-              modalState.isPassword ? handleSubmit(modalState.onClickOk) : modalState.onClickOk
-            }
-            isDisabled={modalState.isPassword && isSubmitting}
+            onClick={modalState.isPassword ? handleSubmit(modalState.onClickOk) : handleClick}
+            isDisabled={(modalState.isPassword && isSubmitting) || isButtonDisabled}
           >
             {modalState.okText ? modalState.okText : '확인'}
           </Button>

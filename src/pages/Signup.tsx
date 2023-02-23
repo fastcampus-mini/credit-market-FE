@@ -17,7 +17,8 @@ import { IUser } from '@/interfaces/user';
 import { MESSAGES } from '@/constants/messages';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { setCookie } from '@/utils/cookie';
-import { signup } from '@/apis/auth';
+import { login, signup } from '@/apis/auth';
+import { AxiosError } from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const Signup = () => {
     formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<IUser>();
 
-  const [FormData, setFormData] = useState<IUser>({
+  const initialFormData = {
     email: '',
     password: '',
     passwordConfirm: '',
@@ -43,7 +44,7 @@ const Signup = () => {
     loan: '',
     credit: '',
     interest: '',
-  });
+  };
 
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
@@ -57,21 +58,26 @@ const Signup = () => {
     };
   }, []);
 
-  const modalSubmitHandler = async () => {
-    await new Promise((r) => setTimeout(r, 1000));
+  let FormData: IUser;
+
+  const onSubmit = async (data: IUser) => {
+    FormData = { ...initialFormData, ...data };
+    console.log(FormData);
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: modalSubmitHandler,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.SUBMIT_CHECK,
+      }),
+    );
+  };
+
+  const modalSubmitHandler = async (event: any) => {
+    // await new Promise((r) => setTimeout(r, 1000));
     alert(JSON.stringify(FormData));
     try {
       dispatch(showLoading());
-      console.log({
-        userEmail: FormData.email,
-        userPassword: FormData.password,
-        userGender: FormData.sex,
-        userBirthDate: FormData.birthYear + FormData.birthMonth + FormData.birthDay,
-        userJob: FormData.job,
-        userPrefCreditProductTypeName: FormData.loan,
-        userPrefInterestType: FormData.interest,
-        userCreditScore: FormData.credit,
-      });
       const response = await signup({
         userEmail: FormData.email,
         userPassword: FormData.password,
@@ -82,38 +88,40 @@ const Signup = () => {
         userPrefInterestType: FormData.interest,
         userCreditScore: FormData.credit,
       });
-
-      setModal({
-        isOpen: false,
-      }),
-        setCookie('userName', '방문자');
-      setCookie('accessToken', response);
-      goWelcome();
-    } catch (error) {
       dispatch(
         setModal({
-          isOpen: true,
-          onClickOk: () => dispatch(setModal({ isOpen: false })),
-          text: MESSAGES.LOGIN.ERROR_LOGIN,
+          isOpen: false,
         }),
       );
+      dispatch(showLoading());
+      const loginResponse = await login({
+        userEmail: FormData.email,
+        userPassword: FormData.password,
+      });
+      setCookie('userName', '방문자');
+      setCookie('accessToken', loginResponse);
+      goWelcome();
+    } catch (error: any) {
+      if (error.response && error.response.status === 409) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.SIGNUP.CHECK_EMAIL_DUPLICATE,
+          }),
+        );
+      } else {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.SIGNUP.ERROR_SIGNUP,
+          }),
+        );
+      }
     } finally {
       dispatch(hideLoading());
     }
-  };
-
-  const onSubmit = (data: IUser) => {
-    setFormData(data);
-    console.log(data);
-    console.log(FormData);
-    dispatch(
-      setModal({
-        isOpen: true,
-        onClickOk: modalSubmitHandler,
-        onClickCancel: () => dispatch(setModal({ isOpen: false })),
-        text: MESSAGES.SIGNUP.SUBMIT_CHECK,
-      }),
-    );
   };
 
   const validateSelectOption = (value: string) => {
