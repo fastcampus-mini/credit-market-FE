@@ -99,6 +99,16 @@ const Cart = () => {
   };
 
   const handleDelete = () => {
+    if (checkId.length === 0) {
+      return dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.CART.ERROR_NOT_CHECK,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+        }),
+      );
+    }
+
     dispatch(
       setModal({
         isOpen: true,
