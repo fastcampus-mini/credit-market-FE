@@ -11,15 +11,17 @@ import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
 import { ErrStyle, InputBox, LogoStyle } from './Login';
-import { Dispatch } from 'react';
+import { useDispatch } from 'react-redux';
 import { setModal } from '@/store/modalSlice';
 import { IUser } from '@/interfaces/user';
+import { MESSAGES } from '@/constants/messages';
+import { showLoading, hideLoading } from '@/store/loadingSlice';
+import { setCookie } from '@/utils/cookie';
+import { signup } from '@/apis/auth';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const location1 = useLocation();
-  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -27,20 +29,22 @@ const Signup = () => {
     watch,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
   } = useForm<IUser>();
+
   const [FormData, setFormData] = useState<IUser>({
     email: '',
     password: '',
     passwordConfirm: '',
-    name: '',
+    // name: '',
+    job: '',
     birthYear: '',
     birthMonth: '',
     birthDay: '',
     sex: '',
-    bank: '',
     loan: '',
-    credit: 0,
+    credit: '',
     interest: '',
   });
+
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
@@ -53,19 +57,67 @@ const Signup = () => {
     };
   }, []);
 
+  const modalSubmitHandler = async () => {
+    await new Promise((r) => setTimeout(r, 1000));
+    alert(JSON.stringify(FormData));
+    try {
+      dispatch(showLoading());
+      console.log({
+        userEmail: FormData.email,
+        userPassword: FormData.password,
+        userGender: FormData.sex,
+        userBirthDate: FormData.birthYear + FormData.birthMonth + FormData.birthDay,
+        userJob: FormData.job,
+        userPrefCreditProductTypeName: FormData.loan,
+        userPrefInterestType: FormData.interest,
+        userCreditScore: FormData.credit,
+      });
+      const response = await signup({
+        userEmail: FormData.email,
+        userPassword: FormData.password,
+        userGender: FormData.sex,
+        userBirthDate: FormData.birthYear + FormData.birthMonth + FormData.birthDay,
+        userJob: FormData.job,
+        userPrefCreditProductTypeName: FormData.loan,
+        userPrefInterestType: FormData.interest,
+        userCreditScore: FormData.credit,
+      });
+
+      setModal({
+        isOpen: false,
+      }),
+        setCookie('userName', '방문자');
+      setCookie('accessToken', response);
+      goWelcome();
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.LOGIN.ERROR_LOGIN,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+
   const onSubmit = (data: IUser) => {
     setFormData(data);
-    setIsSubmitModalOpen(true);
+    console.log(data);
+    console.log(FormData);
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: modalSubmitHandler,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.SUBMIT_CHECK,
+      }),
+    );
   };
 
   const validateSelectOption = (value: string) => {
     return value === '' ? 'Please select an option' : true;
-  };
-
-  const modalSubmitHandler = async () => {
-    await new Promise((r) => setTimeout(r, 1000));
-    alert(JSON.stringify(FormData));
-    goWelcome();
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -74,13 +126,29 @@ const Signup = () => {
     }
   };
 
+  const backModalOpen = () => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: goBack,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.BACK_BUTTON_CAUTION,
+      }),
+    );
+  };
+
   const handleEvent = () => {
     history.pushState(null, '', location.href);
-    setIsBackModalOpen(true);
+    backModalOpen();
   };
 
   const goBack = () => {
-    navigate(location1.state?.from || '/', { replace: true });
+    navigate(-2);
+    dispatch(
+      setModal({
+        isOpen: false,
+      }),
+    );
   };
 
   const goWelcome = () => {
@@ -89,7 +157,7 @@ const Signup = () => {
 
   return (
     <SignForm>
-      <BackButton onClick={() => setIsBackModalOpen(true)} size={25} />
+      <BackButton onClick={backModalOpen} size={25} />
       <SignupStyle>
         <h1 css={mb30}>
           <LogoStyle src="../../images/logo_Main.png" alt="" />
@@ -155,46 +223,25 @@ const Signup = () => {
               )}
             </InputBox>
 
-            <InputBox className={errors.name ? 'active' : dirtyFields.name ? 'active' : ''}>
+            <InputBox className={errors.job ? 'active' : dirtyFields.job ? 'active' : ''}>
               <Input
-                id="SignupName"
-                label="Name"
+                id="SignupJob"
+                label="Job"
                 inputType="text"
                 classType="text-input-white"
-                aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
+                aria-invalid={!isDirty ? undefined : errors.job ? 'true' : 'false'}
                 register={{
-                  ...register('name', {
-                    required: '이름을 입력해주세요.',
+                  ...register('job', {
+                    required: '직업을 입력해주세요.',
                     pattern: {
                       value: /^[가-힣]{2,4}$/,
-                      message: '이름을 한글로 올바르게 작성해주세요.',
+                      message: '직업을 한글로 올바르게 작성해주세요.',
                     },
                   }),
                 }}
               />
-              {errors.name && <ErrStyle role="alert">{errors.name.message}</ErrStyle>}
+              {errors.job && <ErrStyle role="alert">{errors.job.message}</ErrStyle>}
             </InputBox>
-
-            {/* <Input
-              inputType="number"
-              classType="text-input-white"
-              placeholder="나이"
-              aria-invalid={!isDirty ? undefined : errors.age ? 'true' : 'false'}
-              register={{
-                ...register('age', {
-                  required: '나이를 입력해주세요.',
-                  pattern: {
-                    value: /^(0|[1-9]|[1-9][0-9])$/,
-                    message: '나이는 0 이상 100 미만의 숫자로 입력해주세요.',
-                  },
-                }),
-              }}
-            />
-            {errors.age && (
-              <small css={ErrStyle} role="alert">
-                {errors.age.message}
-              </small>
-            )} */}
 
             <InputBox
               css={BirthStyle}
@@ -218,13 +265,13 @@ const Signup = () => {
               </SelectStyle>
               <SelectStyle {...register('birthMonth')}>
                 <option value="">월</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                <option value="01">1</option>
+                <option value="02">2</option>
               </SelectStyle>
               <SelectStyle {...register('birthDay')}>
                 <option value="">일</option>
-                <option value="1">1</option>
-                <option value="">2</option>
+                <option value="01">1</option>
+                <option value="02">2</option>
               </SelectStyle>
               {(errors.birthYear || errors.birthDay || errors.birthMonth) && (
                 <ErrStyle role="alert">{errors.birthYear!.message}</ErrStyle>
@@ -235,14 +282,14 @@ const Signup = () => {
               <Input
                 id="SignupCreditScore"
                 label="Personality Credit Score"
-                inputType="number"
+                inputType="text"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
                 register={{
                   ...register('credit', {
                     required: '개인신용점수를 입력해주세요.',
                     pattern: {
-                      value: /^(0|[1-9]|[1-9][0-9]|[1-9][1-9][1-9])$/,
+                      value: /^(0|[1-9]|[1-9][0-9]|[1-9][0-9][0-9])$/,
                       message: '신용점수는 0 이상 999 미만의 숫자로 입력해주세요.',
                     },
                   }),
@@ -260,26 +307,10 @@ const Signup = () => {
                 })}
               >
                 <option value="">성별</option>
-                <option value="male">남성</option>
-                <option value="female">여성</option>
+                <option value="남">남성</option>
+                <option value="여">여성</option>
               </SelectStyle>
               {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
-            </InputBox>
-
-            <InputBox className={errors.bank ? 'active' : dirtyFields.bank ? 'active' : ''}>
-              <SelectLabel>Bank</SelectLabel>
-              <SelectStyle
-                {...register('bank', {
-                  required: '은행을 선택해주세요.',
-                  validate: validateSelectOption,
-                })}
-              >
-                <option value="">선호 은행</option>
-                <option value="bank1">공무원</option>
-                <option value="bank2">개인사업자</option>
-                <option value="bank3">무직</option>
-              </SelectStyle>
-              {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
             </InputBox>
 
             <InputBox className={errors.loan ? 'active' : dirtyFields.loan ? 'active' : ''}>
@@ -291,9 +322,9 @@ const Signup = () => {
                 })}
               >
                 <option value="">선호 대출 종류</option>
-                <option value="">중장기 신용 대출</option>
-                <option value="">단기 신용 대출</option>
-                <option value="">소액 신용 대출</option>
+                <option value="일반신용대출">일반신용대출</option>
+                <option value="마이너스한도대출">마이너스한도대출</option>
+                <option value="장기카드대출(카드론)">장기카드대출</option>
               </SelectStyle>
               {errors.loan && <ErrStyle role="alert">{errors.loan.message}</ErrStyle>}
             </InputBox>
@@ -307,8 +338,9 @@ const Signup = () => {
                 })}
               >
                 <option value="">선호 금리 종류</option>
-                <option value="interest1">고정 금리</option>
-                <option value="interest2">변동 금리</option>
+                <option value="대출금리">대출금리</option>
+                <option value="기준금리">기준금리</option>
+                <option value="가산금리">가산금리</option>
               </SelectStyle>
               {errors.interest && <ErrStyle role="alert">{errors.interest.message}</ErrStyle>}
             </InputBox>

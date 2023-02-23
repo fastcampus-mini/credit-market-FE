@@ -30,14 +30,14 @@ const MyInfo = () => {
     email: '',
     password: '',
     passwordConfirm: '',
-    name: '',
+    // name: '',
+    job: '',
     birthYear: '',
     birthMonth: '',
     birthDay: '',
     sex: '',
-    bank: '',
     loan: '',
-    credit: 0,
+    credit: '',
     interest: '',
   });
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
@@ -202,22 +202,6 @@ const MyInfo = () => {
               <option value="female">여성</option>
             </SelectStyle>
             {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
-          </InputBox>
-
-          <InputBox className={errors.bank ? 'active' : dirtyFields.bank ? 'active' : ''}>
-            <SelectLabel>Bank</SelectLabel>
-            <SelectStyle
-              {...register('bank', {
-                required: '은행을 선택해주세요.',
-                validate: validateSelectOption,
-              })}
-            >
-              <option value="">선호 은행</option>
-              <option value="bank1">공무원</option>
-              <option value="bank2">개인사업자</option>
-              <option value="bank3">무직</option>
-            </SelectStyle>
-            {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
           </InputBox>
 
           <InputBox className={errors.loan ? 'active' : dirtyFields.loan ? 'active' : ''}>

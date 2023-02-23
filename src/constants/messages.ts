@@ -9,6 +9,9 @@ export const MESSAGES = {
     CHECK_EMAIL_DUPLICATE: '이미 존재하는 이메일입니다.',
     ERROR_SIGNUP: '회원 가입 중\n에러가 발생하였습니다.',
     COMPLETE_SIGNUP: '회원 가입이\n완료되었습니다.',
+    BACK_BUTTON_CAUTION:
+      '이전 페이지로 이동하면\n입력 내용이 모두 사라집니다.\n정말 이동하시겠습니까?',
+    SUBMIT_CHECK: '제출을 완료하시겠습니까?',
   },
   PRODUCT: {
     ERROR_GET_PRODUCT: '상품 조회 중\n에러가 발생하였습니다.',

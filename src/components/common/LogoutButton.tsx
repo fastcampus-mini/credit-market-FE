@@ -2,6 +2,10 @@
 import { logout } from '@/apis/auth';
 import axios from 'axios';
 import Button from './Button';
+import { axiosInstance } from '@/apis/instance';
+import { API_URLS } from '@/constants/apiUrls';
+import useCookies from 'react-cookie/cjs/useCookies';
+import { BiLogOut } from 'react-icons/bi';
 
 type Props = {};
 
@@ -15,7 +19,12 @@ const LogoutButton = (props: Props) => {
   //   }
   // };
 
-  return <Button onClick={logout}> Logout </Button>;
+  return (
+    <Button onClick={logout}>
+      {' '}
+      <BiLogOut />{' '}
+    </Button>
+  );
 };
 
 export default LogoutButton;
