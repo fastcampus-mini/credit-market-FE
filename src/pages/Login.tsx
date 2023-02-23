@@ -239,7 +239,7 @@ export const InputBox = styled.div`
 
   &.active label,
   &:focus-within label {
-    top: -13px;
+    top: -5px;
     left: 0;
     color: ${COLORS.primary};
     font-weight: bold;
