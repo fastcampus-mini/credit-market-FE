@@ -6,47 +6,54 @@ import PageTitle from '@/components/common/PageTitle';
 import ProductCardFav from '@/components/common/ProductCardFav';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
+import { IFavor } from '@/interfaces/favor';
 import styled from '@emotion/styled';
-import { getBankLogo } from '@/utils/bankLogo';
 
-interface Prop {
-  id: string;
-  title: string;
-  bank: string;
-  interestRate: number,
-}
+
+
+
 
 const MyFavor = () => {
+  const dispatch = useDispatch()
+  const [favorList, setFavorList] = useState<IFavor[]>([])
   const navigate = useNavigate();
 
-  const datas: any[] = [
-    { id: '1', title: '직장인 신용대출', bank: '우리', interestRate: 5.04},
-    { id: '2', title: '주부 신용대출', bank: '국민', interestRate: 5.04},
-    { id: '3', title: '무직자 신용대출', bank: '신한', interestRate: 5.04},
-    { id: '4', title: '고용주 신용대출', bank: '기업', interestRate: 5.04},
-    { id: '5', title: '고양이 신용대출', bank: '수협', interestRate: 5.04},
-  ];  
-
+  useEffect(() => {
+    async function getFavorList() {
+      try {
+        dispatch(showLoading());
+        const item: IFavor[] = [
+          { id: '1', productName: '직장인 신용대출', companyName: '우리', favorite: false, productTypeName: '대출', interestRateAvg: '5.04%', interestType: '대출'},
+          { id: '2', productName: '주부 신용대출', companyName: '국민', favorite: false, productTypeName: '대출', interestRateAvg: '4.29%', interestType: '대출'},
+          { id: '3', productName: '무직자 신용대출', companyName: '신한', favorite: false, productTypeName: '대출', interestRateAvg: '4.98%', interestType: '대출'},
+          { id: '4', productName: '고용주 신용대출', companyName: '기업', favorite: false, productTypeName: '대출', interestRateAvg: '3.98%', interestType: '대출'},
+          { id: '5', productName: '고양이 신용대출', companyName: '수협', favorite: false, productTypeName: '대출', interestRateAvg: '4.75%', interestType: '대출'},
+        ]
+        setFavorList(item);
+      } catch (error) {
+        alert(MESSAGES.MYPAGE.FAV.ERROR_GET);
+      } finally {
+        dispatch(hideLoading());
+      }
+    }
+    getFavorList();
+  }, []);
+      
   return (
     <MyFavorContainer>
       <MyFavorHeader>
         <BackButton onClick={() => navigate(-1)} size={25} isMypage={true} />
         <PageTitle title="관심 상품" />
       </MyFavorHeader>
-      <MyFavorWrap>{datas.map((data) => {
-        return (
-          <ProductCardFav
-            key={data.id}
-            data={data}
-            bankLogo={getBankLogo(data.bank)}
-            bankTitle={`${data.bank}은행`}
-            productName={data.title}
-            loanTitle="대출"
-            rateAverage="3.4%"
-            rateSort="대출"
-            isFavor={false}
-          />
-        )
+      <MyFavorWrap>
+        {favorList.map((item) => {
+          return (
+            <ProductCardFav
+              key={item.id}
+              item={item}
+              isFavor={true}
+            />
+          )
       })}</MyFavorWrap>
     </MyFavorContainer>
   );
@@ -70,9 +77,12 @@ const MyFavorWrap = styled.div`
   flex-direction: column;
   padding: 0 0 0 10px;
   height: calc(100% - 115px) ;
-  overflow-y: auto;
+  overflow-y: auto;  
+  margin-top: 10px;
   gap: 5px;
   li {
     list-style-type: none;
   }
 `;
+
+
