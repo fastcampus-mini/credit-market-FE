@@ -4,7 +4,7 @@ export interface IProduct {
   companyName: string;
   favorite: boolean;
   productTypeName: string;
-  avgInterest?: string;
-  optionsInterestType?: string;
+  avgInterest: string;
+  optionsInterestType: string;
   productJoinMethod?: string;
 }

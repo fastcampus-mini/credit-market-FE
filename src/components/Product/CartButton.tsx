@@ -26,7 +26,6 @@ const CartButton = ({ productId }: Props) => {
         setModal({
           isOpen: true,
           onClickOk: () => {
-            // dispatch(setModal({ isOpen: false }));
             dispatch(setModal({ route: navigate(ROUTES.LOGIN) }));
           },
           text: MESSAGES.INVALID_AUTH,
@@ -36,18 +35,23 @@ const CartButton = ({ productId }: Props) => {
 
     try {
       dispatch(showLoading());
-      // const response = await createCart(productId);
-      // if (response === 'isDupl') {
-      //   return dispatch(
-      //     setModal({
-      //       isOpen: true,
-      //       onClickOk: () => {
-      //         dispatch(setModal({ isOpen: false }));
-      //       },
-      //       text: MESSAGES.CART.ERROR_DUPL,
-      //     }),
-      //   );
-      // }
+      const response = await createCart({ fproductId: productId });
+      if (response === 'isDupl') {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => {
+              dispatch(setModal({ isOpen: false }));
+            },
+            onClickCancel: () => {
+              dispatch(setModal({ isOpen: false }));
+              navigate(ROUTES.CART);
+            },
+            cancelText: '장바구니 이동',
+            text: MESSAGES.CART.ERROR_DUPL,
+          }),
+        );
+      }
     } catch (error) {
       dispatch(
         setModal({

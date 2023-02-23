@@ -13,5 +13,5 @@ export const createCart = async (data: Object) => {
 };
 
 export const deleteCart = async (data: Object) => {
-  await axiosInstance.delete(API_URLS.CART, data);
+  await axiosInstance.delete(API_URLS.CART, { data });
 };

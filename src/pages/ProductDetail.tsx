@@ -17,18 +17,8 @@ import { setModal } from '@/store/modalSlice';
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [product, setProduct] = useState<IProduct>();
+  const [product, setProduct] = useState<IProduct>();
   const productId = useLocation().pathname.split('/')[2];
-  const [product, setProduct] = useState<IProduct>({
-    productId: '3',
-    productName: '고양이 신용대출',
-    companyName: '신한은행',
-    favorite: false,
-    productTypeName: '대출',
-    avgInterest: '3.4%',
-    optionsInterestType: '대출',
-    productJoinMethod: '영업점,인터넷,스마트폰',
-  });
 
   useEffect(() => {
     async function getData() {
@@ -59,7 +49,7 @@ const ProductDetail = () => {
     <ProductContainer>
       <PageTitle title="상품 상세" />
       <ProductContent>
-        <ProductCard data={product!} isDetail={true} />
+        {product && <ProductCard data={product} isDetail={true} />}
         <ProductDesc>
           <DescBox>
             <DescTitle>가입 방법</DescTitle>
