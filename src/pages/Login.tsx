@@ -40,14 +40,32 @@ const Login = () => {
       setCookie('accessToken', response, { maxAge: 3600 });
       // setCookie('tokenExpiration', new Date().getTime().toString(), { path: '/' });
       goHome();
-    } catch (error) {
-      dispatch(
-        setModal({
-          isOpen: true,
-          onClickOk: () => dispatch(setModal({ isOpen: false })),
-          text: MESSAGES.LOGIN.ERROR_LOGIN,
-        }),
-      );
+    } catch (error: any) {
+      if (error.response && error.response.status === 404) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.LOGIN.CHECK_EMAIL,
+          }),
+        );
+      } else if (error.response && error.response.status === 401) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.LOGIN.CHECK_PASSWORD,
+          }),
+        );
+      } else {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.LOGIN.ERROR_LOGIN,
+          }),
+        );
+      }
     } finally {
       dispatch(hideLoading());
     }
