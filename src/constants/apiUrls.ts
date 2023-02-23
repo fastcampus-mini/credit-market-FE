@@ -12,7 +12,17 @@ export const API_URLS = {
   ORDER: (id: string) => `/order/${id}`,
   BUY_LIST: (page: number) => `/buy/${page}`,
   FAVOR_LIST: (page: number) => `/favor/${page}`,
-  SEARCH: {
-    RESULTS_BY_KEYWORD: (keyword: string) => `/search/results?keyword=${keyword}`,
-  },
+  SEARCH: (data: SearchFormData) =>
+    `/search/results?keyword=${data.keyword}&loan=${data.loan}&age=${data.age}&gender=${data.gender}&interest=${data.interest}&avg=${data.avg}&page=${data.page}`,
+  RANDOM_SEARCH: `/search/results`,
 };
+
+export interface SearchFormData {
+  keyword: string;
+  loan?: string;
+  age?: string;
+  gender?: string;
+  interest?: string;
+  avg?: string;
+  page?: string;
+}

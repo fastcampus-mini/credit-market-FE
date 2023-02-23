@@ -90,6 +90,11 @@ const Signup = () => {
       });
       dispatch(
         setModal({
+          text: MESSAGES.SIGNUP.COMPLETE_SIGNUP,
+        }),
+      );
+      dispatch(
+        setModal({
           isOpen: false,
         }),
       );
@@ -100,6 +105,19 @@ const Signup = () => {
       });
       setCookie('userName', '방문자');
       setCookie('accessToken', loginResponse);
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.LOGIN.AUTO_LOGIN,
+          onClickOk: () => {
+            dispatch(
+              setModal({
+                isOpen: false,
+              }),
+            );
+          },
+        }),
+      );
       goWelcome();
     } catch (error: any) {
       if (error.response && error.response.status === 409) {

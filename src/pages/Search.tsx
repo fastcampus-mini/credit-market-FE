@@ -7,9 +7,10 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
 import ProductCard from '@/components/Product/ProductCard';
 import { IProduct } from '@/interfaces/product';
-import { getRecommentList } from '@/apis/product';
+import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
 import { getCookie } from '@/utils/cookie';
 import axios from 'axios';
+import { getRandomValues } from 'crypto';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -24,8 +25,8 @@ const Search = () => {
           const data = await getRecommentList();
           setProducts(data);
         } else {
-          const randomData = await axios.get('/mockData/randomProducts.json');
-          setProducts(randomData.data);
+          const randomData = await getRandomSearchList();
+          setProducts(randomData);
         }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);

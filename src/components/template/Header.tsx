@@ -30,6 +30,19 @@ const Header = () => {
       await logout();
       removeCookie('userName');
       removeCookie('accessToken');
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.LOGOUT.COMPLETE_LOGOUT,
+          onClickOk: () => {
+            dispatch(
+              setModal({
+                isOpen: false,
+              }),
+            );
+          },
+        }),
+      );
       navigate(ROUTES.HOME);
     } catch (error) {
       dispatch(

@@ -39,6 +39,19 @@ const Login = () => {
       setCookie('userName', '방문자', { maxAge: 3600 });
       setCookie('accessToken', response, { maxAge: 3600 });
       // setCookie('tokenExpiration', new Date().getTime().toString(), { path: '/' });
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.LOGIN.COMPLETE_LOGIN,
+          onClickOk: () => {
+            dispatch(
+              setModal({
+                isOpen: false,
+              }),
+            );
+          },
+        }),
+      );
       goHome();
     } catch (error: any) {
       if (error.response && error.response.status === 404) {
