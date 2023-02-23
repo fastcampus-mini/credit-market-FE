@@ -42,7 +42,7 @@ const ProductDetail = () => {
   }, []);
 
   const handleClick = () => {
-    navigate(ROUTES.BUY, { state: [product] });
+    navigate(ROUTES.BUY, { state: { product: [product], productIds: [productId] } });
   };
 
   return (
