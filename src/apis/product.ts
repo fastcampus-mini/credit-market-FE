@@ -6,3 +6,8 @@ export const getRecommentList = async () => {
   const data: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
   return data;
 };
+
+export const getProductDetail = async (id: string) => {
+  const data: IProduct = await axiosInstance.get(API_URLS.DETAIL(id));
+  return data;
+};

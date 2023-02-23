@@ -5,53 +5,39 @@ import Input from '@/components/common/Input';
 import PageTitle from '@/components/common/PageTitle';
 import { MESSAGES } from '@/constants/messages';
 import { POLICIES } from '@/constants/policies';
-import { ICart } from '@/interfaces/cart';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import { AiOutlineCheck } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import { useDispatch } from 'react-redux';
 import { setModal } from '@/store/modalSlice';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { createBuy } from '@/apis/buy';
+import { IProduct } from '@/interfaces/product';
 
 const Buy = () => {
   const navigate = useNavigate();
-  const [cart, setCart] = useState<ICart[]>([]);
+  const [cart, setCart] = useState<IProduct[]>([]);
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
+  const data = useLocation().state;
 
   useEffect(() => {
-    const data: ICart[] = [
-      {
-        cartId: '1',
-        fproductName: '개발자 신용대출',
-        fproductCompanyName: '우리은행',
-        fproductCreditProductTypeName: '',
-        favorite: true,
-      },
-      {
-        cartId: '2',
-        fproductName: '감자튀김 신용대출',
-        fproductCompanyName: '신한은행',
-        fproductCreditProductTypeName: '',
-        favorite: false,
-      },
-      {
-        cartId: '3',
-        fproductName: '고양이 신용대출',
-        fproductCompanyName: '국민은행',
-        fproductCreditProductTypeName: '',
-        favorite: false,
-      },
-      {
-        cartId: '4',
-        fproductName: '직장인 신용대출',
-        fproductCompanyName: '우리은행',
-        fproductCreditProductTypeName: '',
-        favorite: false,
-      },
-    ];
-    setCart(data);
+    if (!data) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => {
+            dispatch(setModal({ isOpen: false }));
+            navigate(-1);
+          },
+          text: MESSAGES.BUY.ERROR_NAVI,
+        }),
+      );
+    } else {
+      setCart(data);
+    }
   }, []);
 
   const handleCheck = () => {
@@ -71,7 +57,7 @@ const Buy = () => {
       return dispatch(
         setModal({
           isOpen: true,
-          onClickOk: handleBuy,
+          onClickOk: handleCheckPassword,
           onClickCancel: () => dispatch(setModal({ isOpen: false })),
           text: MESSAGES.BUY.CHECK_BUY,
         }),
@@ -79,17 +65,43 @@ const Buy = () => {
     }
   };
 
-  const handleBuy = () => {
+  const handleCheckPassword = () => {
     dispatch(
       setModal({
         isOpen: true,
-        onClickOk: () => {
-          dispatch(setModal({ isOpen: false }));
-          navigate(ROUTES.MYPAGE_BUY);
-        },
-        text: MESSAGES.BUY.COMPLETE_BUY,
+        isPassword: true,
+        text: MESSAGES.MYPAGE.INFO.CHECK_MODAL,
+        onClickOk: handleBuy,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
       }),
     );
+  };
+
+  const handleBuy = async () => {
+    try {
+      dispatch(showLoading());
+      await createBuy({ productIds: [data] });
+      dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.BUY.COMPLETE_BUY,
+          onClickOk: () => {
+            dispatch(setModal({ isOpen: false }));
+            navigate(ROUTES.MYPAGE_BUY);
+          },
+        }),
+      );
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.BUY.ERROR_BUY,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
   return (
@@ -97,11 +109,7 @@ const Buy = () => {
       <PageTitle title="상품 신청" />
       <BuyContent>
         <BuyItemContainer>
-          {Array.isArray(cart) ? (
-            cart.map((item) => <CartItem key={item.cartId} data={item} />)
-          ) : (
-            <div>담으신 상품이 없습니다.</div>
-          )}
+          {Array.isArray(cart) && cart.map((item) => <CartItem key={item.productId} data={item} />)}
         </BuyItemContainer>
         <PolicyContainer>
           <AgreeContainer>

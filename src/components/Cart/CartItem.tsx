@@ -1,5 +1,5 @@
 import { ROUTES } from '@/constants/routes';
-import { ICart } from '@/interfaces/cart';
+import { IProduct } from '@/interfaces/product';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
@@ -12,7 +12,7 @@ import Input from '../common/Input';
 import FavorButton from '../Product/FavorButton';
 
 interface Props {
-  data: ICart;
+  data: IProduct;
   isCheckBox?: boolean;
   handleCheck?(checked: HTMLInputElement['checked'], id: string): void;
   checkId?: Array<string>;
@@ -28,28 +28,28 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
         {isCheckBox && (
           <Input
             inputType="checkbox"
-            checked={checkId!.includes(data.cartId) ? true : false}
-            onChange={(e) => handleCheck!(e.target.checked, data.cartId)}
+            checked={checkId!.includes(data.productId) ? true : false}
+            onChange={(e) => handleCheck!(e.target.checked, data.productId)}
           />
         )}
-        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.cartId))}>
+        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.productId))}>
           <ImageWrap>
             <Image
-              src={getBankLogo(data.fproductCompanyName) as string}
+              src={getBankLogo(data.companyName) as string}
               width="36px"
               height="36px"
-              alt={data.fproductCompanyName}
+              alt={data.companyName}
             />
           </ImageWrap>
           <TextContainer>
-            <BankText>{data.fproductCompanyName}</BankText>
-            <ProductText>{data.fproductName}</ProductText>
+            <BankText>{data.companyName}</BankText>
+            <ProductText>{data.productName}</ProductText>
           </TextContainer>
         </InfoContainer>
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          <FavorButton id={data.cartId} isFavor={data.favorite} isCart={true} />
+          <FavorButton id={data.productId} isFavor={data.favorite} isCart={true} />
           <Button
             buttonType="text"
             width="fit-content"
