@@ -11,37 +11,21 @@ import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
 import { ErrStyle, InputBox, LogoStyle } from './Login';
-import { Dispatch } from 'react';
+import { useDispatch } from 'react-redux';
 import { setModal } from '@/store/modalSlice';
-
-interface FormValues {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  birthYear: string;
-  birthMonth: string;
-  birthDay: string;
-  sex: string;
-  bank: string;
-  loan: string;
-  credit: number;
-  interest: string;
-}
+import { IUser } from '@/interfaces/user';
+import { MESSAGES } from '@/constants/messages';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const location1 = useLocation();
-  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
-  } = useForm<FormValues>();
-  const [FormData, setFormData] = useState<FormValues>({
+  } = useForm<IUser>();
+  const [FormData, setFormData] = useState<IUser>({
     email: '',
     password: '',
     passwordConfirm: '',
@@ -55,6 +39,9 @@ const Signup = () => {
     credit: 0,
     interest: '',
   });
+
+  const dispatch = useDispatch();
+
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
@@ -67,9 +54,16 @@ const Signup = () => {
     };
   }, []);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: IUser) => {
     setFormData(data);
-    setIsSubmitModalOpen(true);
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: modalSubmitHandler,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.SUBMIT_CHECK,
+      }),
+    );
   };
 
   const validateSelectOption = (value: string) => {
@@ -88,13 +82,29 @@ const Signup = () => {
     }
   };
 
+  const backModalOpen = () => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: goBack,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.BACK_BUTTON_CAUTION,
+      }),
+    );
+  };
+
   const handleEvent = () => {
     history.pushState(null, '', location.href);
-    setIsBackModalOpen(true);
+    backModalOpen();
   };
 
   const goBack = () => {
-    navigate(location1.state?.from || '/', { replace: true });
+    navigate(-2);
+    dispatch(
+      setModal({
+        isOpen: false,
+      }),
+    );
   };
 
   const goWelcome = () => {
@@ -103,7 +113,7 @@ const Signup = () => {
 
   return (
     <SignForm>
-      <BackButton onClick={() => setIsBackModalOpen(true)} size={25} />
+      <BackButton onClick={backModalOpen} size={25} />
       <SignupStyle>
         <h1 css={mb30}>
           <LogoStyle src="../../images/logo_Main.png" alt="" />
@@ -188,27 +198,6 @@ const Signup = () => {
               />
               {errors.name && <ErrStyle role="alert">{errors.name.message}</ErrStyle>}
             </InputBox>
-
-            {/* <Input
-              inputType="number"
-              classType="text-input-white"
-              placeholder="나이"
-              aria-invalid={!isDirty ? undefined : errors.age ? 'true' : 'false'}
-              register={{
-                ...register('age', {
-                  required: '나이를 입력해주세요.',
-                  pattern: {
-                    value: /^(0|[1-9]|[1-9][0-9])$/,
-                    message: '나이는 0 이상 100 미만의 숫자로 입력해주세요.',
-                  },
-                }),
-              }}
-            />
-            {errors.age && (
-              <small css={ErrStyle} role="alert">
-                {errors.age.message}
-              </small>
-            )} */}
 
             <InputBox
               css={BirthStyle}

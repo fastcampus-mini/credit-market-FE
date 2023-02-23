@@ -1,13 +1,10 @@
-import { ROUTES } from '@/constants/routes';
-
 export interface IModal {
   isOpen: boolean;
   text: string;
-  onClickOk: Function;
+  onClickOk: any;
   onClickCancel?: Function;
-}
-
-export interface PasswordModal {
-  isOpen: boolean;
-  linkURL: string;
+  okText?: string;
+  cancelText?: string;
+  isPassword?: boolean;
+  linkURL?: string;
 }

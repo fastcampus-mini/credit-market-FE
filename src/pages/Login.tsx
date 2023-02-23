@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import styled from '@emotion/styled';
 import COLORS from '@/styles/colors';
@@ -9,43 +9,50 @@ import Button from '@/components/common/Button';
 import { css } from '@emotion/react';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
-import { AxiosInstance } from 'axios';
-import { axiosInstance } from '@/apis/instance';
-import { API_URLS } from '@/constants/apiUrls';
-import useCookies from 'react-cookie/cjs/useCookies';
-
-interface FormValues {
-  email: string;
-  password: string;
-}
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { login } from '@/apis/auth';
+import { setModal } from '@/store/modalSlice';
+import { MESSAGES } from '@/constants/messages';
+import { setCookie } from '@/utils/cookie';
+import { ILogin } from '@/interfaces/user';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location1 = useLocation();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
-  } = useForm<FormValues>();
-
-  const [cookies, setCookie] = useCookies(['userName', 'accessToken']);
+  } = useForm<ILogin>();
 
   const onSubmit = async (data: any) => {
     await new Promise((r) => setTimeout(r, 1000));
     alert(JSON.stringify(data));
 
-    const response = await axiosInstance.post(API_URLS.LOGIN, {
-      userEmail: data.email,
-      userPassword: data.password,
-    });
-
-    console.log(response);
-
-    setCookie('userName', '방문자');
-    setCookie('accessToken', response);
-    goHome();
+    try {
+      dispatch(showLoading());
+      const response = await login({
+        userEmail: data.email,
+        userPassword: data.password,
+      });
+      setCookie('userName', '방문자');
+      setCookie('accessToken', response);
+      goHome();
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.LOGIN.ERROR_LOGIN,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
-  const navigate = useNavigate();
-  const location1 = useLocation();
   const goHome = () => {
     navigate(ROUTES.HOME, { state: ROUTES.LOGIN });
   };

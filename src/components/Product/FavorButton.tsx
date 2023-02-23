@@ -1,4 +1,7 @@
 import { createFavor } from '@/apis/favor';
+import { MESSAGES } from '@/constants/messages';
+import { setModal } from '@/store/modalSlice';
+import { getCookie } from '@/utils/cookie';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,8 +15,21 @@ interface Props {
 
 const FavorButton = ({ id, isFavor, isCart = false }: Props) => {
   const dispatch = useDispatch();
+  const userName = getCookie('userName');
 
   const handleFavor = async () => {
+    if (!userName) {
+      return dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => {
+            dispatch(setModal({ isOpen: false }));
+          },
+          text: MESSAGES.INVALID_AUTH,
+        }),
+      );
+    }
+
     // await createFavor(id);
     // dispatch(toggleFavor(id));
     alert('Click!❤️');

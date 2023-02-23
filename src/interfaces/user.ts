@@ -1,23 +1,23 @@
 export interface IUser {
   email: string;
-  password?: string;
+  password: string;
   passwordConfirm?: string;
-  age: string;
-  job: string;
+  name: string;
+  birthYear: string;
+  birthMonth: string;
+  birthDay: string;
+  sex: string;
+  bank: string;
+  loan: string;
+  credit: number;
+  interest: string;
 }
 
-interface usersignup {
-  userEmail: string;
-  userPassword: string;
-  userGender: string;
-  userBirthDate: string;
-  userJob: string;
-  userPrefCreditProductTypeName: string;
-  userPrefInterestType: string;
-  userCreditScore: number;
+export interface ILogin {
+  email: string;
+  password: string;
 }
 
-interface userlogin {
-  id: string;
+export interface IPassword {
   password: string;
 }
