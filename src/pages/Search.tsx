@@ -18,76 +18,76 @@ const Search = () => {
         dispatch(showLoading());
         const data: IProduct[] = [
           {
-            id: '1',
+            productId: '1',
             productName: '직장인 신용대출',
             companyName: '우리은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '2',
+            productId: '2',
             productName: '주부 신용대출',
             companyName: '국민은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '3',
+            productId: '3',
             productName: '고양이 신용대출',
             companyName: '신한은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '4',
+            productId: '4',
             productName: '주부 신용대출',
             companyName: '국민은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '5',
+            productId: '5',
             productName: '직장인 신용대출',
             companyName: '우리은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '6',
+            productId: '6',
             productName: '주부 신용대출',
             companyName: '신한은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '7',
+            productId: '7',
             productName: '고양이 신용대출',
             companyName: '국민은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
           {
-            id: '8',
+            productId: '8',
             productName: '대학생 신용대출',
             companyName: '제주은행',
             favorite: false,
             productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
+            avgInterest: '3.4%',
+            optionsInterestType: '대출',
           },
         ];
         setProducts(data);
@@ -132,7 +132,7 @@ const Search = () => {
       </div>
       <ul className="productsArea">
         {products.map((product) => (
-          <ProductCard key={product.id} data={product} />
+          <ProductCard key={product.productId} data={product} />
         ))}
       </ul>
     </StyledSearch>

@@ -3,50 +3,65 @@ import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';
-import LogoutButton from '../common/LogoutButton';
+import { getCookie } from '@/utils/cookie';
+import { logout } from '@/apis/auth';
 
 const Header = () => {
   const navigate = useNavigate();
+  const userName = getCookie('userName');
+
+  console.log(userName);
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
-
-  const isLoggedIn = false; // redux로 관리해야할듯..
-  const Buttons = () => {
-    return (
-      <>
-        <Button
-          width="fit-content"
-          height="fit-content"
-          onClick={() => navigate(ROUTES.LOGIN)}
-          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
-        >
-          <FiLogIn />
-          <span>LOGIN</span>
-        </Button>
-        <Button
-          width="fit-content"
-          height="fit-content"
-          onClick={() => navigate(ROUTES.SIGNUP)}
-          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
-        >
-          <FaUserFriends />
-          <span>JOIN</span>
-        </Button>
-      </>
-    );
-  };
+  console.log(logout());
 
   return (
     <StyledHeader className="headerInner">
-      <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
-      <div className="buttons">{isLoggedIn ? <LogoutButton /> : <Buttons />}</div>
+      <>
+        <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
+        <div className="buttons">
+          <Button
+            width="fit-content"
+            height="fit-content"
+            onClick={() => (userName ? logout() : navigate(ROUTES.LOGIN))}
+            // onClick={() => navigate(ROUTES.LOGIN)}
+            // onClick={logout()}
+            buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
+          >
+            {!userName ? <FiLogIn /> : <FiLogOut />}
+            {/* <FiLogIn /> */}
+            <span>{!userName ? 'LOGIN' : 'LOGOUT'}</span>
+            {/* <span>LOGIN</span> */}
+          </Button>
+          {!userName && (
+            <Button
+              width="fit-content"
+              height="fit-content"
+              onClick={() => navigate(ROUTES.SIGNUP)}
+              buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
+            >
+              <FaUserFriends />
+              <span>JOIN</span>
+            </Button>
+          )}
+          {/* <Button
+            width="fit-content"
+            height="fit-content"
+            onClick={() => navigate(ROUTES.SIGNUP)}
+            buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
+          >
+            <FaUserFriends />
+            <span>JOIN</span>
+          </Button> */}
+        </div>
+      </>
     </StyledHeader>
   );
 };

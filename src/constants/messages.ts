@@ -14,6 +14,7 @@ export const MESSAGES = {
     SUBMIT_CHECK: '제출을 완료하시겠습니까?',
   },
   PRODUCT: {
+    ERROR_GET_PRODUCT: '상품 조회 중\n에러가 발생하였습니다.',
     ERROR_GET_DETAIL: '상품상세 조회 중\n에러가 발생하였습니다.',
   },
   CART: {
