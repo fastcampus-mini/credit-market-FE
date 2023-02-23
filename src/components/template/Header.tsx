@@ -13,11 +13,14 @@ const Header = () => {
   const navigate = useNavigate();
   const userName = getCookie('userName');
 
+  console.log(userName);
+
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
   };
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
+  console.log(logout());
 
   return (
     <StyledHeader className="headerInner">
@@ -27,11 +30,15 @@ const Header = () => {
           <Button
             width="fit-content"
             height="fit-content"
-            onClick={userName ? logout : () => navigate(ROUTES.LOGIN)}
+            onClick={() => (userName ? logout() : navigate(ROUTES.LOGIN))}
+            // onClick={() => navigate(ROUTES.LOGIN)}
+            // onClick={logout()}
             buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
           >
             {!userName ? <FiLogIn /> : <FiLogOut />}
+            {/* <FiLogIn /> */}
             <span>{!userName ? 'LOGIN' : 'LOGOUT'}</span>
+            {/* <span>LOGIN</span> */}
           </Button>
           {!userName && (
             <Button
@@ -44,6 +51,15 @@ const Header = () => {
               <span>JOIN</span>
             </Button>
           )}
+          {/* <Button
+            width="fit-content"
+            height="fit-content"
+            onClick={() => navigate(ROUTES.SIGNUP)}
+            buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
+          >
+            <FaUserFriends />
+            <span>JOIN</span>
+          </Button> */}
         </div>
       </>
     </StyledHeader>

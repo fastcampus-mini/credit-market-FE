@@ -17,16 +17,16 @@ import { getCookie } from '@/utils/cookie';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState<IProduct>([] as never);
-  const { productId } = products;
+  const [products, setProducts] = useState<IProduct[]>([]);
   const userName = getCookie('userName');
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        const recommendedData: IProduct = (await axiosInstance.get(API_URLS.RECOMMEND)) as never;
-        const randomData: IProduct = [
+        const recommendedData: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
+        console.log(recommendedData);
+        const randomData: IProduct[] = [
           {
             productId: '1',
             productName: '직장인 신용대출',
@@ -99,13 +99,13 @@ const Home = () => {
             avgInterest: '3.4%',
             optionsInterestType: '대출',
           },
-        ] as never;
+        ];
 
         {
           userName ? setProducts(recommendedData) : setProducts(randomData);
         }
       } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
+        alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
         dispatch(hideLoading());
       }
@@ -133,8 +133,8 @@ const Home = () => {
           />
         </Link>
         <ul className="productsArea">
-          {products.map((product: IProduct) => (
-            <ProductCard key={productId} data={product} />
+          {products.map((product) => (
+            <ProductCard key={product.productId} data={product} />
           ))}
         </ul>
       </div>
