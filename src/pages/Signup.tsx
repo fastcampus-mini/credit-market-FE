@@ -57,7 +57,7 @@ const Signup = () => {
     };
   }, []);
 
-  const modalSubmitHandler = async () => {
+  const modalSubmitHandler = async (event: any) => {
     await new Promise((r) => setTimeout(r, 1000));
     alert(JSON.stringify(FormData));
     try {
@@ -83,18 +83,18 @@ const Signup = () => {
         userCreditScore: FormData.credit,
       });
 
-      setModal({
-        isOpen: false,
-      }),
-        setCookie('userName', '방문자');
-      setCookie('accessToken', response);
+      dispatch(
+        setModal({
+          isOpen: false,
+        }),
+      );
       goWelcome();
     } catch (error) {
       dispatch(
         setModal({
           isOpen: true,
           onClickOk: () => dispatch(setModal({ isOpen: false })),
-          text: MESSAGES.LOGIN.ERROR_LOGIN,
+          text: MESSAGES.SIGNUP.ERROR_SIGNUP,
         }),
       );
     } finally {
