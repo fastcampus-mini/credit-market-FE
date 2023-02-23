@@ -11,10 +11,5 @@ export const signup = async (data: Object) => {
 };
 
 export const logout = async () => {
-  try {
-    const response = await axiosInstance.post(API_URLS.LOGOUT);
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-  }
+  await axiosInstance.post(API_URLS.LOGOUT);
 };

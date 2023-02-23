@@ -11,24 +11,26 @@ import { IProduct } from '@/interfaces/product';
 import Lottie from 'lottie-react';
 import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
-import { axiosInstance } from '@/apis/instance';
-import { API_URLS } from '@/constants/apiUrls';
 import { getCookie } from '@/utils/cookie';
+import { getRecommentList } from '@/apis/product';
 import axios from 'axios';
 
 const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
   const userName = getCookie('userName');
-  console.log(userName);
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        const recommendedData: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
-        const randomData: IProduct[] = await axios.get('/mockData/randomProducts.json');
-        userName ? setProducts(recommendedData) : setProducts(randomData);
+        if (userName) {
+          const data = await getRecommentList();
+          setProducts(data);
+        } else {
+          const randomData = await axios.get('/mockData/randomProducts.json');
+          setProducts(randomData.data);
+        }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
@@ -37,6 +39,7 @@ const Home = () => {
     }
     getProducts();
   }, []);
+
   return (
     <StyledHome>
       <Lottie animationData={WelcomeLottie} loop={false} className="welcome" />
@@ -58,9 +61,8 @@ const Home = () => {
           />
         </Link>
         <ul className="productsArea">
-          {products.map((product) => (
-            <ProductCard key={product.productId} data={product} />
-          ))}
+          {products.length > 0 &&
+            products.map((product) => <ProductCard key={product.productId} data={product} />)}
         </ul>
       </div>
     </StyledHome>
