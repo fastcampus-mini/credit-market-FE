@@ -49,8 +49,8 @@ const style = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${COLORS.mainText};
     background: ${COLORS.bodyBackground};
+    color: ${COLORS.mainText};
 
     .ReactModalPortal {
       z-index: 50;
@@ -105,6 +105,7 @@ const style = css`
 
       input {
         cursor: pointer;
+        color: ${COLORS.mainText};
       }
 
       input[type='checkbox'] {
