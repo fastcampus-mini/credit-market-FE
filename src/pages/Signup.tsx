@@ -178,6 +178,7 @@ const Signup = () => {
                 label="이메일"
                 inputType="text"
                 classType="text-input-white"
+                autoFocus
                 aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
                 register={{
                   ...register('email', {
