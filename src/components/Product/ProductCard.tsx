@@ -1,15 +1,9 @@
-import { deleteFavor } from '@/apis/favor';
-import { MESSAGES } from '@/constants/messages';
 import { ROUTES } from '@/constants/routes';
 import { IProduct } from '@/interfaces/product';
-import { hideLoading, showLoading } from '@/store/loadingSlice';
-import { setModal } from '@/store/modalSlice';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
-import React from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
@@ -24,8 +18,6 @@ interface Props {
 
 const ProductCard = ({ data, isDetail, isFavor }: Props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const {
     productId,
     companyName,
@@ -35,23 +27,7 @@ const ProductCard = ({ data, isDetail, isFavor }: Props) => {
     avgInterest,
     optionsInterestType,
   } = data;
-
-  const handleDeleteFavor = async () => {
-    try {
-      dispatch(showLoading());
-      await deleteFavor(productId);
-    } catch (error) {
-      dispatch(
-        setModal({
-          isOpen: true,
-          onClickOk: () => dispatch(setModal({ isOpen: false })),
-          text: MESSAGES.FAVOR.ERROR_DELETE,
-        }),
-      );
-    } finally {
-      dispatch(hideLoading());
-    }
-  };
+  const [favor, setFavor] = useState(favorite);
 
   return (
     <StyledProductCard>
@@ -63,20 +39,11 @@ const ProductCard = ({ data, isDetail, isFavor }: Props) => {
           </BankWrap>
           <ButtonWrap>
             {isDetail && <CartButton productId={productId} />}
-            {!isFavor ? (
-              <FavorButton productId={productId} isFavor={favorite} />
-            ) : (
-              <Button
-                buttonType="text"
-                width="fit-content"
-                height="16px"
-                onClick={handleDeleteFavor}
-                title={'삭제'}
-                scale={'1.3'}
-              >
-                <AiOutlineClose size="16px" />
-              </Button>
-            )}
+            <FavorButton
+              productId={productId}
+              isFavor={isFavor ? true : favor}
+              setFavor={setFavor}
+            />
           </ButtonWrap>
         </LogoTitle>
         <p className="productName">{productName}</p>

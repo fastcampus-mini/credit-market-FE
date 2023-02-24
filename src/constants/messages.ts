@@ -42,6 +42,8 @@ export const MESSAGES = {
   FAVOR: {
     ERROR_CREATE: '관심 상품 추가 중\n에러가 발생하였습니다.',
     ERROR_DELETE: '관심 상품 삭제 중\n에러가 발생하였습니다.',
+    COMPLETE_CREATE: '관심 상품이 추가되었습니다.',
+    COMPLETE_DELETE: '관심 상품이 해제되었습니다.',
   },
   MYPAGE: {
     BUY: {

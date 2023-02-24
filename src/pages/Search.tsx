@@ -179,12 +179,16 @@ const Search = () => {
               <option value="30.0">30.0</option>
               <option value="40.0">40.0</option>
             </select> */}
+<<<<<<< HEAD
             <Button
               fontSize="10px"
               onClick={() => {
                 intializeHandler();
               }}
             >
+=======
+            <Button height="auto" onClick={onClickHandler}>
+>>>>>>> 62c32bae39ede1b881d957954acf14822ac5cd6d
               초기화
             </Button>
           </div>
@@ -206,6 +210,16 @@ const StyledSearch = styled.div`
 
   .searchArea {
     padding-right: 10px;
+  }
+
+  .selectBox {
+    gap: 2px;
+    > button {
+      border-radius: 5px;
+      margin-left: 10px;
+      font-size: 11px;
+      font-weight: bold;
+    }
   }
 
   .productsArea {

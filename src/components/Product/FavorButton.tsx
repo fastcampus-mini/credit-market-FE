@@ -1,6 +1,7 @@
 import { createFavor, deleteFavor } from '@/apis/favor';
 import { MESSAGES } from '@/constants/messages';
 import { ROUTES } from '@/constants/routes';
+import { deleteFavorState } from '@/store/favorSlice';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { setModal } from '@/store/modalSlice';
 import { getCookie } from '@/utils/cookie';
@@ -8,15 +9,15 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Input from '../common/Input';
 
 interface Props {
   productId: string;
   isFavor?: boolean;
   isCart?: boolean;
+  setFavor?: any;
 }
 
-const FavorButton = ({ productId, isFavor, isCart = false }: Props) => {
+const FavorButton = ({ productId, isFavor, isCart = false, setFavor }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userName = getCookie('userName');
@@ -36,7 +37,28 @@ const FavorButton = ({ productId, isFavor, isCart = false }: Props) => {
 
     try {
       dispatch(showLoading());
-      isFavor ? await deleteFavor(productId) : await createFavor(productId);
+      if (isFavor) {
+        await deleteFavor(productId);
+        dispatch(deleteFavorState(productId));
+        setFavor(!isFavor);
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.FAVOR.COMPLETE_DELETE,
+          }),
+        );
+      } else {
+        await createFavor(productId);
+        setFavor(!isFavor);
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.FAVOR.COMPLETE_CREATE,
+          }),
+        );
+      }
     } catch (error) {
       dispatch(
         setModal({
