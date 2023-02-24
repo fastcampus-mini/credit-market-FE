@@ -11,12 +11,11 @@ import styled from '@emotion/styled';
 
 
 
-
-
 const MyFavor = () => {
   const dispatch = useDispatch()
   const [favorList, setFavorList] = useState<IFavor[]>([])
   const navigate = useNavigate();
+
 
   useEffect(() => {
     async function getFavorList() {
