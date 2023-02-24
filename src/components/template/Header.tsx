@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
-import { FiLogIn, FiLogOut } from 'react-icons/fi';
+import { FiLogOut, FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';
-import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
+import { getCookie, removeCookie } from '@/utils/cookie';
 import { logout } from '@/apis/auth';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
@@ -68,10 +68,7 @@ const Header = () => {
             onClick={userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
             buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
           >
-            {!userName ? <FiLogIn /> : <FiLogOut />}
-            {/* <FiLogIn /> */}
-            <span>{!userName ? 'LOGIN' : 'LOGOUT'}</span>
-            {/* <span>LOGIN</span> */}
+            {!userName ? <FiLogIn title="LOGIN" /> : <FiLogOut title="LOGOUT" />}
           </Button>
           {!userName && (
             <Button
@@ -80,8 +77,7 @@ const Header = () => {
               onClick={() => navigate(ROUTES.SIGNUP)}
               buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
             >
-              <FaUserFriends />
-              <span>JOIN</span>
+              <FaUserFriends title="sign up" />
             </Button>
           )}
         </div>
@@ -106,23 +102,11 @@ const StyledHeader = styled.header`
 
   .buttons {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 
     button {
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-
-      svg {
-        width: 100%;
-        height: 13px;
-      }
-
-      span {
-        font-size: 9px;
-      }
+      font-size: 16px;
     }
   }
 `;

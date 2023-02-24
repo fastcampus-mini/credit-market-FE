@@ -28,7 +28,7 @@ const ProductCardFav = ({ item, isFavor }: Prop) => {
           <h2 className="bankTitle">{item.companyName}</h2>
         </div>
         <div>
-          <FavorButton id={item.id} isFavor={isFavor} />
+          <FavorButton productId={item.productId} isFavor={isFavor} />
         </div>
         <p className="productName">{item.productName}</p>
         <div className="textBox">
@@ -36,13 +36,17 @@ const ProductCardFav = ({ item, isFavor }: Prop) => {
             대출종류<span>{item.productTypeName}</span>
           </p>
           <p>
-            평균금리<span>{item.interestRateAvg}</span>
+            평균금리<span>{item.avgInterest}</span>
           </p>
           <p>
-            금리구분<span>{item.interestType}</span>
+            금리구분<span>{item.optionsInterestType}</span>
           </p>
         </div>
-        <Button width="100%" height="50px" onClick={() => navigate(ROUTES.PRODUCT_BY_ID(item.id))}>
+        <Button
+          width="100%"
+          height="50px"
+          onClick={() => navigate(ROUTES.PRODUCT_BY_ID(item.productId))}
+        >
           자세히 보기
         </Button>
       </div>

@@ -1,6 +1,7 @@
-import { createFavor } from '@/apis/favor';
+import { createFavor, deleteFavor } from '@/apis/favor';
 import { MESSAGES } from '@/constants/messages';
 import { ROUTES } from '@/constants/routes';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { setModal } from '@/store/modalSlice';
 import { getCookie } from '@/utils/cookie';
 import styled from '@emotion/styled';
@@ -10,12 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../common/Input';
 
 interface Props {
-  id: string;
-  isFavor: boolean;
+  productId: string;
+  isFavor?: boolean;
   isCart?: boolean;
 }
 
-const FavorButton = ({ id, isFavor, isCart = false }: Props) => {
+const FavorButton = ({ productId, isFavor, isCart = false }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userName = getCookie('userName');
@@ -26,7 +27,6 @@ const FavorButton = ({ id, isFavor, isCart = false }: Props) => {
         setModal({
           isOpen: true,
           onClickOk: () => {
-            // dispatch(setModal({ isOpen: false }));
             dispatch(setModal({ route: navigate(ROUTES.LOGIN) }));
           },
           text: MESSAGES.INVALID_AUTH,
@@ -34,9 +34,20 @@ const FavorButton = ({ id, isFavor, isCart = false }: Props) => {
       );
     }
 
-    // await createFavor(id);
-    // dispatch(toggleFavor(id));
-    alert('Click!❤️');
+    try {
+      dispatch(showLoading());
+      isFavor ? await deleteFavor(productId) : await createFavor(productId);
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: isFavor ? MESSAGES.FAVOR.ERROR_DELETE : MESSAGES.FAVOR.ERROR_CREATE,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
   return (
