@@ -18,6 +18,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
   const [cookies, setCookie] = useCookies();
+  console.log(cookies);
 
   useEffect(() => {
     async function getProducts() {
@@ -44,9 +45,9 @@ const Home = () => {
         <Lottie animationData={BackgroundLottie} loop={true} className="background" />
       </div>
       <p className="welcomeText">
-        {cookies.userName ? cookies.userName : '방문자'}님,
+        {cookies.userName ? `${cookies.userName}님을 위한,` : `방문자님,`}
         <br />
-        {cookies.userName ? '근사한 상품을 준비해 놓았어요!' : '오늘도 행복한 하루 보내세요!'}
+        {cookies.userName ? ' 맞춤형 추천 상품을 준비해 놓았어요!' : '오늘도 행복한 하루 보내세요!'}
       </p>
       <div id="panel">
         <Link to="/search">
@@ -82,8 +83,9 @@ const StyledHome = styled.div`
 
   p.welcomeText {
     position: absolute;
+    width: 100%;
     top: 110px;
-    left: 37%;
+    left: 230px;
     transform: translate(-50%, -50%);
     color: ${COLORS.white};
     font-family: 'GmarketSansMedium';
