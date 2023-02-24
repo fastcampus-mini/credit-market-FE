@@ -134,9 +134,16 @@ const handleInputType = (classType: string) => {
           background: inherit;
         }
 
-        .searchIcon {
+        button{
           width: 50px;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+        .searchIcon {
+          width: 100%;
           color: ${COLORS.primary};
+          
         }
       `;
   }

@@ -7,22 +7,15 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
 import ProductCard from '@/components/Product/ProductCard';
 import { IProduct } from '@/interfaces/product';
-import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
 import { getCookie } from '@/utils/cookie';
-import axios from 'axios';
 import { setSearch } from '@/store/SearchSlice';
-import { ISearch } from '@/interfaces/Search';
 import { axiosInstance } from '@/apis/instance';
 import { API_URLS } from '@/constants/apiUrls';
 import { RootState } from '@/store/store';
-import { setReduxProducts } from '@/store/reduxProducts';
-import { useLocation } from 'react-router-dom';
-import { ROUTES } from '@/constants/routes';
 
 const Search = () => {
   const dispatch = useDispatch();
   const search = useSelector((state: RootState) => state.search);
-  const reduxProducts = useSelector((state: RootState) => state.reduxProducts);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearch({ keyword: event.target.value }));
@@ -32,10 +25,10 @@ const Search = () => {
   const handleClick = async () => {
     try {
       dispatch(showLoading());
-      const response = await axiosInstance.get(API_URLS.SEARCH(search));
+      const response: IProduct[] = await axiosInstance.get(API_URLS.SEARCH(search));
       console.log(response);
       try {
-        setProducts(response as []);
+        setProducts(response);
       } catch (err) {
         console.log(err);
       }
@@ -48,26 +41,25 @@ const Search = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const userName = getCookie('userName');
 
-  async function getProducts() {
-    try {
-      dispatch(showLoading());
-      if (userName) {
-        const data = await getRecommentList();
-        setProducts(data);
-      } else {
-        const randomData = await getRandomSearchList();
-        setProducts(randomData);
+  useEffect(() => {
+    async function getProducts() {
+      try {
+        dispatch(showLoading());
+        if (userName) {
+          const data: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
+          setProducts(data);
+        } else {
+          const randomData: IProduct[] = await axiosInstance.get(API_URLS.RANDOM_SEARCH);
+          setProducts(randomData);
+        }
+      } catch (error) {
+        alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
+      } finally {
+        dispatch(hideLoading());
       }
-    } catch (error) {
-      alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
-    } finally {
-      dispatch(hideLoading());
     }
-  }
-  // useEffect(() => {
-  //   getProducts();
-  //   console.log(products);
-  // }, []);
+    getProducts();
+  }, []);
 
   return (
     <StyledSearch>
@@ -102,6 +94,9 @@ const Search = () => {
         </div>
       </div>
       <ul className="productsArea">
+        {products.map((product) => (
+          <ProductCard key={product.productId} data={product} />
+        ))}
         {products.map((product) => (
           <ProductCard key={product.productId} data={product} />
         ))}
