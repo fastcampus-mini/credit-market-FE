@@ -18,7 +18,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
   const [cookies, setCookie] = useCookies();
-  console.log(cookies);
 
   useEffect(() => {
     async function getProducts() {
