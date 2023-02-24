@@ -160,7 +160,7 @@ const Search = () => {
               <option value="30.0">30.0</option>
               <option value="40.0">40.0</option>
             </select> */}
-            <Button fontSize="10px" onClick={onClickHandler}>
+            <Button fontSize="10px" height="auto" onClick={onClickHandler}>
               초기화
             </Button>
           </div>
@@ -186,6 +186,16 @@ const StyledSearch = styled.div`
 
   .searchArea {
     padding-right: 10px;
+  }
+
+  .selectBox {
+    gap: 2px;
+    > button {
+      border-radius: 5px;
+      margin-left: 10px;
+      font-size: 11px;
+      font-weight: bold;
+    }
   }
 
   .productsArea {
