@@ -147,8 +147,8 @@ const Search = () => {
             <select name="loan" value={selectedValues.loan} onChange={handleSelectChange}>
               <option value="">대출종류</option>
               <option value="일반신용대출">일반신용대출</option>
-              <option value="일반신용대출">일반신용대출</option>
-              <option value="일반신용대출">일반신용대출</option>
+              <option value="마이너스한도대출">마이너스한도대출</option>
+              <option value="장기카드대출(카드론)">장기카드대출</option>
             </select>
             <select name="age" value={selectedValues.age} onChange={handleSelectChange}>
               <option value="">최소나이</option>
@@ -165,8 +165,8 @@ const Search = () => {
             <select name="interest" value={selectedValues.interest} onChange={handleSelectChange}>
               <option value="">금리유형</option>
               <option value="대출금리">대출금리</option>
-              <option value="대출금리">대출금리</option>
-              <option value="대출금리">대출금리</option>
+              <option value="기준금리">기준금리</option>
+              <option value="가산금리">가산금리</option>
             </select>
             <Button
               height="auto"

@@ -19,6 +19,7 @@ import { getCookie } from '@/utils/cookie';
 
 const Mypage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const modalCancel = () => {
     dispatch(setModal({ isOpen: false }));
   };
@@ -30,7 +31,6 @@ const Mypage = () => {
         userEmail: userInfo.userEmail,
         userPassword: data.password,
       });
-      const navigate = useNavigate();
       const goTo = () => {
         navigate(ROUTES.MYPAGE_INFO, { state: ROUTES.MYPAGE });
       };

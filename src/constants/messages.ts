@@ -59,6 +59,8 @@ export const MESSAGES = {
       CHECK_SUCCESS: `확인이 완료되었습니다.`,
       CHECK_FAIL: `비밀번호를 다시 확인해주세요.`,
       ERROR: `비밀번호 확인 중\n 에러가 발생하였습니다.`,
+      SUBMIT: `개인정보를 수정하시겠습니까?`,
+      UPDATE_SUCCESS: `개인정보 수정이\n왼료되었습니다.`,
     },
   },
   INVALID_AUTH: '회원 전용 메뉴입니다.\n로그인 후 이용해 주세요.',
