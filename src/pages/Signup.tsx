@@ -62,7 +62,6 @@ const Signup = () => {
 
   const onSubmit = async (data: IUser) => {
     FormData = { ...initialFormData, ...data };
-    console.log(FormData);
     dispatch(
       setModal({
         isOpen: true,
@@ -75,7 +74,7 @@ const Signup = () => {
 
   const modalSubmitHandler = async (event: any) => {
     // await new Promise((r) => setTimeout(r, 1000));
-    alert(JSON.stringify(FormData));
+    // alert(JSON.stringify(FormData));
     try {
       dispatch(showLoading());
       const response = await signup({
@@ -88,8 +87,10 @@ const Signup = () => {
         userPrefInterestType: FormData.interest,
         userCreditScore: FormData.credit,
       });
+
       dispatch(
         setModal({
+          isOpen: true,
           text: MESSAGES.SIGNUP.COMPLETE_SIGNUP,
         }),
       );
@@ -179,6 +180,18 @@ const Signup = () => {
 
   const goWelcome = () => {
     navigate(ROUTES.WELCOME, { state: ROUTES.SIGNUP });
+  };
+
+  const years = Array.from({ length: 54 }, (_, i) => 2023 - i);
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedYear(parseInt(event.target.value));
+  };
+
+  const days = Array.from({ length: 31 }, (_, i) => 1 + i);
+  const [selectedDay, setSelectedDay] = useState<number>(new Date().getDay());
+  const handleChangeDay = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDay(parseInt(event.target.value));
   };
 
   return (
@@ -285,20 +298,38 @@ const Signup = () => {
                 {...register('birthYear', {
                   required: '생년월일을 선택해주세요.',
                 })}
+                value={selectedYear}
+                onChange={handleChange}
               >
                 <option value="">연도</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
+                {years.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
               </SelectStyle>
               <SelectStyle {...register('birthMonth')}>
                 <option value="">월</option>
                 <option value="01">1</option>
                 <option value="02">2</option>
+                <option value="03">3</option>
+                <option value="04">4</option>
+                <option value="05">5</option>
+                <option value="06">6</option>
+                <option value="07">7</option>
+                <option value="08">8</option>
+                <option value="09">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
               </SelectStyle>
-              <SelectStyle {...register('birthDay')}>
+              <SelectStyle {...register('birthDay')} value={selectedDay} onChange={handleChangeDay}>
                 <option value="">일</option>
-                <option value="01">1</option>
-                <option value="02">2</option>
+                {days.map((day) => (
+                  <option key={day} value={day}>
+                    {day}
+                  </option>
+                ))}
               </SelectStyle>
               {(errors.birthYear || errors.birthDay || errors.birthMonth) && (
                 <ErrStyle role="alert">{errors.birthYear!.message}</ErrStyle>

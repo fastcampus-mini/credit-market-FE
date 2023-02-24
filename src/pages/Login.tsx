@@ -29,7 +29,7 @@ const Login = () => {
   } = useForm<ILogin>();
 
   const onSubmit = async (data: any) => {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
 
     try {
       dispatch(showLoading());
