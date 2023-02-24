@@ -75,7 +75,7 @@ const Signup = () => {
 
   const modalSubmitHandler = async (event: any) => {
     // await new Promise((r) => setTimeout(r, 1000));
-    alert(JSON.stringify(FormData));
+    // alert(JSON.stringify(FormData));
     try {
       dispatch(showLoading());
       const response = await signup({

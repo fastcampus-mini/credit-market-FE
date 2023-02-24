@@ -18,4 +18,7 @@ export const API_URLS = {
     `/search/results?keyword=${data.keyword}&loan=${data.loan}&age=${data.age}&gender=${data.gender}&interest=${data.interest}`,
   //&avg=${data.avg}&page=${data.page}
   RANDOM_SEARCH: `/search/results`,
+  USERINFO: '/userinfo',
+  USERINFOUPDATE: '/userinfoupdate',
+  USERPASSWORD: '/userpasswordcheck',
 };

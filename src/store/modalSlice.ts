@@ -12,6 +12,7 @@ const modal = createSlice({
     cancelText: '',
     route: '',
     isPassword: false,
+    onKeyDown: () => {},
   },
   reducers: {
     setModal(state, action) {

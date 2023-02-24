@@ -168,17 +168,6 @@ const Search = () => {
               <option value="대출금리">대출금리</option>
               <option value="대출금리">대출금리</option>
             </select>
-            {/* <select
-              name="avgInterest"
-              value={selectedValues.avgInterest}
-              onChange={handleSelectChange}
-            >
-              <option value="">평균금리</option>
-              <option value="10.0">10.0 미만</option>
-              <option value="20.0">20.0</option>
-              <option value="30.0">30.0</option>
-              <option value="40.0">40.0</option>
-            </select> */}
             <Button
               height="auto"
               onClick={() => {

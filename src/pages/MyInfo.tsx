@@ -47,17 +47,6 @@ const MyInfo = () => {
   useEffect(() => {
     history.pushState(null, '', location.href);
     window.addEventListener('popstate', handleEvent);
-
-    dispatch(
-      setModal({
-        isOpen: true,
-        isPassword: true,
-        text: MESSAGES.MYPAGE.INFO.CHECK_MODAL,
-        onClickOk: handleModalSubmit,
-        onClickCancel: handleModalCancel,
-      }),
-    );
-
     return () => {
       window.removeEventListener('popstate', handleEvent);
     };
@@ -100,28 +89,6 @@ const MyInfo = () => {
         onClickCancel: () => {},
       }),
     );
-  };
-
-  const handleModalCancel = () => {
-    dispatch(setModal({ isOpen: false }));
-    navigate(ROUTES.MYPAGE);
-  };
-
-  const handleModalSubmit = async (data: IPassword) => {
-    // await new Promise((r) => setTimeout(r, 1000));
-    // alert(JSON.stringify(data));
-    // try {
-    //   const response = await axios.post('/api/login', data);
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    dispatch(setModal({ isOpen: false }));
-    // const navigate = useNavigate();
-    // const goTo = () => {
-    //   navigate(modalState.linkURL);
-    // };
-    // goTo();
   };
 
   return (
