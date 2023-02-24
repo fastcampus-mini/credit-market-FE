@@ -23,10 +23,9 @@ interface Props {
   handleCheck?(checked: HTMLInputElement['checked'], id: string): void;
   checkId?: string[];
   setCheckId?: any;
-  setCart?: any;
 }
 
-const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCheckId, setCart }: Props) => {
+const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCheckId }: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [favor, setFavor] = useState(data.favorite);
@@ -36,7 +35,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCheckId, setCart 
       dispatch(showLoading());
       await deleteCart({ cartIds: [data.cartId] });
       const cartList = await getCartList();
-      setCart(cartList);
+      dispatch(setCartState(data));
       setCheckId(checkId!.filter((item) => !checkId!.includes(item)));
       dispatch(setCartState(cartList));
       dispatch(
