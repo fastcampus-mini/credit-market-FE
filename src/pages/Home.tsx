@@ -12,7 +12,7 @@ import Lottie from 'lottie-react';
 import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
 import { getCookie } from '@/utils/cookie';
-import { getRecommentList } from '@/apis/product';
+import { getRandomSearchList, getRecommentList } from '@/apis/product';
 import axios from 'axios';
 import { axiosInstance } from '@/apis/instance';
 import { API_URLS } from '@/constants/apiUrls';
@@ -27,10 +27,10 @@ const Home = () => {
       try {
         dispatch(showLoading());
         if (userName) {
-          const data: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
+          const data: IProduct[] = await getRecommentList();
           setProducts(data);
         } else {
-          const randomData: IProduct[] = await axiosInstance.get(API_URLS.RANDOM_SEARCH);
+          const randomData: IProduct[] = await getRandomSearchList();
           setProducts(randomData);
         }
       } catch (error) {

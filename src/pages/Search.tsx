@@ -12,32 +12,32 @@ import { setSearch } from '@/store/SearchSlice';
 import { axiosInstance } from '@/apis/instance';
 import { API_URLS } from '@/constants/apiUrls';
 import { RootState } from '@/store/store';
-import { SelectedValuesType } from '@/interfaces/Search';
+import { ISearch, SelectedValuesType } from '@/interfaces/Search';
 import Button from '@/components/common/Button';
+import { useRef, forwardRef, useImperativeHandle } from 'react';
+import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const search = useSelector((state: RootState) => state.search);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearch({ keyword: event.target.value }));
-    console.log(search);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchForm, setSearchForm] = useState({});
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      buttonRef.current?.click(); // Trigger click event on button element
+    }
   };
 
-  const handleClick = async () => {
-    try {
-      dispatch(showLoading());
-      const response: IProduct[] = await axiosInstance.get(API_URLS.SEARCH(search));
-      console.log(response);
-      try {
-        setProducts(response);
-      } catch (err) {
-        console.log(err);
-      }
-    } catch (error: any) {
-    } finally {
-      dispatch(hideLoading());
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleClick = () => {
+    console.log(searchQuery);
+    setSearchForm({ ...searchForm, keyword: searchQuery });
   };
 
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -48,10 +48,10 @@ const Search = () => {
       try {
         dispatch(showLoading());
         if (userName) {
-          const data: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
+          const data: IProduct[] = await getRecommentList();
           setProducts(data);
         } else {
-          const randomData: IProduct[] = await axiosInstance.get(API_URLS.RANDOM_SEARCH);
+          const randomData: IProduct[] = await getRandomSearchList();
           setProducts(randomData);
         }
       } catch (error) {
@@ -63,49 +63,65 @@ const Search = () => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    async function getProducts() {
+      console.log('폼 데이터 변화');
+      try {
+        dispatch(showLoading());
+        const data = { ...searchForm, keyword: searchQuery };
+        console.log(searchForm);
+        const response: IProduct[] = await getSearchList(data);
+        console.log(response);
+        try {
+          setProducts(response);
+        } catch (err) {
+          console.log(err);
+        }
+      } catch (error: any) {
+      } finally {
+        dispatch(hideLoading());
+      }
+    }
+    getProducts();
+  }, [searchForm]);
+
   const [selectedValues, setSelectedValues] = useState<SelectedValuesType>({});
   const handleSelectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValues({
       ...selectedValues,
       [event.target.name]: event.target.value,
     });
-    dispatch(
-      setSearch({
-        loan: selectedValues.loan,
-        age: selectedValues.age,
-        gender: selectedValues.sex,
-        interest: selectedValues.interest,
-        // avg: selectedValues.avgInterest,
-      }),
-    );
-
-    try {
-      dispatch(showLoading());
-      const response: IProduct[] = await axiosInstance.get(API_URLS.SEARCH(search));
-      console.log(response);
-      try {
-        setProducts(response);
-      } catch (err) {
-        console.log(err);
-      }
-    } catch (error: any) {
-    } finally {
-      dispatch(hideLoading());
-    }
   };
 
-  const onClickHandler = async () => {
-    dispatch(setSearch({}));
-    console.log(search);
+  useEffect(() => {
+    const {
+      loan = '',
+      age = '',
+      gender = '',
+      interest = '',
+    } = {
+      loan: selectedValues.loan,
+      age: selectedValues.age,
+      gender: selectedValues.sex,
+      interest: selectedValues.interest,
+    };
+    setSearchForm({ ...searchForm, loan, age, gender, interest });
+    console.log(selectedValues);
+  }, [selectedValues]);
+
+  const intializeHandler = async () => {
+    setSearchForm({});
     try {
       dispatch(showLoading());
-      const response: IProduct[] = await axiosInstance.get(API_URLS.SEARCH(search));
-      try {
-        setProducts(response);
-      } catch (err) {
-        console.log(err);
+      if (userName) {
+        const data: IProduct[] = await getRecommentList();
+        setProducts(data);
+      } else {
+        const randomData: IProduct[] = await getRandomSearchList();
+        setProducts(randomData);
       }
-    } catch (error: any) {
+    } catch (error) {
+      alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
     } finally {
       dispatch(hideLoading());
     }
@@ -117,12 +133,15 @@ const Search = () => {
       <div className="searchArea">
         <div>
           <Input
+            onKeyDown={handleKeyDown}
             inputType="text"
             placeholder="검색어를 입력해 주세요."
             onChange={handleChange}
             onButtonClick={handleClick}
             classType="text-search"
             autoFocus
+            refInput={buttonRef}
+            value={searchQuery}
           />
           <div className="selectBox">
             <select name="loan" value={selectedValues.loan} onChange={handleSelectChange}>
@@ -160,19 +179,20 @@ const Search = () => {
               <option value="30.0">30.0</option>
               <option value="40.0">40.0</option>
             </select> */}
-            <Button height="auto" onClick={onClickHandler}>
+            <Button
+              height="auto"
+              onClick={() => {
+                intializeHandler();
+              }}
+            >
               초기화
             </Button>
           </div>
         </div>
       </div>
       <ul className="productsArea">
-        {products.map((product) => (
-          <ProductCard key={product.productId} data={product} />
-        ))}
-        {products.map((product) => (
-          <ProductCard key={product.productId} data={product} />
-        ))}
+        {products.length > 0 &&
+          products.map((product) => <ProductCard key={product.productId} data={product} />)}
       </ul>
     </StyledSearch>
   );
