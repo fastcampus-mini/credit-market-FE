@@ -6,17 +6,17 @@ import Button from '../common/Button';
 import { FiLogOut, FiLogIn } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';
-import { getCookie, removeCookie } from '@/utils/cookie';
 import { logout } from '@/apis/auth';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { setModal } from '@/store/modalSlice';
 import { MESSAGES } from '@/constants/messages';
+import { useCookies } from 'react-cookie';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userName = getCookie('userName');
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
@@ -65,12 +65,12 @@ const Header = () => {
           <Button
             width="fit-content"
             height="fit-content"
-            onClick={userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
+            onClick={cookies.userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
             buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
           >
-            {!userName ? <FiLogIn title="LOGIN" /> : <FiLogOut title="LOGOUT" />}
+            {!cookies.userName ? <FiLogIn title="LOGIN" /> : <FiLogOut title="LOGOUT" />}
           </Button>
-          {!userName && (
+          {!cookies.userName && (
             <Button
               width="fit-content"
               height="fit-content"
