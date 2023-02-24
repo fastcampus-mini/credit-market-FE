@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { deleteCart, getCartList } from '../apis/cart';
 import { MESSAGES } from '../constants/messages';
 import CartItem from './../components/Cart/CartItem';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../store/loadingSlice';
 import COLORS from '@/styles/colors';
 import Button from '@/components/common/Button';
@@ -16,19 +16,19 @@ import Lottie from 'lottie-react';
 import CartLottie from '@/lotties/animated-shopping-cart.json';
 import { setCartState } from '@/store/cartSlice';
 import { ICart } from '@/interfaces/cart';
+import { RootState } from '@/store/store';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const [cart, setCart] = useState<ICart[]>([]);
   const navigate = useNavigate();
   const [checkId, setCheckId] = useState<string[]>([]);
+  const cart: ICart[] = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
     async function getData() {
       try {
         dispatch(showLoading());
         const data = await getCartList();
-        setCart(data);
         dispatch(setCartState(data));
       } catch (error) {
         dispatch(
@@ -89,7 +89,7 @@ const Cart = () => {
       dispatch(showLoading());
       await deleteCart({ cartIds: checkId });
       const data = await getCartList();
-      setCart(data);
+      dispatch(setCartState(data));
       setCheckId(checkId.filter((item) => !checkId.includes(item)));
       dispatch(setCartState(data));
     } catch (error) {
@@ -164,7 +164,7 @@ const Cart = () => {
               handleCheck={handleCheck}
               checkId={checkId}
               setCheckId={setCheckId}
-              setCart={setCart}
+              // setCart={setCart}
             />
           ))
         ) : (
