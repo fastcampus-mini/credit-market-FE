@@ -28,7 +28,7 @@ const ProductCardFav = ({ item, isFavor }: Prop) => {
           <h2 className="bankTitle">{item.companyName}</h2>
         </div>
         <div>
-          <FavorButton id={item.id} isFavor={isFavor} />
+          <FavorButton productId={item.id} isFavor={isFavor} />
         </div>
         <p className="productName">{item.productName}</p>
         <div className="textBox">

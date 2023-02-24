@@ -7,9 +7,9 @@ export const getFavorList = async (page: number) => {
 };
 
 export const createFavor = async (id: string) => {
-  await axiosInstance.patch(API_URLS.FAVOR(id));
+  await axiosInstance.post(API_URLS.FAVOR(id));
 };
 
 export const deleteFavor = async (id: string) => {
-  await axiosInstance.patch(API_URLS.FAVOR(id));
+  await axiosInstance.delete(API_URLS.FAVOR(id));
 };

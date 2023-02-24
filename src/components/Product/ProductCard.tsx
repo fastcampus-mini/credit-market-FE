@@ -38,7 +38,7 @@ const ProductCard = ({ data, isDetail }: Props) => {
           </BankWrap>
           <ButtonWrap>
             {isDetail && <CartButton productId={productId} />}
-            <FavorButton id={productId} isFavor={favorite} />
+            <FavorButton productId={productId} isFavor={favorite} />
           </ButtonWrap>
         </LogoTitle>
         <p className="productName">{productName}</p>

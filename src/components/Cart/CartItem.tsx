@@ -87,7 +87,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCheckId, setCart 
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          <FavorButton id={data.productId} isFavor={data.favorite} isCart={true} />
+          <FavorButton productId={data.productId} isFavor={data.favorite} isCart={true} />
           <Button
             buttonType="text"
             width="fit-content"
