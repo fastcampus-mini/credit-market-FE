@@ -3,11 +3,12 @@ import { API_URLS } from '../constants/apiUrls';
 
 interface Response {
   token: string;
+  userName: string;
 }
 
 export const login = async (data: Object) => {
   const response: Response = await axiosInstance.post(API_URLS.LOGIN, data);
-  return response.token;
+  return response;
 };
 
 export const signup = async (data: Object) => {

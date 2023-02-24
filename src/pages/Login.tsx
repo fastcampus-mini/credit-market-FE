@@ -37,9 +37,8 @@ const Login = () => {
         userEmail: data.email,
         userPassword: data.password,
       });
-      setCookie('userName', '방문자', { maxAge: 3600 });
-      setCookie('accessToken', response, { maxAge: 3600 });
-      // setCookie('tokenExpiration', new Date().getTime().toString(), { path: '/' });
+      setCookie('userName', response.userName, { maxAge: 3600 });
+      setCookie('accessToken', response.token, { maxAge: 3600 });
       dispatch(
         setModal({
           isOpen: true,
