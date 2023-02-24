@@ -3,9 +3,7 @@
 # :moneybag: [Credit Market (Demo)](https://credit-market.netlify.app/)
 
 - 프로젝트 문서는 [<img src="https://img.shields.io/badge/Notion-000000?style=flat-round&logo=Notion&logoColor=white"/>](https://www.notion.so/Mini-Project-b53fa0f445ce4afbacebffd01a813965?pvs=4)에서 확인하실 수 있습니다.
-- 프로젝트 구조는 [<img src="https://img.shields.io/badge/Github Wiki-181717?style=flat-round&logo=Github&logoColor=white"/>](https://github.com/fastcampus-mini/credit-market-FE/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0)에서 확인하실 수 있습니다.
-
-<br/>
+  <br/>
 
 ## :sunglasses: Member
 
@@ -97,3 +95,13 @@
 [<img src="https://img.shields.io/badge/Notion-000000?style=flat-round&logo=Notion&logoColor=white"/>](https://www.notion.so/Mini-Project-b53fa0f445ce4afbacebffd01a813965?pvs=4) [<img src="https://img.shields.io/badge/Github Wiki-181717?style=flat-round&logo=Github&logoColor=white"/>](https://github.com/fastcampus-mini/credit-market-FE/wiki)
 
 <br/><br/>
+
+## 구현 기능
+
+### 안가을 - 상품 상세 / 상품 신청 / 장바구니
+
+### 오혜성
+
+### 이한나
+
+### 한혜림
