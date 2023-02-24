@@ -8,7 +8,7 @@ import { setModal } from '@/store/modalSlice';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,7 @@ interface Props {
 const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCheckId, setCart }: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [favor, setFavor] = useState(data.favorite);
 
   const handleDelete = async () => {
     try {
@@ -87,7 +88,12 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCheckId, setCart 
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          <FavorButton productId={data.productId} isFavor={data.favorite} isCart={true} />
+          <FavorButton
+            productId={data.productId}
+            isFavor={favor}
+            isCart={true}
+            setFavor={setFavor}
+          />
           <Button
             buttonType="text"
             width="fit-content"
