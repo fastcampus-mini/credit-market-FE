@@ -17,11 +17,14 @@ import { MESSAGES } from '@/constants/messages';
 import { setCookie } from '@/utils/cookie';
 import { ILogin } from '@/interfaces/user';
 import { FaSmile } from 'react-icons/fa';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location1 = useLocation();
+  const [cookies, setCookie] = useCookies();
+
   const {
     register,
     handleSubmit,
@@ -29,7 +32,7 @@ const Login = () => {
   } = useForm<ILogin>();
 
   const onSubmit = async (data: any) => {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
 
     try {
       dispatch(showLoading());
@@ -37,9 +40,8 @@ const Login = () => {
         userEmail: data.email,
         userPassword: data.password,
       });
-      setCookie('userName', '방문자', { maxAge: 3600 });
-      setCookie('accessToken', response, { maxAge: 3600 });
-      // setCookie('tokenExpiration', new Date().getTime().toString(), { path: '/' });
+      setCookie('userName', '알뜰이', { maxAge: 3600 });
+      setCookie('accessToken', response.token, { maxAge: 3600 });
       dispatch(
         setModal({
           isOpen: true,

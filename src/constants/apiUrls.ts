@@ -14,23 +14,11 @@ export const API_URLS = {
   BUY: (id: string) => `/buy/${id}`,
   BUY_LIST: (page: number) => `/buy/${page}`,
   FAVOR_LIST: (page: number) => `/favor/${page}`,
-  SEARCH: (data: ISearch) => {
-    let URL = `/search/results?keyword=` + `${data.keyword}`;
-    if (data.loan) {
-      URL + `&loan=${data.loan}`;
-    } else if (data.age) {
-      URL + `&age=${data.age}`;
-    } else if (data.gender) {
-      URL + `&gender=${data.gender}`;
-    } else if (data.interest) {
-      URL + `&interest=${data.interest}`;
-    } else if (data.avg) {
-      URL + `&avg=${data.avg}`;
-    } else if (data.page) {
-      URL + `&page=${data.page}`;
-    }
-    return URL;
-  },
-
+  SEARCH: (data: ISearch) =>
+    `/search/results?keyword=${data.keyword}&loan=${data.loan}&age=${data.age}&gender=${data.gender}&interest=${data.interest}`,
+  //&avg=${data.avg}&page=${data.page}
   RANDOM_SEARCH: `/search/results`,
+  USERINFO: '/userinfo',
+  USERINFOUPDATE: '/userinfoupdate',
+  USERPASSWORD: '/userpasswordcheck',
 };

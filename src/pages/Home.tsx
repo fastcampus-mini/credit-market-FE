@@ -11,20 +11,19 @@ import { IProduct } from '@/interfaces/product';
 import Lottie from 'lottie-react';
 import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
-import { getCookie } from '@/utils/cookie';
 import { getRandomSearchList, getRecommentList } from '@/apis/product';
+import { useCookies } from 'react-cookie';
 
 const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
-  const userName = getCookie('userName');
-  console.log(userName);
+  const [cookies, setCookie] = useCookies();
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        if (userName) {
+        if (cookies.userName) {
           setProducts(await getRecommentList());
         } else {
           setProducts(await getRandomSearchList());
@@ -36,7 +35,7 @@ const Home = () => {
       }
     }
     getProducts();
-  }, []);
+  }, [cookies]);
 
   return (
     <StyledHome>
@@ -45,9 +44,9 @@ const Home = () => {
         <Lottie animationData={BackgroundLottie} loop={true} className="background" />
       </div>
       <p className="welcomeText">
-        {userName ? userName : '방문자'}님,
+        {cookies.userName ? cookies.userName : '방문자'}님,
         <br />
-        {userName ? '근사한 상품을 준비해 놓았어요!' : '오늘도 행복한 하루 보내세요!'}
+        {cookies.userName ? '근사한 상품을 준비해 놓았어요!' : '오늘도 행복한 하루 보내세요!'}
       </p>
       <div id="panel">
         <Link to="/search">
