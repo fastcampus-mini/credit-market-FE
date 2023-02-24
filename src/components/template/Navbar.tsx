@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import gsap from 'gsap';
 import { Link, useLocation } from 'react-router-dom';
@@ -10,20 +10,9 @@ import { BiDetail } from 'react-icons/bi';
 import COLORS from '@/styles/colors';
 import isCurPath from '@/utils/path';
 import { ROUTES } from '@/constants/routes';
-import { hideLoading, showLoading } from '@/store/loadingSlice';
-import { MESSAGES } from '@/constants/messages';
-import { useDispatch } from 'react-redux';
-
-interface Prop {
-  id: string;
-  title: string;
-  bank: string;
-}
 
 const Navbar = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const [products, setProducts] = useState<Prop[]>([]);
 
   useEffect(() => {
     // 새로고침 초기화 방지
@@ -47,30 +36,6 @@ const Navbar = () => {
         return move(1, 50, COLORS.background);
     }
   }, [location]);
-
-  useEffect(() => {
-    async function getProducts() {
-      try {
-        dispatch(showLoading());
-        const data: Prop[] = [
-          { id: '1', title: '직장인 신용대출', bank: '우리' },
-          { id: '2', title: '주부 신용대출', bank: '국민' },
-          { id: '3', title: '고양이 신용대출', bank: '신한' },
-          { id: '4', title: '주부 신용대출', bank: '국민' },
-          { id: '5', title: '직장인 신용대출', bank: '우리' },
-          { id: '6', title: '주부 신용대출', bank: '신한' },
-          { id: '7', title: '고양이 신용대출', bank: '국민' },
-          { id: '8', title: '대학생 신용대출', bank: '제주' },
-        ];
-        setProducts(data);
-      } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
-      } finally {
-        dispatch(hideLoading());
-      }
-    }
-    getProducts();
-  }, []);
 
   function move(id: number, position: number, color: string) {
     gsap.config({
@@ -148,7 +113,7 @@ const Navbar = () => {
           </div>
           <div id="menuWrapper">
             <div id="menu1" className="menuElement">
-              <Link to="/">
+              <Link to={ROUTES.HOME}>
                 {isCurPath(ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2])) ? (
                   <BiDetail />
                 ) : (
@@ -157,17 +122,17 @@ const Navbar = () => {
               </Link>
             </div>
             <div id="menu2" className="menuElement">
-              <Link to="/search">
+              <Link to={ROUTES.SEARCH}>
                 <RiSearchLine />
               </Link>
             </div>
             <div id="menu3" className="menuElement">
-              <Link to="/cart">
+              <Link to={ROUTES.CART}>
                 <BsFillCartFill />
               </Link>
             </div>
             <div id="menu4" className="menuElement">
-              <Link to="/mypage">
+              <Link to={ROUTES.MYPAGE}>
                 <FaUserAlt />
               </Link>
             </div>

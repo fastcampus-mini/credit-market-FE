@@ -11,9 +11,25 @@ export default GlobalStyle;
 
 const style = css`
   ${reset}
+  @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+      format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'ONE-Mobile-Title';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff')
+      format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
 
   * {
     box-sizing: border-box;
+
     &::-webkit-scrollbar {
       width: 5px;
       background-color: inherit;
@@ -33,8 +49,8 @@ const style = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${COLORS.mainText};
     background: ${COLORS.bodyBackground};
+    color: ${COLORS.mainText};
 
     .ReactModalPortal {
       z-index: 50;
@@ -51,8 +67,8 @@ const style = css`
     }
 
     .ReactModal__Content {
-      width: 260px !important;
-      height: 160px !important;
+      min-width: 260px;
+      min-height: 160px;
       border-radius: 14px !important;
       display: flex;
       flex-direction: column;
@@ -89,6 +105,7 @@ const style = css`
 
       input {
         cursor: pointer;
+        color: ${COLORS.mainText};
       }
 
       input[type='checkbox'] {

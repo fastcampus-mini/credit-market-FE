@@ -11,92 +11,28 @@ import { IProduct } from '@/interfaces/product';
 import Lottie from 'lottie-react';
 import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
+import { getCookie } from '@/utils/cookie';
+import { getRecommentList } from '@/apis/product';
+import axios from 'axios';
 
 const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
+  const userName = getCookie('userName');
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        const data: IProduct[] = [
-          {
-            id: '1',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '2',
-            productName: '주부 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '3',
-            productName: '고양이 신용대출',
-            companyName: '신한은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '4',
-            productName: '주부 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '5',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '6',
-            productName: '주부 신용대출',
-            companyName: '신한은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '7',
-            productName: '고양이 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '8',
-            productName: '대학생 신용대출',
-            companyName: '제주은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-        ];
-        setProducts(data);
+        if (userName) {
+          const data = await getRecommentList();
+          setProducts(data);
+        } else {
+          const randomData = await axios.get('/mockData/randomProducts.json');
+          setProducts(randomData.data);
+        }
       } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
+        alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
         dispatch(hideLoading());
       }
@@ -111,9 +47,9 @@ const Home = () => {
         <Lottie animationData={BackgroundLottie} loop={true} className="background" />
       </div>
       <p className="welcomeText">
-        방문자님,
+        {userName ? userName : '방문자'}님,
         <br />
-        오늘도 즐거운 하루 보내세요!
+        {userName ? '근사한 상품을 준비해 놓았어요!' : '오늘도 행복한 하루 보내세요!'}
       </p>
       <div id="panel">
         <Link to="/search">
@@ -125,9 +61,8 @@ const Home = () => {
           />
         </Link>
         <ul className="productsArea">
-          {products.map((product) => (
-            <ProductCard key={product.id} data={product} />
-          ))}
+          {products.length > 0 &&
+            products.map((product) => <ProductCard key={product.productId} data={product} />)}
         </ul>
       </div>
     </StyledHome>
@@ -149,12 +84,12 @@ const StyledHome = styled.div`
 
   p.welcomeText {
     position: absolute;
-    top: 100px;
-    left: 32%;
+    top: 110px;
+    left: 39%;
     transform: translate(-50%, -50%);
     color: ${COLORS.white};
-    font-size: 13px;
-    line-height: 20px;
+    font-family: 'GmarketSansMedium';
+    line-height: 30px;
   }
 
   .bannerBg {

@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { FaUserFriends } from 'react-icons/fa';
 import isCurPath from '@/utils/path';
-import LogoutButton from '../common/LogoutButton';
+import { getCookie, removeCookie, setCookie } from '@/utils/cookie';
+import { logout } from '@/apis/auth';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { setModal } from '@/store/modalSlice';
+import { MESSAGES } from '@/constants/messages';
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userName = getCookie('userName');
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
@@ -17,36 +24,55 @@ const Header = () => {
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
 
-  const isLoggedIn = false; // redux로 관리해야할듯..
-  const Buttons = () => {
-    return (
-      <>
-        <Button
-          width="fit-content"
-          height="fit-content"
-          onClick={() => navigate(ROUTES.LOGIN)}
-          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
-        >
-          <FiLogIn />
-          <span>LOGIN</span>
-        </Button>
-        <Button
-          width="fit-content"
-          height="fit-content"
-          onClick={() => navigate(ROUTES.SIGNUP)}
-          buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
-        >
-          <FaUserFriends />
-          <span>JOIN</span>
-        </Button>
-      </>
-    );
+  const handleLogout = async () => {
+    try {
+      dispatch(showLoading());
+      await logout();
+      removeCookie('userName');
+      removeCookie('accessToken');
+      navigate(ROUTES.HOME);
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.LOGOUT.ERROR_LOGOUT,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
   return (
     <StyledHeader className="headerInner">
-      <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
-      <div className="buttons">{isLoggedIn ? <LogoutButton /> : <Buttons />}</div>
+      <>
+        <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
+        <div className="buttons">
+          <Button
+            width="fit-content"
+            height="fit-content"
+            onClick={userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
+            buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
+          >
+            {!userName ? <FiLogIn /> : <FiLogOut />}
+            {/* <FiLogIn /> */}
+            <span>{!userName ? 'LOGIN' : 'LOGOUT'}</span>
+            {/* <span>LOGIN</span> */}
+          </Button>
+          {!userName && (
+            <Button
+              width="fit-content"
+              height="fit-content"
+              onClick={() => navigate(ROUTES.SIGNUP)}
+              buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
+            >
+              <FaUserFriends />
+              <span>JOIN</span>
+            </Button>
+          )}
+        </div>
+      </>
     </StyledHeader>
   );
 };

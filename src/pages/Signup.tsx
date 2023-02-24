@@ -11,48 +11,41 @@ import Button from '@/components/common/Button';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
 import { ErrStyle, InputBox, LogoStyle } from './Login';
-
-interface FormValues {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  birthYear: string;
-  birthMonth: string;
-  birthDay: string;
-  sex: string;
-  bank: string;
-  loan: string;
-  credit: number;
-  interest: string;
-}
+import { useDispatch } from 'react-redux';
+import { setModal } from '@/store/modalSlice';
+import { IUser } from '@/interfaces/user';
+import { MESSAGES } from '@/constants/messages';
+import { showLoading, hideLoading } from '@/store/loadingSlice';
+import { setCookie } from '@/utils/cookie';
+import { login, signup } from '@/apis/auth';
+import { AxiosError } from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const location1 = useLocation();
-  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { isSubmitting, isDirty, dirtyFields, errors },
-  } = useForm<FormValues>();
-  const [FormData, setFormData] = useState<FormValues>({
+  } = useForm<IUser>();
+
+  const initialFormData = {
     email: '',
     password: '',
     passwordConfirm: '',
-    name: '',
+    // name: '',
+    job: '',
     birthYear: '',
     birthMonth: '',
     birthDay: '',
     sex: '',
-    bank: '',
     loan: '',
-    credit: 0,
+    credit: '',
     interest: '',
-  });
+  };
+
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
@@ -65,19 +58,74 @@ const Signup = () => {
     };
   }, []);
 
-  const onSubmit = (data: FormValues) => {
-    setFormData(data);
-    setIsSubmitModalOpen(true);
+  let FormData: IUser;
+
+  const onSubmit = async (data: IUser) => {
+    FormData = { ...initialFormData, ...data };
+    console.log(FormData);
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: modalSubmitHandler,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.SUBMIT_CHECK,
+      }),
+    );
+  };
+
+  const modalSubmitHandler = async (event: any) => {
+    // await new Promise((r) => setTimeout(r, 1000));
+    alert(JSON.stringify(FormData));
+    try {
+      dispatch(showLoading());
+      const response = await signup({
+        userEmail: FormData.email,
+        userPassword: FormData.password,
+        userGender: FormData.sex,
+        userBirthDate: FormData.birthYear + FormData.birthMonth + FormData.birthDay,
+        userJob: FormData.job,
+        userPrefCreditProductTypeName: FormData.loan,
+        userPrefInterestType: FormData.interest,
+        userCreditScore: FormData.credit,
+      });
+      dispatch(
+        setModal({
+          isOpen: false,
+        }),
+      );
+      dispatch(showLoading());
+      const loginResponse = await login({
+        userEmail: FormData.email,
+        userPassword: FormData.password,
+      });
+      setCookie('userName', '방문자');
+      setCookie('accessToken', loginResponse);
+      goWelcome();
+    } catch (error: any) {
+      if (error.response && error.response.status === 409) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.SIGNUP.CHECK_EMAIL_DUPLICATE,
+          }),
+        );
+      } else {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.SIGNUP.ERROR_SIGNUP,
+          }),
+        );
+      }
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
   const validateSelectOption = (value: string) => {
     return value === '' ? 'Please select an option' : true;
-  };
-
-  const modalSubmitHandler = async () => {
-    await new Promise((r) => setTimeout(r, 1000));
-    alert(JSON.stringify(FormData));
-    goWelcome();
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -86,13 +134,29 @@ const Signup = () => {
     }
   };
 
+  const backModalOpen = () => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: goBack,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.SIGNUP.BACK_BUTTON_CAUTION,
+      }),
+    );
+  };
+
   const handleEvent = () => {
     history.pushState(null, '', location.href);
-    setIsBackModalOpen(true);
+    backModalOpen();
   };
 
   const goBack = () => {
-    navigate(location1.state?.from || '/', { replace: true });
+    navigate(-2);
+    dispatch(
+      setModal({
+        isOpen: false,
+      }),
+    );
   };
 
   const goWelcome = () => {
@@ -101,19 +165,20 @@ const Signup = () => {
 
   return (
     <SignForm>
-      <BackButton onClick={() => setIsBackModalOpen(true)} size={25} />
+      <BackButton onClick={backModalOpen} size={25} color={COLORS.white} />
       <SignupStyle>
-        <h1 css={mb30}>
-          <LogoStyle src="../../images/logo_Main.png" alt="" />
+        <h1>
+          <LogoStyle src="../../images/logo_white.png" alt="" />
         </h1>
         <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
           <SignupFormPanel>
             <InputBox className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}>
               <Input
                 id="SignupEmail"
-                label="Email"
+                label="이메일"
                 inputType="text"
                 classType="text-input-white"
+                autoFocus
                 aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
                 register={{
                   ...register('email', {
@@ -130,7 +195,7 @@ const Signup = () => {
             <InputBox className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}>
               <Input
                 id="SignupPw"
-                label="Password"
+                label="비밀번호"
                 inputType="password"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
@@ -151,7 +216,7 @@ const Signup = () => {
             >
               <Input
                 id="SignupPwConfirm"
-                label="Password Confirm"
+                label="비밀번호 확인"
                 inputType="password"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
@@ -167,46 +232,25 @@ const Signup = () => {
               )}
             </InputBox>
 
-            <InputBox className={errors.name ? 'active' : dirtyFields.name ? 'active' : ''}>
+            <InputBox className={errors.job ? 'active' : dirtyFields.job ? 'active' : ''}>
               <Input
-                id="SignupName"
-                label="Name"
+                id="SignupJob"
+                label="직업"
                 inputType="text"
                 classType="text-input-white"
-                aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
+                aria-invalid={!isDirty ? undefined : errors.job ? 'true' : 'false'}
                 register={{
-                  ...register('name', {
-                    required: '이름을 입력해주세요.',
+                  ...register('job', {
+                    required: '직업을 입력해주세요.',
                     pattern: {
                       value: /^[가-힣]{2,4}$/,
-                      message: '이름을 한글로 올바르게 작성해주세요.',
+                      message: '직업을 한글로 올바르게 작성해주세요.',
                     },
                   }),
                 }}
               />
-              {errors.name && <ErrStyle role="alert">{errors.name.message}</ErrStyle>}
+              {errors.job && <ErrStyle role="alert">{errors.job.message}</ErrStyle>}
             </InputBox>
-
-            {/* <Input
-              inputType="number"
-              classType="text-input-white"
-              placeholder="나이"
-              aria-invalid={!isDirty ? undefined : errors.age ? 'true' : 'false'}
-              register={{
-                ...register('age', {
-                  required: '나이를 입력해주세요.',
-                  pattern: {
-                    value: /^(0|[1-9]|[1-9][0-9])$/,
-                    message: '나이는 0 이상 100 미만의 숫자로 입력해주세요.',
-                  },
-                }),
-              }}
-            />
-            {errors.age && (
-              <small css={ErrStyle} role="alert">
-                {errors.age.message}
-              </small>
-            )} */}
 
             <InputBox
               css={BirthStyle}
@@ -218,7 +262,7 @@ const Signup = () => {
                   : ''
               }
             >
-              <SelectLabel>Birth</SelectLabel>
+              <SelectLabel>생일</SelectLabel>
               <SelectStyle
                 {...register('birthYear', {
                   required: '생년월일을 선택해주세요.',
@@ -230,13 +274,13 @@ const Signup = () => {
               </SelectStyle>
               <SelectStyle {...register('birthMonth')}>
                 <option value="">월</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                <option value="01">1</option>
+                <option value="02">2</option>
               </SelectStyle>
               <SelectStyle {...register('birthDay')}>
                 <option value="">일</option>
-                <option value="1">1</option>
-                <option value="">2</option>
+                <option value="01">1</option>
+                <option value="02">2</option>
               </SelectStyle>
               {(errors.birthYear || errors.birthDay || errors.birthMonth) && (
                 <ErrStyle role="alert">{errors.birthYear!.message}</ErrStyle>
@@ -246,15 +290,15 @@ const Signup = () => {
             <InputBox className={errors.credit ? 'active' : dirtyFields.credit ? 'active' : ''}>
               <Input
                 id="SignupCreditScore"
-                label="Personality Credit Score"
-                inputType="number"
+                label="개인신용점수"
+                inputType="text"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
                 register={{
                   ...register('credit', {
                     required: '개인신용점수를 입력해주세요.',
                     pattern: {
-                      value: /^(0|[1-9]|[1-9][0-9]|[1-9][1-9][1-9])$/,
+                      value: /^(0|[1-9]|[1-9][0-9]|[1-9][0-9][0-9])$/,
                       message: '신용점수는 0 이상 999 미만의 숫자로 입력해주세요.',
                     },
                   }),
@@ -264,7 +308,7 @@ const Signup = () => {
             </InputBox>
 
             <InputBox className={errors.sex ? 'active' : dirtyFields.sex ? 'active' : ''}>
-              <SelectLabel>Gender</SelectLabel>
+              <SelectLabel>성별</SelectLabel>
               <SelectStyle
                 {...register('sex', {
                   required: '성별을 선택해주세요.',
@@ -272,30 +316,14 @@ const Signup = () => {
                 })}
               >
                 <option value="">성별</option>
-                <option value="male">남성</option>
-                <option value="female">여성</option>
+                <option value="남">남성</option>
+                <option value="여">여성</option>
               </SelectStyle>
               {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
             </InputBox>
 
-            <InputBox className={errors.bank ? 'active' : dirtyFields.bank ? 'active' : ''}>
-              <SelectLabel>Bank</SelectLabel>
-              <SelectStyle
-                {...register('bank', {
-                  required: '은행을 선택해주세요.',
-                  validate: validateSelectOption,
-                })}
-              >
-                <option value="">선호 은행</option>
-                <option value="bank1">공무원</option>
-                <option value="bank2">개인사업자</option>
-                <option value="bank3">무직</option>
-              </SelectStyle>
-              {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
-            </InputBox>
-
             <InputBox className={errors.loan ? 'active' : dirtyFields.loan ? 'active' : ''}>
-              <SelectLabel>Type of Loan</SelectLabel>
+              <SelectLabel>대출 종류</SelectLabel>
               <SelectStyle
                 {...register('loan', {
                   required: '선호하는 대출 종류를 선택해주세요.',
@@ -303,15 +331,15 @@ const Signup = () => {
                 })}
               >
                 <option value="">선호 대출 종류</option>
-                <option value="">중장기 신용 대출</option>
-                <option value="">단기 신용 대출</option>
-                <option value="">소액 신용 대출</option>
+                <option value="일반신용대출">일반신용대출</option>
+                <option value="마이너스한도대출">마이너스한도대출</option>
+                <option value="장기카드대출(카드론)">장기카드대출</option>
               </SelectStyle>
               {errors.loan && <ErrStyle role="alert">{errors.loan.message}</ErrStyle>}
             </InputBox>
 
             <InputBox className={errors.interest ? 'active' : dirtyFields.interest ? 'active' : ''}>
-              <SelectLabel>Type of Rate</SelectLabel>
+              <SelectLabel>금리 종류</SelectLabel>
               <SelectStyle
                 {...register('interest', {
                   required: '선호하는 금리 종류를 선택해주세요.',
@@ -319,14 +347,22 @@ const Signup = () => {
                 })}
               >
                 <option value="">선호 금리 종류</option>
-                <option value="interest1">고정 금리</option>
-                <option value="interest2">변동 금리</option>
+                <option value="대출금리">대출금리</option>
+                <option value="기준금리">기준금리</option>
+                <option value="가산금리">가산금리</option>
               </SelectStyle>
               {errors.interest && <ErrStyle role="alert">{errors.interest.message}</ErrStyle>}
             </InputBox>
           </SignupFormPanel>
-          <Button type="submit" isDisabled={isSubmitting} height="50px" width="calc(100% - 140px)">
-            Submit
+          <Button
+            buttonType="white"
+            type="submit"
+            isDisabled={isSubmitting}
+            height="40px"
+            width="100%"
+            fontWeight={800}
+          >
+            SUBMIT
           </Button>
         </SignupFormStyle>
       </SignupStyle>
@@ -339,7 +375,8 @@ Modal.setAppElement('#root');
 export default Signup;
 
 export const SignForm = styled.div`
-  background-color: ${COLORS.textInput};
+  // background-color: ${COLORS.textInput};
+  background-color: ${COLORS.primary};
   height: calc(100% + 115px);
   position: relative;
   display: flex;
@@ -355,10 +392,13 @@ const SignupStyle = styled.div`
   #lottie {
     width: 100px;
   }
+  h1 {
+    padding: 0 80px;
+  }
 `;
 
 const SelectStyle = styled.select`
-  background-color: ${COLORS.white};
+  background-color: transparent;
   display: flex;
   align-items: center;
   width: 100%;
@@ -366,30 +406,33 @@ const SelectStyle = styled.select`
   padding: 10px 15px;
   outline: none;
   cursor: pointer;
-
-  option {
-    background-color: white;
-  }
+  color: ${COLORS.gray};
+  transition: 0.5s;
+  font-size: 12px;
 `;
 
 export const SignupFormStyle = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
+  padding: 0 50px;
+
+  > button {
+    margin-top: 20px;
+    font-weight: bold;
+  }
 `;
 
 const SignupFormPanel = styled.div`
   width: 100%;
-  padding: 20px 70px;
-  margin-bottom: 30px;
+  background: ${COLORS.background};
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 50px 20px 10px;
   min-height: 300px;
-  max-height: 500px;
+  max-height: 550px;
   overflow-y: auto;
-`;
-
-const mb30 = css`
-  margin-bottom: 30px;
-  padding: 0 70px;
 `;
 
 const BirthStyle = css`
@@ -398,7 +441,7 @@ const BirthStyle = css`
   align-items: center;
 `;
 
-const SelectLabel = styled.label`
+export const SelectLabel = styled.label`
   position: absolute;
   font-size: 13px;
   left: 15px;

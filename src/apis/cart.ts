@@ -1,21 +1,18 @@
-import { useDispatch } from 'react-redux';
-import { showLoading } from '@/store/loadingSlice';
+import { ICart } from '@/interfaces/cart';
+import { IProduct } from '@/interfaces/product';
 import { axiosInstance } from './instance';
 import { API_URLS } from '../constants/apiUrls';
 
-export const getCartList = async (page: number) => {
-  const { data } = await axiosInstance.get(API_URLS.CART_LIST(page));
+export const getCartList = async () => {
+  const data: ICart[] = await axiosInstance.get(API_URLS.CART);
   return data;
 };
 
 export const createCart = async (data: Object) => {
-  await axiosInstance.post(API_URLS.CART, data);
-};
-
-export const updateCart = async (data: Object) => {
-  await axiosInstance.patch(API_URLS.CART, data);
+  const response: string = await axiosInstance.post(API_URLS.CART, data);
+  return response;
 };
 
 export const deleteCart = async (data: Object) => {
-  await axiosInstance.delete(API_URLS.CART, data);
+  await axiosInstance.delete(API_URLS.CART, { data });
 };

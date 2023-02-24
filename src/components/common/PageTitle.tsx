@@ -13,6 +13,7 @@ export default PageTitle;
 
 const TitleText = styled.h1`
   font-size: 18px;
-  font-weight: 600;
+  // font-weight: 600;
   padding: 1.2rem 0;
+  font-family: 'ONE-Mobile-Title';
 `;

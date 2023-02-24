@@ -3,52 +3,41 @@ import PageTitle from '@/components/common/PageTitle';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import React, { useRef, useEffect, useState } from 'react';
-import { css } from '@emotion/react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate } from 'react-router';
 import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
-import ModalBox from '@/components/template/ModalBox';
-import { ErrStyle } from './Login';
+import { ErrStyle, InputBox } from './Login';
 import { useDispatch } from 'react-redux';
-import { setPasswordModal } from '@/store/passModalSlice';
+import { SelectLabel } from './Signup';
+import { setModal } from '@/store/modalSlice';
+import { IPassword, IUser } from '@/interfaces/user';
+import { MESSAGES } from '@/constants/messages';
 
 const MyInfo = () => {
-  interface FormValues {
-    email: string;
-    password: string;
-    passwordConfirm: string;
-    name: string;
-    age: number;
-    sex: string;
-    bank: string;
-    loan: string;
-    credit: number;
-    interest: string;
-  }
   const navigate = useNavigate();
-  const location1 = useLocation();
-  const [isBackModalOpen, setIsBackModalOpen] = useState(false);
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { isSubmitting, isDirty, errors },
-  } = useForm<FormValues>();
-  const [FormData, setFormData] = useState<FormValues>({
+    formState: { isSubmitting, isDirty, dirtyFields, errors },
+  } = useForm<IUser>();
+  const [FormData, setFormData] = useState<IUser>({
     email: '',
     password: '',
     passwordConfirm: '',
-    name: '',
-    age: 0,
+    // name: '',
+    job: '',
+    birthYear: '',
+    birthMonth: '',
+    birthDay: '',
     sex: '',
-    bank: '',
     loan: '',
-    credit: 0,
+    credit: '',
     interest: '',
   });
   // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
@@ -58,15 +47,21 @@ const MyInfo = () => {
   useEffect(() => {
     history.pushState(null, '', location.href);
     window.addEventListener('popstate', handleEvent);
+
+    dispatch(
+      setModal({
+        isOpen: true,
+        isPassword: true,
+        text: MESSAGES.MYPAGE.INFO.CHECK_MODAL,
+        onClickOk: handleModalSubmit,
+        onClickCancel: handleModalCancel,
+      }),
+    );
+
     return () => {
       window.removeEventListener('popstate', handleEvent);
     };
   }, []);
-
-  const onSubmit = (data: FormValues) => {
-    setFormData(data);
-    setIsSubmitModalOpen(true);
-  };
 
   const validateSelectOption = (value: string) => {
     return value === '' ? 'Please select an option' : true;
@@ -83,19 +78,51 @@ const MyInfo = () => {
     }
   };
 
-  const handleEvent = () => {
-    history.pushState(null, '', location.href);
-    setIsBackModalOpen(true);
+  const onSubmit = (data: IUser) => {
+    setFormData(data);
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: '모달 내용 작성',
+        onClickOk: () => {},
+        onClickCancel: () => {},
+      }),
+    );
   };
 
-  const dispatch = useDispatch();
+  const handleEvent = () => {
+    history.pushState(null, '', location.href);
+    dispatch(
+      setModal({
+        isOpen: true,
+        text: '모달 내용 작성',
+        onClickOk: () => {},
+        onClickCancel: () => {},
+      }),
+    );
+  };
 
-  dispatch(
-    setPasswordModal({
-      isOpen: true,
-      linkURL: ROUTES.HOME,
-    }),
-  );
+  const handleModalCancel = () => {
+    dispatch(setModal({ isOpen: false }));
+    navigate(ROUTES.MYPAGE);
+  };
+
+  const handleModalSubmit = async (data: IPassword) => {
+    // await new Promise((r) => setTimeout(r, 1000));
+    // alert(JSON.stringify(data));
+    // try {
+    //   const response = await axios.post('/api/login', data);
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    dispatch(setModal({ isOpen: false }));
+    // const navigate = useNavigate();
+    // const goTo = () => {
+    //   navigate(modalState.linkURL);
+    // };
+    // goTo();
+  };
 
   return (
     <MypageContainer>
@@ -105,110 +132,108 @@ const MyInfo = () => {
       </MypageHeader>
       <MyInfoWrap>
         <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
-          <Input
-            inputType="password"
-            classType="text-input"
-            placeholder="비밀번호"
-            aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
-            register={{
-              ...register('password', {
-                required: '비밀번호를 입력해주세요.',
-                minLength: { value: 8, message: '비밀번호를 8자리 이상 입력해주세요.' },
-              }),
-            }}
-          />
-          {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
+          <InputBox className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}>
+            <Input
+              inputType="password"
+              classType="text-input"
+              placeholder="비밀번호"
+              aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
+              register={{
+                ...register('password', {
+                  required: '비밀번호를 입력해주세요.',
+                  minLength: { value: 8, message: '비밀번호를 8자리 이상 입력해주세요.' },
+                }),
+              }}
+            />
+            {errors.password && <ErrStyle role="alert">{errors.password.message}</ErrStyle>}
+          </InputBox>
 
-          <Input
-            inputType="password"
-            classType="text-input"
-            placeholder="비밀번호 확인"
-            aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
-            register={{
-              ...register('passwordConfirm', {
-                required: true,
-                validate: (value) => value === passwordRef.current,
-              }),
-            }}
-          />
-          {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
-            <ErrStyle role="alert">비밀번호가 일치하지 않습니다.</ErrStyle>
-          )}
-
-          <Input
-            inputType="number"
-            classType="text-input"
-            placeholder="개인신용점수"
-            aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
-            register={{
-              ...register('credit', {
-                required: '개인신용점수를 입력해주세요.',
-                pattern: {
-                  value: /^(0|[1-9]|[1-9][0-9]|[1-9][1-9][1-9])$/,
-                  message: '신용점수는 0 이상 999 미만의 숫자로 입력해주세요.',
-                },
-              }),
-            }}
-          />
-          {errors.credit && <ErrStyle role="alert">{errors.credit.message}</ErrStyle>}
-
-          <SelectStyle
-            {...register('sex', {
-              required: '성별을 선택해주세요.',
-              validate: validateSelectOption,
-            })}
+          <InputBox
+            className={
+              errors.passwordConfirm ? 'active' : dirtyFields.passwordConfirm ? 'active' : ''
+            }
           >
-            <option value="">성별</option>
-            <option value="male">남성</option>
-            <option value="female">여성</option>
-          </SelectStyle>
-          {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
+            <Input
+              inputType="password"
+              classType="text-input"
+              placeholder="비밀번호 확인"
+              aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
+              register={{
+                ...register('passwordConfirm', {
+                  required: true,
+                  validate: (value) => value === passwordRef.current,
+                }),
+              }}
+            />
+            {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
+              <ErrStyle role="alert">비밀번호가 일치하지 않습니다.</ErrStyle>
+            )}
+          </InputBox>
 
-          <SelectStyle
-            {...register('bank', {
-              required: '은행을 선택해주세요.',
-              validate: validateSelectOption,
-            })}
-          >
-            <option value="">선호 은행</option>
-            <option value="bank1">공무원</option>
-            <option value="bank2">개인사업자</option>
-            <option value="bank3">무직</option>
-          </SelectStyle>
-          {errors.bank && <ErrStyle role="alert">{errors.bank.message}</ErrStyle>}
+          <InputBox className={errors.credit ? 'active' : dirtyFields.credit ? 'active' : ''}>
+            <Input
+              inputType="number"
+              classType="text-input"
+              placeholder="개인신용점수"
+              aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
+              register={{
+                ...register('credit', {
+                  required: '개인신용점수를 입력해주세요.',
+                  pattern: {
+                    value: /^(0|[1-9]|[1-9][0-9]|[1-9][1-9][1-9])$/,
+                    message: '신용점수는 0 이상 999 미만의 숫자로 입력해주세요.',
+                  },
+                }),
+              }}
+            />
+            {errors.credit && <ErrStyle role="alert">{errors.credit.message}</ErrStyle>}
+          </InputBox>
 
-          <SelectStyle
-            {...register('loan', {
-              required: '선호하는 대출 종류를 선택해주세요.',
-              validate: validateSelectOption,
-            })}
-          >
-            <option value="">선호 대출 종류</option>
-            <option value="">중장기 신용 대출</option>
-            <option value="">단기 신용 대출</option>
-            <option value="">소액 신용 대출</option>
-          </SelectStyle>
-          {errors.loan && (
-            <ErrStyle style={{ color: 'red' }} role="alert">
-              {errors.loan.message}
-            </ErrStyle>
-          )}
+          <InputBox className={errors.sex ? 'active' : dirtyFields.sex ? 'active' : ''}>
+            <SelectLabel>Gender</SelectLabel>
+            <SelectStyle
+              {...register('sex', {
+                required: '성별을 선택해주세요.',
+                validate: validateSelectOption,
+              })}
+            >
+              <option value="">성별</option>
+              <option value="male">남성</option>
+              <option value="female">여성</option>
+            </SelectStyle>
+            {errors.sex && <ErrStyle role="alert">{errors.sex.message}</ErrStyle>}
+          </InputBox>
 
-          <SelectStyle
-            {...register('interest', {
-              required: '선호하는 금리 종류를 선택해주세요.',
-              validate: validateSelectOption,
-            })}
-          >
-            <option value="">선호 금리 종류</option>
-            <option value="interest1">고정 금리</option>
-            <option value="interest2">변동 금리</option>
-          </SelectStyle>
-          {errors.interest && (
-            <ErrStyle css={ErrStyle} role="alert">
-              {errors.interest.message}
-            </ErrStyle>
-          )}
+          <InputBox className={errors.loan ? 'active' : dirtyFields.loan ? 'active' : ''}>
+            <SelectLabel>Type of Loan</SelectLabel>
+            <SelectStyle
+              {...register('loan', {
+                required: '선호하는 대출 종류를 선택해주세요.',
+                validate: validateSelectOption,
+              })}
+            >
+              <option value="">선호 대출 종류</option>
+              <option value="">중장기 신용 대출</option>
+              <option value="">단기 신용 대출</option>
+              <option value="">소액 신용 대출</option>
+            </SelectStyle>
+            {errors.loan && <ErrStyle role="alert">{errors.loan.message}</ErrStyle>}
+          </InputBox>
+
+          <InputBox className={errors.interest ? 'active' : dirtyFields.interest ? 'active' : ''}>
+            <SelectLabel>Type of Rate</SelectLabel>
+            <SelectStyle
+              {...register('interest', {
+                required: '선호하는 금리 종류를 선택해주세요.',
+                validate: validateSelectOption,
+              })}
+            >
+              <option value="">선호 금리 종류</option>
+              <option value="interest1">고정 금리</option>
+              <option value="interest2">변동 금리</option>
+            </SelectStyle>
+            {errors.interest && <ErrStyle role="alert">{errors.interest.message}</ErrStyle>}
+          </InputBox>
           <Button type="submit" isDisabled={isSubmitting} height="50px" width="100%">
             Submit
           </Button>

@@ -72,11 +72,14 @@ export const StyledButton = styled.button<{
   font-weight: ${({ fontWeight }) => fontWeight};
   font-size: ${({ fontSize }) => fontSize};
   margin-top: ${({ marginTop }) => marginTop};
-  border-radius: 30px;
+  border-radius: 10px;
   text-align: center;
   cursor: pointer;
   outline: none;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:disabled {
     opacity: 1;
     cursor: default;
@@ -95,7 +98,9 @@ const handleButtonType = (buttonType: string) => {
         transition:0.3s ease all;
         border: 1px solid ${COLORS.primary};
         &:hover {
-          opacity: 0.7;
+          color: ${COLORS.white};
+          background-color: ${COLORS.secondary};
+          border: none;
         }
       `;
     case 'blue':
@@ -105,7 +110,8 @@ const handleButtonType = (buttonType: string) => {
         transition:0.3s ease all;
         border: none;
         &:hover {
-          opacity: 0.7;
+          // opacity: 0.7;
+          background-color:${COLORS.secondary};
         }
       `;
     case 'disabled':

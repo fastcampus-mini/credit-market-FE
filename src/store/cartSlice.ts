@@ -1,25 +1,16 @@
-import { ICart } from '@/interfaces/cart';
 import { createSlice } from '@reduxjs/toolkit';
 
 const cart = createSlice({
   name: 'cart',
   initialState: [],
   reducers: {
-    addCart(state, action) {
-      let id = state.findIndex((obj: ICart) => obj.cartId === action.payload.id);
-      if (id === -1) {
-        // state.push(action.payload);
-      } else {
-        return alert('이미 장바구니에 담은 상품입니다.');
-      }
-    },
-    deleteCart(state, action) {
-      let num = state.findIndex((obj: ICart) => obj.cartId === action.payload);
-      state.splice(num, 1);
+    setCartState(state, action) {
+      console.log('cartSlice:', action.payload);
+      return (state = action.payload);
     },
   },
 });
 
-export let { addCart, deleteCart } = cart.actions;
+export let { setCartState } = cart.actions;
 
 export default cart;

@@ -1,10 +1,16 @@
+import { deleteCart, getCartList } from '@/apis/cart';
+import { MESSAGES } from '@/constants/messages';
 import { ROUTES } from '@/constants/routes';
 import { ICart } from '@/interfaces/cart';
+import { setCartState } from '@/store/cartSlice';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { setModal } from '@/store/modalSlice';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
 import styled from '@emotion/styled';
 import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import Image from '../common/Image';
@@ -15,12 +21,44 @@ interface Props {
   data: ICart;
   isCheckBox?: boolean;
   handleCheck?(checked: HTMLInputElement['checked'], id: string): void;
-  checkId?: Array<string>;
+  checkId?: string[];
+  setCheckId?: any;
+  setCart?: any;
 }
 
-const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
+const CartItem = ({ data, isCheckBox, handleCheck, checkId, setCheckId, setCart }: Props) => {
   const navigate = useNavigate();
-  const handleDelete = () => {};
+  const dispatch = useDispatch();
+
+  const handleDelete = async () => {
+    try {
+      dispatch(showLoading());
+      await deleteCart({ cartIds: [data.cartId] });
+      const cartList = await getCartList();
+      setCart(cartList);
+      setCheckId(checkId!.filter((item) => !checkId!.includes(item)));
+      dispatch(setCartState(cartList));
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => {
+            dispatch(setModal({ isOpen: false }));
+          },
+          text: MESSAGES.CART.COMPLETE_DELETE,
+        }),
+      );
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.CART.ERROR_DELETE,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
 
   return (
     <CartItemContainer>
@@ -32,33 +70,33 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
             onChange={(e) => handleCheck!(e.target.checked, data.cartId)}
           />
         )}
-        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.cartId))}>
+        <InfoContainer onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.productId))}>
           <ImageWrap>
             <Image
-              src={getBankLogo(data.fproductCompanyName) as string}
-              width="34px"
-              height="34px"
-              alt={data.fproductCompanyName}
+              src={data.companyName && (getBankLogo(data.companyName) as string)}
+              width="36px"
+              height="36px"
+              alt={data.companyName}
             />
           </ImageWrap>
           <TextContainer>
-            <BankText>{data.fproductCompanyName}</BankText>
-            <ProductText>{data.fproductName}</ProductText>
+            <BankText>{data.companyName}</BankText>
+            <ProductText>{data.productName}</ProductText>
           </TextContainer>
         </InfoContainer>
       </CartItemWrap>
       {isCheckBox && (
         <IconWrap>
-          <FavorButton id={data.cartId} isFavor={data.favorite} isCart={true} />
+          <FavorButton id={data.productId} isFavor={data.favorite} isCart={true} />
           <Button
             buttonType="text"
             width="fit-content"
             height="16px"
             onClick={handleDelete}
             title={'삭제'}
-            scale={'1.2'}
+            scale={'1.3'}
           >
-            <AiOutlineClose />
+            <AiOutlineClose size="16px" />
           </Button>
         </IconWrap>
       )}
@@ -69,7 +107,7 @@ const CartItem = ({ data, isCheckBox, handleCheck, checkId }: Props) => {
 export default CartItem;
 
 const CartItemContainer = styled.li`
-  padding: 0.6rem;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   background-color: ${COLORS.white};
@@ -81,7 +119,9 @@ const CartItemContainer = styled.li`
 
 const CartItemWrap = styled.div`
   display: flex;
+  align-items: center;
   gap: 10px;
+  height: 50px;
 `;
 
 const InfoContainer = styled.div`
@@ -97,7 +137,7 @@ const ImageWrap = styled.div`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   justify-content: center;
 `;
 
@@ -106,14 +146,18 @@ const BankText = styled.p`
   display: flex;
   align-items: center;
   gap: 5px;
+  color: ${COLORS.primary};
+  font-weight: 600;
 `;
 
 const ProductText = styled.p`
   font-size: 14px;
+  font-weight: 600;
 `;
 
 const IconWrap = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
 `;

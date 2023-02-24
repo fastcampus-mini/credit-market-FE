@@ -1,4 +1,5 @@
 import { ROUTES } from '@/constants/routes';
+import { ICart } from '@/interfaces/cart';
 import { IProduct } from '@/interfaces/product';
 import COLORS from '@/styles/colors';
 import { getBankLogo } from '@/utils/bankLogo';
@@ -17,41 +18,46 @@ interface Props {
 
 const ProductCard = ({ data, isDetail }: Props) => {
   const navigate = useNavigate();
+  const {
+    productId,
+    companyName,
+    favorite,
+    productName,
+    productTypeName,
+    avgInterest,
+    optionsInterestType,
+  } = data;
 
   return (
     <StyledProductCard>
       <CardContainer>
         <LogoTitle>
           <BankWrap>
-            <Image
-              src={data.companyName && getBankLogo(data.companyName)}
-              alt={data.companyName}
-              width="30px"
-            />
-            <h2>{data.companyName}</h2>
+            <Image src={companyName && getBankLogo(companyName)} alt={companyName} width="30px" />
+            <h2>{companyName}</h2>
           </BankWrap>
           <ButtonWrap>
-            {isDetail && <CartButton id={data.id} />}
-            <FavorButton id={data.id} isFavor={data.favorite} />
+            {isDetail && <CartButton productId={productId} />}
+            <FavorButton id={productId} isFavor={favorite} />
           </ButtonWrap>
         </LogoTitle>
-        <p className="productName">{data.productName}</p>
+        <p className="productName">{productName}</p>
         <div className="textBox">
           <p>
-            대출종류<span>{data.productTypeName}</span>
+            대출종류<span>{productTypeName}</span>
           </p>
           <p>
-            평균금리<span>{data.interestRateAvg}</span>
+            평균금리<span>{avgInterest}%</span>
           </p>
           <p>
-            금리구분<span>{data.interestType}</span>
+            금리구분<span>{optionsInterestType}</span>
           </p>
         </div>
         {!isDetail && (
           <Button
             width="100%"
             height="40px"
-            onClick={() => navigate(ROUTES.PRODUCT_BY_ID(data.id))}
+            onClick={() => navigate(ROUTES.PRODUCT_BY_ID(productId), { state: productId })}
             marginTop="10px"
           >
             자세히 보기
@@ -94,9 +100,13 @@ const StyledProductCard = styled.li`
 
       span {
         color: ${COLORS.mainText};
-        font-size: 16px;
+        font-size: 15px;
         font-weight: bold;
         margin-top: 5px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

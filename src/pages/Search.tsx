@@ -7,92 +7,28 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
 import ProductCard from '@/components/Product/ProductCard';
 import { IProduct } from '@/interfaces/product';
+import { getRecommentList } from '@/apis/product';
+import { getCookie } from '@/utils/cookie';
+import axios from 'axios';
 
 const Search = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
+  const userName = getCookie('userName');
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        const data: IProduct[] = [
-          {
-            id: '1',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '2',
-            productName: '주부 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '3',
-            productName: '고양이 신용대출',
-            companyName: '신한은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '4',
-            productName: '주부 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '5',
-            productName: '직장인 신용대출',
-            companyName: '우리은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '6',
-            productName: '주부 신용대출',
-            companyName: '신한은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '7',
-            productName: '고양이 신용대출',
-            companyName: '국민은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-          {
-            id: '8',
-            productName: '대학생 신용대출',
-            companyName: '제주은행',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.4%',
-            interestType: '대출',
-          },
-        ];
-        setProducts(data);
+        if (userName) {
+          const data = await getRecommentList();
+          setProducts(data);
+        } else {
+          const randomData = await axios.get('/mockData/randomProducts.json');
+          setProducts(randomData.data);
+        }
       } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
+        alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
         dispatch(hideLoading());
       }
@@ -132,7 +68,7 @@ const Search = () => {
       </div>
       <ul className="productsArea">
         {products.map((product) => (
-          <ProductCard key={product.id} data={product} />
+          <ProductCard key={product.productId} data={product} />
         ))}
       </ul>
     </StyledSearch>

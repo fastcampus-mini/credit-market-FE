@@ -3,12 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import BackButton from '@/components/common/BackButton';
 import PageTitle from '@/components/common/PageTitle';
+<<<<<<< HEAD
 import ProductCardBuy from '@/components/common/ProductCardBuy';
 import { ROUTES } from '@/constants/routes';
 import { hideLoading, showLoading } from '../store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
 import { IBuy } from '@/interfaces/buy';
 import { setModal } from '@/store/modalSlice';
+=======
+import { ROUTES } from '@/constants/routes';
+import ProductCardBuy from '@/ProductCardBuy';
+>>>>>>> f374c55ef3419bb118d8b372fb0fe01a0fa34405
 import styled from '@emotion/styled';
 
 
@@ -17,6 +22,7 @@ const MyBuy = () => {
   const [myBuyList, setBuyList] = useState<IBuy[]>([])
   const navigate = useNavigate();
 
+<<<<<<< HEAD
   useEffect(() => {
     async function getBuyList() {
       try {
@@ -66,6 +72,15 @@ const MyBuy = () => {
   )
   console.log('deleted')    
 }
+=======
+  const datas: any[] = [
+    { id: '1', title: '무직자 신용대출', bank: '국민', interestRate: 5.04 },
+    { id: '2', title: '고용주 신용대출', bank: '기업', interestRate: 5.04 },
+    { id: '3', title: '고양이 신용대출', bank: '수협', interestRate: 5.04 },
+    { id: '4', title: '고용주 신용대출', bank: '기업', interestRate: 5.04 },
+    { id: '5', title: '주부 신용대출', bank: '국민', interestRate: 5.04 },
+  ];
+>>>>>>> f374c55ef3419bb118d8b372fb0fe01a0fa34405
 
   return (
     <MyBuyContainer>
@@ -74,6 +89,7 @@ const MyBuy = () => {
         <PageTitle title="신청 상품" />
       </MyBuyHeader>
       <MyBuyWrap>
+<<<<<<< HEAD
         {myBuyList.map((item) => {
           return (
             <ProductCardBuy
@@ -83,6 +99,24 @@ const MyBuy = () => {
             />
           )
       })}</MyBuyWrap>
+=======
+        {datas.map((data) => {
+          return (
+            <ProductCardBuy
+              key={data.id}
+              data={data}
+              bankLogo={getBankLogo(data.bank)}
+              bankTitle={`${data.bank}은행`}
+              productName={data.title}
+              loanTitle="대출"
+              rateAverage="3.4%"
+              rateSort="대출"
+              isFavor={false}
+            />
+          );
+        })}
+      </MyBuyWrap>
+>>>>>>> f374c55ef3419bb118d8b372fb0fe01a0fa34405
     </MyBuyContainer>
   );
 };
