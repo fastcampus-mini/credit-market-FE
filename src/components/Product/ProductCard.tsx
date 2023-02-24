@@ -16,9 +16,8 @@ interface Props {
   isFavor?: boolean;
 }
 
-const ProductCard = ({ data, isDetail, isFavor }: Props) => {
-  const navigate = useNavigate();
-  const {
+const ProductCard = ({
+  data: {
     productId,
     companyName,
     favorite,
@@ -26,7 +25,11 @@ const ProductCard = ({ data, isDetail, isFavor }: Props) => {
     productTypeName,
     avgInterest,
     optionsInterestType,
-  } = data;
+  },
+  isDetail,
+  isFavor,
+}: Props) => {
+  const navigate = useNavigate();
   const [favor, setFavor] = useState(favorite);
 
   return (

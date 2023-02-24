@@ -24,11 +24,9 @@ const Home = () => {
       try {
         dispatch(showLoading());
         if (cookies.userName) {
-          const data: IProduct[] = await getRecommentList();
-          setProducts(data);
+          setProducts(await getRecommentList());
         } else {
-          const randomData: IProduct[] = await getRandomSearchList();
-          setProducts(randomData);
+          setProducts(await getRandomSearchList());
         }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);

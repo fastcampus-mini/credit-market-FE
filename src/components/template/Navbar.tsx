@@ -13,6 +13,7 @@ import { ROUTES } from '@/constants/routes';
 
 const Navbar = () => {
   const location = useLocation();
+  const productById = ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]);
 
   useEffect(() => {
     // 새로고침 초기화 방지
@@ -20,8 +21,6 @@ const Navbar = () => {
       case ROUTES.HOME:
       case ROUTES.PRODUCTS:
         return move(1, 50, COLORS.primary);
-      case ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]):
-        return move(1, 50, COLORS.background);
       case ROUTES.SEARCH:
         return move(2, 147, COLORS.background);
       case ROUTES.CART:
@@ -87,13 +86,7 @@ const Navbar = () => {
         <div id="navbar">
           <div id="bubbleWrapper">
             <div id="bubble1" className="bubble">
-              <span className="icon">
-                {isCurPath(ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2])) ? (
-                  <BiDetail />
-                ) : (
-                  <AiFillHome />
-                )}
-              </span>
+              <span className="icon">{isCurPath(productById) ? <BiDetail /> : <AiFillHome />}</span>
             </div>
             <div id="bubble2" className="bubble">
               <span className="icon">
@@ -113,13 +106,7 @@ const Navbar = () => {
           </div>
           <div id="menuWrapper">
             <div id="menu1" className="menuElement">
-              <Link to={ROUTES.HOME}>
-                {isCurPath(ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2])) ? (
-                  <BiDetail />
-                ) : (
-                  <AiFillHome />
-                )}
-              </Link>
+              <Link to={ROUTES.HOME}>{isCurPath(productById) ? <BiDetail /> : <AiFillHome />}</Link>
             </div>
             <div id="menu2" className="menuElement">
               <Link to={ROUTES.SEARCH}>
