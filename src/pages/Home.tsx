@@ -12,26 +12,22 @@ import Lottie from 'lottie-react';
 import WelcomeLottie from '@/lotties/welcome.json';
 import BackgroundLottie from '@/lotties/background.json';
 import { getCookie } from '@/utils/cookie';
-import { getRecommentList } from '@/apis/product';
-import axios from 'axios';
-import { axiosInstance } from '@/apis/instance';
-import { API_URLS } from '@/constants/apiUrls';
+import { getRandomSearchList, getRecommentList } from '@/apis/product';
 
 const Home = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<IProduct[]>([]);
   const userName = getCookie('userName');
+  console.log(userName);
 
   useEffect(() => {
     async function getProducts() {
       try {
         dispatch(showLoading());
         if (userName) {
-          const data: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
-          setProducts(data);
+          setProducts(await getRecommentList());
         } else {
-          const randomData: IProduct[] = await axiosInstance.get(API_URLS.RANDOM_SEARCH);
-          setProducts(randomData);
+          setProducts(await getRandomSearchList());
         }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
