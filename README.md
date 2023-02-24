@@ -3,6 +3,7 @@
 # :moneybag: [Credit Market (Demo)](https://credit-market.netlify.app/)
 
 - 프로젝트 문서는 [<img src="https://img.shields.io/badge/Notion-000000?style=flat-round&logo=Notion&logoColor=white"/>](https://www.notion.so/Mini-Project-b53fa0f445ce4afbacebffd01a813965?pvs=4)에서 확인하실 수 있습니다.
+- 백엔드 저장소는 [여기](https://github.com/fastcampus-mini/credit-market-BE)에서 확인하실 수 있습니다.
   <br/>
 
 ## :sunglasses: Member
