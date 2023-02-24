@@ -14,6 +14,7 @@ interface Prop {
   onClick?: React.MouseEventHandler<HTMLInputElement>;
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   checked?: boolean;
   classType?: string;
   ariaInvalid?: boolean;
@@ -23,6 +24,7 @@ interface Prop {
   top?: string;
   right?: string;
   label?: string;
+  refInput?: React.RefObject<HTMLButtonElement>;
 }
 
 const Input = ({
@@ -43,6 +45,8 @@ const Input = ({
   top = '',
   right = '',
   label = '',
+  refInput,
+  onKeyDown,
 }: Prop) => {
   return (
     <StyledInputBox
@@ -64,9 +68,10 @@ const Input = ({
         {...register}
         autoFocus={autoFocus}
         id={id}
+        onKeyDown={onKeyDown}
       />
       {classType === 'text-search' && (
-        <button onClick={onButtonClick}>
+        <button ref={refInput} onClick={onButtonClick}>
           <BsSearch className="searchIcon" />
         </button>
       )}
