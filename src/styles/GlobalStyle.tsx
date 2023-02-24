@@ -83,6 +83,7 @@ const style = css`
       width: 390px;
       min-width: 390px;
       height: 90vh;
+      min-height: 600px;
       max-height: 844px;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
       position: relative;
