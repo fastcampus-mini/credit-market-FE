@@ -3,10 +3,12 @@ export const MESSAGES = {
     CHECK_EMAIL: '이메일이 존재하지 않습니다.',
     CHECK_PASSWORD: '비밀번호가 일치하지 않습니다.',
     ERROR_LOGIN: '로그인 중\n에러가 발생하였습니다.',
+    AUTO_LOGIN: '자동 로그인이 실행됩니다.',
     COMPLETE_LOGIN: '로그인이 완료되었습니다.',
   },
   LOGOUT: {
     ERROR_LOGOUT: '로그아웃 중\n에러가 발생하였습니다.',
+    COMPLETE_LOGOUT: '로그아웃 되었습니다.',
   },
   SIGNUP: {
     CHECK_EMAIL_DUPLICATE: '이미 존재하는 이메일입니다.',

@@ -14,6 +14,8 @@ import BackgroundLottie from '@/lotties/background.json';
 import { getCookie } from '@/utils/cookie';
 import { getRecommentList } from '@/apis/product';
 import axios from 'axios';
+import { axiosInstance } from '@/apis/instance';
+import { API_URLS } from '@/constants/apiUrls';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -25,11 +27,11 @@ const Home = () => {
       try {
         dispatch(showLoading());
         if (userName) {
-          const data = await getRecommentList();
+          const data: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
           setProducts(data);
         } else {
-          const randomData = await axios.get('/mockData/randomProducts.json');
-          setProducts(randomData.data);
+          const randomData: IProduct[] = await axiosInstance.get(API_URLS.RANDOM_SEARCH);
+          setProducts(randomData);
         }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
