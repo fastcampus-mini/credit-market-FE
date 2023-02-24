@@ -26,6 +26,7 @@ const Home = () => {
         dispatch(showLoading());
         if (userName) {
           const data = await getRecommentList();
+          console.log(data);
           setProducts(data);
         } else {
           const randomData = await axios.get('/mockData/randomProducts.json');
