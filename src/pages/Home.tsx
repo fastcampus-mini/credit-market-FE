@@ -26,7 +26,6 @@ const Home = () => {
         dispatch(showLoading());
         if (userName) {
           const data = await getRecommentList();
-          console.log(data);
           setProducts(data);
         } else {
           const randomData = await axios.get('/mockData/randomProducts.json');
@@ -80,17 +79,19 @@ const StyledHome = styled.div`
   .welcome {
     width: 157px;
     position: absolute;
-    top: -40px;
+    top: -30px;
+    left: 0;
   }
 
   p.welcomeText {
     position: absolute;
     top: 110px;
-    left: 39%;
+    left: 37%;
     transform: translate(-50%, -50%);
     color: ${COLORS.white};
     font-family: 'GmarketSansMedium';
-    line-height: 30px;
+    line-height: 27px;
+    font-size: 15px;
   }
 
   .bannerBg {
