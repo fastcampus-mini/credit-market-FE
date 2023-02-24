@@ -160,7 +160,7 @@ const Search = () => {
               <option value="30.0">30.0</option>
               <option value="40.0">40.0</option>
             </select> */}
-            <Button fontSize="10px" height="auto" onClick={onClickHandler}>
+            <Button height="auto" onClick={onClickHandler}>
               초기화
             </Button>
           </div>
