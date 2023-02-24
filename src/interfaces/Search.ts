@@ -7,3 +7,11 @@ export interface ISearch {
   avg?: string;
   page?: string;
 }
+
+export interface SelectedValuesType {
+  loan?: string;
+  age?: string;
+  sex?: string;
+  interest?: string;
+  avgInterest?: string;
+}
