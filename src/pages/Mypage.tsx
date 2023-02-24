@@ -8,8 +8,11 @@ import PageTitle from '@/components/common/PageTitle';
 import { AiOutlineRight } from 'react-icons/ai';
 import Lottie from 'lottie-react';
 import FundLottie from '@/lotties/funding.json';
+import { getCookie } from '@/utils/cookie';
 
 const Mypage = () => {
+  const userName = getCookie('userName');
+
   return (
     <MypageContainer>
       <TitleWrap>
@@ -21,13 +24,13 @@ const Mypage = () => {
       <MypageWrap>
         <ProfileContainer>
           <Image
-            src="/images/test-cat.jpg"
+            src={`https://icotar.com/avatar/${userName}`}
             width="130px"
             height="130px"
             borderRadius="80px"
             alt="cat"
           />
-          <UserNickname>냥냥이</UserNickname>
+          <UserNickname>{userName}</UserNickname>
         </ProfileContainer>
         <MypageMenu>
           <Link to={ROUTES.MYPAGE_BUY}>
