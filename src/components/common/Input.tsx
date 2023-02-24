@@ -12,6 +12,7 @@ interface Prop {
   height?: string;
   placeholder?: string;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
+  onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   checked?: boolean;
   classType?: string;
@@ -32,6 +33,7 @@ const Input = ({
   placeholder,
   onClick,
   onChange,
+  onButtonClick,
   checked,
   classType = 'text-input',
   ariaInvalid = true,
@@ -63,7 +65,11 @@ const Input = ({
         autoFocus={autoFocus}
         id={id}
       />
-      {classType === 'text-search' && <BsSearch className="searchIcon" />}
+      {classType === 'text-search' && (
+        <button onClick={onButtonClick}>
+          <BsSearch className="searchIcon" />
+        </button>
+      )}
       {classType === 'text-input-white' && <label htmlFor={id}>{label}</label>}
       {label === '이메일' && <MdAlternateEmail />}
       {label.includes('비밀번호') && <RiLockPasswordLine />}

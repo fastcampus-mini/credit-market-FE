@@ -2,12 +2,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import cart from './cartSlice';
 import loading from './loadingSlice';
 import modal from './modalSlice';
+import search from './SearchSlice';
+import reduxProducts from './reduxProducts';
 
 export const store = configureStore({
   reducer: {
     loading: loading.reducer,
     cart: cart.reducer,
     modal: modal.reducer,
+    search: search.reducer,
+    reduxProducts: reduxProducts.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
   devTools: true,

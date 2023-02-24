@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import PageTitle from '@/components/common/PageTitle';
 import Input from '@/components/common/Input';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
 import ProductCard from '@/components/Product/ProductCard';
@@ -10,41 +10,75 @@ import { IProduct } from '@/interfaces/product';
 import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
 import { getCookie } from '@/utils/cookie';
 import axios from 'axios';
-import { getRandomValues } from 'crypto';
+import { setSearch } from '@/store/SearchSlice';
+import { ISearch } from '@/interfaces/Search';
+import { axiosInstance } from '@/apis/instance';
+import { API_URLS } from '@/constants/apiUrls';
+import { RootState } from '@/store/store';
+import { setReduxProducts } from '@/store/reduxProducts';
+import { useLocation } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
 
 const Search = () => {
   const dispatch = useDispatch();
+  const search = useSelector((state: RootState) => state.search);
+  const reduxProducts = useSelector((state: RootState) => state.reduxProducts);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearch({ keyword: event.target.value }));
+    console.log(search);
+  };
+
+  const handleClick = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axiosInstance.get(API_URLS.SEARCH(search));
+      console.log(response);
+      try {
+        setProducts(response as []);
+      } catch (err) {
+        console.log(err);
+      }
+    } catch (error: any) {
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+
   const [products, setProducts] = useState<IProduct[]>([]);
   const userName = getCookie('userName');
 
-  useEffect(() => {
-    async function getProducts() {
-      try {
-        dispatch(showLoading());
-        if (userName) {
-          const data = await getRecommentList();
-          setProducts(data);
-        } else {
-          const randomData = await getRandomSearchList();
-          setProducts(randomData);
-        }
-      } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
-      } finally {
-        dispatch(hideLoading());
+  async function getProducts() {
+    try {
+      dispatch(showLoading());
+      if (userName) {
+        const data = await getRecommentList();
+        setProducts(data);
+      } else {
+        const randomData = await getRandomSearchList();
+        setProducts(randomData);
       }
+    } catch (error) {
+      alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
+    } finally {
+      dispatch(hideLoading());
     }
-    getProducts();
-  }, []);
+  }
+  // useEffect(() => {
+  //   getProducts();
+  //   console.log(products);
+  // }, []);
 
   return (
     <StyledSearch>
       <PageTitle title="상품 검색" />
       <div className="searchArea">
-        <form action="">
+        <div>
           <Input
             inputType="text"
             placeholder="검색어를 입력해 주세요."
+            onChange={handleChange}
+            onButtonClick={handleClick}
             classType="text-search"
             autoFocus
           />
@@ -65,7 +99,7 @@ const Search = () => {
               <option value="">평균금리</option>
             </select>
           </div>
-        </form>
+        </div>
       </div>
       <ul className="productsArea">
         {products.map((product) => (
