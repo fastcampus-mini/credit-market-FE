@@ -1,56 +1,76 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { ROUTES } from '@/constants/routes';
+import { IBuy } from '@/interfaces/buy';
+import { getBankLogo } from '@/utils/bankLogo';
+import { setModal } from '@/store/modalSlice';
+import { MESSAGES } from '@/constants/messages';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
-import React from 'react';
 import Button from './components/common/Button';
-import { useNavigate } from 'react-router-dom';
-import FavorButton from './components/Product/FavorButton';
 
 interface Prop {
-  data: { id: string; title: string; bank: string; favorite: boolean };
-  bankLogo: string | undefined;
-  bankTitle: string;
-  productName: string;
-  isFavor: boolean;
-  loanTitle: string;
-  rateAverage: string;
-  rateSort: string;
+  item: IBuy;
+  onClick: () => void;
 }
 
-const ProductCardBuy = ({
-  data,
-  bankLogo,
-  bankTitle,
-  productName,
-  isFavor = true,
-  loanTitle,
-  rateAverage,
-  rateSort,
-}: Prop) => {
+const ProductCardBuy = ({ item }: Prop) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleCancelClick = () => {
+    return dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: handleDeleteFromBuy,
+        onClickCancel: () => dispatch(setModal({ isOpen: false })),
+        text: MESSAGES.MYPAGE.BUY.CHECK_DELETE,
+      }),
+    );
+  };
+
+  const handleDeleteFromBuy = () => {
+    dispatch(
+      setModal({
+        isOpen: true,
+        onClickOk: () => {
+          dispatch(setModal({ isOpen: false }));
+          navigate(ROUTES.MYPAGE_BUY);
+        },
+        text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
+      }),
+    );
+    console.log('deleted');
+  };
+
   return (
     <StyledProductCardBuy>
       <div className="cardCon">
         <div className="logoTitle">
-          <img className="bankLogo" src={bankLogo} alt={bankTitle} />
-          <h2 className="bankTitle">{bankTitle}</h2>
+          <img
+            className="bankLogo"
+            src={item.companyName && getBankLogo(item.companyName)}
+            alt={item.companyName}
+          />
+          <h2 className="bankTitle">{item.companyName}</h2>
         </div>
         <div className="cancelBuy">
-          <Button width="30%" height="30px" marginTop="10px">
+          <Button onClick={handleCancelClick} width="30%" height="30px" marginTop="10px">
             신청 취소하기
           </Button>
         </div>
 
-        <p className="productName">{productName}</p>
+        <p className="productName">{item.productName}</p>
         <div className="textBox">
           <p>
-            대출종류<span>{loanTitle}</span>
+            대출종류<span>{item.productTypeName}</span>
           </p>
           <p>
-            평균금리<span>{rateAverage}</span>
+            평균금리<span>{item.interestRateAvg}</span>
           </p>
           <p>
-            금리구분<span>{rateSort}</span>
+            금리구분<span>{item.interestType}</span>
           </p>
         </div>
       </div>
