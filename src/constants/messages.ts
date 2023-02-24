@@ -31,11 +31,15 @@ export const MESSAGES = {
     ERROR_NOT_CHECK: '선택하신 상품이 없습니다.',
   },
   BUY: {
-    ERROR_NAVI: '신청 상품 조회 중\n에러가 발생했습니다.',
+    ERROR_NAVI: '신청 상품 조회 중\n에러가 발생하였습니다.',
     CHECK_POLICY: '약관 내용에 동의해주세요.',
     CHECK_BUY: '신청을 완료하시겠습니까?',
-    ERROR_BUY: '상품 신청 중\n에러가 발생했습니다.',
+    ERROR_BUY: '상품 신청 중\n에러가 발생하였습니다.',
     COMPLETE_BUY: '신청이 완료되었습니다.',
+  },
+  FAVOR: {
+    ERROR_CREATE: '관심 상품 추가 중\n에러가 발생하였습니다.',
+    ERROR_DELETE: '관심 상품 삭제 중\n에러가 발생하였습니다.',
   },
   MYPAGE: {
     BUY: {
