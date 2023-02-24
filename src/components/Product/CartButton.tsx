@@ -36,7 +36,6 @@ const CartButton = ({ productId }: Props) => {
     try {
       dispatch(showLoading());
       const response = await createCart({ fproductId: productId });
-      console.log(response);
       if (response === 'isDupl') {
         return dispatch(
           setModal({

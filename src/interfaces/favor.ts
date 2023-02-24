@@ -1,9 +1,9 @@
 export interface IFavor {
-  id: string;
+  favoriteId: string;
+  productId: string;
   productName: string;
   companyName: string;
-  favorite: boolean;
   productTypeName: string;
-  interestRateAvg: string;
-  interestType: string;
+  avgInterest: string;
+  optionsInterestType: string;
 }
