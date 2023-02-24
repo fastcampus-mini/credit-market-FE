@@ -179,16 +179,12 @@ const Search = () => {
               <option value="30.0">30.0</option>
               <option value="40.0">40.0</option>
             </select> */}
-<<<<<<< HEAD
             <Button
-              fontSize="10px"
+              height="auto"
               onClick={() => {
                 intializeHandler();
               }}
             >
-=======
-            <Button height="auto" onClick={onClickHandler}>
->>>>>>> 62c32bae39ede1b881d957954acf14822ac5cd6d
               초기화
             </Button>
           </div>
