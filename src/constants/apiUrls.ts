@@ -6,10 +6,10 @@ export const API_URLS = {
   CHECK_PASSWORD: '/userpasswordcheck',
   UPDATE_USER_INFO: '/userinfoupdate',
   CART: '/cart',
+  ORDER: '/order',
   DETAIL: (id: string) => `/item/${id}`,
   FAVOR: (id: string) => `/favor/${id}`,
   BUY: (id: string) => `/buy/${id}`,
-  ORDER: (id: string) => `/order/${id}`,
   BUY_LIST: (page: number) => `/buy/${page}`,
   FAVOR_LIST: (page: number) => `/favor/${page}`,
   SEARCH: (data: SearchFormData) =>

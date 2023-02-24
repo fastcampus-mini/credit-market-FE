@@ -17,3 +17,8 @@ export const getRandomSearchList = async () => {
   const data: IProduct[] = await axiosInstance.get(API_URLS.RANDOM_SEARCH);
   return data;
 };
+
+export const getProductDetail = async (id: string) => {
+  const data: IProduct = await axiosInstance.get(API_URLS.DETAIL(id));
+  return data;
+};

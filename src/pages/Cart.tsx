@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { getCartList } from '../apis/cart';
+import { deleteCart, getCartList } from '../apis/cart';
 import { MESSAGES } from '../constants/messages';
 import CartItem from './../components/Cart/CartItem';
 import { useDispatch } from 'react-redux';
@@ -8,13 +8,14 @@ import { hideLoading, showLoading } from '../store/loadingSlice';
 import COLORS from '@/styles/colors';
 import Button from '@/components/common/Button';
 import PageTitle from '@/components/common/PageTitle';
-import { ICart } from '@/interfaces/cart';
 import Input from '@/components/common/Input';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import { setModal } from '@/store/modalSlice';
 import Lottie from 'lottie-react';
 import CartLottie from '@/lotties/animated-shopping-cart.json';
+import { setCartState } from '@/store/cartSlice';
+import { ICart } from '@/interfaces/cart';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,8 @@ const Cart = () => {
       try {
         dispatch(showLoading());
         const data = await getCartList();
-        if (data) setCart(data);
+        setCart(data);
+        dispatch(setCartState(data));
       } catch (error) {
         dispatch(
           setModal({
@@ -44,10 +46,34 @@ const Cart = () => {
   }, []);
 
   const handleClick = () => {
-    navigate(ROUTES.BUY);
+    if (checkId.length === 0) {
+      return dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.CART.ERROR_NOT_CHECK,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+        }),
+      );
+    }
+
+    const checkData = cart.filter((item) => checkId.includes(item.cartId));
+    const checkDataId = checkData.map((item) => item.productId);
+    navigate(ROUTES.BUY, {
+      state: { product: checkData, productIds: checkDataId, cartIds: checkId },
+    });
   };
 
   const handleDelete = () => {
+    if (checkId.length === 0) {
+      return dispatch(
+        setModal({
+          isOpen: true,
+          text: MESSAGES.CART.ERROR_NOT_CHECK,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+        }),
+      );
+    }
+
     dispatch(
       setModal({
         isOpen: true,
@@ -58,8 +84,27 @@ const Cart = () => {
     );
   };
 
-  const handleDeleteCart = () => {
-    return dispatch(
+  const handleDeleteCart = async () => {
+    try {
+      dispatch(showLoading());
+      await deleteCart({ cartIds: checkId });
+      const data = await getCartList();
+      setCart(data);
+      setCheckId(checkId.filter((item) => !checkId.includes(item)));
+      dispatch(setCartState(data));
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.CART.ERROR_CREATE,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+
+    dispatch(
       setModal({
         isOpen: true,
         onClickOk: () => dispatch(setModal({ isOpen: false })),
@@ -113,11 +158,13 @@ const Cart = () => {
         {cart.length > 0 ? (
           cart.map((item) => (
             <CartItem
-              key={item.cartId}
+              key={item.productId}
               data={item}
               isCheckBox={true}
               handleCheck={handleCheck}
               checkId={checkId}
+              setCheckId={setCheckId}
+              setCart={setCart}
             />
           ))
         ) : (

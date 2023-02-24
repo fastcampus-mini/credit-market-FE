@@ -7,33 +7,33 @@ import React, { useEffect, useState } from 'react';
 import { MESSAGES } from '@/constants/messages';
 import COLORS from '@/styles/colors';
 import Button from '@/components/common/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ADDITIONAL_TEXTS } from '@/constants/additional';
 import { ROUTES } from '@/constants/routes';
 import ProductCard from '@/components/Product/ProductCard';
+import { getProductDetail } from '@/apis/product';
+import { setModal } from '@/store/modalSlice';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<IProduct>({
-    productId: '3',
-    productName: '고양이 신용대출',
-    companyName: '신한은행',
-    favorite: false,
-    productTypeName: '대출',
-    avgInterest: '3.4%',
-    optionsInterestType: '대출',
-    productJoinMethod: '영업점,인터넷,스마트폰',
-  });
+  const [product, setProduct] = useState<IProduct>();
+  const productId = useLocation().pathname.split('/')[2];
 
   useEffect(() => {
     async function getData() {
       try {
         dispatch(showLoading());
-        // const data = await getProduct();
-        // setProduct(data);
+        const data = await getProductDetail(productId);
+        setProduct(data);
       } catch (error) {
-        alert(MESSAGES.PRODUCT.ERROR_GET_DETAIL);
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.PRODUCT.ERROR_GET_DETAIL,
+          }),
+        );
       } finally {
         dispatch(hideLoading());
       }
@@ -42,18 +42,18 @@ const ProductDetail = () => {
   }, []);
 
   const handleClick = () => {
-    navigate(ROUTES.BUY);
+    navigate(ROUTES.BUY, { state: { product: [product], productIds: [productId] } });
   };
 
   return (
     <ProductContainer>
       <PageTitle title="상품 상세" />
       <ProductContent>
-        <ProductCard data={product} isDetail={true} />
+        {product && <ProductCard data={product} isDetail={true} />}
         <ProductDesc>
           <DescBox>
             <DescTitle>가입 방법</DescTitle>
-            <DescContent>{product.productJoinMethod}</DescContent>
+            <DescContent>{product?.productJoinMethod}</DescContent>
           </DescBox>
           <DescBox>
             <DescTitle>부가 설명</DescTitle>
@@ -125,4 +125,5 @@ const DescTitle = styled.p`
 const DescContent = styled.div`
   font-size: 13px;
   line-height: 1.4;
+  white-space: pre-wrap;
 `;

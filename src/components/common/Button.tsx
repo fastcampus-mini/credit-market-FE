@@ -99,7 +99,7 @@ const handleButtonType = (buttonType: string) => {
         border: 1px solid ${COLORS.primary};
         &:hover {
           color: ${COLORS.white};
-          background-color: ${COLORS.primary};
+          background-color: ${COLORS.secondary};
           border: none;
         }
       `;

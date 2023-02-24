@@ -21,7 +21,7 @@ export default Loading;
 const StyledLoading = styled.div`
   border: none;
   position: absolute;
-  z-index: 20;
+  z-index: 100;
   width: 100%;
   height: 100%;
   top: 0;

@@ -1,6 +1,7 @@
 import { createCart } from '@/apis/cart';
 import { MESSAGES } from '@/constants/messages';
 import { ROUTES } from '@/constants/routes';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { setModal } from '@/store/modalSlice';
 import { RootState } from '@/store/store';
 import { getCookie } from '@/utils/cookie';
@@ -10,10 +11,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  id: string;
+  productId: string;
 }
 
-const CartButton = ({ id }: Props) => {
+const CartButton = ({ productId }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userName = getCookie('userName');
@@ -25,7 +26,6 @@ const CartButton = ({ id }: Props) => {
         setModal({
           isOpen: true,
           onClickOk: () => {
-            // dispatch(setModal({ isOpen: false }));
             dispatch(setModal({ route: navigate(ROUTES.LOGIN) }));
           },
           text: MESSAGES.INVALID_AUTH,
@@ -33,7 +33,38 @@ const CartButton = ({ id }: Props) => {
       );
     }
 
-    // await createCart(id);
+    try {
+      dispatch(showLoading());
+      const response = await createCart({ fproductId: productId });
+      console.log(response);
+      if (response === 'isDupl') {
+        return dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => {
+              dispatch(setModal({ isOpen: false }));
+            },
+            onClickCancel: () => {
+              dispatch(setModal({ isOpen: false }));
+              navigate(ROUTES.CART);
+            },
+            cancelText: '장바구니 이동',
+            text: MESSAGES.CART.ERROR_DUPL,
+          }),
+        );
+      }
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.CART.ERROR_CREATE,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+
     dispatch(
       setModal({
         isOpen: true,
@@ -51,7 +82,7 @@ const CartButton = ({ id }: Props) => {
   };
 
   return (
-    <StyledButton type="button" id={id} onClick={handleCart} title="장바구니 담기">
+    <StyledButton type="button" id={productId} onClick={handleCart} title="장바구니 담기">
       🛒
     </StyledButton>
   );

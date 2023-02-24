@@ -183,19 +183,20 @@ const Signup = () => {
 
   return (
     <SignForm>
-      <BackButton onClick={backModalOpen} size={25} />
+      <BackButton onClick={backModalOpen} size={25} color={COLORS.white} />
       <SignupStyle>
-        <h1 css={mb30}>
-          <LogoStyle src="../../images/logo_Main.png" alt="" />
+        <h1>
+          <LogoStyle src="../../images/logo_white.png" alt="" />
         </h1>
         <SignupFormStyle onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
           <SignupFormPanel>
             <InputBox className={errors.email ? 'active' : dirtyFields.email ? 'active' : ''}>
               <Input
                 id="SignupEmail"
-                label="Email"
+                label="이메일"
                 inputType="text"
                 classType="text-input-white"
+                autoFocus
                 aria-invalid={!isDirty ? undefined : errors.email ? 'true' : 'false'}
                 register={{
                   ...register('email', {
@@ -212,7 +213,7 @@ const Signup = () => {
             <InputBox className={errors.password ? 'active' : dirtyFields.password ? 'active' : ''}>
               <Input
                 id="SignupPw"
-                label="Password"
+                label="비밀번호"
                 inputType="password"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.password ? 'true' : 'false'}
@@ -233,7 +234,7 @@ const Signup = () => {
             >
               <Input
                 id="SignupPwConfirm"
-                label="Password Confirm"
+                label="비밀번호 확인"
                 inputType="password"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.passwordConfirm ? 'true' : 'false'}
@@ -252,7 +253,7 @@ const Signup = () => {
             <InputBox className={errors.job ? 'active' : dirtyFields.job ? 'active' : ''}>
               <Input
                 id="SignupJob"
-                label="Job"
+                label="직업"
                 inputType="text"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.job ? 'true' : 'false'}
@@ -279,7 +280,7 @@ const Signup = () => {
                   : ''
               }
             >
-              <SelectLabel>Birth</SelectLabel>
+              <SelectLabel>생일</SelectLabel>
               <SelectStyle
                 {...register('birthYear', {
                   required: '생년월일을 선택해주세요.',
@@ -307,7 +308,7 @@ const Signup = () => {
             <InputBox className={errors.credit ? 'active' : dirtyFields.credit ? 'active' : ''}>
               <Input
                 id="SignupCreditScore"
-                label="Personality Credit Score"
+                label="개인신용점수"
                 inputType="text"
                 classType="text-input-white"
                 aria-invalid={!isDirty ? undefined : errors.credit ? 'true' : 'false'}
@@ -325,7 +326,7 @@ const Signup = () => {
             </InputBox>
 
             <InputBox className={errors.sex ? 'active' : dirtyFields.sex ? 'active' : ''}>
-              <SelectLabel>Gender</SelectLabel>
+              <SelectLabel>성별</SelectLabel>
               <SelectStyle
                 {...register('sex', {
                   required: '성별을 선택해주세요.',
@@ -340,7 +341,7 @@ const Signup = () => {
             </InputBox>
 
             <InputBox className={errors.loan ? 'active' : dirtyFields.loan ? 'active' : ''}>
-              <SelectLabel>Type of Loan</SelectLabel>
+              <SelectLabel>대출 종류</SelectLabel>
               <SelectStyle
                 {...register('loan', {
                   required: '선호하는 대출 종류를 선택해주세요.',
@@ -356,7 +357,7 @@ const Signup = () => {
             </InputBox>
 
             <InputBox className={errors.interest ? 'active' : dirtyFields.interest ? 'active' : ''}>
-              <SelectLabel>Type of Rate</SelectLabel>
+              <SelectLabel>금리 종류</SelectLabel>
               <SelectStyle
                 {...register('interest', {
                   required: '선호하는 금리 종류를 선택해주세요.',
@@ -371,8 +372,15 @@ const Signup = () => {
               {errors.interest && <ErrStyle role="alert">{errors.interest.message}</ErrStyle>}
             </InputBox>
           </SignupFormPanel>
-          <Button type="submit" isDisabled={isSubmitting} height="50px" width="calc(100% - 140px)">
-            Submit
+          <Button
+            buttonType="white"
+            type="submit"
+            isDisabled={isSubmitting}
+            height="40px"
+            width="100%"
+            fontWeight={800}
+          >
+            SUBMIT
           </Button>
         </SignupFormStyle>
       </SignupStyle>
@@ -385,7 +393,8 @@ Modal.setAppElement('#root');
 export default Signup;
 
 export const SignForm = styled.div`
-  background-color: ${COLORS.textInput};
+  // background-color: ${COLORS.textInput};
+  background-color: ${COLORS.primary};
   height: calc(100% + 115px);
   position: relative;
   display: flex;
@@ -401,10 +410,13 @@ const SignupStyle = styled.div`
   #lottie {
     width: 100px;
   }
+  h1 {
+    padding: 0 80px;
+  }
 `;
 
 const SelectStyle = styled.select`
-  background-color: ${COLORS.white};
+  background-color: transparent;
   display: flex;
   align-items: center;
   width: 100%;
@@ -412,30 +424,33 @@ const SelectStyle = styled.select`
   padding: 10px 15px;
   outline: none;
   cursor: pointer;
-
-  option {
-    background-color: white;
-  }
+  color: ${COLORS.gray};
+  transition: 0.5s;
+  font-size: 12px;
 `;
 
 export const SignupFormStyle = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
+  padding: 0 50px;
+
+  > button {
+    margin-top: 20px;
+    font-weight: bold;
+  }
 `;
 
 const SignupFormPanel = styled.div`
   width: 100%;
-  padding: 20px 70px;
-  margin-bottom: 30px;
+  background: ${COLORS.background};
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 50px 20px 10px;
   min-height: 300px;
-  max-height: 500px;
+  max-height: 550px;
   overflow-y: auto;
-`;
-
-const mb30 = css`
-  margin-bottom: 30px;
-  padding: 0 70px;
 `;
 
 const BirthStyle = css`
