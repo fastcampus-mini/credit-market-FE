@@ -12,7 +12,7 @@ import Input from '../common/Input';
 
 interface Props {
   productId: string;
-  isFavor: boolean;
+  isFavor?: boolean;
   isCart?: boolean;
 }
 
