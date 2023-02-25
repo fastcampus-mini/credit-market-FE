@@ -20,9 +20,10 @@ interface Props {
   data: IProduct;
   isDetail?: boolean;
   isFavor?: boolean;
+  isBuy?: boolean;
 }
 
-const ProductCard = ({ data, isDetail, isFavor }: Props) => {
+const ProductCard = ({ data, isDetail, isFavor, isBuy }: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,6 +54,8 @@ const ProductCard = ({ data, isDetail, isFavor }: Props) => {
     }
   };
 
+  const handleBuyCancel = () => {}
+ 
   return (
     <StyledProductCard>
       <CardContainer>
@@ -63,19 +66,16 @@ const ProductCard = ({ data, isDetail, isFavor }: Props) => {
           </BankWrap>
           <ButtonWrap>
             {isDetail && <CartButton productId={productId} />}
-            {!isFavor ? (
-              <FavorButton productId={productId} isFavor={favorite} />
-            ) : (
-              <Button
-                buttonType="text"
-                width="fit-content"
-                height="16px"
-                onClick={handleDeleteFavor}
-                title={'삭제'}
-                scale={'1.3'}
-              >
-                <AiOutlineClose size="16px" />
+            {!isBuy ? (
+              <Button onClick={handleBuyCancel} width="70px" height="28px" fontSize="12px"> 
+                신청 취소 
               </Button>
+              ) : (
+              <FavorButton
+                productId={productId}
+                isFavor={isFavor ? true : false}
+                // setFavor={setFavor}
+              />
             )}
           </ButtonWrap>
         </LogoTitle>
@@ -91,7 +91,7 @@ const ProductCard = ({ data, isDetail, isFavor }: Props) => {
             금리구분<span>{optionsInterestType}</span>
           </p>
         </div>
-        {!isDetail && (
+        {!isDetail && !isBuy && (
           <Button
             width="100%"
             height="40px"

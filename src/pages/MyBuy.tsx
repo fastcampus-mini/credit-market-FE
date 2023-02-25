@@ -6,75 +6,40 @@ import PageTitle from '@/components/common/PageTitle';
 import { ROUTES } from '@/constants/routes';
 import { hideLoading, showLoading } from '../store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
-import { IBuy } from '@/interfaces/buy';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
-import ProductCardBuy from '@/ProductCardBuy';
+import ProductCard from '../components/Product/ProductCard';
+import { IProduct } from '@/interfaces/product';
+import { getBuyList }  from '../apis/buy'
+import { IBuy } from '@/interfaces/buy'
+
+interface Props {
+  data: IProduct
+  isBuy?: boolean
+}
 
 const MyBuy = () => {
   const dispatch = useDispatch();
-  const [myBuyList, setBuyList] = useState<IBuy[]>([]);
+  const [myBuyList, setBuyList] = useState<IProduct[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getBuyList() {
+    async function data() {
       try {
         dispatch(showLoading());
-        const item: IBuy[] = [
-          {
-            id: '1',
-            productName: '직장인 신용대출',
-            companyName: '우리',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '5.04%',
-            interestType: '대출',
-          },
-          {
-            id: '2',
-            productName: '주부 신용대출',
-            companyName: '국민',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '4.29%',
-            interestType: '대출',
-          },
-          {
-            id: '3',
-            productName: '무직자 신용대출',
-            companyName: '신한',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '4.98%',
-            interestType: '대출',
-          },
-          {
-            id: '4',
-            productName: '고용주 신용대출',
-            companyName: '기업',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '3.98%',
-            interestType: '대출',
-          },
-          {
-            id: '5',
-            productName: '고양이 신용대출',
-            companyName: '수협',
-            favorite: false,
-            productTypeName: '대출',
-            interestRateAvg: '4.75%',
-            interestType: '대출',
-          },
-        ];
-        setBuyList(item);
+        const data = await getBuyList(1);
+        setBuyList(data);
       } catch (error) {
-        alert(MESSAGES.MYPAGE.BUY.ERROR_GET);
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.MYPAGE.BUY.ERROR_GET,
+        });
       } finally {
         dispatch(hideLoading());
       }
     }
-    getBuyList();
+    data();
   }, []);
 
   const handleCancelClick = () => {
@@ -110,7 +75,14 @@ const MyBuy = () => {
       </MyBuyHeader>
       <MyBuyWrap>
         {myBuyList.map((item) => {
-          return <ProductCardBuy key={item.id} item={item} onClick={handleCancelClick} />;
+          return (
+            <ProductCard 
+              key={item.orderId} 
+              data={item} 
+              // onClick={handleCancelClick}
+              isBuy={true} 
+            />
+          )
         })}
       </MyBuyWrap>
     </MyBuyContainer>

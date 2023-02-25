@@ -7,4 +7,5 @@ export interface IProduct {
   avgInterest: string;
   optionsInterestType: string;
   productJoinMethod?: string;
+  orderId?: string;
 }
