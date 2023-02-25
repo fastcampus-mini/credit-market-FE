@@ -1,7 +1,6 @@
 import React from 'react';
 import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
-import Bubble from './bubble';
 import { ROUTES } from '@/constants/routes';
 import isCurPath from '@/utils/path';
 import { AiFillHome } from 'react-icons/ai';
@@ -10,6 +9,7 @@ import { BsFillCartFill } from 'react-icons/bs';
 import { RiSearchLine } from 'react-icons/ri';
 import { BiDetail } from 'react-icons/bi';
 import BubbleMenu from './BubbleMenu';
+import Bubble from './Bubble';
 
 const NavbarContainer = () => {
   const productById = ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]);
