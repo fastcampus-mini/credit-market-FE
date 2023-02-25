@@ -108,31 +108,6 @@ const StyledNavbar = styled.nav`
     background: ${COLORS.background};
   }
 
-  .bubble {
-    background-color: ${COLORS.white};
-    width: 50px;
-    height: 50px;
-    bottom: 85px;
-    border-radius: 50%;
-    z-index: 10;
-    transform: translateY(120%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .icon {
-    opacity: 0;
-  }
-
-  #bubble1 {
-    transform: translateY(0%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  }
-  #bubble1 > span {
-    opacity: 0.7;
-  }
-
   #bgWrapper {
     filter: url(#goo);
     width: 100%;
@@ -167,34 +142,5 @@ const StyledNavbar = styled.nav`
     width: 100%;
     display: flex;
     justify-content: space-around;
-  }
-
-  .menuElement {
-    opacity: 0.4;
-    transform: translateY(100%);
-    cursor: pointer;
-  }
-  .menuElement:hover {
-    opacity: 0.5;
-  }
-
-  #contentWrapper {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #contentWrapper h2 {
-    color: #fff;
-    font-family: sans-serif;
-    font-weight: 400;
-  }
-
-  .content {
-    display: none;
-    opacity: 0;
   }
 `;

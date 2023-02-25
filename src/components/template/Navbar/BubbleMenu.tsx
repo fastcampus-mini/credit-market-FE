@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,10 +10,20 @@ interface Prop {
 
 function BubbleMenu({ id, children, route }: Prop) {
   return (
-    <li id={`menu${id}`} className="menuElement">
+    <BubbleMenuStyle id={`menu${id}`}>
       <Link to={route}>{children}</Link>
-    </li>
+    </BubbleMenuStyle>
   );
 }
 
 export default BubbleMenu;
+
+const BubbleMenuStyle = styled.li`
+  opacity: 0.4;
+  transform: translateY(100%);
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+`;
