@@ -77,10 +77,12 @@ const MyFavorHeader = styled.div`
 `;
 
 const MyFavorWrap = styled.ul`
-  overflow-y: auto;
-  height: calc(100% - 86px);
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
   padding-right: 10px;
+  overflow-y: auto;
+  height: calc(100% - 90px);
+  gap: 5px;
 `;
 
 const NoProduct = styled.div`
