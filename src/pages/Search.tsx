@@ -197,7 +197,7 @@ const StyledSearch = styled.div`
     gap: 2px;
     > button {
       border-radius: 5px;
-      margin-left: 10px;
+      margin-left: 8px;
       font-size: 11px;
       font-weight: bold;
     }
