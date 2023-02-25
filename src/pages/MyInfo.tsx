@@ -46,14 +46,6 @@ const MyInfo = () => {
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
 
-  useEffect(() => {
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', handleEvent);
-    return () => {
-      window.removeEventListener('popstate', handleEvent);
-    };
-  }, []);
-
   const validateSelectOption = (value: string) => {
     return value === '' ? 'Please select an option' : true;
   };
@@ -127,18 +119,6 @@ const MyInfo = () => {
     } finally {
       dispatch(hideLoading());
     }
-  };
-
-  const handleEvent = () => {
-    history.pushState(null, '', location.href);
-    dispatch(
-      setModal({
-        isOpen: true,
-        text: '모달 내용 작성',
-        onClickOk: () => {},
-        onClickCancel: () => {},
-      }),
-    );
   };
 
   const years = Array.from({ length: 54 }, (_, i) => 2023 - i);

@@ -16,6 +16,7 @@ import { checkPassword } from '@/apis/auth';
 import { getUserInfo } from '@/apis/auth';
 import { IUser } from '@/interfaces/user';
 import { getCookie } from '@/utils/cookie';
+import { css } from '@emotion/react';
 
 const Mypage = () => {
   const dispatch = useDispatch();
@@ -108,6 +109,7 @@ const Mypage = () => {
             </MenuItem>
           </Link>
           <div
+            css={DivStyle}
             onClick={() => {
               dispatch(
                 setModal({
@@ -140,6 +142,10 @@ const Mypage = () => {
 };
 
 export default Mypage;
+
+const DivStyle = css`
+  cursor: pointer;
+`;
 
 const MypageContainer = styled.div`
   display: flex;
