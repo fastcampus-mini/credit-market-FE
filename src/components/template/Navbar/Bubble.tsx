@@ -1,7 +1,11 @@
-import { Imenu } from '@/interfaces/menu';
 import React from 'react';
 
-function Bubble({ id, children }: Imenu) {
+interface Prop {
+  id: number;
+  children: any;
+}
+
+function Bubble({ id, children }: Prop) {
   return (
     <li id={`bubble${id}`} className="bubble">
       <span className="icon">{children}</span>
