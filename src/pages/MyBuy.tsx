@@ -123,19 +123,19 @@ const MyBuyContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-right: 10px;
+  padding: 0 0 0 10px;
 `;
 
 const MyBuyHeader = styled.div`
   display: flex;
 `;
 
-const MyBuyWrap = styled.div`
+const MyBuyWrap = styled.ul`
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 10px;
+  padding-right: 10px;
   overflow-y: auto;
-  height: 100%;
+  height: calc(100% - 90px);
   gap: 5px;
   li {
     list-style-type: none;
