@@ -25,8 +25,10 @@ const Home = () => {
         dispatch(showLoading());
         if (cookies.userName) {
           setProducts(await getRecommentList());
+          console.log(await getRecommentList());
         } else {
           setProducts(await getRandomSearchList());
+          console.log(await getRandomSearchList());
         }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);

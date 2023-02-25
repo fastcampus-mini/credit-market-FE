@@ -48,11 +48,9 @@ const Search = () => {
       try {
         dispatch(showLoading());
         if (userName) {
-          const data: IProduct[] = await getRecommentList();
-          setProducts(data);
+          setProducts(await getRecommentList());
         } else {
-          const randomData: IProduct[] = await getRandomSearchList();
-          setProducts(randomData);
+          setProducts(await getRandomSearchList());
         }
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
@@ -114,11 +112,9 @@ const Search = () => {
     try {
       dispatch(showLoading());
       if (userName) {
-        const data: IProduct[] = await getRecommentList();
-        setProducts(data);
+        setProducts(await getRecommentList());
       } else {
-        const randomData: IProduct[] = await getRandomSearchList();
-        setProducts(randomData);
+        setProducts(await getRandomSearchList());
       }
     } catch (error) {
       alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
