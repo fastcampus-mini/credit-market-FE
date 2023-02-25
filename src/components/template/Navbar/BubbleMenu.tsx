@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IBubble } from './Bubble';
 
-interface Prop {
-  id: number;
-  children: any;
+interface IBubbleMenu extends IBubble {
   route: string;
 }
 
-function BubbleMenu({ id, children, route }: Prop) {
+function BubbleMenu({ id, children, route }: IBubbleMenu) {
   return (
     <BubbleMenuStyle id={`menu${id}`}>
       <Link to={route}>{children}</Link>

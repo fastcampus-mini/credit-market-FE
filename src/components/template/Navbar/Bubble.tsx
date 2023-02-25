@@ -2,12 +2,12 @@ import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import React from 'react';
 
-interface Prop {
+export interface IBubble {
   id: number;
   children: any;
 }
 
-function Bubble({ id, children }: Prop) {
+function Bubble({ id, children }: IBubble) {
   return (
     <BubbleStyle id={`bubble${id}`}>
       <span className="icon">{children}</span>
