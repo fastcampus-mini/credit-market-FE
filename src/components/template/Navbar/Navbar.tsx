@@ -4,7 +4,7 @@ import COLORS from '@/styles/colors';
 import isCurPath from '@/utils/path';
 import { ROUTES } from '@/constants/routes';
 import move from './NavbarMove';
-import NavbarContainer from './NavbarUI';
+import NavbarUI from './NavbarUI';
 
 const Navbar = () => {
   const location = useLocation();
@@ -31,7 +31,7 @@ const Navbar = () => {
 
   if (isCurPath(ROUTES.LOGIN) || isCurPath(ROUTES.SIGNUP)) return null;
 
-  return <NavbarContainer />;
+  return <NavbarUI />;
 };
 
 export default Navbar;

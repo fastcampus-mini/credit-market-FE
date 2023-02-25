@@ -11,7 +11,7 @@ import { BiDetail } from 'react-icons/bi';
 import BubbleMenu from './BubbleMenu';
 import Bubble from './Bubble';
 
-const NavbarContainer = () => {
+const NavbarUI = () => {
   const productById = ROUTES.PRODUCT_BY_ID(location.pathname.split('/')[2]);
 
   return (
@@ -73,7 +73,7 @@ const NavbarContainer = () => {
   );
 };
 
-export default NavbarContainer;
+export default NavbarUI;
 
 const StyledNavbar = styled.nav`
   width: 100%;
