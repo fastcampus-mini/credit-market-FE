@@ -1,7 +1,13 @@
 import COLORS from '@/styles/colors';
 import gsap from 'gsap';
 
-function move(id: number, position: number, color: string) {
+interface Prop {
+  id: number;
+  position: number;
+  color: string;
+}
+
+function move({ id, position, color }: Prop) {
   gsap.config({
     nullTargetWarn: false,
   });
