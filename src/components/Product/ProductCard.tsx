@@ -101,15 +101,20 @@ const StyledProductCard = styled.li`
 
     p {
       display: flex;
-      width: 25%;
+      width: 35%;
       flex-direction: column;
       color: ${COLORS.gray};
       font-weight: normal;
+      font-size: 11px;
+
+      &:nth-of-type(2) {
+        width: 15%;
+      }
 
       span {
         color: ${COLORS.mainText};
-        font-size: 15px;
         font-weight: bold;
+        font-size: 14px;
         margin-top: 5px;
         width: 100%;
         overflow: hidden;
