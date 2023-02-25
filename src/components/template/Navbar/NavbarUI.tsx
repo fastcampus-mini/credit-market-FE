@@ -8,7 +8,6 @@ import { FaUserAlt } from 'react-icons/fa';
 import { BsFillCartFill } from 'react-icons/bs';
 import { RiSearchLine } from 'react-icons/ri';
 import { BiDetail } from 'react-icons/bi';
-import BubbleMenu from './BubbleMenu';
 import Bubble from './Bubble';
 
 const NavbarUI = () => {
@@ -34,18 +33,18 @@ const NavbarUI = () => {
           </ul>
           <ul id="menuWrapper">
             <>
-              <BubbleMenu id={1} route={ROUTES.HOME}>
+              <Bubble id={1} route={ROUTES.HOME}>
                 {isCurPath(productById) ? <BiDetail /> : <AiFillHome />}
-              </BubbleMenu>
-              <BubbleMenu id={2} route={ROUTES.SEARCH}>
+              </Bubble>
+              <Bubble id={2} route={ROUTES.SEARCH}>
                 <RiSearchLine />
-              </BubbleMenu>
-              <BubbleMenu id={3} route={ROUTES.CART}>
+              </Bubble>
+              <Bubble id={3} route={ROUTES.CART}>
                 <BsFillCartFill />
-              </BubbleMenu>
-              <BubbleMenu id={4} route={ROUTES.MYPAGE}>
+              </Bubble>
+              <Bubble id={4} route={ROUTES.MYPAGE}>
                 <FaUserAlt />
-              </BubbleMenu>
+              </Bubble>
             </>
           </ul>
         </div>
