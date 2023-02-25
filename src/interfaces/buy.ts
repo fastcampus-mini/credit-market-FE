@@ -1,9 +1,10 @@
 export interface IBuy {
-  id: string;
+  orderId: string;
+  orderStatus: boolean;
+  productId: string;
   productName: string;
   companyName: string;
-  favorite: boolean;
   productTypeName: string;
-  interestRateAvg: string;
-  interestType: string; 
+  avgInterest: string
+  optionsInterestType: string
 }
