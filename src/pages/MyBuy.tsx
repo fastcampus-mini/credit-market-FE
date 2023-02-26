@@ -21,20 +21,14 @@ const MyBuy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const myBuyList: IBuy[] = useSelector((state: RootState) => state.myBuy);
+  console.log(myBuyList);
 
   useEffect(() => {
     async function getMyBuy() {
       try {
         dispatch(showLoading());
         const buyList = await getBuyList(1);
-        buyList.forEach(async (buy) => {
-          if (buy.orderStatus === 0) {
-            await deleteBuy(buy.orderId);
-            dispatch(deleteMybuyState(buy.orderId));
-          } else {
-            dispatch(setMyBuyState(buyList));
-          }
-        });
+        dispatch(setMyBuyState(buyList));
       } catch (error) {
         dispatch(
           setModal({
@@ -75,6 +69,7 @@ const MyBuy = () => {
                     }),
                   );
                 }}
+                text={myBuy.orderStatus === 0 ? '취소완료' : '취소신청'}
               />
             );
           })

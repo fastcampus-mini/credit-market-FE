@@ -9,7 +9,7 @@ interface Props {
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler;
   color?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   type?: 'button' | 'submit' | 'reset' | undefined;
   fontWeight?: number;
   fontSize?: string;
@@ -17,6 +17,7 @@ interface Props {
   title?: string;
   scale?: string;
   className?: string;
+  text?: string;
 }
 
 const Button = ({
@@ -34,6 +35,7 @@ const Button = ({
   title = '',
   scale = '',
   className,
+  text,
 }: Props) => {
   return (
     <StyledButton
@@ -51,7 +53,7 @@ const Button = ({
       scale={scale}
       className={className}
     >
-      {children}
+      {text ? text : children}
     </StyledButton>
   );
 };

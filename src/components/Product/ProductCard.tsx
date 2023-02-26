@@ -1,3 +1,4 @@
+import { getBuyList } from '@/apis/buy';
 import { ROUTES } from '@/constants/routes';
 import { IProduct } from '@/interfaces/product';
 import COLORS from '@/styles/colors';
@@ -16,6 +17,7 @@ interface Props {
   isFavor?: boolean;
   isBuy?: boolean;
   onClick?: any;
+  text?: string;
 }
 
 const ProductCard = ({
@@ -32,6 +34,7 @@ const ProductCard = ({
   isFavor,
   isBuy,
   onClick,
+  text,
 }: Props) => {
   const navigate = useNavigate();
   const [favor, setFavor] = useState(favorite);
@@ -60,9 +63,9 @@ const ProductCard = ({
                 height="22px"
                 className="cancel"
                 onClick={onClick}
-              >
-                신청취소
-              </Button>
+                text={text}
+                isDisabled={text === '취소완료' && true}
+              />
             )}
           </ButtonWrap>
         </LogoTitle>
@@ -177,6 +180,11 @@ const ButtonWrap = styled.div`
     transition: 0.3s;
 
     &:hover {
+      background: ${COLORS.gray};
+      color: ${COLORS.white};
+    }
+
+    &:disabled {
       background: ${COLORS.gray};
       color: ${COLORS.white};
     }
