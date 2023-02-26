@@ -2,7 +2,6 @@ import COLORS from '@/styles/colors';
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { IBubble } from './Bubble';
 
 interface IBubble {
   id: number;
