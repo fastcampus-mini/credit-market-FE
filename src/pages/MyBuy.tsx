@@ -9,22 +9,39 @@ import { MESSAGES } from '@/constants/messages';
 import { IBuy } from '@/interfaces/buy';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
-import ProductCard from '../components/Product/ProductCard';
-import { getBuyList } from '../apis/buy';
+import ProductCard from '@/components/Product/ProductCard';
+import { createBuy, deleteBuy, getBuyList } from '@/apis/buy';
 import { RootState } from '@/store/store';
-import { setMyBuyState } from '@/store/myBuySlice';
+import { deleteMybuyState, setMyBuyState } from '@/store/myBuySlice';
+import { getCartList } from '@/apis/cart';
 
 const MyBuy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const myBuyList: IBuy[] = useSelector((state: RootState) => state.favor);
+  const myBuyList: IBuy[] = useSelector((state: RootState) => state.myBuy);
 
   useEffect(() => {
     async function getMyBuy() {
       try {
         dispatch(showLoading());
-        const data = await getBuyList(1);
-        dispatch(setMyBuyState(data));
+        const buyList = await getBuyList(1);
+        buyList.forEach(async (buy) => {
+          if (buy.orderStatus === 0) {
+            await deleteBuy(buy.orderId);
+            dispatch(deleteMybuyState(buy.orderId));
+            // dispatch(
+            //   setModal({
+            //     isOpen: true,
+            //     onClickOk: () => dispatch(setModal({ isOpen: false })),
+            //     text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
+            //   }),
+            // );
+            console.log(buy);
+          } else {
+            dispatch(setMyBuyState(buyList));
+          }
+        });
+        // console.log(buyList);
       } catch (error) {
         dispatch(
           setModal({
@@ -40,31 +57,6 @@ const MyBuy = () => {
     getMyBuy();
   }, []);
 
-  const handleCancelClick = () => {
-    return dispatch(
-      setModal({
-        isOpen: true,
-        onClickOk: handleDeleteFromBuy,
-        onClickCancel: () => dispatch(setModal({ isOpen: false })),
-        text: MESSAGES.MYPAGE.BUY.CHECK_DELETE,
-      }),
-    );
-  };
-
-  const handleDeleteFromBuy = () => {
-    dispatch(
-      setModal({
-        isOpen: true,
-        onClickOk: () => {
-          dispatch(setModal({ isOpen: false }));
-          navigate(ROUTES.MYPAGE_BUY);
-        },
-        text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
-      }),
-    );
-    console.log('deleted');
-  };
-
   return (
     <MyBuyContainer>
       <MyBuyHeader>
@@ -72,9 +64,29 @@ const MyBuy = () => {
         <PageTitle title="신청 상품" />
       </MyBuyHeader>
       <MyBuyWrap>
-        {myBuyList.map((myBuy) => {
-          return <ProductCard key={myBuy.orderId} data={myBuy} />;
-        })}
+        {myBuyList.length > 0 &&
+          myBuyList.map((myBuy) => {
+            return (
+              <ProductCard
+                key={myBuy.orderId}
+                data={myBuy}
+                isBuy={true}
+                onClick={async () => {
+                  await deleteBuy(myBuy.orderId);
+                  dispatch(deleteMybuyState(myBuy.orderId));
+                  dispatch(
+                    setModal({
+                      isOpen: true,
+                      onClickOk: () => dispatch(setModal({ isOpen: false })),
+                      text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
+                    }),
+                  );
+
+                  console.log(myBuy);
+                }}
+              />
+            );
+          })}
       </MyBuyWrap>
     </MyBuyContainer>
   );
