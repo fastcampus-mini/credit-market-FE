@@ -21,7 +21,6 @@ const MyBuy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const myBuyList: IBuy[] = useSelector((state: RootState) => state.myBuy);
-  console.log(myBuyList);
 
   useEffect(() => {
     async function getMyBuy() {
