@@ -31,19 +31,10 @@ const MyBuy = () => {
           if (buy.orderStatus === 0) {
             await deleteBuy(buy.orderId);
             dispatch(deleteMybuyState(buy.orderId));
-            // dispatch(
-            //   setModal({
-            //     isOpen: true,
-            //     onClickOk: () => dispatch(setModal({ isOpen: false })),
-            //     text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
-            //   }),
-            // );
-            console.log(buy);
           } else {
             dispatch(setMyBuyState(buyList));
           }
         });
-        // console.log(buyList);
       } catch (error) {
         dispatch(
           setModal({
@@ -83,8 +74,6 @@ const MyBuy = () => {
                       text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
                     }),
                   );
-
-                  console.log(myBuy);
                 }}
               />
             );
