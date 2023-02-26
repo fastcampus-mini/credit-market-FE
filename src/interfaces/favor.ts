@@ -1,9 +1,5 @@
-export interface IFavor {
+import { IProduct } from './product';
+
+export interface IFavor extends IProduct {
   favoriteId: string;
-  productId: string;
-  productName: string;
-  companyName: string;
-  productTypeName: string;
-  avgInterest: string;
-  optionsInterestType: string;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BackButton from '@/components/common/BackButton';
 import PageTitle from '@/components/common/PageTitle';
 import { ROUTES } from '@/constants/routes';
@@ -9,31 +9,35 @@ import { MESSAGES } from '@/constants/messages';
 import { IBuy } from '@/interfaces/buy';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
-import ProductCard from '../components/Product/ProductCard'
-import { getBuyList } from '../apis/buy'
+import ProductCard from '../components/Product/ProductCard';
+import { getBuyList } from '../apis/buy';
+import { RootState } from '@/store/store';
+import { setMyBuyState } from '@/store/myBuySlice';
 
 const MyBuy = () => {
   const dispatch = useDispatch();
-  const [myBuyList, setBuyList] = useState<IBuy[]>([]);
   const navigate = useNavigate();
+  const myBuyList: IBuy[] = useSelector((state: RootState) => state.favor);
 
   useEffect(() => {
-    async function data() {
+    async function getMyBuy() {
       try {
         dispatch(showLoading());
         const data = await getBuyList(1);
-        setBuyList(data);
+        dispatch(setMyBuyState(data));
       } catch (error) {
-        setModal({
-          isOpen: true,
-          onClickOk: () => dispatch(setModal({ isOpen: false })),
-          text: MESSAGES.MYPAGE.BUY.ERROR_GET,
-        });
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.MYPAGE.BUY.ERROR_GET,
+          }),
+        );
       } finally {
         dispatch(hideLoading());
       }
     }
-    data();
+    getMyBuy();
   }, []);
 
   const handleCancelClick = () => {
@@ -68,13 +72,8 @@ const MyBuy = () => {
         <PageTitle title="신청 상품" />
       </MyBuyHeader>
       <MyBuyWrap>
-        {myBuyList.map((data) => {
-          return (
-            <ProductCard 
-              key={data.orderId} 
-              data={data} 
-            />
-          )
+        {myBuyList.map((myBuy) => {
+          return <ProductCard key={myBuy.orderId} data={myBuy} />;
         })}
       </MyBuyWrap>
     </MyBuyContainer>
@@ -87,19 +86,19 @@ const MyBuyContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding-right: 10px;
+  padding: 0 0 0 10px;
 `;
 
 const MyBuyHeader = styled.div`
   display: flex;
 `;
 
-const MyBuyWrap = styled.div`
+const MyBuyWrap = styled.ul`
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 10px;
+  padding-right: 10px;
   overflow-y: auto;
-  height: 100%;
+  height: calc(100% - 90px);
   gap: 5px;
   li {
     list-style-type: none;

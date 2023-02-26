@@ -426,7 +426,7 @@ export default Signup;
 export const SignForm = styled.div`
   // background-color: ${COLORS.textInput};
   background-color: ${COLORS.primary};
-  height: calc(100% + 115px);
+  height: calc(100% + 110px);
   position: relative;
   display: flex;
   justify-content: center;
@@ -464,11 +464,11 @@ export const SignupFormStyle = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 30px;
   padding: 0 50px;
 
   > button {
-    margin-top: 20px;
+    margin-top: 30px;
     font-weight: bold;
   }
 `;
@@ -480,7 +480,7 @@ const SignupFormPanel = styled.div`
   border-radius: 10px;
   padding: 50px 20px 10px;
   min-height: 300px;
-  max-height: 550px;
+  max-height: 480px;
   overflow-y: auto;
 `;
 

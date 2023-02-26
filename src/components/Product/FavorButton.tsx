@@ -73,7 +73,7 @@ const FavorButton = ({ productId, isFavor, isCart = false, setFavor }: Props) =>
   };
 
   return (
-    <StyledButton onClick={handleFavor} title="찜하기" isCart={isCart}>
+    <StyledButton onClick={handleFavor} title={isFavor ? '찜하기 해제' : '찜하기'} isCart={isCart}>
       {isFavor ? '❤️' : '🤍'}
     </StyledButton>
   );

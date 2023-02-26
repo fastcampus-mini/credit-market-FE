@@ -29,14 +29,14 @@ const ProductCard = ({
   },
   isDetail,
   isFavor,
-  isBuy
+  isBuy,
 }: Props) => {
   const navigate = useNavigate();
   const [favor, setFavor] = useState(favorite);
 
   const handleBuyCancel = () => {
-    console.log('item deleted')
-  }
+    console.log('item deleted');
+  };
 
   return (
     <StyledProductCard>
@@ -110,15 +110,20 @@ const StyledProductCard = styled.li`
 
     p {
       display: flex;
-      width: 25%;
+      width: 35%;
       flex-direction: column;
       color: ${COLORS.gray};
       font-weight: normal;
+      font-size: 11px;
+
+      &:nth-of-type(2) {
+        width: 15%;
+      }
 
       span {
         color: ${COLORS.mainText};
-        font-size: 15px;
         font-weight: bold;
+        font-size: 14px;
         margin-top: 5px;
         width: 100%;
         overflow: hidden;

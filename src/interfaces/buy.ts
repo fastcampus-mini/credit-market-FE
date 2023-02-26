@@ -1,10 +1,6 @@
-export interface IBuy {
+import { IProduct } from './product';
+
+export interface IBuy extends IProduct {
   orderId: string;
   orderStatus: boolean;
-  productId: string;
-  productName: string;
-  companyName: string;
-  productTypeName: string;
-  avgInterest: string
-  optionsInterestType: string
 }

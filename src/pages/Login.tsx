@@ -182,7 +182,7 @@ export default Login;
 export const SignForm = styled.div`
   // background-color: ${COLORS.textInput};
   background-color: ${COLORS.primary};
-  height: calc(100% + 115px);
+  height: calc(100% + 110px);
   position: relative;
   display: flex;
   justify-content: center;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import BackButton from '@/components/common/BackButton';
@@ -9,12 +9,13 @@ import { IFavor } from '@/interfaces/favor';
 import styled from '@emotion/styled';
 import { getFavorList } from '@/apis/favor';
 import ProductCard from '@/components/Product/ProductCard';
-import { setFavorState } from '@/store/favorSlice';
 import Button from '@/components/common/Button';
 import { ROUTES } from '@/constants/routes';
 import Lottie from 'lottie-react';
 import CartLottie from '@/lotties/animated-shopping-cart.json';
 import { RootState } from '@/store/store';
+import { setFavorState } from '@/store/favorSlice';
+import { setModal } from '@/store/modalSlice';
 
 const MyFavor = () => {
   const dispatch = useDispatch();
@@ -22,30 +23,42 @@ const MyFavor = () => {
   const favorList: IFavor[] = useSelector((state: RootState) => state.favor);
 
   useEffect(() => {
-    async function getData() {
+    async function getMyFavor() {
       try {
         dispatch(showLoading());
         const data = await getFavorList(1);
         dispatch(setFavorState(data));
       } catch (error) {
-        alert(MESSAGES.MYPAGE.FAV.ERROR_GET);
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.MYPAGE.FAV.ERROR_GET,
+          }),
+        );
       } finally {
         dispatch(hideLoading());
       }
     }
-    getData();
+    getMyFavor();
   }, []);
 
   return (
     <MyFavorContainer>
       <MyFavorHeader>
-        <BackButton onClick={() => navigate(-1)} size={25} isMypage={true} />
+        <BackButton onClick={() => navigate(ROUTES.MYPAGE)} size={25} isMypage={true} />
         <PageTitle title="관심 상품" />
       </MyFavorHeader>
       <MyFavorWrap>
         {favorList.length > 0 ? (
-          favorList.map((item) => {
-            return <ProductCard key={item.productId} data={item} isFavor={true} />;
+          favorList.map((favor) => {
+            return (
+              <ProductCard
+                key={favor.productId}
+                data={favor}
+                isFavor={favor.favorite ? false : true}
+              />
+            );
           })
         ) : (
           <NoProduct>
@@ -77,10 +90,12 @@ const MyFavorHeader = styled.div`
 `;
 
 const MyFavorWrap = styled.ul`
-  overflow-y: auto;
-  height: calc(100% - 86px);
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
   padding-right: 10px;
+  overflow-y: auto;
+  height: calc(100% - 90px);
+  gap: 5px;
 `;
 
 const NoProduct = styled.div`

@@ -16,12 +16,14 @@ import { ISearch, SelectedValuesType } from '@/interfaces/Search';
 import Button from '@/components/common/Button';
 import { useRef, forwardRef, useImperativeHandle } from 'react';
 import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
+import { useCookies } from 'react-cookie';
 
 const Search = () => {
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchForm, setSearchForm] = useState({});
+  const [cookies, setCookie] = useCookies();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -47,13 +49,9 @@ const Search = () => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        if (userName) {
-          const data: IProduct[] = await getRecommentList();
-          setProducts(data);
-        } else {
-          const randomData: IProduct[] = await getRandomSearchList();
-          setProducts(randomData);
-        }
+        cookies.userName
+          ? setProducts(await getRecommentList())
+          : setProducts(await getRandomSearchList());
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
@@ -61,7 +59,7 @@ const Search = () => {
       }
     }
     getProducts();
-  }, []);
+  }, [cookies]);
 
   useEffect(() => {
     async function getProducts() {
@@ -114,11 +112,9 @@ const Search = () => {
     try {
       dispatch(showLoading());
       if (userName) {
-        const data: IProduct[] = await getRecommentList();
-        setProducts(data);
+        setProducts(await getRecommentList());
       } else {
-        const randomData: IProduct[] = await getRandomSearchList();
-        setProducts(randomData);
+        setProducts(await getRandomSearchList());
       }
     } catch (error) {
       alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
@@ -201,7 +197,7 @@ const StyledSearch = styled.div`
     gap: 2px;
     > button {
       border-radius: 5px;
-      margin-left: 10px;
+      margin-left: 8px;
       font-size: 11px;
       font-weight: bold;
     }
