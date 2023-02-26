@@ -23,13 +23,9 @@ const Home = () => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        if (cookies.userName) {
-          setProducts(await getRecommentList());
-          console.log(await getRecommentList());
-        } else {
-          setProducts(await getRandomSearchList());
-          console.log(await getRandomSearchList());
-        }
+        cookies.userName
+          ? setProducts(await getRecommentList())
+          : setProducts(await getRandomSearchList());
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
