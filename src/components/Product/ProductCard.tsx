@@ -14,6 +14,7 @@ interface Props {
   data: IProduct;
   isDetail?: boolean;
   isFavor?: boolean;
+  isBuy?: boolean;
 }
 
 const ProductCard = ({
@@ -28,9 +29,14 @@ const ProductCard = ({
   },
   isDetail,
   isFavor,
+  isBuy
 }: Props) => {
   const navigate = useNavigate();
   const [favor, setFavor] = useState(favorite);
+
+  const handleBuyCancel = () => {
+    console.log('item deleted')
+  }
 
   return (
     <StyledProductCard>
@@ -42,11 +48,14 @@ const ProductCard = ({
           </BankWrap>
           <ButtonWrap>
             {isDetail && <CartButton productId={productId} />}
-            <FavorButton
-              productId={productId}
-              isFavor={isFavor ? true : favor}
-              setFavor={setFavor}
-            />
+            {!isBuy && (
+              <FavorButton
+                productId={productId}
+                isFavor={isFavor ? true : favor}
+                setFavor={setFavor}
+              />
+            )}
+            {isBuy && <Button onClick={handleBuyCancel}>신청 취소</Button>}
           </ButtonWrap>
         </LogoTitle>
         <p className="productName">{productName}</p>
