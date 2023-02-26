@@ -1,4 +1,4 @@
-import { IProduct } from '@/interfaces/product';
+import { IFavor } from '@/interfaces/favor';
 import { createSlice } from '@reduxjs/toolkit';
 
 const favor = createSlice({
@@ -9,7 +9,7 @@ const favor = createSlice({
       return (state = action.payload);
     },
     deleteFavorState(state, action) {
-      return (state = state.filter((item: IProduct) => item.productId !== action.payload));
+      return (state = state.filter((item: IFavor) => item.productId !== action.payload));
     },
   },
 });
