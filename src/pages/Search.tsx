@@ -16,12 +16,14 @@ import { ISearch, SelectedValuesType } from '@/interfaces/Search';
 import Button from '@/components/common/Button';
 import { useRef, forwardRef, useImperativeHandle } from 'react';
 import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
+import { useCookies } from 'react-cookie';
 
 const Search = () => {
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchForm, setSearchForm] = useState({});
+  const [cookies, setCookie] = useCookies();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -47,11 +49,9 @@ const Search = () => {
     async function getProducts() {
       try {
         dispatch(showLoading());
-        if (userName) {
-          setProducts(await getRecommentList());
-        } else {
-          setProducts(await getRandomSearchList());
-        }
+        cookies.userName
+          ? setProducts(await getRecommentList())
+          : setProducts(await getRandomSearchList());
       } catch (error) {
         alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
       } finally {
@@ -59,7 +59,7 @@ const Search = () => {
       }
     }
     getProducts();
-  }, []);
+  }, [cookies]);
 
   useEffect(() => {
     async function getProducts() {
