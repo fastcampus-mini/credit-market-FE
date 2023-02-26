@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BackButton from '@/components/common/BackButton';
@@ -9,22 +9,41 @@ import { MESSAGES } from '@/constants/messages';
 import { IBuy } from '@/interfaces/buy';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
-import ProductCard from '../components/Product/ProductCard';
-import { getBuyList } from '../apis/buy';
+import ProductCard from '@/components/Product/ProductCard';
+import { deleteBuy, getBuyList } from '@/apis/buy';
 import { RootState } from '@/store/store';
-import { setMyBuyState } from '@/store/myBuySlice';
+import { deleteMybuyState, setMyBuyState } from '@/store/myBuySlice';
+import Lottie from 'lottie-react';
+import BuyLottie from '@/lotties/BuyLottie.json';
+import Button from '@/components/common/Button';
 
 const MyBuy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const myBuyList: IBuy[] = useSelector((state: RootState) => state.favor);
+  const myBuyList: IBuy[] = useSelector((state: RootState) => state.myBuy);
 
   useEffect(() => {
     async function getMyBuy() {
       try {
         dispatch(showLoading());
-        const data = await getBuyList(1);
-        dispatch(setMyBuyState(data));
+        const buyList = await getBuyList(1);
+        buyList.forEach(async (buy) => {
+          if (buy.orderStatus === 0) {
+            await deleteBuy(buy.orderId);
+            dispatch(deleteMybuyState(buy.orderId));
+            // dispatch(
+            //   setModal({
+            //     isOpen: true,
+            //     onClickOk: () => dispatch(setModal({ isOpen: false })),
+            //     text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
+            //   }),
+            // );
+            console.log(buy);
+          } else {
+            dispatch(setMyBuyState(buyList));
+          }
+        });
+        // console.log(buyList);
       } catch (error) {
         dispatch(
           setModal({
@@ -40,31 +59,6 @@ const MyBuy = () => {
     getMyBuy();
   }, []);
 
-  const handleCancelClick = () => {
-    return dispatch(
-      setModal({
-        isOpen: true,
-        onClickOk: handleDeleteFromBuy,
-        onClickCancel: () => dispatch(setModal({ isOpen: false })),
-        text: MESSAGES.MYPAGE.BUY.CHECK_DELETE,
-      }),
-    );
-  };
-
-  const handleDeleteFromBuy = () => {
-    dispatch(
-      setModal({
-        isOpen: true,
-        onClickOk: () => {
-          dispatch(setModal({ isOpen: false }));
-          navigate(ROUTES.MYPAGE_BUY);
-        },
-        text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
-      }),
-    );
-    console.log('deleted');
-  };
-
   return (
     <MyBuyContainer>
       <MyBuyHeader>
@@ -72,9 +66,40 @@ const MyBuy = () => {
         <PageTitle title="신청 상품" />
       </MyBuyHeader>
       <MyBuyWrap>
-        {myBuyList.map((myBuy) => {
-          return <ProductCard key={myBuy.orderId} data={myBuy} />;
-        })}
+        {myBuyList.length > 0 ? (
+          myBuyList.map((myBuy) => {
+            return (
+              <ProductCard
+                key={myBuy.orderId}
+                data={myBuy}
+                isBuy={true}
+                onClick={async () => {
+                  await deleteBuy(myBuy.orderId);
+                  dispatch(deleteMybuyState(myBuy.orderId));
+                  dispatch(
+                    setModal({
+                      isOpen: true,
+                      onClickOk: () => dispatch(setModal({ isOpen: false })),
+                      text: MESSAGES.MYPAGE.BUY.COMPLETE_DELETE,
+                    }),
+                  );
+
+                  console.log(myBuy);
+                }}
+              />
+            );
+          })
+        ) : (
+          <NoBuy>
+            <LottieWrap>
+              <Lottie animationData={BuyLottie} loop={true} />
+            </LottieWrap>
+            <NoBuyText>구매하신 상품이 없습니다.</NoBuyText>
+            <Button buttonType="blue" width="200px" onClick={() => navigate(ROUTES.SEARCH)}>
+              상품 보러가기
+            </Button>
+          </NoBuy>
+        )}
       </MyBuyWrap>
     </MyBuyContainer>
   );
@@ -103,4 +128,19 @@ const MyBuyWrap = styled.ul`
   li {
     list-style-type: none;
   }
+`;
+
+const NoBuy = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 170px;
+`;
+
+const LottieWrap = styled.div`
+  width: 120px;
+`;
+
+const NoBuyText = styled.p`
+  margin-bottom: 20px;
 `;

@@ -15,6 +15,7 @@ interface Props {
   isDetail?: boolean;
   isFavor?: boolean;
   isBuy?: boolean;
+  onClick?: any;
 }
 
 const ProductCard = ({
@@ -30,13 +31,10 @@ const ProductCard = ({
   isDetail,
   isFavor,
   isBuy,
+  onClick,
 }: Props) => {
   const navigate = useNavigate();
   const [favor, setFavor] = useState(favorite);
-
-  const handleBuyCancel = () => {
-    console.log('item deleted');
-  };
 
   return (
     <StyledProductCard>
@@ -55,7 +53,11 @@ const ProductCard = ({
                 setFavor={setFavor}
               />
             )}
-            {isBuy && <Button onClick={handleBuyCancel}>신청 취소</Button>}
+            {isBuy && (
+              <Button width="auto" height="auto" onClick={onClick}>
+                신청 취소
+              </Button>
+            )}
           </ButtonWrap>
         </LogoTitle>
         <p className="productName">{productName}</p>

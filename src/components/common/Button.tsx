@@ -7,7 +7,7 @@ interface Props {
   width?: string;
   height?: string;
   isDisabled?: boolean;
-  onClick?: any;
+  onClick?: React.MouseEventHandler;
   color?: string;
   children: React.ReactNode;
   type?: 'button' | 'submit' | 'reset' | undefined;

@@ -1,9 +1,9 @@
 import { axiosInstance } from './instance';
 import { API_URLS } from '../constants/apiUrls';
-import { IBuy } from '../interfaces/buy'
+import { IBuy } from '../interfaces/buy';
 
 export const getBuyList = async (page: number) => {
-  const data: IBuy[] = await axiosInstance.post(API_URLS.BUY_LIST(page));
+  const data: IBuy[] = await axiosInstance.get(API_URLS.BUY_LIST(page));
   return data;
 };
 
