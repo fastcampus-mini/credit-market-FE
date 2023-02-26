@@ -16,6 +16,7 @@ interface Props {
   marginTop?: string;
   title?: string;
   scale?: string;
+  className?: string;
 }
 
 const Button = ({
@@ -32,6 +33,7 @@ const Button = ({
   marginTop = '0px',
   title = '',
   scale = '',
+  className,
 }: Props) => {
   return (
     <StyledButton
@@ -47,6 +49,7 @@ const Button = ({
       marginTop={marginTop}
       title={title}
       scale={scale}
+      className={className}
     >
       {children}
     </StyledButton>

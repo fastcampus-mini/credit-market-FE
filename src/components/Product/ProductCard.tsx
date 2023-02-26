@@ -54,8 +54,14 @@ const ProductCard = ({
               />
             )}
             {isBuy && (
-              <Button width="auto" height="auto" onClick={onClick}>
-                신청 취소
+              <Button
+                buttonType="transparent"
+                width="auto"
+                height="22px"
+                className="cancel"
+                onClick={onClick}
+              >
+                신청취소
               </Button>
             )}
           </ButtonWrap>
@@ -161,4 +167,18 @@ const ButtonWrap = styled.div`
   height: 30px;
   display: flex;
   position: relative;
+
+  .cancel {
+    color: ${COLORS.darkGray};
+    font-size: 10px;
+    font-weight: bold;
+    border: 2px solid ${COLORS.gray};
+    border-radius: 3px;
+    transition: 0.3s;
+
+    &:hover {
+      background: ${COLORS.gray};
+      color: ${COLORS.white};
+    }
+  }
 `;
