@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BackButton from '@/components/common/BackButton';
@@ -10,10 +10,12 @@ import { IBuy } from '@/interfaces/buy';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
 import ProductCard from '@/components/Product/ProductCard';
-import { createBuy, deleteBuy, getBuyList } from '@/apis/buy';
+import { deleteBuy, getBuyList } from '@/apis/buy';
 import { RootState } from '@/store/store';
 import { deleteMybuyState, setMyBuyState } from '@/store/myBuySlice';
-import { getCartList } from '@/apis/cart';
+import Lottie from 'lottie-react';
+import BuyLottie from '@/lotties/BuyLottie.json';
+import Button from '@/components/common/Button';
 
 const MyBuy = () => {
   const dispatch = useDispatch();
@@ -64,7 +66,7 @@ const MyBuy = () => {
         <PageTitle title="신청 상품" />
       </MyBuyHeader>
       <MyBuyWrap>
-        {myBuyList.length > 0 &&
+        {myBuyList.length > 0 ? (
           myBuyList.map((myBuy) => {
             return (
               <ProductCard
@@ -86,7 +88,18 @@ const MyBuy = () => {
                 }}
               />
             );
-          })}
+          })
+        ) : (
+          <NoBuy>
+            <LottieWrap>
+              <Lottie animationData={BuyLottie} loop={true} />
+            </LottieWrap>
+            <NoBuyText>구매하신 상품이 없습니다.</NoBuyText>
+            <Button buttonType="blue" width="200px" onClick={() => navigate(ROUTES.SEARCH)}>
+              상품 보러가기
+            </Button>
+          </NoBuy>
+        )}
       </MyBuyWrap>
     </MyBuyContainer>
   );
@@ -115,4 +128,19 @@ const MyBuyWrap = styled.ul`
   li {
     list-style-type: none;
   }
+`;
+
+const NoBuy = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 170px;
+`;
+
+const LottieWrap = styled.div`
+  width: 120px;
+`;
+
+const NoBuyText = styled.p`
+  margin-bottom: 20px;
 `;
