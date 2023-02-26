@@ -12,7 +12,7 @@ import ProductCard from '@/components/Product/ProductCard';
 import Button from '@/components/common/Button';
 import { ROUTES } from '@/constants/routes';
 import Lottie from 'lottie-react';
-import CartLottie from '@/lotties/animated-shopping-cart.json';
+import FavorLottie from '@/lotties/FavorLottie.json';
 import { RootState } from '@/store/store';
 import { setFavorState } from '@/store/favorSlice';
 import { setModal } from '@/store/modalSlice';
@@ -63,7 +63,7 @@ const MyFavor = () => {
         ) : (
           <NoProduct>
             <LottieWrap>
-              <Lottie animationData={CartLottie} loop={true} />
+              <Lottie animationData={FavorLottie} loop={true} />
             </LottieWrap>
             <NoProductText>관심 상품이 없습니다.</NoProductText>
             <Button buttonType="blue" width="200px" onClick={() => navigate(ROUTES.SEARCH)}>
