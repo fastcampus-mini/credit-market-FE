@@ -29,14 +29,14 @@ const ProductCard = ({
   },
   isDetail,
   isFavor,
-  isBuy
+  isBuy,
 }: Props) => {
   const navigate = useNavigate();
   const [favor, setFavor] = useState(favorite);
 
   const handleBuyCancel = () => {
-    console.log('item deleted')
-  }
+    console.log('item deleted');
+  };
 
   return (
     <StyledProductCard>
