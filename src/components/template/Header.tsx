@@ -13,6 +13,7 @@ import { setModal } from '@/store/modalSlice';
 import { MESSAGES } from '@/constants/messages';
 import { useCookies } from 'react-cookie';
 import AvatarIcon from './AvatarIcon';
+import Image from '@/components/common/Image';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -64,7 +65,16 @@ const Header = () => {
       <>
         <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
         <div className="buttons">
-          {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />}
+          {/* {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />} */}
+          {userName && (
+            <Image
+              src={`https://icotar.com/avatar/${userName}`}
+              width="20px"
+              height="20px"
+              borderRadius="50px"
+              alt={cookies.userName}
+            />
+          )}
           <Button
             width="fit-content"
             height="fit-content"
@@ -112,6 +122,14 @@ const StyledHeader = styled.header`
     button {
       padding: 0;
       font-size: 16px;
+    }
+
+    img {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: auto;
     }
   }
 `;
