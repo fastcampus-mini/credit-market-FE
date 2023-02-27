@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import styled from '@emotion/styled';
 import React from 'react';
-import { genConfig } from 'react-nice-avatar';
-const Avatar = require('react-nice-avatar').default;
+import Avatar, { genConfig } from 'react-nice-avatar';
 
 interface Prop {
   width?: string;
