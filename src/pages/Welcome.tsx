@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { ROUTES } from '@/constants/routes';
 import Button from '@/components/common/Button';
 import COLORS from '@/styles/colors';
+import { getCookie } from '@/utils/cookie';
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Welcome = () => {
     navigate(ROUTES.HOME, { state: ROUTES.WELCOME });
   };
 
-  const username = 'USER';
+  const username = getCookie('userName');
 
   return (
     <WelcomeContainer>
