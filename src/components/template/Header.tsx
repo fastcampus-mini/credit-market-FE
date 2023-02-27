@@ -18,6 +18,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
+  const { userName, accessToken } = cookies;
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
@@ -63,32 +64,16 @@ const Header = () => {
       <>
         <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
         <div className="buttons">
-          {cookies.userName && (
-            // <Image
-            //   src={`https://icotar.com/avatar/${cookies.userName}`}
-            //   width="20px"
-            //   height="20px"
-            //   borderRadius="50px"
-            //   alt={cookies.userName}
-            // />
-            <AvatarIcon
-              userName={cookies.userName}
-              width="30px"
-              height="30px"
-              top="50%"
-              right="0"
-              transform="translateY(-50%)"
-            />
-          )}
+          {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />}
           <Button
             width="fit-content"
             height="fit-content"
-            onClick={cookies.userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
+            onClick={userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
             buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
           >
-            {!cookies.userName ? <FiLogIn title="LOGIN" /> : <FiLogOut title="LOGOUT" />}
+            {!userName ? <FiLogIn title="LOGIN" /> : <FiLogOut title="LOGOUT" />}
           </Button>
-          {!cookies.userName && (
+          {!userName && (
             <Button
               width="fit-content"
               height="fit-content"
