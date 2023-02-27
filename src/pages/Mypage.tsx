@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Image from '@/components/common/Image';
 import COLORS from '@/styles/colors';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
@@ -16,10 +15,15 @@ import { checkPassword } from '@/apis/auth';
 import { getUserInfo } from '@/apis/auth';
 import { getCookie } from '@/utils/cookie';
 import { css } from '@emotion/react';
+import AvatarIcon from '@/components/template/AvatarIcon';
+import { useCookies } from 'react-cookie';
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies();
+  const { userName, accessToken } = cookies;
+
   const modalCancel = () => {
     dispatch(setModal({ isOpen: false }));
   };
@@ -67,7 +71,6 @@ const Mypage = () => {
       dispatch(hideLoading());
     }
   };
-  const userName = getCookie('userName');
 
   return (
     <MypageContainer>
@@ -79,13 +82,7 @@ const Mypage = () => {
       </BackgroundWrap>
       <MypageWrap>
         <ProfileContainer>
-          <Image
-            src={`https://icotar.com/avatar/${userName}`}
-            width="130px"
-            height="130px"
-            borderRadius="80px"
-            alt="cat"
-          />
+          <AvatarIcon width="130px" height="130px" accessToken={accessToken} />
           <UserNickname>{userName}</UserNickname>
         </ProfileContainer>
         <MypageMenu>

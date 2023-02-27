@@ -12,7 +12,7 @@ import { setSearch } from '@/store/searchSlice';
 import { axiosInstance } from '@/apis/instance';
 import { API_URLS } from '@/constants/apiUrls';
 import { RootState } from '@/store/store';
-import { ISearch, SelectedValuesType } from '@/interfaces/Search';
+import { ISearch, SelectedValuesType } from '@/interfaces/search';
 import Button from '@/components/common/Button';
 import { useRef, forwardRef, useImperativeHandle } from 'react';
 import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';

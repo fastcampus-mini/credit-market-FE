@@ -12,12 +12,13 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { setModal } from '@/store/modalSlice';
 import { MESSAGES } from '@/constants/messages';
 import { useCookies } from 'react-cookie';
-import Image from '@/components/common/Image';
+import AvatarIcon from './AvatarIcon';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
+  const { userName, accessToken } = cookies;
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
@@ -63,24 +64,16 @@ const Header = () => {
       <>
         <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
         <div className="buttons">
-          {cookies.userName && (
-            <Image
-              src={`https://icotar.com/avatar/${cookies.userName}`}
-              width="20px"
-              height="20px"
-              borderRadius="50px"
-              alt={cookies.userName}
-            />
-          )}
+          {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />}
           <Button
             width="fit-content"
             height="fit-content"
-            onClick={cookies.userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
+            onClick={userName ? handleLogout : () => navigate(ROUTES.LOGIN)}
             buttonType={isCurPath(ROUTES.HOME) ? 'transparent' : 'text'}
           >
-            {!cookies.userName ? <FiLogIn title="LOGIN" /> : <FiLogOut title="LOGOUT" />}
+            {!userName ? <FiLogIn title="LOGIN" /> : <FiLogOut title="LOGOUT" />}
           </Button>
-          {!cookies.userName && (
+          {!userName && (
             <Button
               width="fit-content"
               height="fit-content"
@@ -99,7 +92,7 @@ const Header = () => {
 export default Header;
 
 const StyledHeader = styled.header`
-  padding: 30px 10px 0;
+  padding: 19px 10px 0;
   position: relative;
   z-index: 10;
   display: flex;
@@ -114,18 +107,11 @@ const StyledHeader = styled.header`
     display: flex;
     gap: 15px;
     position: relative;
+    align-items: center;
 
     button {
       padding: 0;
       font-size: 16px;
-    }
-
-    img {
-      position: absolute;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: auto;
     }
   }
 `;
