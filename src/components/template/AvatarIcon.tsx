@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import styled from '@emotion/styled';
 import React from 'react';
-import Avatar, { genConfig } from 'react-nice-avatar';
+import { genConfig } from 'react-nice-avatar';
+const Avatar = require('react-nice-avatar').default;
 
 interface Prop {
   width?: string;
@@ -11,7 +13,7 @@ interface Prop {
 const AvatarIcon = ({ width = '50px', height = '50px', accessToken = '' }: Prop) => {
   const config = genConfig(accessToken);
 
-  const GoodAvatar = Avatar;
+  const GoodAvatar = Avatar.default ? Avatar.default : Avatar;
 
   return (
     <StyledAvater width={width} height={height}>
