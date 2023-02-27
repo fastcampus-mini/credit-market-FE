@@ -5,7 +5,7 @@ import Avatar, { genConfig } from 'react-nice-avatar';
 interface Prop {
   width?: string;
   height?: string;
-  accessToken?: string;
+  accessToken: string;
 }
 
 const AvatarIcon = ({ width = '50px', height = '50px', accessToken = '' }: Prop) => {
