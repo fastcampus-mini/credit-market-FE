@@ -12,7 +12,7 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { setModal } from '@/store/modalSlice';
 import { MESSAGES } from '@/constants/messages';
 import { useCookies } from 'react-cookie';
-import Image from '@/components/common/Image';
+import AvatarIcon from './AvatarIcon';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -64,12 +64,20 @@ const Header = () => {
         <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
         <div className="buttons">
           {cookies.userName && (
-            <Image
-              src={`https://icotar.com/avatar/${cookies.userName}`}
-              width="20px"
-              height="20px"
-              borderRadius="50px"
-              alt={cookies.userName}
+            // <Image
+            //   src={`https://icotar.com/avatar/${cookies.userName}`}
+            //   width="20px"
+            //   height="20px"
+            //   borderRadius="50px"
+            //   alt={cookies.userName}
+            // />
+            <AvatarIcon
+              userName={cookies.userName}
+              width="30px"
+              height="30px"
+              top="50%"
+              right="0"
+              transform="translateY(-50%)"
             />
           )}
           <Button
@@ -99,7 +107,7 @@ const Header = () => {
 export default Header;
 
 const StyledHeader = styled.header`
-  padding: 30px 10px 0;
+  padding: 19px 10px 0;
   position: relative;
   z-index: 10;
   display: flex;
@@ -114,18 +122,11 @@ const StyledHeader = styled.header`
     display: flex;
     gap: 15px;
     position: relative;
+    align-items: center;
 
     button {
       padding: 0;
       font-size: 16px;
-    }
-
-    img {
-      position: absolute;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: auto;
     }
   }
 `;
