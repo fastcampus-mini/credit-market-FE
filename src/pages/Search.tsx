@@ -107,8 +107,15 @@ const Search = () => {
     console.log(selectedValues);
   }, [selectedValues]);
 
-  const intializeHandler = async () => {
+  const initializeHandler = async () => {
+    setSearchQuery('');
     setSearchForm({});
+    setSelectedValues({
+      loan: '',
+      age: '',
+      interest: '',
+      sex: '',
+    });
     try {
       dispatch(showLoading());
       if (userName) {
@@ -167,7 +174,7 @@ const Search = () => {
             <Button
               height="auto"
               onClick={() => {
-                intializeHandler();
+                initializeHandler();
               }}
             >
               초기화
