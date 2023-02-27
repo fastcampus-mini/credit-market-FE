@@ -8,7 +8,7 @@ import { MESSAGES } from '@/constants/messages';
 import ProductCard from '@/components/Product/ProductCard';
 import { IProduct } from '@/interfaces/product';
 import { getCookie } from '@/utils/cookie';
-import { setSearch } from '@/store/SearchSlice';
+import { setSearch } from '@/store/searchSlice';
 import { axiosInstance } from '@/apis/instance';
 import { API_URLS } from '@/constants/apiUrls';
 import { RootState } from '@/store/store';
@@ -29,7 +29,7 @@ const Search = () => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      buttonRef.current?.click(); // Trigger click event on button element
+      buttonRef.current?.click();
     }
   };
 

@@ -1,7 +1,5 @@
-export interface ICart {
+import { IProduct } from '@/interfaces/product';
+
+export interface ICart extends IProduct {
   cartId: string;
-  productId: string;
-  productName: string;
-  companyName: string;
-  favorite: boolean;
 }

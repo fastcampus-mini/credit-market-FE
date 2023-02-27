@@ -1,4 +1,3 @@
-import { IModal } from './../interfaces/modal';
 import { createSlice } from '@reduxjs/toolkit';
 
 const modal = createSlice({

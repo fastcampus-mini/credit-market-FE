@@ -19,9 +19,7 @@ export const PrivateRoute = ({ children }: Props) => {
       setModal({
         isOpen: true,
         onClickOk: () => {
-          // dispatch(setModal({ isOpen: false }));
           dispatch(setModal({ route: navigate(ROUTES.LOGIN) }));
-          // navigate(-1);
         },
         text: MESSAGES.INVALID_AUTH,
       }),
