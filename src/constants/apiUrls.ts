@@ -1,4 +1,4 @@
-import { ISearch } from '@/interfaces/Search';
+import { ISearch } from '@/interfaces/search';
 
 export const API_URLS = {
   SIGNUP: '/usersignup',
