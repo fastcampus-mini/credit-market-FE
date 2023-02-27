@@ -15,14 +15,14 @@ const AvatarIcon = ({ width = '50px', height = '50px', accessToken = '' }: Prop)
 
   return (
     <StyledAvater width={width} height={height}>
-      {/* <GoodAvatar
+      <Avatar
         style={{
           width: '100%',
           height: '100%',
           position: 'absolute',
         }}
         {...config}
-      /> */}
+      />
     </StyledAvater>
   );
 };
