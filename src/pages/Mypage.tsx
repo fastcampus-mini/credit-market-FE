@@ -18,6 +18,7 @@ import { css } from '@emotion/react';
 import AvatarIcon from '@/components/template/AvatarIcon';
 import { useCookies } from 'react-cookie';
 import Image from '@/components/common/Image';
+import Avatar from 'react-avatar';
 
 const Mypage = () => {
   const dispatch = useDispatch();
@@ -84,13 +85,14 @@ const Mypage = () => {
       <MypageWrap>
         <ProfileContainer>
           {/* <AvatarIcon width="130px" height="130px" accessToken={accessToken} /> */}
-          <Image
+          {/* <Image
             src={`https://icotar.com/avatar/${userName}`}
             width="130px"
             height="130px"
             borderRadius="80px"
             alt="cat"
-          />
+          /> */}
+          <Avatar name={userName} size="130" round={true} />
           <UserNickname>{userName}</UserNickname>
         </ProfileContainer>
         <MypageMenu>

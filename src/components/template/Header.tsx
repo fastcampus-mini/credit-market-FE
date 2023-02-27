@@ -14,6 +14,7 @@ import { MESSAGES } from '@/constants/messages';
 import { useCookies } from 'react-cookie';
 import AvatarIcon from './AvatarIcon';
 import Image from '@/components/common/Image';
+import Avatar from 'react-avatar';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const Header = () => {
         <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
         <div className="buttons">
           {/* {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />} */}
-          {userName && (
+          {/* {userName && (
             <Image
               src={`https://icotar.com/avatar/${userName}`}
               width="20px"
@@ -74,7 +75,8 @@ const Header = () => {
               borderRadius="50px"
               alt={cookies.userName}
             />
-          )}
+          )} */}
+          {userName && <Avatar name={userName} size="20" round={true} />}
           <Button
             width="fit-content"
             height="fit-content"
