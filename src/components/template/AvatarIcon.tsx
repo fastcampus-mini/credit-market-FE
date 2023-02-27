@@ -10,11 +10,12 @@ interface Prop {
 
 const AvatarIcon = ({ width = '50px', height = '50px', accessToken = '' }: Prop) => {
   const config = genConfig(accessToken);
-  const Abc = Avatar.default ? Avatar.default : Avatar;
+
+  const GoodAvatar = Avatar;
 
   return (
     <StyledAvater width={width} height={height}>
-      <Abc
+      <GoodAvatar
         style={{
           width: '100%',
           height: '100%',
