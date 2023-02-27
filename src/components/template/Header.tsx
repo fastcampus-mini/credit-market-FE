@@ -66,7 +66,7 @@ const Header = () => {
       <>
         <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
         <div className="buttons">
-          {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />}
+          {/* {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />} */}
           {/* {userName && (
             <Image
               src={`https://icotar.com/avatar/${userName}`}
@@ -76,7 +76,7 @@ const Header = () => {
               alt={cookies.userName}
             />
           )} */}
-          {/* {userName && <Avatar name={userName} size="30" round={true} />} */}
+          {userName && <Avatar name={userName} size="30" round={true} />}
           <Button
             width="fit-content"
             height="fit-content"
