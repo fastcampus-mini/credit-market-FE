@@ -84,7 +84,7 @@ const Mypage = () => {
       </BackgroundWrap>
       <MypageWrap>
         <ProfileContainer>
-          {/* <AvatarIcon width="130px" height="130px" accessToken={accessToken} /> */}
+          <AvatarIcon width="130px" height="130px" accessToken={accessToken} />
           {/* <Image
             src={`https://icotar.com/avatar/${userName}`}
             width="130px"
@@ -92,7 +92,7 @@ const Mypage = () => {
             borderRadius="80px"
             alt="cat"
           /> */}
-          <Avatar name={userName} size="130" round={true} />
+          {/* <Avatar name={userName} size="130" round={true} /> */}
           <UserNickname>{userName}</UserNickname>
         </ProfileContainer>
         <MypageMenu>
