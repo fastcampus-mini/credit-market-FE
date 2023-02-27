@@ -1,7 +1,7 @@
 import { IProduct } from '@/interfaces/product';
 import { axiosInstance } from './instance';
 import { API_URLS } from '../constants/apiUrls';
-import { ISearch } from '@/interfaces/Search';
+import { ISearch } from '@/interfaces/search';
 
 export const getRecommentList = async () => {
   const data: IProduct[] = await axiosInstance.get(API_URLS.RECOMMEND);
