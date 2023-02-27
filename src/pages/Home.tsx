@@ -37,8 +37,8 @@ const Home = () => {
 
   return (
     <StyledHome>
-      <Lottie animationData={WelcomeLottie} loop={false} className="welcome" />
       <div className="bannerBg">
+        <Lottie animationData={WelcomeLottie} loop={false} className="welcome" />
         <Lottie animationData={BackgroundLottie} loop={true} className="background" />
       </div>
       <p className="welcomeText">
@@ -74,8 +74,8 @@ const StyledHome = styled.div`
   .welcome {
     width: 157px;
     position: absolute;
-    top: -30px;
-    left: 0;
+    top: -110px;
+    left: 0px;
   }
 
   p.welcomeText {
