@@ -14,7 +14,6 @@ import { MESSAGES } from '@/constants/messages';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { checkPassword } from '@/apis/auth';
 import { getUserInfo } from '@/apis/auth';
-import { IUser } from '@/interfaces/user';
 import { getCookie } from '@/utils/cookie';
 import { css } from '@emotion/react';
 

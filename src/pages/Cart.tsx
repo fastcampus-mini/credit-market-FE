@@ -164,7 +164,6 @@ const Cart = () => {
               handleCheck={handleCheck}
               checkId={checkId}
               setCheckId={setCheckId}
-              // setCart={setCart}
             />
           ))
         ) : (

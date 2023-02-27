@@ -87,7 +87,6 @@ const StyledNavbar = styled.nav`
     background-color: ${COLORS.white};
     position: absolute;
     bottom: 0;
-    // z-index: 9;
   }
 
   #bubbleWrapper {

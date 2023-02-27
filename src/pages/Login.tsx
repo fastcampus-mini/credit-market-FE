@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import styled from '@emotion/styled';
@@ -6,7 +5,6 @@ import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
-import { css } from '@emotion/react';
 import BackButton from '@/components/common/BackButton';
 import { ROUTES } from '@/constants/routes';
 import { useDispatch } from 'react-redux';
@@ -14,7 +12,6 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { login } from '@/apis/auth';
 import { setModal } from '@/store/modalSlice';
 import { MESSAGES } from '@/constants/messages';
-import { setCookie } from '@/utils/cookie';
 import { ILogin } from '@/interfaces/user';
 import { FaSmile } from 'react-icons/fa';
 import { useCookies } from 'react-cookie';
@@ -32,8 +29,6 @@ const Login = () => {
   } = useForm<ILogin>();
 
   const onSubmit = async (data: any) => {
-    // alert(JSON.stringify(data));
-
     try {
       dispatch(showLoading());
       const response = await login({
@@ -147,18 +142,6 @@ const Login = () => {
             LOGIN
           </Button>
         </SigninFormStyle>
-        {/* <LoginBackground>
-          <svg
-            width="231"
-            height="18"
-            viewBox="0 0 231 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="116" cy="9" r="9" fill="#B7C6E0" />
-            <rect y="8" width="231" height="1" fill="#B7C6E0" />
-          </svg>
-        </LoginBackground> */}
         <SignupBtnArea>
           <p>Don't have an account?</p>
           <Button
@@ -180,7 +163,6 @@ const Login = () => {
 export default Login;
 
 export const SignForm = styled.div`
-  // background-color: ${COLORS.textInput};
   background-color: ${COLORS.primary};
   height: calc(100% + 110px);
   position: relative;
@@ -329,14 +311,6 @@ const SignupBtnArea = styled.div`
 export const LogoStyle = styled.img({
   width: '100%',
 });
-
-// const LoginBackground = styled.div`
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin: 30px 0;
-// `;
 
 export const ErrStyle = styled.p`
   color: red;

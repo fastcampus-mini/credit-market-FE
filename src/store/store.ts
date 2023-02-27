@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import cart from './cartSlice';
 import loading from './loadingSlice';
 import modal from './modalSlice';
-import search from './SearchSlice';
+import search from './searchSlice';
 import reduxProducts from './reduxProducts';
 import favor from './favorSlice';
 import myBuy from './myBuySlice';

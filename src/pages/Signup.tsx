@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate } from 'react-router';
 import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
@@ -46,7 +46,6 @@ const Signup = () => {
     interest: '',
   };
 
-  // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
 
@@ -73,8 +72,6 @@ const Signup = () => {
   };
 
   const modalSubmitHandler = async (event: any) => {
-    // await new Promise((r) => setTimeout(r, 1000));
-    // alert(JSON.stringify(FormData));
     try {
       dispatch(showLoading());
       const response = await signup({
@@ -424,7 +421,6 @@ Modal.setAppElement('#root');
 export default Signup;
 
 export const SignForm = styled.div`
-  // background-color: ${COLORS.textInput};
   background-color: ${COLORS.primary};
   height: calc(100% + 110px);
   position: relative;

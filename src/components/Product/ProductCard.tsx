@@ -1,4 +1,3 @@
-import { getBuyList } from '@/apis/buy';
 import { ROUTES } from '@/constants/routes';
 import { IProduct } from '@/interfaces/product';
 import COLORS from '@/styles/colors';

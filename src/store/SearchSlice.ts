@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ISearch } from '@/interfaces/Search';
 
 const search = createSlice({
   name: 'search',

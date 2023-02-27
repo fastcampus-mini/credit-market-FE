@@ -1,7 +1,6 @@
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { css } from '@emotion/react';
-import COLORS from '@/styles/colors';
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

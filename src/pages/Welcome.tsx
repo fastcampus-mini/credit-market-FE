@@ -13,7 +13,7 @@ const Welcome = () => {
     navigate(ROUTES.HOME, { state: ROUTES.WELCOME });
   };
 
-  const username = 'USER'; // axios를 통해 데이터 받아오기
+  const username = 'USER';
 
   return (
     <WelcomeContainer>
@@ -77,5 +77,5 @@ const H1PrimaryStyle = styled.h1`
 
 const ImgStyle = css`
   width: 100%;
-  marginLeft: ;20px;
+  margin-left: 20px;
 `;

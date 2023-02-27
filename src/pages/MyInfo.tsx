@@ -2,7 +2,7 @@ import BackButton from '@/components/common/BackButton';
 import PageTitle from '@/components/common/PageTitle';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
@@ -42,7 +42,6 @@ const MyInfo = () => {
     credit: '',
     interest: '',
   });
-  // 비밀번호와 비밀번호 확인이 일치하는지 검증하기 위해 "password" input 의 value 를 추적함
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
 

@@ -12,7 +12,6 @@ import Login from '@/pages/Login';
 import Signup from '@/pages/Signup';
 import Welcome from '@/pages/Welcome';
 import Search from '@/pages/Search';
-import App from '@/App';
 import PrivateRoute from './PrivateRoute';
 import MyInfo from '@/pages/MyInfo';
 import MyFavor from '@/pages/MyFavor';
@@ -88,5 +87,4 @@ const Layout = styled.div`
   position: relative;
   z-index: 1;
   height: calc(100% - 110px);
-  // padding: 0 10px;
 `;
