@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-// import Avatar, { genConfig } from 'react-nice-avatar';
+import Avatar, { genConfig } from 'react-nice-avatar';
 
 interface Prop {
   width?: string;
