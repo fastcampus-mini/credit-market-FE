@@ -17,6 +17,7 @@ import { getCookie } from '@/utils/cookie';
 import { css } from '@emotion/react';
 import AvatarIcon from '@/components/template/AvatarIcon';
 import { useCookies } from 'react-cookie';
+import Image from '@/components/common/Image';
 
 const Mypage = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,14 @@ const Mypage = () => {
       </BackgroundWrap>
       <MypageWrap>
         <ProfileContainer>
-          <AvatarIcon width="130px" height="130px" accessToken={accessToken} />
+          {/* <AvatarIcon width="130px" height="130px" accessToken={accessToken} /> */}
+          <Image
+            src={`https://icotar.com/avatar/${userName}`}
+            width="130px"
+            height="130px"
+            borderRadius="80px"
+            alt="cat"
+          />
           <UserNickname>{userName}</UserNickname>
         </ProfileContainer>
         <MypageMenu>
