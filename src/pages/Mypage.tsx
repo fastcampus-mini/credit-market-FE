@@ -16,10 +16,14 @@ import { getUserInfo } from '@/apis/auth';
 import { getCookie } from '@/utils/cookie';
 import { css } from '@emotion/react';
 import AvatarIcon from '@/components/template/AvatarIcon';
+import { useCookies } from 'react-cookie';
 
 const Mypage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies();
+  const { userName, accessToken } = cookies;
+
   const modalCancel = () => {
     dispatch(setModal({ isOpen: false }));
   };
@@ -67,7 +71,6 @@ const Mypage = () => {
       dispatch(hideLoading());
     }
   };
-  const userName = getCookie('userName');
 
   return (
     <MypageContainer>
@@ -79,7 +82,7 @@ const Mypage = () => {
       </BackgroundWrap>
       <MypageWrap>
         <ProfileContainer>
-          <AvatarIcon width="130px" height="130px" userName={userName} />
+          <AvatarIcon width="130px" height="130px" accessToken={accessToken} />
           <UserNickname>{userName}</UserNickname>
         </ProfileContainer>
         <MypageMenu>
