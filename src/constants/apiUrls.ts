@@ -15,7 +15,7 @@ export const API_URLS = {
   BUY_LIST: (page: number) => `/buy/${page}`,
   FAVOR_LIST: (page: number) => `/favor/${page}`,
   SEARCH: (data: ISearch) =>
-    `/search/results?keyword=${data.keyword}&loan=${data.loan}&age=${data.age}&gender=${data.gender}&interest=${data.interest}`,
+    `/search/results?keyword=${data.keyword}&loan=${data.loan}&age=${data.age}&gender=${data.gender}&interest=${data.interest}&page=${data.page}`,
   RANDOM_SEARCH: `/search/results`,
   USERINFO: '/userinfo',
   USERINFOUPDATE: '/userinfoupdate',

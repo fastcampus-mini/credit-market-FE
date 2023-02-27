@@ -17,6 +17,8 @@ import Button from '@/components/common/Button';
 import { useRef, forwardRef, useImperativeHandle } from 'react';
 import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
 import { useCookies } from 'react-cookie';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { Global, css } from '@emotion/react';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -61,25 +63,24 @@ const Search = () => {
     getProducts();
   }, [cookies]);
 
-  useEffect(() => {
-    async function getProducts() {
-      console.log('폼 데이터 변화');
+  // 검색 결과 리스트
+  const getProducts = async () => {
+    try {
+      dispatch(showLoading());
+      const data = { ...searchForm, keyword: searchQuery, page: page };
+      const response: IProduct[] = await getSearchList(data);
       try {
-        dispatch(showLoading());
-        const data = { ...searchForm, keyword: searchQuery };
-        console.log(searchForm);
-        const response: IProduct[] = await getSearchList(data);
-        console.log(response);
-        try {
-          setProducts(response);
-        } catch (err) {
-          console.log(err);
-        }
-      } catch (error: any) {
-      } finally {
-        dispatch(hideLoading());
+        setProducts(response);
+      } catch (err) {
+        console.log(err);
       }
+    } catch (error: any) {
+    } finally {
+      dispatch(hideLoading());
     }
+  };
+
+  useEffect(() => {
     getProducts();
   }, [searchForm]);
 
@@ -104,7 +105,6 @@ const Search = () => {
       interest: selectedValues.interest,
     };
     setSearchForm({ ...searchForm, loan, age, gender, interest });
-    console.log(selectedValues);
   }, [selectedValues]);
 
   const initializeHandler = async () => {
@@ -125,6 +125,24 @@ const Search = () => {
       }
     } catch (error) {
       alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+
+  //infinite scroll
+  const [page, setPage] = useState(1);
+  const fetchData = () => {
+    setPage(page + 1);
+    try {
+      dispatch(showLoading());
+      setTimeout(async () => {
+        const data = { ...searchForm, keyword: searchQuery, page: page + 1 };
+        const response = await getSearchList(data);
+        const newData: IProduct[] = response;
+        setProducts([...products, ...newData]);
+      }, 1500);
+    } catch (error: any) {
     } finally {
       dispatch(hideLoading());
     }
@@ -182,9 +200,25 @@ const Search = () => {
           </div>
         </div>
       </div>
-      <ul className="productsArea">
-        {products.length > 0 &&
-          products.map((product) => <ProductCard key={product.productId} data={product} />)}
+
+      <ul className="productsArea" id="scrollable">
+        <InfiniteScroll
+          dataLength={products.length}
+          next={fetchData}
+          hasMore={true}
+          loader={''}
+          scrollableTarget="scrollable"
+        >
+          <Global
+            styles={css`
+              .infinite-scroll-component::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera*/
+              }
+            `}
+          />
+          {products.length > 0 &&
+            products.map((product) => <ProductCard key={product.productId} data={product} />)}
+        </InfiniteScroll>
       </ul>
     </StyledSearch>
   );
