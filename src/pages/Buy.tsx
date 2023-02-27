@@ -16,6 +16,7 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { createBuy } from '@/apis/buy';
 import { ICart } from '@/interfaces/cart';
 import { deleteCart } from '@/apis/cart';
+import { checkPassword, getUserInfo } from '@/apis/auth';
 
 const Buy = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Buy = () => {
       return dispatch(
         setModal({
           isOpen: true,
-          onClickOk: handleCheckPassword,
+          onClickOk: handlePasswordModal,
           onClickCancel: () => dispatch(setModal({ isOpen: false })),
           text: MESSAGES.BUY.CHECK_BUY,
         }),
@@ -66,13 +67,13 @@ const Buy = () => {
     }
   };
 
-  const handleCheckPassword = () => {
+  const handlePasswordModal = () => {
     dispatch(
       setModal({
         isOpen: true,
         isPassword: true,
         text: MESSAGES.MYPAGE.INFO.CHECK_MODAL,
-        onClickOk: handleBuy,
+        onClickOk: handleCheckPassword,
         onClickCancel: () => dispatch(setModal({ isOpen: false })),
       }),
     );
@@ -101,6 +102,38 @@ const Buy = () => {
           text: MESSAGES.BUY.ERROR_BUY,
         }),
       );
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+
+  const handleCheckPassword = async (data: any) => {
+    try {
+      dispatch(showLoading());
+      const userInfo: any = await getUserInfo();
+      await checkPassword({
+        userEmail: userInfo.userEmail,
+        userPassword: data.password,
+      });
+      handleBuy();
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.MYPAGE.INFO.CHECK_FAIL,
+          }),
+        );
+      } else {
+        dispatch(
+          setModal({
+            isOpen: true,
+            onClickOk: () => dispatch(setModal({ isOpen: false })),
+            text: MESSAGES.MYPAGE.INFO.ERROR,
+          }),
+        );
+      }
     } finally {
       dispatch(hideLoading());
     }
