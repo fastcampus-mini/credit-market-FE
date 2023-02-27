@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { ROUTES } from '@/constants/routes';
 import Button from '@/components/common/Button';
 import COLORS from '@/styles/colors';
+import { getCookie } from '@/utils/cookie';
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -13,12 +14,12 @@ const Welcome = () => {
     navigate(ROUTES.HOME, { state: ROUTES.WELCOME });
   };
 
-  const username = 'USER';
+  const username = getCookie('userName');
 
   return (
     <WelcomeContainer>
       <WelcomeStyle>
-        <img css={ImgStyle} src="../public/images/welcome.png" alt="welcomeImage" />
+        <img css={ImgStyle} src="/images/welcome.png" alt="welcomeImage" />
         <TextStyle>
           <H1PrimaryStyle>{username}님!</H1PrimaryStyle>
           <h1>Credit Market에</h1>
