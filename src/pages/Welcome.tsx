@@ -19,7 +19,7 @@ const Welcome = () => {
   return (
     <WelcomeContainer>
       <WelcomeStyle>
-        <img css={ImgStyle} src="../public/images/welcome.png" alt="welcomeImage" />
+        <img css={ImgStyle} src="/images/welcome.png" alt="welcomeImage" />
         <TextStyle>
           <H1PrimaryStyle>{username}님!</H1PrimaryStyle>
           <h1>Credit Market에</h1>
