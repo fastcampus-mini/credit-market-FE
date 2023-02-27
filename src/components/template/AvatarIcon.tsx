@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-// import Avatar, { genConfig } from 'react-nice-avatar';
+import Avatar, { genConfig } from 'react-nice-avatar';
 
 interface Prop {
   width?: string;
@@ -9,17 +9,18 @@ interface Prop {
 }
 
 const AvatarIcon = ({ width = '50px', height = '50px', accessToken = '' }: Prop) => {
-  // const config = genConfig(accessToken);
+  const config = genConfig(accessToken);
 
   return (
     <StyledAvater width={width} height={height}>
-      {/* <Avatar
+      <Avatar
         style={{
           width: '100%',
           height: '100%',
           position: 'absolute',
         }}
-        {...config} */}
+        {...config}
+      />
     </StyledAvater>
   );
 };
