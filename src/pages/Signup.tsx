@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
@@ -21,6 +21,7 @@ import { login, signup } from '@/apis/auth';
 import { AxiosError } from 'axios';
 
 const Signup = () => {
+  const location1 = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -101,8 +102,8 @@ const Signup = () => {
         userEmail: FormData.email,
         userPassword: FormData.password,
       });
-      setCookie('userName', '방문자');
-      setCookie('accessToken', loginResponse);
+      setCookie('userName', '알뜰이', { maxAge: 3600 });
+      setCookie('accessToken', loginResponse.token, { maxAge: 3600 });
       dispatch(
         setModal({
           isOpen: true,
@@ -167,7 +168,7 @@ const Signup = () => {
   };
 
   const goBack = () => {
-    navigate(-2);
+    navigate(location1.state?.from || '/', { replace: true });
     dispatch(
       setModal({
         isOpen: false,

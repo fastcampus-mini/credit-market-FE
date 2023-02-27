@@ -5,7 +5,7 @@ export interface ISearch {
   gender?: string;
   interest?: string;
   avg?: string;
-  page?: string;
+  page?: number;
 }
 
 export interface SelectedValuesType {
