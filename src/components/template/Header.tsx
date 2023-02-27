@@ -14,15 +14,13 @@ import { MESSAGES } from '@/constants/messages';
 import { useCookies } from 'react-cookie';
 import AvatarIcon from './AvatarIcon';
 import Image from '@/components/common/Image';
-// import Avatar from 'react-avatar';
-import Avatar, { genConfig } from 'react-nice-avatar';
+import Avatar from 'react-avatar';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
   const { userName, accessToken } = cookies;
-  const config = genConfig(accessToken);
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
@@ -68,7 +66,7 @@ const Header = () => {
       <>
         <Link to="/">{isCurPath(ROUTES.HOME) ? logoImage('white') : logoImage('Main')}</Link>
         <div className="buttons">
-          {userName && <Avatar style={{ width: '30px', height: '30px' }} {...config} />}
+          {/* {userName && <AvatarIcon accessToken={accessToken} width="30px" height="30px" />} */}
           {/* {userName && (
             <Image
               src={`https://icotar.com/avatar/${userName}`}
@@ -78,7 +76,7 @@ const Header = () => {
               alt={cookies.userName}
             />
           )} */}
-          {/* {userName && <Avatar name={userName} size="20" round={true} />} */}
+          {userName && <Avatar name={userName} size="20" round={true} />}
           <Button
             width="fit-content"
             height="fit-content"
