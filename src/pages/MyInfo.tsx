@@ -33,6 +33,7 @@ const MyInfo = () => {
     email: '',
     password: '',
     passwordConfirm: '',
+    name: '',
     job: '',
     birthYear: '',
     birthMonth: '',
@@ -73,6 +74,7 @@ const MyInfo = () => {
       const response = await userInfoUpdate({
         userEmail: FormData.email,
         userPassword: FormData.password,
+        userName: FormData.name,
         userGender: FormData.sex,
         userBirthDate: FormData.birthYear + FormData.birthMonth + FormData.birthDay,
         userJob: FormData.job,
@@ -199,6 +201,26 @@ const MyInfo = () => {
             {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
               <ErrStyle role="alert">비밀번호가 일치하지 않습니다.</ErrStyle>
             )}
+          </InputBox>
+
+          <InputBox className={errors.name ? 'active' : dirtyFields.name ? 'active' : ''}>
+            <Input
+              id="SignupName"
+              label="이름"
+              inputType="text"
+              classType="text-input-white"
+              aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
+              register={{
+                ...register('name', {
+                  required: '이름을 입력해주세요.',
+                  pattern: {
+                    value: /^[가-힣]{2,4}$/,
+                    message: '이름을 한글로 올바르게 작성해주세요.',
+                  },
+                }),
+              }}
+            />
+            {errors.name && <ErrStyle role="alert">{errors.name?.message}</ErrStyle>}
           </InputBox>
 
           <InputBox className={errors.job ? 'active' : dirtyFields.job ? 'active' : ''}>

@@ -35,7 +35,7 @@ const Login = () => {
         userEmail: data.email,
         userPassword: data.password,
       });
-      setCookie('userName', '김민지', { maxAge: 3600 });
+      setCookie('userName', response.userName, { maxAge: 3600 });
       setCookie('accessToken', response.token, { maxAge: 3600 });
       dispatch(
         setModal({

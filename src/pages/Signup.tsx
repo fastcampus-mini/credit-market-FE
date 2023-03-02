@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import React, { useRef, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -36,7 +35,7 @@ const Signup = () => {
     email: '',
     password: '',
     passwordConfirm: '',
-    // name: '',
+    name: '',
     job: '',
     birthYear: '',
     birthMonth: '',
@@ -78,6 +77,7 @@ const Signup = () => {
       const response = await signup({
         userEmail: FormData.email,
         userPassword: FormData.password,
+        userName: FormData.name,
         userGender: FormData.sex,
         userBirthDate: FormData.birthYear + FormData.birthMonth + FormData.birthDay,
         userJob: FormData.job,
@@ -102,7 +102,7 @@ const Signup = () => {
         userEmail: FormData.email,
         userPassword: FormData.password,
       });
-      setCookie('userName', '알뜰이', { maxAge: 3600 });
+      setCookie('userName', loginResponse.userName, { maxAge: 3600 });
       setCookie('accessToken', loginResponse.token, { maxAge: 3600 });
       dispatch(
         setModal({
@@ -259,6 +259,26 @@ const Signup = () => {
               {errors.passwordConfirm && errors.passwordConfirm.type === 'validate' && (
                 <ErrStyle role="alert">비밀번호가 일치하지 않습니다.</ErrStyle>
               )}
+            </InputBox>
+
+            <InputBox className={errors.name ? 'active' : dirtyFields.name ? 'active' : ''}>
+              <Input
+                id="SignupName"
+                label="이름"
+                inputType="text"
+                classType="text-input-white"
+                aria-invalid={!isDirty ? undefined : errors.name ? 'true' : 'false'}
+                register={{
+                  ...register('name', {
+                    required: '이름을 입력해주세요.',
+                    pattern: {
+                      value: /^[가-힣]{2,4}$/,
+                      message: '이름을 한글로 올바르게 작성해주세요.',
+                    },
+                  }),
+                }}
+              />
+              {errors.name && <ErrStyle role="alert">{errors.name?.message}</ErrStyle>}
             </InputBox>
 
             <InputBox className={errors.job ? 'active' : dirtyFields.job ? 'active' : ''}>
