@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { MdAlternateEmail, MdWork, MdOutlineCreditScore } from 'react-icons/md';
+import { SiNamecheap } from 'react-icons/si';
 
 interface Prop {
   inputType: string;
@@ -78,6 +79,7 @@ const Input = ({
       {classType === 'text-input-white' && <label htmlFor={id}>{label}</label>}
       {label === '이메일' && <MdAlternateEmail />}
       {label.includes('비밀번호') && <RiLockPasswordLine />}
+      {label === '이름' && <SiNamecheap />}
       {label === '직업' && <MdWork />}
       {label === '개인신용점수' && <MdOutlineCreditScore />}
     </StyledInputBox>

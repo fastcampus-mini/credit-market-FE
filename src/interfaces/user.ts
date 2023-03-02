@@ -2,7 +2,7 @@ export interface IUser {
   email: string;
   password: string;
   passwordConfirm?: string;
-  // name: string;
+  name: string;
   birthYear: string;
   birthMonth: string;
   birthDay: string;
