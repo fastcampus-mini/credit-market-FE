@@ -34,5 +34,6 @@ const MypageButtonStyle = css`
   cursor: pointer;
   position: relative;
   top: 3px;
-  left: 2px;
+  // left: 2px;
+  padding-left: 0;
 `;
