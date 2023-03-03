@@ -5,7 +5,7 @@ import BackButton from '@/components/common/BackButton';
 import PageTitle from '@/components/common/PageTitle';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
-import { IFavor } from '@/interfaces/favor';
+import { IFavor, IFavorList } from '@/interfaces/favor';
 import styled from '@emotion/styled';
 import { getFavorList } from '@/apis/favor';
 import ProductCard from '@/components/Product/ProductCard';
@@ -16,18 +16,22 @@ import FavorLottie from '@/lotties/FavorLottie.json';
 import { RootState } from '@/store/store';
 import { setFavorState } from '@/store/favorSlice';
 import { setModal } from '@/store/modalSlice';
+import PaginationBox from '@/components/common/PaginationBox';
 
 const MyFavor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const favorList: IFavor[] = useSelector((state: RootState) => state.favor);
+  const [page, setPage] = useState(1);
+  const [totCnt, setTotCnt] = useState(0);
 
   useEffect(() => {
     async function getMyFavor() {
       try {
         dispatch(showLoading());
-        const data = await getFavorList(1);
-        dispatch(setFavorState(data));
+        const data: IFavorList = await getFavorList(1);
+        dispatch(setFavorState(data.list));
+        setTotCnt(data.totalNum);
       } catch (error) {
         dispatch(
           setModal({
@@ -42,6 +46,25 @@ const MyFavor = () => {
     }
     getMyFavor();
   }, []);
+
+  const handlePageChange = async (page: number) => {
+    setPage(page);
+    try {
+      dispatch(showLoading());
+      const data: IFavorList = await getFavorList(page);
+      dispatch(setFavorState(data.list));
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.MYPAGE.FAV.ERROR_GET,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
 
   return (
     <MyFavorContainer>
@@ -70,6 +93,9 @@ const MyFavor = () => {
               상품 보러가기
             </Button>
           </NoProduct>
+        )}
+        {favorList.length > 0 && (
+          <PaginationBox page={page} totCnt={totCnt} handlePageChange={handlePageChange} />
         )}
       </MyFavorWrap>
     </MyFavorContainer>

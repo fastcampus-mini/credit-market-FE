@@ -1,9 +1,9 @@
 import { axiosInstance } from './instance';
 import { API_URLS } from '../constants/apiUrls';
-import { IFavor } from '@/interfaces/favor';
+import { IFavorList } from '@/interfaces/favor';
 
 export const getFavorList = async (page: number) => {
-  const data: IFavor[] = await axiosInstance.get(API_URLS.FAVOR_LIST(page));
+  const data: IFavorList = await axiosInstance.get(API_URLS.FAVOR_LIST(page));
   return data;
 };
 

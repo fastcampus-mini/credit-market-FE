@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import BackButton from '@/components/common/BackButton';
@@ -6,7 +6,7 @@ import PageTitle from '@/components/common/PageTitle';
 import { ROUTES } from '@/constants/routes';
 import { hideLoading, showLoading } from '../store/loadingSlice';
 import { MESSAGES } from '@/constants/messages';
-import { IBuy } from '@/interfaces/buy';
+import { IBuy, IBuyList } from '@/interfaces/buy';
 import { setModal } from '@/store/modalSlice';
 import styled from '@emotion/styled';
 import ProductCard from '@/components/Product/ProductCard';
@@ -16,18 +16,22 @@ import { deleteMybuyState, setMyBuyState } from '@/store/myBuySlice';
 import Lottie from 'lottie-react';
 import BuyLottie from '@/lotties/BuyLottie.json';
 import Button from '@/components/common/Button';
+import PaginationBox from '@/components/common/PaginationBox';
 
 const MyBuy = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const myBuyList: IBuy[] = useSelector((state: RootState) => state.myBuy);
+  const [page, setPage] = useState(1);
+  const [totCnt, setTotCnt] = useState(0);
 
   useEffect(() => {
     async function getMyBuy() {
       try {
         dispatch(showLoading());
-        const buyList = await getBuyList(1);
-        dispatch(setMyBuyState(buyList));
+        const data: IBuyList = await getBuyList(1);
+        dispatch(setMyBuyState(data.list));
+        setTotCnt(data.totalNum);
       } catch (error) {
         dispatch(
           setModal({
@@ -42,6 +46,25 @@ const MyBuy = () => {
     }
     getMyBuy();
   }, []);
+
+  const handlePageChange = async (page: number) => {
+    setPage(page);
+    try {
+      dispatch(showLoading());
+      const buyList: IBuyList = await getBuyList(page);
+      dispatch(setMyBuyState(buyList.list));
+    } catch (error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
+          text: MESSAGES.MYPAGE.BUY.ERROR_GET,
+        }),
+      );
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
 
   return (
     <MyBuyContainer>
@@ -82,6 +105,9 @@ const MyBuy = () => {
               상품 보러가기
             </Button>
           </NoBuy>
+        )}
+        {myBuyList.length > 0 && (
+          <PaginationBox page={page} totCnt={totCnt} handlePageChange={handlePageChange} />
         )}
       </MyBuyWrap>
     </MyBuyContainer>
