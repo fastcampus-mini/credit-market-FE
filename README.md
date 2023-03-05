@@ -148,7 +148,7 @@
   - 페이지 별 내브바 이동 및 라우터
   - 유저별 아바타 출력
 - 메인페이지
-  <video src="https://user-images.githubusercontent.com/64674174/222972883-ed65eaa0-6064-4ed6-bba8-758be14417f6.mov">
+  <video src="https://user-images.githubusercontent.com/64674174/222973548-ba32d74f-1a0c-40d0-819b-964242de9778.mov">
 
   - 회원 - 추천상품목록 출력
   - 비회원 - 랜덤상품목록 출력
@@ -156,7 +156,7 @@
 - 회원가입
 - 로그인 / 로그아웃
 - 마이페이지
-  <video src="https://user-images.githubusercontent.com/64674174/222972710-154d779c-0266-4cf6-b27f-3f5f2fb57662.mov">
+  <video src="https://user-images.githubusercontent.com/64674174/222973683-8f2420bb-9347-4704-a896-2c568943b66f.mov">
 
   - 관심 상품 - 관심 상품 해제
   - 신청(구매)상품
