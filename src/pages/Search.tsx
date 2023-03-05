@@ -15,16 +15,25 @@ import { RootState } from '@/store/store';
 import { ISearch, SelectedValuesType } from '@/interfaces/search';
 import Button from '@/components/common/Button';
 import { useRef, forwardRef, useImperativeHandle } from 'react';
-import { getRandomSearchList, getRecommentList, getSearchList } from '@/apis/product';
+import { BsArrowUpLeft } from 'react-icons/bs';
+import { MdOutlineSearch } from 'react-icons/md';
+import {
+  getAutoSearch,
+  getRandomSearchList,
+  getRecommentList,
+  getSearchList,
+} from '@/apis/product';
 import { useCookies } from 'react-cookie';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Global, css } from '@emotion/react';
+import COLORS from '@/styles/colors';
 
 const Search = () => {
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchForm, setSearchForm] = useState({});
+  const [searchToggle, setsearchToggle] = useState(false);
   const [cookies, setCookie] = useCookies();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -40,7 +49,6 @@ const Search = () => {
   };
 
   const handleClick = () => {
-    console.log(searchQuery);
     setSearchForm({ ...searchForm, keyword: searchQuery });
   };
 
@@ -148,11 +156,34 @@ const Search = () => {
     }
   };
 
+  // auto search
+  const [autoItems, setAutoItems] = useState<[]>([]);
+  const autoSearch = async () => {
+    try {
+      if (searchQuery != '') {
+        const res: [] = await getAutoSearch({ prefix: searchQuery });
+        setAutoItems(res);
+      }
+    } catch (error) {
+      alert(MESSAGES.PRODUCT.ERROR_GET_PRODUCT);
+    }
+  };
+
+  useEffect(() => {
+    setsearchToggle(true);
+    const debounce = setTimeout(() => {
+      autoSearch();
+    }, 200);
+    return () => {
+      clearTimeout(debounce);
+    };
+  }, [searchQuery]);
+
   return (
     <StyledSearch>
       <PageTitle title="상품 검색" />
       <div className="searchArea">
-        <div>
+        <div css={SearchStyle}>
           <Input
             onKeyDown={handleKeyDown}
             inputType="text"
@@ -163,7 +194,36 @@ const Search = () => {
             autoFocus
             refInput={buttonRef}
             value={searchQuery}
+            onBlur={() => {
+              setsearchToggle(false);
+            }}
+            onFocus={() => {
+              setsearchToggle(true);
+            }}
           />
+          {autoItems.length > 0 &&
+            searchToggle &&
+            searchQuery && ( //키워드가 존재하고,해당키워드에 맞는 이름이 있을때만 보여주기
+              <AutoContainer>
+                <AutoSearchWrap>
+                  {autoItems.map((autoItem: string, idx: number) => (
+                    <SearchItem
+                      key={idx}
+                      onMouseDown={() => {
+                        setSearchQuery(autoItem);
+                        handleClick();
+                      }}
+                    >
+                      <MdOutlineSearch css={SearchCircle} />
+                      <SearchWord>
+                        <span>{autoItem}</span>
+                        <BsArrowUpLeft />
+                      </SearchWord>
+                    </SearchItem>
+                  ))}
+                </AutoSearchWrap>
+              </AutoContainer>
+            )}
           <div className="selectBox">
             <select name="loan" value={selectedValues.loan} onChange={handleSelectChange}>
               <option value="">대출종류</option>
@@ -225,6 +285,52 @@ const Search = () => {
 };
 
 export default Search;
+
+const AutoContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const AutoSearchWrap = styled.div`
+  background: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 93%;
+  z-index: 1000;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+  padding: 0.2rem;
+`;
+
+const SearchItem = styled.div`
+  padding: 0.4rem;
+  cursor: pointer;
+  display: flex;
+
+  align-items: center;
+  border-radius: 4px;
+  &:hover {
+    background: ${COLORS.lightGray};
+  }
+`;
+
+const SearchStyle = css`
+  position: relative;
+`;
+
+const SearchWord = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+const SearchCircle = css`
+  margin-right: 1rem;
+`;
 
 const StyledSearch = styled.div`
   padding: 0 0 0 10px;

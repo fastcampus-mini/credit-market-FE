@@ -20,4 +20,5 @@ export const API_URLS = {
   USERINFO: '/userinfo',
   USERINFOUPDATE: '/userinfoupdate',
   USERPASSWORD: '/userpasswordcheck',
+  AUTOSEARCH: '/search/autocomplete',
 };

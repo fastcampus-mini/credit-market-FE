@@ -22,3 +22,8 @@ export const getProductDetail = async (id: string) => {
   const data: IProduct = await axiosInstance.get(API_URLS.DETAIL(id));
   return data;
 };
+
+export const getAutoSearch = async (data: Object) => {
+  const response: [] = await axiosInstance.post(API_URLS.AUTOSEARCH, data);
+  return response;
+};

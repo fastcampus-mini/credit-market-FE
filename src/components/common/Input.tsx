@@ -26,6 +26,8 @@ interface Prop {
   right?: string;
   label?: string;
   refInput?: React.RefObject<HTMLButtonElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement> | undefined;
+  onFocus?: React.FocusEventHandler<HTMLInputElement> | undefined;
 }
 
 const Input = ({
@@ -48,6 +50,8 @@ const Input = ({
   label = '',
   refInput,
   onKeyDown,
+  onBlur,
+  onFocus,
 }: Prop) => {
   return (
     <StyledInputBox
@@ -70,6 +74,8 @@ const Input = ({
         autoFocus={autoFocus}
         id={id}
         onKeyDown={onKeyDown}
+        onBlur={onBlur}
+        onFocus={onFocus}
       />
       {classType === 'text-search' && (
         <button ref={refInput} onClick={onButtonClick}>
