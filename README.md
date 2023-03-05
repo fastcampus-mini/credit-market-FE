@@ -146,16 +146,19 @@
   - 페이지 별 내브바 이동 및 라우터
   - 유저별 아바타 출력
 - 메인페이지
+  <video src="https://user-images.githubusercontent.com/64674174/222971776-091e03d2-f600-4017-af20-39df198164db.mov">
+
   - 회원 - 추천상품목록 출력
   - 비회원 - 랜덤상품목록 출력
-    <img src="https://ibb.co/qW7myjH">
+
 - 회원가입
 - 로그인 / 로그아웃
 - 마이페이지
+  <video src="https://user-images.githubusercontent.com/64674174/222971802-1f3ea1a5-366c-454e-9033-5d67f135ace6.mov">
+
   - 관심 상품 - 관심 상품 해제
   - 신청(구매)상품
     - 신청(구매)상품 목록 출력
     - 신청(구매)상품 클릭 시 상품 상세페이지로 이동
     - 신청취소 버튼 클릭 시 해당 상품의 신청상태 변경
   - 유저별 아바타 출력
-    <img src="https://ibb.co/68thvbs">
