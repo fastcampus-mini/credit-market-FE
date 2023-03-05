@@ -4,6 +4,7 @@
 
 - 프로젝트 문서는 [<img src="https://img.shields.io/badge/Notion-000000?style=flat-round&logo=Notion&logoColor=white"/>](https://www.notion.so/Mini-Project-b53fa0f445ce4afbacebffd01a813965?pvs=4)에서 확인하실 수 있습니다.
 - 백엔드 저장소는 [여기](https://github.com/fastcampus-mini/credit-market-BE)에서 확인하실 수 있습니다.
+- 전체적인 시연영상은 [<img src="https://img.shields.io/badge/YouTube-FF0000?style=flat-round&logo=YouTube&logoColor=white"/>](https://youtu.be/H2l5KWkVRS0)에서 확인하실 수 있습니다.
   <br/>
 
 ## :sunglasses: Member
@@ -146,7 +147,7 @@
   - 페이지 별 내브바 이동 및 라우터
   - 유저별 아바타 출력
 - 메인페이지
-  <video src="https://user-images.githubusercontent.com/64674174/222971776-091e03d2-f600-4017-af20-39df198164db.mov">
+  <video src="https://user-images.githubusercontent.com/64674174/222972883-ed65eaa0-6064-4ed6-bba8-758be14417f6.mov">
 
   - 회원 - 추천상품목록 출력
   - 비회원 - 랜덤상품목록 출력
@@ -154,7 +155,7 @@
 - 회원가입
 - 로그인 / 로그아웃
 - 마이페이지
-  <video src="https://user-images.githubusercontent.com/64674174/222971802-1f3ea1a5-366c-454e-9033-5d67f135ace6.mov">
+  <video src="https://user-images.githubusercontent.com/64674174/222972710-154d779c-0266-4cf6-b27f-3f5f2fb57662.mov">
 
   - 관심 상품 - 관심 상품 해제
   - 신청(구매)상품
