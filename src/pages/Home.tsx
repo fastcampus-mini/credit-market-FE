@@ -51,7 +51,7 @@ const Home = () => {
           <Input
             inputType="text"
             width="calc(100% - 10px)"
-            placeholder="검색어를 임력해 주세요."
+            placeholder="검색어를 입력해 주세요."
             classType="text-search"
           />
         </Link>

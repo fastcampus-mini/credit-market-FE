@@ -15,12 +15,14 @@ import { useCookies } from 'react-cookie';
 import AvatarIcon from './AvatarIcon';
 import Image from '@/components/common/Image';
 import Avatar from 'react-avatar';
+import { getCookie, setCookie } from '@/utils/cookie';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies, setCookie, removeCookie] = useCookies();
-  const { userName, accessToken } = cookies;
+  const userName = getCookie('userName');
+  const accessToken = getCookie('accessToken');
 
   const logoImage = (logoColor: string) => {
     return <img src={`/images/logo_${logoColor}.png`} alt="메인로고" />;
