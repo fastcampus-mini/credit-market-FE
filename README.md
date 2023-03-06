@@ -4,6 +4,7 @@
 
 - 프로젝트 문서는 [<img src="https://img.shields.io/badge/Notion-000000?style=flat-round&logo=Notion&logoColor=white"/>](https://www.notion.so/Mini-Project-b53fa0f445ce4afbacebffd01a813965?pvs=4)에서 확인하실 수 있습니다.
 - 백엔드 저장소는 [여기](https://github.com/fastcampus-mini/credit-market-BE)에서 확인하실 수 있습니다.
+- 전체적인 시연영상은 [<img src="https://img.shields.io/badge/YouTube-FF0000?style=flat-round&logo=YouTube&logoColor=white"/>](https://youtu.be/H2l5KWkVRS0)에서 확인하실 수 있습니다.
   <br/>
 
 ## :sunglasses: Member
@@ -121,6 +122,7 @@
 <br/>
 
 ### 오혜성
+
 - 회원가입
 - 로그인
 - 검색 기능
@@ -140,17 +142,25 @@
 ### 한혜림
 
 - 로고디자인
+- UI / UX
 - header / navbar
   - 페이지 별 로고 색상변화
   - 페이지 별 내브바 이동 및 라우터
+  - 유저별 아바타 출력
 - 메인페이지
+  <video src="https://user-images.githubusercontent.com/64674174/222973548-ba32d74f-1a0c-40d0-819b-964242de9778.mov">
+
   - 회원 - 추천상품목록 출력
   - 비회원 - 랜덤상품목록 출력
+
 - 회원가입
 - 로그인 / 로그아웃
 - 마이페이지
+  <video src="https://user-images.githubusercontent.com/64674174/222973683-8f2420bb-9347-4704-a896-2c568943b66f.mov">
+
   - 관심 상품 - 관심 상품 해제
   - 신청(구매)상품
     - 신청(구매)상품 목록 출력
     - 신청(구매)상품 클릭 시 상품 상세페이지로 이동
     - 신청취소 버튼 클릭 시 해당 상품의 신청상태 변경
+  - 유저별 아바타 출력
