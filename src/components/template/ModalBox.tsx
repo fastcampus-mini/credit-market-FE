@@ -12,10 +12,16 @@ import Input from '../common/Input';
 
 const ModalBox = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [password, setPassword] = useState('');
   const handleClick = () => {
     modalState.onClickOk();
     setIsButtonDisabled(true);
     setTimeout(() => setIsButtonDisabled(false), 1000);
+  };
+
+  const handleOnclick = () => {
+    modalState.onClickOk();
+    setPassword('');
   };
 
   const modalState = useSelector((state: RootState) => state.modal);
@@ -44,6 +50,7 @@ const ModalBox = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputBox = e.target.closest('div') as HTMLDivElement;
     e.target.value ? inputBox.classList.add('active') : inputBox.classList.remove('active');
+    setPassword(e.target.value);
   };
 
   return (
@@ -60,6 +67,7 @@ const ModalBox = () => {
             >
               <Input
                 id="PasswordCheckPw"
+                value={password}
                 label="Password"
                 inputType="password"
                 classType="text-input"

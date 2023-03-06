@@ -2,7 +2,7 @@ import BackButton from '@/components/common/BackButton';
 import PageTitle from '@/components/common/PageTitle';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import COLORS from '@/styles/colors';
 import { useForm } from 'react-hook-form';
@@ -16,7 +16,7 @@ import { setModal } from '@/store/modalSlice';
 import { IPassword, IUser } from '@/interfaces/user';
 import { MESSAGES } from '@/constants/messages';
 import { css } from '@emotion/react';
-import { userInfoUpdate } from '@/apis/auth';
+import { getUserInfo, userInfoUpdate } from '@/apis/auth';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 
 const MyInfo = () => {
@@ -123,16 +123,16 @@ const MyInfo = () => {
   };
 
   const years = Array.from({ length: 54 }, (_, i) => 2023 - i);
-  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(parseInt(event.target.value));
-  };
-
   const days = Array.from({ length: 31 }, (_, i) => 1 + i);
-  const [selectedDay, setSelectedDay] = useState<number>(new Date().getDay());
-  const handleChangeDay = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDay(parseInt(event.target.value));
-  };
+
+  useEffect(() => {
+    async function info() {
+      await getUserInfo();
+    }
+    const res = info();
+    console.log(res);
+    console.log(getUserInfo());
+  }, []);
 
   return (
     <MypageContainer>
@@ -258,8 +258,6 @@ const MyInfo = () => {
               {...register('birthYear', {
                 required: '생년월일을 선택해주세요.',
               })}
-              value={selectedYear}
-              onChange={handleChange}
             >
               <option value="">연도</option>
               {years.map((year) => (
@@ -283,7 +281,7 @@ const MyInfo = () => {
               <option value="11">11</option>
               <option value="12">12</option>
             </SelectStyle>
-            <SelectStyle {...register('birthDay')} value={selectedDay} onChange={handleChangeDay}>
+            <SelectStyle {...register('birthDay')}>
               <option value="">일</option>
               {days.map((day) => (
                 <option key={day} value={day}>
@@ -383,8 +381,10 @@ Modal.setAppElement('#root');
 export default MyInfo;
 
 const MypageContainer = styled.div`
+  padding: 0 0 0 10px;
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const BirthStyle = css`
@@ -400,8 +400,9 @@ const MypageHeader = styled.div`
 const MyInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 10px;
-  height: 100%;
+  padding: 10px;
+  height: calc(100% - 90px);
+  overflow-y: auto;
 `;
 
 const SelectStyle = styled.select`

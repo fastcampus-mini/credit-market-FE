@@ -37,18 +37,23 @@ const Mypage = () => {
         userEmail: userInfo.userEmail,
         userPassword: data.password,
       });
+
+      dispatch(
+        setModal({
+          isOpen: false,
+        }),
+      );
+
       const goTo = () => {
         navigate(ROUTES.MYPAGE_INFO, { state: ROUTES.MYPAGE });
       };
       goTo();
+
       dispatch(
         setModal({
           text: MESSAGES.MYPAGE.INFO.CHECK_SUCCESS,
-          onclickOK: dispatch(
-            setModal({
-              isOpen: false,
-            }),
-          ),
+          isOpen: true,
+          onClickOk: () => dispatch(setModal({ isOpen: false })),
         }),
       );
     } catch (error: any) {
